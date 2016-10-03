@@ -1,0 +1,9 @@
+﻿using CleanArchitecture.Core.Model;
+
+namespace CleanArchitecture.Core.Interfaces
+{
+    public interface IHandle<T> where T : BaseDomainEvent
+    {
+        void Handle(T domainEvent);
+    }
+}
