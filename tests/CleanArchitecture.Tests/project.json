@@ -3,13 +3,21 @@
   "testRunner": "xunit",
   "dependencies": {
     "CleanArchitecture.Core": "1.0.0-*",
+    "CleanArchitecture.Infrastructure": "1.0.0-*",
     "NETStandard.Library": "1.6.0",
     "xunit": "2.2.0-beta2-build3300",
-    "dotnet-test-xunit": "2.2.0-preview2-build1029"
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "Microsoft.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
+    "System.Diagnostics.TraceSource": "4.0.0",
+    "Moq": "4.6.25-alpha"
   },
 
   "frameworks": {
     "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6"
+      ],
       "dependencies": {
         "Microsoft.NETCore.App": {
           "type": "platform",

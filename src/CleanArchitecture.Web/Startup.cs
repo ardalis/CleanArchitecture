@@ -1,4 +1,7 @@
-﻿using CleanArchitecture.Infrastructure.Data;
+﻿using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Infrastructure;
+using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Infrastructure.DomainEvents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +32,11 @@ namespace CleanArchitecture.Web
 
             // TODO: Add DbContext and IOC
             services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
+
+            services.AddTransient<IDomainEventDispatcher, DomainEventDispatcher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
