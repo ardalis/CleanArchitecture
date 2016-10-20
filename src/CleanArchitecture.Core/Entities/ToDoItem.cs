@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Core.Events;
+using CleanArchitecture.Core.SharedKernel;
 
-namespace CleanArchitecture.Core.Model
+namespace CleanArchitecture.Core.Entities
 {
     public class ToDoItem : BaseEntity
     {

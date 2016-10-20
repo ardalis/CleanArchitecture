@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Core.Model;
+﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Events;
 using System.Linq;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Core.Model
+namespace CleanArchitecture.Tests.Core.Entities
 {
     public class ToDoItemMarkCompleteShould
     {

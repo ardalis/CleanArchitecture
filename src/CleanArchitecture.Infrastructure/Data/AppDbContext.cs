@@ -2,6 +2,8 @@
 using CleanArchitecture.Core.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using CleanArchitecture.Core.Entities;
+using CleanArchitecture.Core.SharedKernel;
 
 namespace CleanArchitecture.Infrastructure.Data
 {

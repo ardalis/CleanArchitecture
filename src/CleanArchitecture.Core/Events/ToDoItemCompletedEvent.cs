@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Core.Model;
+﻿using CleanArchitecture.Core.Entities;
+using CleanArchitecture.Core.Model;
 
 namespace CleanArchitecture.Core.Events
 {

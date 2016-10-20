@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.Model;
+using CleanArchitecture.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Data
@@ -27,17 +28,6 @@ namespace CleanArchitecture.Infrastructure.Data
 
         public T Add(T entity)
         {
-            // if using in memory EF, need to support IDENTITY keys
-            //if (entity.Id == 0)
-            //{
-            //    int newId = 1;
-            //    var entities = List();
-            //    if (entities.Any())
-            //    {
-            //        newId = entities.Max(z => z.Id) + 1;
-            //    }
-            //    entity.Id = newId;
-            //}
             _dbContext.Set<T>().Add(entity);
             _dbContext.SaveChanges();
 
