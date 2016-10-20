@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "ToDo List";
+}
+@model IEnumerable<CleanArchitecture.Core.Entities.ToDoItem>
+<h2>To Do Items</h2>
+<ul>
+@foreach (var item in Model)
+{
+    <li>@item.Title</li>    
+}
+</ul>

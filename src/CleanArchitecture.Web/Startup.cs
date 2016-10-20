@@ -1,13 +1,19 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using System;
+using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Core.Entities;
+using CleanArchitecture.Core.SharedKernel;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.DomainEvents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using StructureMap;
+using StructureMap.AutoMocking;
 
 namespace CleanArchitecture.Web
 {
@@ -26,17 +32,41 @@ namespace CleanArchitecture.Web
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
 
             // TODO: Add DbContext and IOC
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseInMemoryDatabase());
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
 
-            services.AddTransient<IDomainEventDispatcher, DomainEventDispatcher>();
+            var container = new Container();
+
+            container.Configure(config =>
+            {
+                config.Scan(_ =>
+                {
+                    _.AssemblyContainingType(typeof(Startup)); // Web
+                    _.AssemblyContainingType(typeof(BaseEntity)); // Core
+                    _.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
+                    _.WithDefaultConventions();
+                    _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
+                });
+                
+                // ToDo: Add Registry Classes
+
+                // TODO: Move to Infrastucture Registry
+                config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
+
+                //Populate the container using the service collection
+                config.Populate(services);
+            });
+
+            return container.GetInstance<IServiceProvider>();
+            services.AddTransient<IRepository<ToDoItem>, EfRepository<ToDoItem>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
