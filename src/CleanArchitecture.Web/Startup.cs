@@ -5,6 +5,7 @@ using CleanArchitecture.Core.SharedKernel;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.DomainEvents;
+using CleanArchitecture.Web.ApiModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -56,7 +57,7 @@ namespace CleanArchitecture.Web
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
                 });
                 
-                // ToDo: Add Registry Classes
+                // TODO: Add Registry Classes
 
                 // TODO: Move to Infrastucture Registry
                 config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
@@ -68,6 +69,40 @@ namespace CleanArchitecture.Web
             return container.GetInstance<IServiceProvider>();
             services.AddTransient<IRepository<ToDoItem>, EfRepository<ToDoItem>>();
         }
+
+        public void ConfigureTesting(IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
+        {
+            this.Configure(app, env, loggerFactory);
+            PopulateTestData(app);
+            //var authorRepository = app.ApplicationServices
+            //    .GetService<IAuthorRepository>();
+            //Task.Run(() => PopulateSampleData(authorRepository));
+        }
+
+        private void PopulateTestData(IApplicationBuilder app)
+        {
+            var dbContext = app.ApplicationServices.GetService<AppDbContext>();
+            var toDos = dbContext.ToDoItems;
+            foreach (var item in toDos)
+            {
+                dbContext.Remove(item);
+            }
+            dbContext.SaveChanges();
+            dbContext.ToDoItems.Add(new ToDoItem()
+            {
+                Title = "Test Item 1",
+                Description = "Test Description One"
+            });
+            dbContext.ToDoItems.Add(new ToDoItem()
+            {
+                Title = "Test Item 2",
+                Description = "Test Description Two"
+            });
+            dbContext.SaveChanges();
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

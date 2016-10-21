@@ -25,23 +25,29 @@ namespace CleanArchitecture.Web.Controllers
 
         public IActionResult Populate()
         {
-            if (_todoRepository.List().Any()) return Ok(0);
+            int recordsAdded = PopulateDatabase();
+            return Ok(recordsAdded);
+        }
+
+        public int PopulateDatabase()
+        {
+            if (_todoRepository.List().Any()) return 0;
             _todoRepository.Add(new ToDoItem()
             {
-                Title = "One",
-                Description = "The first item"
+                Title = "Get Sample Working",
+                Description = "Try to get the sample to build."
             });
             _todoRepository.Add(new ToDoItem()
             {
-                Title = "Two",
-                Description = "The second item"
+                Title = "Review Solution",
+                Description = "Review the different projects in the solution and how they relate to one another."
             });
             _todoRepository.Add(new ToDoItem()
             {
-                Title = "Three",
-                Description = "The three item"
+                Title = "Run and Review Tests",
+                Description = "Make sure all the tests run and review what they are doing."
             });
-            return Ok(3);
+            return 3;
         }
     }
 }
