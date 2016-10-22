@@ -30,7 +30,7 @@ namespace CleanArchitecture.Infrastructure.Data
             {
                 var events = entity.Events.ToArray();
                 entity.Events.Clear();
-                foreach (var domainEvent in entity.Events)
+                foreach (var domainEvent in events)
                 {
                     _dispatcher.Dispatch(domainEvent);
                 }
