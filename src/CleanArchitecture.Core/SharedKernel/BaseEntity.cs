@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CleanArchitecture.Core.Model;
 
 namespace CleanArchitecture.Core.SharedKernel
 {

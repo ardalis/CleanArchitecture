@@ -1,8 +1,8 @@
 ﻿using System;
-using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Core.Model;
-using StructureMap;
 using System.Linq;
+using StructureMap;
+using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Core.SharedKernel;
 
 namespace CleanArchitecture.Infrastructure.DomainEvents
 {
@@ -52,6 +52,5 @@ namespace CleanArchitecture.Infrastructure.DomainEvents
                 _handler.Handle((T)domainEvent);
             }
         }
-
     }
 }

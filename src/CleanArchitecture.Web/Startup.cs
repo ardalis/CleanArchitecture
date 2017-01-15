@@ -57,7 +57,7 @@ namespace CleanArchitecture.Web
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
                 });
                 
-                // TODO: Add Registry Classes
+                // TODO: Add Registry Classes to eliminate reference to Infrastructure
 
                 // TODO: Move to Infrastucture Registry
                 config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
