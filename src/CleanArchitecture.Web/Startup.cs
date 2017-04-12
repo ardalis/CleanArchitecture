@@ -39,7 +39,7 @@ namespace CleanArchitecture.Web
 
             // TODO: Add DbContext and IOC
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase());
+                options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
