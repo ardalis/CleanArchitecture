@@ -23,28 +23,28 @@ namespace CleanArchitecture.Tests.Integration.Web
 
     public class ApiToDoItemsControllerListShould
     {
-        private readonly HttpClient _client;
-        public ApiToDoItemsControllerListShould()
-        {
-            _client = GetClient();
-        }
-        protected HttpClient GetClient()
-        {
-            var builder = new WebHostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseStartup<Startup>()
-                .UseEnvironment("Testing"); // ensure ConfigureTesting is called in Startup
+private readonly HttpClient _client;
+public ApiToDoItemsControllerListShould()
+{
+    _client = GetClient();
+}
+protected HttpClient GetClient()
+{
+    var builder = new WebHostBuilder()
+        .UseContentRoot(Directory.GetCurrentDirectory())
+        .UseStartup<Startup>()
+        .UseEnvironment("Testing"); // ensure ConfigureTesting is called in Startup
 
-            var server = new TestServer(builder);
-            var client = server.CreateClient();
+    var server = new TestServer(builder);
+    var client = server.CreateClient();
 
-            // client always expects json results
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+    // client always expects json results
+    client.DefaultRequestHeaders.Clear();
+    client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue("application/json"));
 
-            return client;
-        }
+    return client;
+}
 
 
         [Fact]

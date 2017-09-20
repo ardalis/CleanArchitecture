@@ -44,7 +44,7 @@ namespace CleanArchitecture.Web.Controllers
                 Title = "Run and Review Tests",
                 Description = "Make sure all the tests run and review what they are doing."
             });
-            return 3;
+            return _todoRepository.List().Count;
         }
     }
 }

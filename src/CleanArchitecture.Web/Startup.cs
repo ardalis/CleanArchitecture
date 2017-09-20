@@ -20,17 +20,12 @@ namespace CleanArchitecture.Web
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration config)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = config;
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -39,10 +34,11 @@ namespace CleanArchitecture.Web
 
             // TODO: Add DbContext and IOC
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                //options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddControllersAsServices();
 
             var container = new Container();
 
@@ -67,7 +63,6 @@ namespace CleanArchitecture.Web
             });
 
             return container.GetInstance<IServiceProvider>();
-            services.AddTransient<IRepository<ToDoItem>, EfRepository<ToDoItem>>();
         }
 
         public void ConfigureTesting(IApplicationBuilder app,
