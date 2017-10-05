@@ -1,20 +1,14 @@
 ﻿using System;
 using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
-using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.Infrastructure.DomainEvents;
-using CleanArchitecture.Web.ApiModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StructureMap;
-using StructureMap.AutoMocking;
 
 namespace CleanArchitecture.Web
 {
@@ -27,12 +21,8 @@ namespace CleanArchitecture.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-
-            // TODO: Add DbContext and IOC
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase("database"));
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -70,36 +60,10 @@ namespace CleanArchitecture.Web
             ILoggerFactory loggerFactory)
         {
             this.Configure(app, env, loggerFactory);
-            PopulateTestData(app);
-            //var authorRepository = app.ApplicationServices
-            //    .GetService<IAuthorRepository>();
-            //Task.Run(() => PopulateSampleData(authorRepository));
-        }
-
-        private void PopulateTestData(IApplicationBuilder app)
-        {
-            var dbContext = app.ApplicationServices.GetService<AppDbContext>();
-            var toDos = dbContext.ToDoItems;
-            foreach (var item in toDos)
-            {
-                dbContext.Remove(item);
-            }
-            dbContext.SaveChanges();
-            dbContext.ToDoItems.Add(new ToDoItem()
-            {
-                Title = "Test Item 1",
-                Description = "Test Description One"
-            });
-            dbContext.ToDoItems.Add(new ToDoItem()
-            {
-                Title = "Test Item 2",
-                Description = "Test Description Two"
-            });
-            dbContext.SaveChanges();
+            SeedData.PopulateTestData(app.ApplicationServices.GetService<AppDbContext>());
         }
 
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
