@@ -38,8 +38,9 @@ namespace CleanArchitecture.Web
             // Add framework services.
 
             // TODO: Add DbContext and IOC
+            string dbName = Guid.NewGuid().ToString();
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+                options.UseInMemoryDatabase(dbName));
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
@@ -67,7 +68,6 @@ namespace CleanArchitecture.Web
             });
 
             return container.GetInstance<IServiceProvider>();
-            services.AddTransient<IRepository<ToDoItem>, EfRepository<ToDoItem>>();
         }
 
         public void ConfigureTesting(IApplicationBuilder app,
