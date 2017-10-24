@@ -3,7 +3,6 @@ using Xunit;
 
 namespace CleanArchitecture.Tests.Integration.Web
 {
-
     public class HomeControllerContactShould : BaseWebTest
     {
         [Fact]

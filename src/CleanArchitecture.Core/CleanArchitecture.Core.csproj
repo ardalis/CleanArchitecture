@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>CleanArchitecture.Core</AssemblyName>
+    <PackageId>CleanArchitecture.Core</PackageId>
   </PropertyGroup>
 
 </Project>
