@@ -31,9 +31,9 @@ namespace CleanArchitecture.Core.SharedKernel
             return !(obj1 == obj2);
         }
 
-        public bool Equals(ValueObject obj)
+        public bool Equals(ValueObject other)
         {
-            return Equals(obj as object);
+            return Equals(other as object);
         }
 
         public override bool Equals(object obj)

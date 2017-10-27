@@ -38,17 +38,15 @@ namespace CleanArchitecture.Web
             {
                 config.Scan(_ =>
                 {
-                    _.AssemblyContainingType(typeof(Startup)); // Web
-                    _.AssemblyContainingType(typeof(BaseEntity)); // Core
-                    _.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
+                    _.AssembliesAndExecutablesFromApplicationBaseDirectory();
+                    //_.AssemblyContainingType(typeof(Startup)); // Web
+                    //_.AssemblyContainingType(typeof(BaseEntity)); // Core
+                    //_.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
                     _.WithDefaultConventions();
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
+                    _.LookForRegistries();
                 });
-                
-                // TODO: Add Registry Classes to eliminate reference to Infrastructure
 
-                // TODO: Move to Infrastucture Registry
-                config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
 
                 //Populate the container using the service collection
                 config.Populate(services);
@@ -59,7 +57,8 @@ namespace CleanArchitecture.Web
 
         public void ConfigureTesting(IApplicationBuilder app,
             IHostingEnvironment env,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ISeedData seedData)
         {
             this.Configure(app, env, loggerFactory);
             SeedData.PopulateTestData(app.ApplicationServices.GetService<AppDbContext>());
