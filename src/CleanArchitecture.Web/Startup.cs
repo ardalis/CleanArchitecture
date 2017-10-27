@@ -1,6 +1,4 @@
-﻿using System;
-using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Core.SharedKernel;
+﻿using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StructureMap;
+using System;
 
 namespace CleanArchitecture.Web
 {
@@ -23,7 +22,6 @@ namespace CleanArchitecture.Web
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // TODO: Add DbContext and IOC
             string dbName = Guid.NewGuid().ToString();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase(dbName));
@@ -54,16 +52,6 @@ namespace CleanArchitecture.Web
 
             return container.GetInstance<IServiceProvider>();
         }
-
-        public void ConfigureTesting(IApplicationBuilder app,
-            IHostingEnvironment env,
-            ILoggerFactory loggerFactory,
-            ISeedData seedData)
-        {
-            this.Configure(app, env, loggerFactory);
-            SeedData.PopulateTestData(app.ApplicationServices.GetService<AppDbContext>());
-        }
-
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {

@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Web;
+﻿using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -29,13 +30,18 @@ namespace CleanArchitecture.Tests.Integration.Web
             var builder = new WebHostBuilder()
                 .UseContentRoot(contentRoot)
                 .ConfigureServices(InitializeServices)
-                .UseStartup<Startup>()
-                .UseEnvironment("Testing"); // ensure ConfigureTesting is called in Startup
+                .UseStartup<Startup>();
 
             var server = new TestServer(builder);
-            var client = server.CreateClient();
 
-            return client;
+            using (var scope = server.Host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var seedData = services.GetRequiredService<ISeedData>();
+                seedData.PopulateTestData();
+            }
+
+            return server.CreateClient();
         }
 
         protected virtual void InitializeServices(IServiceCollection services)
