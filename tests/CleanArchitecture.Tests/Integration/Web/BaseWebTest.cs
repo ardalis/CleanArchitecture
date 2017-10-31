@@ -33,9 +33,7 @@ namespace CleanArchitecture.Tests.Integration.Web
                 .UseEnvironment("Testing"); // ensure ConfigureTesting is called in Startup
 
             var server = new TestServer(builder);
-            var client = server.CreateClient();
-
-            return client;
+            return server.CreateClient();
         }
 
         protected virtual void InitializeServices(IServiceCollection services)

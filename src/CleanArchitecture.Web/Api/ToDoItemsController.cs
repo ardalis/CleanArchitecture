@@ -50,6 +50,7 @@ namespace CleanArchitecture.Web.Api
         public IActionResult MarkComplete(int itemId)
         {
             var item = _todoRepository.GetById(itemId);
+            if (item == null) return NotFound();
             item.MarkComplete();
             _todoRepository.Update(item);
 
