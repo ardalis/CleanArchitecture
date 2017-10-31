@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Api
 {
-
-
     [Route("api/[controller]")]
     [ValidateModel]
     public class ToDoItems3Controller : Controller
@@ -48,6 +46,14 @@ namespace CleanArchitecture.Web.Api
         {
             var command = new MarkItemCompleteCommand { Id = itemId };
 
+            await _mediator.Send(command);
+
+            return Ok();
+        }
+
+        [HttpPost("MarkComplete/{Id}")]
+        public async Task<IActionResult> MarkComplete(MarkItemCompleteCommand command)
+        {
             await _mediator.Send(command);
 
             return Ok();

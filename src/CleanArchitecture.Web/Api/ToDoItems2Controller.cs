@@ -39,7 +39,7 @@ namespace CleanArchitecture.Web.Api
         }
 
         [HttpPost("{itemId}")]
-        public async Task<IActionResult> MarkComplete(int itemId)
+        public IActionResult MarkComplete(int itemId)
         {
             _appService.MarkComplete(itemId);
 
