@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StructureMap;
+using MediatR;
 
 namespace CleanArchitecture.Web
 {
@@ -31,6 +32,8 @@ namespace CleanArchitecture.Web
 
             services.AddMvc()
                 .AddControllersAsServices();
+
+            services.AddMediatR();
 
             var container = new Container();
 

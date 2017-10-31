@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CleanArchitecture.Core.Entities;
+﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Web.ApiModels;
 using CleanArchitecture.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Api
 {
@@ -21,7 +19,6 @@ namespace CleanArchitecture.Web.Api
             _todoRepository = todoRepository;
         }
 
-        // GET: api/ToDoItems
         [HttpGet]
         public IActionResult List()
         {
@@ -30,7 +27,6 @@ namespace CleanArchitecture.Web.Api
             return Ok(items);
         }
 
-        // GET: api/ToDoItems
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
@@ -38,7 +34,7 @@ namespace CleanArchitecture.Web.Api
             return Ok(item);
         }
 
-        // POST: api/ToDoItems
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] ToDoItemDTO item)
         {
             var todoItem = new ToDoItem()
@@ -48,6 +44,16 @@ namespace CleanArchitecture.Web.Api
             };
             _todoRepository.Add(todoItem);
             return Ok(ToDoItemDTO.FromToDoItem(todoItem));
+        }
+
+        [HttpPost("{itemId}")]
+        public async Task<IActionResult> MarkComplete(int itemId)
+        {
+            var item = _todoRepository.GetById(itemId);
+            item.MarkComplete();
+            _todoRepository.Update(item);
+
+            return Ok();
         }
     }
 }
