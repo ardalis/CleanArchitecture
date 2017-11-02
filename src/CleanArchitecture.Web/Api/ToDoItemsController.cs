@@ -39,7 +39,8 @@ namespace CleanArchitecture.Web.Api
         }
 
         // POST: api/ToDoItems
-        public async Task<IActionResult> Post([FromBody] ToDoItemDTO item)
+        [HttpPost]
+        public IActionResult Post([FromBody] ToDoItemDTO item)
         {
             var todoItem = new ToDoItem()
             {
