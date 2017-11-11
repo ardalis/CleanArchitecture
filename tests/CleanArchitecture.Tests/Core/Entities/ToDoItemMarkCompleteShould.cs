@@ -24,7 +24,7 @@ namespace CleanArchitecture.Tests.Core.Entities
 
             item.MarkComplete();
 
-            Assert.Equal(1, item.Events.Count());
+            Assert.Single(item.Events);
             Assert.IsType<ToDoItemCompletedEvent>(item.Events.First());
         }
     }
