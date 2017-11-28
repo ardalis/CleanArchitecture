@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{106AE906-5075-410A-B941-912F811848EE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B31B4797-1D9F-4288-808C-BE9A31A98C7D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A0F8671-8BB3-4DB7-80AF-994E4EDA08EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Core", "src\CleanArchitecture.Core\CleanArchitecture.Core.csproj", "{4548EB20-1D1B-477B-AF6E-DD55653A6583}"
 EndProject
@@ -84,5 +82,8 @@ Global
 		{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D} = {106AE906-5075-410A-B941-912F811848EE}
 		{C9751CB7-4CD6-4633-A99A-4F6ADD525437} = {106AE906-5075-410A-B941-912F811848EE}
 		{AEE17BAB-D187-4BC5-B640-40CC0749566C} = {B31B4797-1D9F-4288-808C-BE9A31A98C7D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0F19343-8185-4A9F-9165-0EA8544BC925}
 	EndGlobalSection
 EndGlobal
