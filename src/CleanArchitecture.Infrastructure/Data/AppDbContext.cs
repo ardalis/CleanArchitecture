@@ -23,7 +23,7 @@ namespace CleanArchitecture.Infrastructure.Data
             int result = base.SaveChanges();
 
             // dispatch events only if save was successful
-            var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
+            var entitiesWithEvents = ChangeTracker.Entries<BaseEntity<int>>()
                 .Select(e => e.Entity)
                 .Where(e => e.Events.Any())
                 .ToArray();

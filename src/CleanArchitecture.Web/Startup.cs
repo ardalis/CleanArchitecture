@@ -45,7 +45,7 @@ namespace CleanArchitecture.Web
                 config.Scan(_ =>
                 {
                     _.AssemblyContainingType(typeof(Startup)); // Web
-                    _.AssemblyContainingType(typeof(BaseEntity)); // Core
+                    _.AssemblyContainingType(typeof(ValueObject)); // Core
                     _.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
                     _.WithDefaultConventions();
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));

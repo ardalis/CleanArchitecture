@@ -3,7 +3,7 @@ using CleanArchitecture.Core.SharedKernel;
 
 namespace CleanArchitecture.Core.Interfaces
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : BaseEntity<int>
     {
         T GetById(int id);
         List<T> List();
