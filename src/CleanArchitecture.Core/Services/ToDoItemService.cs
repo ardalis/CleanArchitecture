@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Core.Events;
+﻿using Ardalis.GuardClauses;
+using CleanArchitecture.Core.Events;
 using CleanArchitecture.Core.Interfaces;
 
 namespace CleanArchitecture.Core.Services
@@ -7,6 +8,8 @@ namespace CleanArchitecture.Core.Services
     {
         public void Handle(ToDoItemCompletedEvent domainEvent)
         {
+            Guard.Against.Null(domainEvent, nameof(domainEvent));
+
             // Do Nothing
         }
     }
