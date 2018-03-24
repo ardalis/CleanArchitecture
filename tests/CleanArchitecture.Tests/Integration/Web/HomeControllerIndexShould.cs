@@ -3,16 +3,16 @@ using Xunit;
 
 namespace CleanArchitecture.Tests.Integration.Web
 {
-    public class HomeControllerContactShould : BaseWebTest
+    public class HomeControllerIndexShould : BaseWebTest
     {
         [Fact]
         public async Task ReturnViewWithCorrectMessage()
         {
-            var response = await _client.GetAsync("/home/contact");
+            var response = await _client.GetAsync("/");
             response.EnsureSuccessStatusCode();
             var stringResponse = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("Your contact page", stringResponse);
+            Assert.Contains("CleanArchitecture.Web", stringResponse);
 
         }
     }
