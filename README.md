@@ -6,13 +6,13 @@ A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](
 
 The goal of this repository is to provide a basic solution structure that can be used to build Domain-Driven Design (DDD)-based or simply well-factored, SOLID applications using .NET Core. Learn more about these topics here:
 
-- [SOLID Principles of Object Oriented Design](http://bit.ly/SOLID-OOP)
-- [Domain-Driven Design Fundamentals](http://bit.ly/ddd-fundamentals)
+- [SOLID Principles of Object Oriented Design](https://www.pluralsight.com/courses/principles-oo-design)
+- [Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
 
 If you're used to building applications as single-project or as a set of projects that follow the traditional UI -> Business Layer -> Data Access Layer "N-Tier" architecture, I recommend you check out these two courses:
 
-- [Creating N-Tier Applications in C#, Part 1](http://bit.ly/PS-NTier1)
-- [Creating N-Tier Applications in C#, Part 2](http://bit.ly/PS-NTier2)
+- [Creating N-Tier Applications in C#, Part 1](https://www.pluralsight.com/courses/n-tier-apps-part1)
+- [Creating N-Tier Applications in C#, Part 2](https://www.pluralsight.com/courses/n-tier-csharp-part2)
 
 ## History and Shameless Plug Section
 
