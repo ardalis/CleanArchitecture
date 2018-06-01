@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace CleanArchitecture.Web.Pages.ToDoRazorPage
 {
-    public class ListModel : PageModel
+    public class IndexModel : PageModel
     {
         private readonly IRepository<ToDoItem> _todoRepository;
 
         public List<ToDoItem> ToDoItems { get; set; }
 
-        public ListModel(IRepository<ToDoItem> todoRepository)
+        public IndexModel(IRepository<ToDoItem> todoRepository)
         {
             _todoRepository = todoRepository;
         }
