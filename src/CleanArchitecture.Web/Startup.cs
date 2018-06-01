@@ -89,7 +89,6 @@ namespace CleanArchitecture.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                // app.UseBrowserLink(); // Must install the Microsoft.VisualStudio.Web.BrowserLink package manually for BrowserLink functionality in 2.1.
             }
             else
             {
