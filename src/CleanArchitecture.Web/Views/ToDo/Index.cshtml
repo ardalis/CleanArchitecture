@@ -2,10 +2,10 @@
     ViewData["Title"] = "ToDo List";
 }
 @model IEnumerable<CleanArchitecture.Core.Entities.ToDoItem>
-<h2>To Do Items</h2>
+<h2>To Do Items (MVC View)</h2>
 <ul>
 @foreach (var item in Model)
 {
-    <li>@item.Title<br/>@item.Description</li>    
+    <li>@item.Title<br/>@item.Description</li>
 }
 </ul>

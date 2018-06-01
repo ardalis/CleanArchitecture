@@ -4,11 +4,16 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h2>To Do Items</h2>
+        <h2>To Do Items (MVC)</h2>
         <ul>
             <li><a asp-area="" asp-controller="ToDo" asp-action="Populate">Load Sample To Do Items</a></li>
             <li><a asp-area="" asp-controller="ToDo" asp-action="Index">List To Do Items</a></li>
             <li><a href="/swagger">API Documentation (Swagger)</a></li>
+        </ul>
+        <h2>To Do Items (Razor Pages)</h2>
+        <ul>
+            <li><a asp-page="/ToDoRazorPage/Populate">Load Sample To Do Items</a></li>
+            <li><a asp-page="/ToDoRazorPage/Index">List To Do Items</a></li>
         </ul>
     </div>
     <div class="col-md-6">
