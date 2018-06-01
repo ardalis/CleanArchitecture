@@ -7,10 +7,6 @@
     <PackageId>CleanArchitecture.Web</PackageId>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
-  </PropertyGroup>
-  
   <ItemGroup>
     <Content Update="wwwroot\**\*;Views\**\*;Areas\**\Views;appsettings.json;web.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

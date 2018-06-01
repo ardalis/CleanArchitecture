@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
     <PackageId>CleanArchitecture.Infrastructure</PackageId>
