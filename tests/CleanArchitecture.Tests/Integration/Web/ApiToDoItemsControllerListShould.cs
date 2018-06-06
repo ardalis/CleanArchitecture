@@ -12,17 +12,17 @@ namespace CleanArchitecture.Tests.Integration.Web
 
     public class ApiToDoItemsControllerList : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        public HttpClient Client { get; }
+        private readonly HttpClient _client;
 
         public ApiToDoItemsControllerList(CustomWebApplicationFactory<Startup> factory)
         {
-            Client = factory.CreateClient();
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task ReturnsTwoItems()
         {
-            var response = await Client.GetAsync("/api/todoitems");
+            var response = await _client.GetAsync("/api/todoitems");
             response.EnsureSuccessStatusCode();
             var stringResponse = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<IEnumerable<ToDoItem>>(stringResponse).ToList();

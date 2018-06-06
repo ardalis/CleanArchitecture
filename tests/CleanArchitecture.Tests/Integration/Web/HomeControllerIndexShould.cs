@@ -7,17 +7,17 @@ namespace CleanArchitecture.Tests.Integration.Web
 {
     public class HomeControllerIndexShould : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        public HttpClient Client { get; }
+        private readonly HttpClient _client;
 
         public HomeControllerIndexShould(CustomWebApplicationFactory<Startup> factory)
         {
-            Client = factory.CreateClient();
+            _client = factory.CreateClient();
         }
 
         [Fact]
         public async Task ReturnViewWithCorrectMessage()
         {
-            HttpResponseMessage response = await Client.GetAsync("/");
+            HttpResponseMessage response = await _client.GetAsync("/");
             response.EnsureSuccessStatusCode();
             string stringResponse = await response.Content.ReadAsStringAsync();
 
