@@ -35,15 +35,14 @@ namespace CleanArchitecture.Tests.Integration.Data
         public void AddItemAndSetId()
         {
             var repository = GetRepository();
-            var item = new ToDoItem();
+            var item = new ToDoItemBuilder().Build();
 
             repository.Add(item);
 
             var newItem = repository.List().FirstOrDefault();
 
             Assert.Equal(item, newItem);
-            Assert.True(newItem.Id > 0);
-
+            Assert.True(newItem?.Id > 0);
         }
 
         [Fact]
@@ -52,10 +51,8 @@ namespace CleanArchitecture.Tests.Integration.Data
             // add an item
             var repository = GetRepository();
             var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItem()
-            {
-                Title = initialTitle
-            };
+            var item = new ToDoItemBuilder().Title(initialTitle).Build();
+
             repository.Add(item);
 
             // detach the item so we get a different instance
@@ -64,6 +61,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             // fetch the item and update its title
             var newItem = repository.List()
                 .FirstOrDefault(i => i.Title == initialTitle);
+            Assert.NotNull(newItem);
             Assert.NotSame(item, newItem);
             var newTitle = Guid.NewGuid().ToString();
             newItem.Title = newTitle;
@@ -73,6 +71,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             var updatedItem = repository.List()
                 .FirstOrDefault(i => i.Title == newTitle);
 
+            Assert.NotNull(updatedItem);
             Assert.NotEqual(item.Title, updatedItem.Title);
             Assert.Equal(newItem.Id, updatedItem.Id);
         }
@@ -83,10 +82,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             // add an item
             var repository = GetRepository();
             var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItem()
-            {
-                Title = initialTitle
-            };
+            var item = new ToDoItemBuilder().Title(initialTitle).Build();
             repository.Add(item);
 
             // delete the item
@@ -96,8 +92,6 @@ namespace CleanArchitecture.Tests.Integration.Data
             Assert.DoesNotContain(repository.List(),
                 i => i.Title == initialTitle);
         }
-
-
 
         private EfRepository<ToDoItem> GetRepository()
         {
