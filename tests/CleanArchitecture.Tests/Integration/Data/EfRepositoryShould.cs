@@ -1,23 +1,22 @@
-﻿using System;
+﻿using CleanArchitecture.Core.Entities;
+using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
-using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.Core.Entities;
-using System.Linq;
-using CleanArchitecture.Core.Events;
-using CleanArchitecture.Core.Interfaces;
 using Moq;
+using System;
+using System.Linq;
+using Xunit;
 
 namespace CleanArchitecture.Tests.Integration.Data
 {
-    public class EfRepositoryAddShould
+    public class EfRepositoryShould
     {
         private AppDbContext _dbContext;
 
         private static DbContextOptions<AppDbContext> CreateNewContextOptions()
         {
-            // Create a fresh service provider, and therefore a fresh 
+            // Create a fresh service provider, and therefore a fresh
             // InMemory database instance.
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkInMemoryDatabase()
@@ -58,7 +57,7 @@ namespace CleanArchitecture.Tests.Integration.Data
                 Title = initialTitle
             };
             repository.Add(item);
-            
+
             // detach the item so we get a different instance
             _dbContext.Entry(item).State = EntityState.Detached;
 
@@ -70,7 +69,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             newItem.Title = newTitle;
 
             // Update the item
-            repository.Update(newItem);        
+            repository.Update(newItem);
             var updatedItem = repository.List()
                 .FirstOrDefault(i => i.Title == newTitle);
 
@@ -94,7 +93,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             repository.Delete(item);
 
             // verify it's no longer there
-            Assert.DoesNotContain(repository.List(), 
+            Assert.DoesNotContain(repository.List(),
                 i => i.Title == initialTitle);
         }
 
