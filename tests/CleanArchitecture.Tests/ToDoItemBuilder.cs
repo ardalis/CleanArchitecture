@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Core.Entities;
 
-namespace CleanArchitecture.Tests.Integration.Data
+namespace CleanArchitecture.Tests
 {
     public class ToDoItemBuilder
     {
