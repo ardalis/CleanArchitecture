@@ -6,9 +6,21 @@ namespace CleanArchitecture.Tests
     {
         private readonly ToDoItem _todo = new ToDoItem();
 
+        public ToDoItemBuilder Id(int id)
+        {
+            _todo.Id = id;
+            return this;
+        }
+
         public ToDoItemBuilder Title(string title)
         {
             _todo.Title = title;
+            return this;
+        }
+
+        public ToDoItemBuilder Description(string description)
+        {
+            _todo.Description = description;
             return this;
         }
 
