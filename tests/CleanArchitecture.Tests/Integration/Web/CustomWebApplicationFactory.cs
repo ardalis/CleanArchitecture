@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Infrastructure.Data;
+﻿using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -28,11 +29,13 @@ namespace CleanArchitecture.Tests.Integration.Web
                     options.UseInternalServiceProvider(serviceProvider);
                 });
 
+                services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
 
                 // Create a scope to obtain a reference to the database
-                // context (ApplicationDbContext).
+                // context (AppDbContext).
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
@@ -51,7 +54,7 @@ namespace CleanArchitecture.Tests.Integration.Web
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, $"An error occurred seeding the " +
+                        logger.LogError(ex, "An error occurred seeding the " +
                             "database with test messages. Error: {ex.Message}");
                     }
                 }

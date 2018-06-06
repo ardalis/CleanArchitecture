@@ -72,15 +72,6 @@ namespace CleanArchitecture.Web
             return container.GetInstance<IServiceProvider>();
         }
 
-        public void ConfigureTesting(IApplicationBuilder app,
-            IHostingEnvironment env,
-            ILoggerFactory loggerFactory)
-        {
-            this.Configure(app, env, loggerFactory);
-            SeedData.PopulateTestData(app.ApplicationServices.GetService<AppDbContext>());
-        }
-
-
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
