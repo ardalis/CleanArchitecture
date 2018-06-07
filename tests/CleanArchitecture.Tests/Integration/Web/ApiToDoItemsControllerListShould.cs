@@ -1,21 +1,24 @@
 ﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Web;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace CleanArchitecture.Tests.Integration.Web
 {
 
-    public class ApiToDoItemsControllerList : BaseWebTest
+    public class ApiToDoItemsControllerList : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
+        private readonly HttpClient _client;
+
+        public ApiToDoItemsControllerList(CustomWebApplicationFactory<Startup> factory)
+        {
+            _client = factory.CreateClient();
+        }
+
         [Fact]
         public async Task ReturnsTwoItems()
         {
