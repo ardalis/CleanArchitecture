@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Core.Events;
+﻿using CleanArchitecture.Core.Events;
 using System.Linq;
 using Xunit;
 
@@ -10,7 +9,7 @@ namespace CleanArchitecture.Tests.Core.Entities
         [Fact]
         public void SetIsDoneToTrue()
         {
-            var item = new ToDoItem();
+            var item = new ToDoItemBuilder().Build();
 
             item.MarkComplete();
 
@@ -20,7 +19,7 @@ namespace CleanArchitecture.Tests.Core.Entities
         [Fact]
         public void RaiseToDoItemCompletedEvent()
         {
-            var item = new ToDoItem();
+            var item = new ToDoItemBuilder().Build();
 
             item.MarkComplete();
 
