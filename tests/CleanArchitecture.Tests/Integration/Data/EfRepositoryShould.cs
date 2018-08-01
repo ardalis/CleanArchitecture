@@ -39,7 +39,7 @@ namespace CleanArchitecture.Tests.Integration.Data
 
             repository.Add(item);
 
-            var newItem = repository.List().FirstOrDefault();
+            var newItem = repository.List<ToDoItem>().FirstOrDefault();
 
             Assert.Equal(item, newItem);
             Assert.True(newItem?.Id > 0);
@@ -59,7 +59,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             _dbContext.Entry(item).State = EntityState.Detached;
 
             // fetch the item and update its title
-            var newItem = repository.List()
+            var newItem = repository.List<ToDoItem>()
                 .FirstOrDefault(i => i.Title == initialTitle);
             Assert.NotNull(newItem);
             Assert.NotSame(item, newItem);
@@ -68,7 +68,7 @@ namespace CleanArchitecture.Tests.Integration.Data
 
             // Update the item
             repository.Update(newItem);
-            var updatedItem = repository.List()
+            var updatedItem = repository.List<ToDoItem>()
                 .FirstOrDefault(i => i.Title == newTitle);
 
             Assert.NotNull(updatedItem);
@@ -89,17 +89,17 @@ namespace CleanArchitecture.Tests.Integration.Data
             repository.Delete(item);
 
             // verify it's no longer there
-            Assert.DoesNotContain(repository.List(),
+            Assert.DoesNotContain(repository.List<ToDoItem>(),
                 i => i.Title == initialTitle);
         }
 
-        private EfRepository<ToDoItem> GetRepository()
+        private EfRepository GetRepository()
         {
             var options = CreateNewContextOptions();
             var mockDispatcher = new Mock<IDomainEventDispatcher>();
 
             _dbContext = new AppDbContext(options, mockDispatcher.Object);
-            return new EfRepository<ToDoItem>(_dbContext);
+            return new EfRepository(_dbContext);
         }
     }
 }
