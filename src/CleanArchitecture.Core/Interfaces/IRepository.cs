@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using CleanArchitecture.Core.SharedKernel;
+﻿using CleanArchitecture.Core.SharedKernel;
+using System.Collections.Generic;
 
 namespace CleanArchitecture.Core.Interfaces
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepository
     {
-        T GetById(int id);
-        List<T> List();
-        T Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        T GetById<T>(int id) where T : BaseEntity;
+        List<T> List<T>() where T : BaseEntity;
+        T Add<T>(T entity) where T : BaseEntity;
+        void Update<T>(T entity) where T : BaseEntity;
+        void Delete<T>(T entity) where T : BaseEntity;
     }
 }
