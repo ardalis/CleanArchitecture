@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
-using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,11 +31,6 @@ namespace CleanArchitecture.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            // TODO: Add DbContext and IOC
-            string dbName = Guid.NewGuid().ToString();
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(dbName));
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
                 .AddControllersAsServices()
@@ -56,14 +50,10 @@ namespace CleanArchitecture.Web
                     _.AssemblyContainingType(typeof(Startup)); // Web
                     _.AssemblyContainingType(typeof(BaseEntity)); // Core
                     _.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
+                    _.LookForRegistries();
                     _.WithDefaultConventions();
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
                 });
-
-                // TODO: Add Registry Classes to eliminate reference to Infrastructure
-
-                // TODO: Move to Infrastucture Registry
-                config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
 
                 //Populate the container using the service collection
                 config.Populate(services);
