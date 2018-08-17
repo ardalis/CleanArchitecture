@@ -39,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2016 - CleanArchitecture.Web</p>
+            <p>&copy; 2018 - CleanArchitecture.Web</p>
         </footer>
     </div>
 
@@ -60,6 +60,6 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-    @RenderSection("scripts", required: false)
+@await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
 </body>
 </html>
