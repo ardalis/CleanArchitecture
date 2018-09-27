@@ -7,22 +7,22 @@ namespace CleanArchitecture.Web.Controllers
 {
     public class ToDoController : Controller
     {
-        private readonly IRepository<ToDoItem> _todoRepository;
+        private readonly IRepository _repository;
 
-        public ToDoController(IRepository<ToDoItem> todoRepository)
+        public ToDoController(IRepository repository)
         {
-            _todoRepository = todoRepository;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            var items = _todoRepository.List();
+            var items = _repository.List<ToDoItem>();
             return View(items);
         }
 
         public IActionResult Populate()
         {
-            int recordsAdded = DatabasePopulator.PopulateDatabase(_todoRepository);
+            int recordsAdded = DatabasePopulator.PopulateDatabase(_repository);
             return Ok(recordsAdded);
         }
     }

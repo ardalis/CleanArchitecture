@@ -63,7 +63,7 @@ namespace CleanArchitecture.Web
                 // TODO: Add Registry Classes to eliminate reference to Infrastructure
 
                 // TODO: Move to Infrastucture Registry
-                config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
+                config.For<IRepository>().Add<EfRepository>();
 
                 //Populate the container using the service collection
                 config.Populate(services);
