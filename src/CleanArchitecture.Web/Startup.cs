@@ -54,8 +54,11 @@ namespace CleanArchitecture.Web
         private static IServiceProvider BuildDependencyInjectionProvider(IServiceCollection services)
         {
             var builder = new ContainerBuilder();
+
+            // Populate the container using the service collection
             builder.Populate(services);
 
+            // TODO: Add Registry Classes to eliminate reference to Infrastructure
             Assembly webAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
             Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
