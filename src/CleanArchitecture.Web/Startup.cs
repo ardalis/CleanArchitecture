@@ -1,4 +1,6 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -9,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StructureMap;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Reflection;
 
 namespace CleanArchitecture.Web
 {
@@ -47,29 +49,45 @@ namespace CleanArchitecture.Web
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
-            var container = new Container();
+            return BuildDependencyInjectionProvider(services);
+        }
 
-            container.Configure(config =>
-            {
-                config.Scan(_ =>
-                {
-                    _.AssemblyContainingType(typeof(Startup)); // Web
-                    _.AssemblyContainingType(typeof(BaseEntity)); // Core
-                    _.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
-                    _.WithDefaultConventions();
-                    _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
-                });
+        private static IServiceProvider BuildDependencyInjectionProvider(IServiceCollection services)
+        {
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
 
-                // TODO: Add Registry Classes to eliminate reference to Infrastructure
+            Assembly webAssembly = Assembly.GetExecutingAssembly();
+            Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
+            Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
+            builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly);
+            builder.RegisterType<EfRepository>().As<IRepository>(); // TODO: Move to Infrastucture Registry
+            IContainer applicationContainer = builder.Build();
+            return new AutofacServiceProvider(applicationContainer);
 
-                // TODO: Move to Infrastucture Registry
-                config.For<IRepository>().Add<EfRepository>();
+            //var container = new Container();
 
-                //Populate the container using the service collection
-                config.Populate(services);
-            });
+            //container.Configure(config =>
+            //{
+            //    config.Scan(_ =>
+            //    {
+            //        _.AssemblyContainingType(typeof(Startup)); // Web
+            //        _.AssemblyContainingType(typeof(BaseEntity)); // Core
+            //        _.Assembly("CleanArchitecture.Infrastructure"); // Infrastructure
+            //        _.WithDefaultConventions();
+            //        _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
+            //    });
 
-            return container.GetInstance<IServiceProvider>();
+            //    // TODO: Add Registry Classes to eliminate reference to Infrastructure
+
+            //    // TODO: Move to Infrastucture Registry
+            //    config.For<IRepository>().Add<EfRepository>();
+
+            //    //Populate the container using the service collection
+            //    config.Populate(services);
+            //});
+
+            //return container.GetInstance<IServiceProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
