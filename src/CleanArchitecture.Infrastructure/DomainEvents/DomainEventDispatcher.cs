@@ -1,8 +1,10 @@
-﻿using System;
-using System.Linq;
-using StructureMap;
+﻿using Autofac;
 using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CleanArchitecture.Infrastructure.DomainEvents
 {
@@ -10,23 +12,22 @@ namespace CleanArchitecture.Infrastructure.DomainEvents
     // http://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/
     public class DomainEventDispatcher : IDomainEventDispatcher
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
-        public DomainEventDispatcher(IContainer container)
+        public DomainEventDispatcher(IComponentContext container)
         {
             _container = container;
         }
 
         public void Dispatch(BaseDomainEvent domainEvent)
         {
-            var handlerType = typeof(IHandle<>).MakeGenericType(domainEvent.GetType());
-            var wrapperType = typeof(DomainEventHandler<>).MakeGenericType(domainEvent.GetType());
-            var handlers = _container.GetAllInstances(handlerType);
-            var wrappedHandlers = handlers
-                .Cast<object>()
+            Type handlerType = typeof(IHandle<>).MakeGenericType(domainEvent.GetType());
+            Type wrapperType = typeof(DomainEventHandler<>).MakeGenericType(domainEvent.GetType());
+            IEnumerable handlers = (IEnumerable)_container.Resolve(typeof(IEnumerable<>).MakeGenericType(handlerType));
+            IEnumerable<DomainEventHandler> wrappedHandlers = handlers.Cast<object>()
                 .Select(handler => (DomainEventHandler)Activator.CreateInstance(wrapperType, handler));
 
-            foreach (var handler in wrappedHandlers)
+            foreach (DomainEventHandler handler in wrappedHandlers)
             {
                 handler.Handle(domainEvent);
             }
