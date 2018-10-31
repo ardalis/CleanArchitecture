@@ -32,16 +32,31 @@ namespace CleanArchitecture.Infrastructure.Data
 
             return entity;
         }
+        public List<T> Add<T>(List<T> entities) where T : BaseEntity
+        {
+            _dbContext.Set<T>().AddRange(entities);
+            _dbContext.SaveChanges();
 
+            return entities;
+        }
         public void Delete<T>(T entity) where T : BaseEntity
         {
             _dbContext.Set<T>().Remove(entity);
             _dbContext.SaveChanges();
         }
-
+        public void Delete<T>(List<T> entities) where T : BaseEntity
+        {
+            _dbContext.Set<T>().RemoveRange(entities);
+            _dbContext.SaveChanges();
+        }
         public void Update<T>(T entity) where T : BaseEntity
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+        }
+        public void Update<T>(List<T> entities) where T : BaseEntity
+        {
+            _dbContext.Entry(entities).State = EntityState.Modified;
             _dbContext.SaveChanges();
         }
     }
