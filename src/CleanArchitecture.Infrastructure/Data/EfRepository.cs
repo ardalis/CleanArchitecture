@@ -56,7 +56,10 @@ namespace CleanArchitecture.Infrastructure.Data
         }
         public void Update<T>(List<T> entities) where T : BaseEntity
         {
-            _dbContext.Entry(entities).State = EntityState.Modified;
+            foreach (var entity in entities)
+            {
+                _dbContext.Entry(entity).State = EntityState.Modified;
+            }
             _dbContext.SaveChanges();
         }
     }
