@@ -1,6 +1,8 @@
 ﻿using CleanArchitecture.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
 
@@ -18,9 +20,10 @@ namespace CleanArchitecture.Infrastructure.Data
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
 
-        public override int SaveChanges()
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            int result = base.SaveChanges();
+            int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
 
             // dispatch events only if save was successful
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
@@ -34,11 +37,16 @@ namespace CleanArchitecture.Infrastructure.Data
                 entity.Events.Clear();
                 foreach (var domainEvent in events)
                 {
-                    _dispatcher.Dispatch(domainEvent);
+                    await _dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
                 }
             }
 
             return result;
+        }
+
+        public override int SaveChanges()
+        {
+            return SaveChangesAsync().GetAwaiter().GetResult();
         }
     }
 }
