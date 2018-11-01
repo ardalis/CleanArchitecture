@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -43,6 +44,20 @@ namespace CleanArchitecture.Tests.Integration.Data
 
             Assert.Equal(item, newItem);
             Assert.True(newItem?.Id > 0);
+        }
+        [Fact]
+        public void AddItemsAndSetIds()
+        {
+            var repository = GetRepository();
+            var item1 = new ToDoItemBuilder().Build();
+            var item2 = new ToDoItemBuilder().Build();
+            var items = new List<ToDoItem>() { item1, item2 };
+            repository.Add(items);
+
+            var newItems = repository.List<ToDoItem>();
+
+            Assert.Equal(2, newItems?.Count);
+            Assert.True(newItems?[0].Id > 0);
         }
 
         [Fact]
