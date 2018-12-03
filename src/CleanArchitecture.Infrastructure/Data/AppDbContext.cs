@@ -11,9 +11,9 @@ namespace CleanArchitecture.Infrastructure.Data
     {
         private readonly IDomainEventDispatcher _dispatcher;
 
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
+        //public AppDbContext(DbContextOptions options) : base(options)
+        //{
+        //}
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
             : base(options)
