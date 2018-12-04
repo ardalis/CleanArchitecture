@@ -36,10 +36,8 @@ namespace CleanArchitecture.Web
             // TODO: Add DbContext and IOC
             string dbName = Guid.NewGuid().ToString();
 
-            // create schema before using:
-            // https://www.meziantou.net/2017/09/11/testing-ef-core-in-memory-using-sqlite
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite("Data Source=database.sqlite"));
+                options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
 //                options.UseInMemoryDatabase(dbName));
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
