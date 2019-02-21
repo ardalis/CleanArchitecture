@@ -56,12 +56,18 @@ namespace CleanArchitecture.Web
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
 
             string location = AppDomain.CurrentDomain.BaseDirectory;
-            const string infrastructureDll = "CleanArchitecture.Infrastructure.dll";
-            Assembly infrastructureAssembly = Assembly.LoadFile($"{location}{infrastructureDll}");
+            Assembly infrastructureAssembly = GetInfrastructureAssembly(location);
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
             builder.RegisterAssemblyModules(infrastructureAssembly);
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
+        }
+
+        private static Assembly GetInfrastructureAssembly(string location)
+        {
+            const string infrastructureDll = "CleanArchitecture.Infrastructure.dll";
+            Assembly infrastructureAssembly = Assembly.LoadFile($"{location}{infrastructureDll}");
+            return infrastructureAssembly;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
