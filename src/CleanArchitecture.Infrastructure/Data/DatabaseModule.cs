@@ -27,8 +27,8 @@ namespace CleanArchitecture.Infrastructure.Data
 
         private static DbContextOptions<AppDbContext> GetSqlServerDbContextOptions(IComponentContext context)
         {
-            var option = new DbContextOptionsBuilder<AppDbContext>();
             IConfiguration config = context.Resolve<IConfiguration>();
+            var option = new DbContextOptionsBuilder<AppDbContext>();
             return option.UseSqlServer(config.GetConnectionString("DefaultConnection")).Options;
         }
     }
