@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using CleanArchitecture.Core.SharedKernel;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace CleanArchitecture.Web
@@ -58,11 +58,10 @@ namespace CleanArchitecture.Web
             // Populate the container using the service collection
             builder.Populate(services);
 
-            // TODO: Add Registry Classes to eliminate reference to Infrastructure
-            Assembly webAssembly = Assembly.GetExecutingAssembly();
-            Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
-            Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
-            builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
+            // Reference all CleanArchitecture assemblies for AutoFac.
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(asm => asm.FullName.StartsWith("CleanArchitecture")).ToArray();
+            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
 
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
