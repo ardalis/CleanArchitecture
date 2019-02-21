@@ -59,8 +59,7 @@ namespace CleanArchitecture.Web
             Assembly infrastructureAssembly = GetInfrastructureAssembly(location);
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
             builder.RegisterAssemblyModules(infrastructureAssembly);
-            IContainer applicationContainer = builder.Build();
-            return new AutofacServiceProvider(applicationContainer);
+            return new AutofacServiceProvider(builder.Build());
         }
 
         private static Assembly GetInfrastructureAssembly(string location)
