@@ -22,16 +22,14 @@ namespace CleanArchitecture.Infrastructure.Data
         {
             string dbName = Guid.NewGuid().ToString();
             var option = new DbContextOptionsBuilder<AppDbContext>();
-            var dbContextOptions = option.UseInMemoryDatabase(dbName).Options;
-            return dbContextOptions;
+            return option.UseInMemoryDatabase(dbName).Options;
         }
 
         private static DbContextOptions<AppDbContext> GetSqlServerDbContextOptions(IComponentContext context)
         {
             var option = new DbContextOptionsBuilder<AppDbContext>();
             IConfiguration config = context.Resolve<IConfiguration>();
-            var dbContextOptions = option.UseSqlServer(config.GetConnectionString("DefaultConnection")).Options;
-            return dbContextOptions;
+            return option.UseSqlServer(config.GetConnectionString("DefaultConnection")).Options;
         }
     }
 }
