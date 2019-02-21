@@ -1,17 +1,15 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using CleanArchitecture.Infrastructure.Data;
+using CleanArchitecture.Core.SharedKernel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace CleanArchitecture.Web
@@ -33,11 +31,6 @@ namespace CleanArchitecture.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            // TODO: Add DbContext and IOC
-            string dbName = Guid.NewGuid().ToString();
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(dbName));
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
                 .AddControllersAsServices()
@@ -59,10 +52,14 @@ namespace CleanArchitecture.Web
             builder.Populate(services);
 
             // Reference all CleanArchitecture assemblies for AutoFac.
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(asm => asm.FullName.StartsWith("CleanArchitecture")).ToArray();
-            builder.RegisterAssemblyTypes(assemblies).AsImplementedInterfaces();
+            Assembly webAssembly = Assembly.GetExecutingAssembly();
+            Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
 
+            string location = AppDomain.CurrentDomain.BaseDirectory;
+            const string infrastructureDll = "CleanArchitecture.Infrastructure.dll";
+            Assembly infrastructureAssembly = Assembly.LoadFile($"{location}{infrastructureDll}");
+            builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyModules(infrastructureAssembly);
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
         }

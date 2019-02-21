@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Infrastructure.Data;
 
-namespace CleanArchitecture.Web
+namespace CleanArchitecture.Tests.Integration
 {
     public static class SeedData
     {
