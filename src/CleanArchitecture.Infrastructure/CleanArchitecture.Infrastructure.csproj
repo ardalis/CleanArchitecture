@@ -19,6 +19,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)src\CleanArchitecture.Web\$(OutDir)\$(TargetName).dll&quot;" />
+    <Exec Command="xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)src\CleanArchitecture.Web\$(OutDir)\*&quot; /Y /R" />
   </Target>
 </Project>
