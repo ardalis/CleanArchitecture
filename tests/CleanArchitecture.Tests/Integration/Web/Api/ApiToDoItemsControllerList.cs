@@ -7,9 +7,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Integration.Web
+namespace CleanArchitecture.Tests.Integration.Web.Api
 {
-
     public class ApiToDoItemsControllerList : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
