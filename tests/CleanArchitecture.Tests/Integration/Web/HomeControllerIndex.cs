@@ -5,17 +5,17 @@ using Xunit;
 
 namespace CleanArchitecture.Tests.Integration.Web
 {
-    public class HomeControllerIndexShould : IClassFixture<CustomWebApplicationFactory<Startup>>
+    public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
 
-        public HomeControllerIndexShould(CustomWebApplicationFactory<Startup> factory)
+        public HomeControllerIndex(CustomWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
 
         [Fact]
-        public async Task ReturnViewWithCorrectMessage()
+        public async Task ReturnsViewWithCorrectMessage()
         {
             HttpResponseMessage response = await _client.GetAsync("/");
             response.EnsureSuccessStatusCode();

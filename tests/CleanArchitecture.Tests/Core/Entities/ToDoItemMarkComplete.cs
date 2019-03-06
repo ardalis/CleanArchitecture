@@ -4,10 +4,10 @@ using Xunit;
 
 namespace CleanArchitecture.Tests.Core.Entities
 {
-    public class ToDoItemMarkCompleteShould
+    public class ToDoItemMarkComplete
     {
         [Fact]
-        public void SetIsDoneToTrue()
+        public void SetsIsDoneToTrue()
         {
             var item = new ToDoItemBuilder().Build();
 
@@ -17,7 +17,7 @@ namespace CleanArchitecture.Tests.Core.Entities
         }
 
         [Fact]
-        public void RaiseToDoItemCompletedEvent()
+        public void RaisesToDoItemCompletedEvent()
         {
             var item = new ToDoItemBuilder().Build();
 

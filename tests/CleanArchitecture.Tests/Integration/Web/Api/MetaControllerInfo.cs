@@ -1,19 +1,15 @@
-﻿using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Web;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CleanArchitecture.Web;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Integration.Web
+namespace CleanArchitecture.Tests.Integration.Web.Api
 {
-    public class ApiToDoItemsControllerList : IClassFixture<CustomWebApplicationFactory<Startup>>
+    public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
 
-        public ApiToDoItemsControllerList(CustomWebApplicationFactory<Startup> factory)
+        public MetaControllerInfo(CustomWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }

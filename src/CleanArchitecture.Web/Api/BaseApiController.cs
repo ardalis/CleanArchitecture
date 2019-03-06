@@ -6,6 +6,5 @@ namespace CleanArchitecture.Web.Api
     [ApiController]
     public abstract class BaseApiController : Controller
     {
-
     }
 }
