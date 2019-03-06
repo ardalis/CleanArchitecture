@@ -1,4 +1,5 @@
 [![Build Status](https://dev.azure.com/ardalis/CleanArchitecture/_apis/build/status/ardalis.CleanArchitecture?branchName=master)](https://dev.azure.com/ardalis/CleanArchitecture/_build/latest?definitionId=3&branchName=master)
+![Test Status](https://img.shields.io/azure-devops/tests/ardalis/CleanArchitecture/3.svg)
 
 # CleanArchitecture
 
