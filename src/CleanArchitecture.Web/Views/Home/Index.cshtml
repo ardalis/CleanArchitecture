@@ -1,19 +1,21 @@
-﻿@{
+﻿@model CleanArchitecture.Core.Entities.Foo
+@{
     ViewData["Title"] = "Clean DDD Architecture Sample";
 }
 
 <div class="row">
     <div class="col-md-6">
-        <h2>To Do Items (MVC)</h2>
+        <h2>Update Experiment</h2>
         <ul>
-            <li><a asp-area="" asp-controller="ToDo" asp-action="Populate">Load Sample To Do Items</a> (API call returning just a number)</li>
-            <li><a asp-area="" asp-controller="ToDo" asp-action="Index">List To Do Items</a></li>
-            <li><a href="/swagger">API Documentation (Swagger)</a></li>
-        </ul>
-        <h2>To Do Items (Razor Pages)</h2>
-        <ul>
-            <li><a asp-page="/ToDoRazorPage/Populate">Load Sample To Do Items</a></li>
-            <li><a asp-page="/ToDoRazorPage/Index">List To Do Items</a></li>
+            @if (Model.Name == "Scott")
+            {
+                <li>Experiment already run. To see again, restart application.</li>
+            }
+            else
+            {
+                <li>Model with nested entity original state: (Foo.Name - @Model.Name | Foo.Bar.Number: @Model.Bar.Number)</li>
+                <li><a asp-area="" asp-controller="ToDo" asp-action="Index">Click here to see if update worked</a></li>
+            }
         </ul>
     </div>
     <div class="col-md-6">

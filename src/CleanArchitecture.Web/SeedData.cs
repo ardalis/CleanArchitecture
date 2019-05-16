@@ -1,5 +1,7 @@
 ﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CleanArchitecture.Web
 {
@@ -7,6 +9,14 @@ namespace CleanArchitecture.Web
     {
         public static void PopulateTestData(AppDbContext dbContext)
         {
+            if (dbContext.ToDoItems.Any())
+            {
+                Foo single = dbContext.Foos.Include("Bar").Single();
+                single.Name = "Steve";
+                single.Bar.Number = 5;
+                dbContext.SaveChanges();
+                return;
+            }
             var toDos = dbContext.ToDoItems;
             foreach (var item in toDos)
             {
@@ -23,6 +33,8 @@ namespace CleanArchitecture.Web
                 Title = "Test Item 2",
                 Description = "Test Description Two"
             });
+
+            dbContext.Foos.Add(new Foo { Name = "Steve", Bar = new Bar { Number = 5 } });
             dbContext.SaveChanges();
         }
 

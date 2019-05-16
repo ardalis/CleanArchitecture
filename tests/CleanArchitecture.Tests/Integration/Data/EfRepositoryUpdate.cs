@@ -30,7 +30,7 @@ namespace CleanArchitecture.Tests.Integration.Data
             newItem.Title = newTitle;
 
             // Update the item
-            repository.Update(newItem);
+            repository.UpdateUsingOriginalMethod(newItem);
             var updatedItem = repository.List<ToDoItem>()
                 .FirstOrDefault(i => i.Title == newTitle);
 
