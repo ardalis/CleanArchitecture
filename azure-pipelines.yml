@@ -21,5 +21,4 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-    
+    arguments: '--configuration $(BuildConfiguration) --no-build /p:Exclude="[xunit.*]* --collect "Code Coverage"'
