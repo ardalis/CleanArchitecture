@@ -4,7 +4,7 @@ namespace CleanArchitecture.Tests
 {
     public class ToDoItemBuilder
     {
-        private readonly ToDoItem _todo = new ToDoItem();
+        private ToDoItem _todo = new ToDoItem();
 
         public ToDoItemBuilder Id(int id)
         {
@@ -21,6 +21,13 @@ namespace CleanArchitecture.Tests
         public ToDoItemBuilder Description(string description)
         {
             _todo.Description = description;
+            return this;
+        }
+
+        public ToDoItemBuilder WithDefaultValues()
+        {
+            _todo = new ToDoItem() { Id = 1, Title = "Test Item", Description = "Test Description" };
+
             return this;
         }
 
