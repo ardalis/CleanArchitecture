@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
+using Ardalis.EFCore.Extensions;
 
 namespace CleanArchitecture.Infrastructure.Data
 {
@@ -17,6 +18,13 @@ namespace CleanArchitecture.Infrastructure.Data
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
+        }
 
         public override int SaveChanges()
         {
