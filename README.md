@@ -1,9 +1,15 @@
+[![Build Status](https://dev.azure.com/ardalis/CleanArchitecture/_apis/build/status/ardalis.CleanArchitecture?branchName=master)](https://dev.azure.com/ardalis/CleanArchitecture/_build/latest?definitionId=3&branchName=master)
+![Test Status](https://img.shields.io/azure-devops/tests/ardalis/CleanArchitecture/3.svg)
+[![Test Coverage](https://img.shields.io/azure-devops/coverage/ardalis/CleanArchitecture/3.svg)](https://dev.azure.com/ardalis/CleanArchitecture/_build?definitionId=3)
+
 # CleanArchitecture
 
 A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is just the latest in a series of names for the same loosely-coupled, dependency-inverted architecture. You will also find it named [hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/).
 
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+
+## *Now available as a [project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) within Visual Studio.*
 
 ## Learn More
 

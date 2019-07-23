@@ -7,9 +7,7 @@ using System.Linq;
 
 namespace CleanArchitecture.Web.Api
 {
-    [Route("api/[controller]")]
-    [ValidateModel]
-    public class ToDoItemsController : Controller
+    public class ToDoItemsController : BaseApiController
     {
         private readonly IRepository _repository;
 
