@@ -4,6 +4,7 @@ using System.Linq;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
 using Ardalis.EFCore.Extensions;
+using System.Reflection;
 
 namespace CleanArchitecture.Infrastructure.Data
 {
@@ -24,6 +25,9 @@ namespace CleanArchitecture.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
+
+            // alternately this is built-in to EF Core 2.2
+            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public override int SaveChanges()
