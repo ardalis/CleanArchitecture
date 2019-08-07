@@ -5,12 +5,17 @@ using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
 using Ardalis.EFCore.Extensions;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace CleanArchitecture.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
         private readonly IDomainEventDispatcher _dispatcher;
+
+        //public AppDbContext(DbContextOptions options) : base(options)
+        //{
+        //}
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
             : base(options)
@@ -33,6 +38,9 @@ namespace CleanArchitecture.Infrastructure.Data
         public override int SaveChanges()
         {
             int result = base.SaveChanges();
+
+            // ignore events if no dispatcher provided
+            if (_dispatcher == null) return result;
 
             // dispatch events only if save was successful
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()

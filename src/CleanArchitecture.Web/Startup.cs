@@ -35,8 +35,10 @@ namespace CleanArchitecture.Web
             });
             // TODO: Add DbContext and IOC
             string dbName = Guid.NewGuid().ToString();
+
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(dbName));
+                options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
+//                options.UseInMemoryDatabase(dbName));
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
