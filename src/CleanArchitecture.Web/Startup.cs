@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace CleanArchitecture.Web
@@ -41,34 +42,46 @@ namespace CleanArchitecture.Web
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
-            IServiceProvider serviceProvider = BuildDependencyInjectionProvider(services);
+            AddDbContextToServices(services);
 
-            IDatabaseRegistrar databaseRegistrar = serviceProvider.GetRequiredService<IDatabaseRegistrar>();
-            databaseRegistrar.Register(services);
-
-            // Need ServiceProvider to get the registrar, then need to rebuild to include DbContext.
             return BuildDependencyInjectionProvider(services);
+        }
+
+        private static void AddDbContextToServices(IServiceCollection services)
+        {
+            // Create lightweight container just so we can get IDatabaseRegistrar instance.
+            ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterAssemblyTypes(GetAssembliesToRegister(false)).AsImplementedInterfaces();
+            builder.Build().Resolve<IDatabaseRegistrar>().Register(services);
         }
 
         private static IServiceProvider BuildDependencyInjectionProvider(IServiceCollection services)
         {
-            var builder = new ContainerBuilder();
+            ContainerBuilder builder = new ContainerBuilder();
 
             // Populate the container using the service collection
             builder.Populate(services);
-
-            Assembly webAssembly = Assembly.GetExecutingAssembly();
-            Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
-            string location = AppDomain.CurrentDomain.BaseDirectory;
-            Assembly infrastructureAssembly = GetInfrastructureAssembly(location);
-            builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(GetAssembliesToRegister()).AsImplementedInterfaces();
 
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
         }
 
-        private static Assembly GetInfrastructureAssembly(string location)
+        private static Assembly[] GetAssembliesToRegister(bool includeWeb = true)
         {
+            List<Assembly> assemblies = new List<Assembly>();
+            if (includeWeb)
+            {
+                assemblies.Add(Assembly.GetExecutingAssembly());
+            }
+            assemblies.Add(Assembly.GetAssembly(typeof(BaseEntity)));
+            assemblies.Add(GetInfrastructureAssembly());
+            return assemblies.ToArray();
+        }
+
+        private static Assembly GetInfrastructureAssembly()
+        {
+            string location = AppDomain.CurrentDomain.BaseDirectory;
             const string infrastructureDll = "CleanArchitecture.Infrastructure.dll";
             return Assembly.LoadFile($"{location}{infrastructureDll}");
         }
