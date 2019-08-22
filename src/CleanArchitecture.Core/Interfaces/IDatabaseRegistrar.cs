@@ -4,6 +4,8 @@ namespace CleanArchitecture.Core.Interfaces
 {
     public interface IDatabaseRegistrar
     {
-        void Register(IServiceCollection services);
+        void RegisterInMemory(IServiceCollection services, string dbName = null);
+        void RegisterSQLite(IServiceCollection services);
+        void RegisterSQLServer(IServiceCollection services, string connectionString);
     }
 }

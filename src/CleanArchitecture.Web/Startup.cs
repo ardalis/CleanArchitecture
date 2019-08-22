@@ -47,12 +47,15 @@ namespace CleanArchitecture.Web
             return BuildDependencyInjectionProvider(services);
         }
 
-        private static void AddDbContextToServices(IServiceCollection services)
+        private void AddDbContextToServices(IServiceCollection services)
         {
             // Create lightweight container just so we can get IDatabaseRegistrar instance.
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(GetAssembliesToRegister(false)).AsImplementedInterfaces();
-            builder.Build().Resolve<IDatabaseRegistrar>().Register(services);
+            IDatabaseRegistrar databaseRegistrar = builder.Build().Resolve<IDatabaseRegistrar>();
+            databaseRegistrar.RegisterSQLite(services);
+            // databaseRegistrar.RegisterInMemory(services);
+            // databaseRegistrar.RegisterSQLServer(services, Configuration.GetConnectionString("DefaultConnection"));
         }
 
         private static IServiceProvider BuildDependencyInjectionProvider(IServiceCollection services)
