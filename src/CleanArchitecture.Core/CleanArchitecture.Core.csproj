@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="1.2.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

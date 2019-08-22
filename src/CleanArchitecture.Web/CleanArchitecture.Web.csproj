@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.EFCore.Extensions" Version="1.1.0" />
     <PackageReference Include="Autofac" Version="4.9.3" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
     <PackageReference Include="Dapper" Version="1.60.6" />
@@ -29,7 +30,7 @@
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.76" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="SQLite" Version="3.13.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
   </ItemGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">

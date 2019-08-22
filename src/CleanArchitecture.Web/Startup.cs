@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,14 +32,6 @@ namespace CleanArchitecture.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            // TODO: Not sure where to call this database init now that we don't have access to AppDbContext
-            // TODO: Add DbContext and IOC
-            // string dbName = Guid.NewGuid().ToString();
-            // services.AddDbContext<AppDbContext>(options =>
-            //    options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
-            //    options.UseInMemoryDatabase(dbName));
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddMvc()
                 .AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -48,6 +41,12 @@ namespace CleanArchitecture.Web
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
+            IServiceProvider serviceProvider = BuildDependencyInjectionProvider(services);
+
+            IDatabaseRegistrar databaseRegistrar = serviceProvider.GetRequiredService<IDatabaseRegistrar>();
+            databaseRegistrar.Register(services);
+
+            // Need ServiceProvider to get the registrar, then need to rebuild to include DbContext.
             return BuildDependencyInjectionProvider(services);
         }
 
