@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CleanArchitecture.Core.SharedKernel;
+using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,6 +33,13 @@ namespace CleanArchitecture.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            // TODO: Add DbContext and IOC
+            string dbName = Guid.NewGuid().ToString();
+
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
+//                options.UseInMemoryDatabase(dbName));
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
                 .AddControllersAsServices()
@@ -51,29 +60,17 @@ namespace CleanArchitecture.Web
             // Populate the container using the service collection
             builder.Populate(services);
 
-            // Reference all CleanArchitecture assemblies for AutoFac.
             Assembly webAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
-
-            string location = AppDomain.CurrentDomain.BaseDirectory;
-            Assembly infrastructureAssembly = GetInfrastructureAssembly(location);
+            Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
-            builder.RegisterAssemblyModules(infrastructureAssembly);
-            return new AutofacServiceProvider(builder.Build());
+
+            IContainer applicationContainer = builder.Build();
+            return new AutofacServiceProvider(applicationContainer);
         }
 
-        private static Assembly GetInfrastructureAssembly(string location)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            const string infrastructureDll = "CleanArchitecture.Infrastructure.dll";
-            Assembly infrastructureAssembly = Assembly.LoadFile($"{location}{infrastructureDll}");
-            return infrastructureAssembly;
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
