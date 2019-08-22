@@ -1,15 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CleanArchitecture.Core.SharedKernel;
-using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Reflection;
@@ -33,13 +30,14 @@ namespace CleanArchitecture.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            // TODO: Add DbContext and IOC
-            string dbName = Guid.NewGuid().ToString();
 
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
-//                options.UseInMemoryDatabase(dbName));
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // TODO: Not sure where to call this database init now that we don't have access to AppDbContext
+            // TODO: Add DbContext and IOC
+            // string dbName = Guid.NewGuid().ToString();
+            // services.AddDbContext<AppDbContext>(options =>
+            //    options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
+            //    options.UseInMemoryDatabase(dbName));
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
                 .AddControllersAsServices()
@@ -62,11 +60,18 @@ namespace CleanArchitecture.Web
 
             Assembly webAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
-            Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
+            string location = AppDomain.CurrentDomain.BaseDirectory;
+            Assembly infrastructureAssembly = GetInfrastructureAssembly(location);
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
 
             IContainer applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
+        }
+
+        private static Assembly GetInfrastructureAssembly(string location)
+        {
+            const string infrastructureDll = "CleanArchitecture.Infrastructure.dll";
+            return Assembly.LoadFile($"{location}{infrastructureDll}");
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

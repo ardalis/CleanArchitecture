@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Core.Entities;
+using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Web;
 using Newtonsoft.Json;
 using System.Collections.Generic;

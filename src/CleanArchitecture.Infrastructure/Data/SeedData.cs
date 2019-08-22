@@ -1,11 +1,7 @@
 ﻿using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Linq;
 
-namespace CleanArchitecture.Tests.Integration
+namespace CleanArchitecture.Infrastructure.Data
 {
     public static class SeedData
     {
@@ -25,22 +21,17 @@ namespace CleanArchitecture.Tests.Integration
             Description = "Make sure all the tests run and review what they are doing."
         };
 
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(AppDbContext dbContext)
         {
-            using (var dbContext = new AppDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+            // Look for any TODO items.
+            if (dbContext.ToDoItems.Any())
             {
-                // Look for any TODO items.
-                if (dbContext.ToDoItems.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-                PopulateTestData(dbContext);
-
-
+                return;   // DB has been seeded
             }
+
+            PopulateTestData(dbContext);
         }
+
         public static void PopulateTestData(AppDbContext dbContext)
         {
             foreach (var item in dbContext.ToDoItems)
