@@ -35,8 +35,10 @@ namespace CleanArchitecture.Web
             });
             // TODO: Add DbContext and IOC
             string dbName = Guid.NewGuid().ToString();
+
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(dbName));
+                options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
+//                options.UseInMemoryDatabase(dbName));
                 //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
@@ -58,7 +60,6 @@ namespace CleanArchitecture.Web
             // Populate the container using the service collection
             builder.Populate(services);
 
-            // TODO: Add Registry Classes to eliminate reference to Infrastructure
             Assembly webAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
             Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
@@ -68,11 +69,8 @@ namespace CleanArchitecture.Web
             return new AutofacServiceProvider(applicationContainer);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
