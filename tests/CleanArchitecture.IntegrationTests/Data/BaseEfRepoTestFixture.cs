@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace CleanArchitecture.Tests.Integration.Data
+namespace CleanArchitecture.IntegrationTests.Data
 {
     public abstract class BaseEfRepoTestFixture
     {

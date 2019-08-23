@@ -1,8 +1,9 @@
 ﻿using CleanArchitecture.Core.Entities;
+using CleanArchitecture.UnitTests;
 using System.Linq;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Integration.Data
+namespace CleanArchitecture.IntegrationTests.Data
 {
     public class EfRepositoryAdd : BaseEfRepoTestFixture
     {

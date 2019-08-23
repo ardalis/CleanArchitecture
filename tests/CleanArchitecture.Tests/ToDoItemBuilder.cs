@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Core.Entities;
 
-namespace CleanArchitecture.Tests
+namespace CleanArchitecture.UnitTests
 {
     // Learn more about test builders:
     // https://ardalis.com/improve-tests-with-the-builder-pattern-for-test-data

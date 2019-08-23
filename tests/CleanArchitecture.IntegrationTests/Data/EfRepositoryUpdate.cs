@@ -1,10 +1,11 @@
 ﻿using CleanArchitecture.Core.Entities;
+using CleanArchitecture.UnitTests;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Integration.Data
+namespace CleanArchitecture.IntegrationTests.Data
 {
     public class EfRepositoryUpdate : BaseEfRepoTestFixture
     {

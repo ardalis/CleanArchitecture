@@ -4,7 +4,7 @@ using CleanArchitecture.Core.Services;
 using System;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Core.Entities
+namespace CleanArchitecture.UnitTests.Core.Entities
 {
     public class ItemCompletedEmailNotificationHandlerHandle
     {
