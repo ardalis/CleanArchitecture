@@ -1,0 +1,1762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<coverage line-rate="0.432" branch-rate="0.364" version="1.9" timestamp="1566577053" lines-covered="173" lines-valid="400" branches-covered="78" branches-valid="214">
+  <sources>
+    <source>C:\dev\GitHub\cleanarchitecture\src\</source>
+  </sources>
+  <packages>
+    <package name="CleanArchitecture.Core" line-rate="0.146" branch-rate="0" complexity="0">
+      <classes>
+        <class name="CleanArchitecture.Core.DatabasePopulator" filename="CleanArchitecture.Core\DatabasePopulator.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="PopulateDatabase" signature="(CleanArchitecture.Core.Interfaces.IRepository)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="10" hits="0" branch="False" />
+                <line number="11" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="20" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="16" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+                <line number="18" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+                <line number="22" hits="0" branch="False" />
+                <line number="23" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="0" branch="False" />
+            <line number="11" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="20" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="23" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="29" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Core.SharedKernel.BaseDomainEvent" filename="CleanArchitecture.Core\SharedKernel\BaseDomainEvent.cs" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_DateOccurred" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="7" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="7" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Core.SharedKernel.BaseEntity" filename="CleanArchitecture.Core\SharedKernel\BaseEntity.cs" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="8" hits="204" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="10" hits="16" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="8" hits="204" branch="False" />
+            <line number="10" hits="16" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Core.SharedKernel.ValueObject" filename="CleanArchitecture.Core\SharedKernel\ValueObject.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="op_Equality" signature="(CleanArchitecture.Core.SharedKernel.ValueObject,CleanArchitecture.Core.SharedKernel.ValueObject)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="17" hits="0" branch="False" />
+                <line number="18" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="10" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="22" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="21" hits="0" branch="False" />
+                <line number="22" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="op_Inequality" signature="(CleanArchitecture.Core.SharedKernel.ValueObject,CleanArchitecture.Core.SharedKernel.ValueObject)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Equals" signature="(CleanArchitecture.Core.SharedKernel.ValueObject)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="35" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Equals" signature="(System.Object)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="40" hits="0" branch="False" />
+                <line number="41" hits="0" branch="True" condition-coverage="0% (0/4)">
+                  <conditions>
+                    <condition number="27" type="jump" coverage="0%" />
+                    <condition number="56" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="43" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="85" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="44" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="PropertiesAreEqual" signature="(System.Object,System.Reflection.PropertyInfo)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="48" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="FieldsAreEqual" signature="(System.Object,System.Reflection.FieldInfo)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="GetProperties" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="58" hits="0" branch="False" />
+                <line number="59" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="12" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="60" hits="0" branch="False" />
+                <line number="61" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="35" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="62" hits="0" branch="False" />
+                <line number="63" hits="0" branch="False" />
+                <line number="64" hits="0" branch="False" />
+                <line number="68" hits="0" branch="False" />
+                <line number="70" hits="0" branch="False" />
+                <line number="71" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="GetFields" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="74" hits="0" branch="False" />
+                <line number="75" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="12" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="76" hits="0" branch="False" />
+                <line number="77" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="35" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="78" hits="0" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
+                <line number="82" hits="0" branch="False" />
+                <line number="83" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="GetHashCode" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="86" hits="0" branch="False" />
+                <line number="88" hits="0" branch="False" />
+                <line number="89" hits="0" branch="False" />
+                <line number="90" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="53" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="91" hits="0" branch="False" />
+                <line number="92" hits="0" branch="False" />
+                <line number="93" hits="0" branch="False" />
+                <line number="94" hits="0" branch="False" />
+                <line number="96" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="122" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="97" hits="0" branch="False" />
+                <line number="98" hits="0" branch="False" />
+                <line number="99" hits="0" branch="False" />
+                <line number="100" hits="0" branch="False" />
+                <line number="102" hits="0" branch="False" />
+                <line number="104" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="HashValue" signature="(System.Int32,System.Object)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="107" hits="0" branch="False" />
+                <line number="108" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="2" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="109" hits="0" branch="False" />
+                <line number="110" hits="0" branch="False" />
+                <line number="112" hits="0" branch="False" />
+                <line number="113" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="17" hits="0" branch="False" />
+            <line number="18" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="10" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="22" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="21" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="35" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="37" hits="0" branch="False" />
+            <line number="40" hits="0" branch="False" />
+            <line number="41" hits="0" branch="True" condition-coverage="0% (0/4)">
+              <conditions>
+                <condition number="27" type="jump" coverage="0%" />
+                <condition number="56" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="43" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="85" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="44" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="59" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="12" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="60" hits="0" branch="False" />
+            <line number="61" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="35" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="62" hits="0" branch="False" />
+            <line number="63" hits="0" branch="False" />
+            <line number="64" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
+            <line number="70" hits="0" branch="False" />
+            <line number="71" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
+            <line number="75" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="12" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="76" hits="0" branch="False" />
+            <line number="77" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="35" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="78" hits="0" branch="False" />
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
+            <line number="82" hits="0" branch="False" />
+            <line number="83" hits="0" branch="False" />
+            <line number="86" hits="0" branch="False" />
+            <line number="88" hits="0" branch="False" />
+            <line number="89" hits="0" branch="False" />
+            <line number="90" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="53" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="91" hits="0" branch="False" />
+            <line number="92" hits="0" branch="False" />
+            <line number="93" hits="0" branch="False" />
+            <line number="94" hits="0" branch="False" />
+            <line number="96" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="122" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="97" hits="0" branch="False" />
+            <line number="98" hits="0" branch="False" />
+            <line number="99" hits="0" branch="False" />
+            <line number="100" hits="0" branch="False" />
+            <line number="102" hits="0" branch="False" />
+            <line number="104" hits="0" branch="False" />
+            <line number="107" hits="0" branch="False" />
+            <line number="108" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="2" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="109" hits="0" branch="False" />
+            <line number="110" hits="0" branch="False" />
+            <line number="112" hits="0" branch="False" />
+            <line number="113" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Core.Services.ToDoItemService" filename="CleanArchitecture.Core\Services\ToDoItemService.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Handle" signature="(CleanArchitecture.Core.Events.ToDoItemCompletedEvent)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="10" hits="0" branch="False" />
+                <line number="11" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="0" branch="False" />
+            <line number="11" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Core.Events.ToDoItemCompletedEvent" filename="CleanArchitecture.Core\Events\ToDoItemCompletedEvent.cs" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_CompletedItem" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="8" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Core.Entities.ToDoItem)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="10" hits="2" branch="False" />
+                <line number="11" hits="2" branch="False" />
+                <line number="12" hits="2" branch="False" />
+                <line number="13" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="8" hits="2" branch="False" />
+            <line number="10" hits="2" branch="False" />
+            <line number="11" hits="2" branch="False" />
+            <line number="12" hits="2" branch="False" />
+            <line number="13" hits="2" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Core.Entities.ToDoItem" filename="CleanArchitecture.Core\Entities\ToDoItem.cs" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_Title" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="8" hits="131" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Description" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="9" hits="93" branch="False" />
+              </lines>
+            </method>
+            <method name="get_IsDone" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="10" hits="77" branch="False" />
+              </lines>
+            </method>
+            <method name="MarkComplete" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="13" hits="2" branch="False" />
+                <line number="14" hits="2" branch="False" />
+                <line number="15" hits="2" branch="False" />
+                <line number="16" hits="2" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="8" hits="131" branch="False" />
+            <line number="9" hits="93" branch="False" />
+            <line number="10" hits="77" branch="False" />
+            <line number="13" hits="2" branch="False" />
+            <line number="14" hits="2" branch="False" />
+            <line number="15" hits="2" branch="False" />
+            <line number="16" hits="2" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="CleanArchitecture.Infrastructure" line-rate="0.566" branch-rate="0.5" complexity="0">
+      <classes>
+        <class name="CleanArchitecture.Infrastructure.DomainEvents.DomainEventDispatcher" filename="CleanArchitecture.Infrastructure\DomainEvents\DomainEventDispatcher.cs" line-rate="0.267" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Dispatch" signature="(CleanArchitecture.Core.SharedKernel.BaseDomainEvent)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="23" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+                <line number="28" hits="0" branch="False" />
+                <line number="30" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="178" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Autofac.IComponentContext)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="17" hits="1" branch="False" />
+                <line number="18" hits="1" branch="False" />
+                <line number="19" hits="1" branch="False" />
+                <line number="20" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="23" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="28" hits="0" branch="False" />
+            <line number="30" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="178" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="17" hits="1" branch="False" />
+            <line number="18" hits="1" branch="False" />
+            <line number="19" hits="1" branch="False" />
+            <line number="20" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Infrastructure.DomainEvents.DomainEventDispatcher/DomainEventHandler`1" filename="CleanArchitecture.Infrastructure\DomainEvents\DomainEventDispatcher.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Handle" signature="(CleanArchitecture.Core.SharedKernel.BaseDomainEvent)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Core.Interfaces.IHandle`1&lt;T&gt;)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="46" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Infrastructure.Data.AppDbContext" filename="CleanArchitecture.Infrastructure\Data\AppDbContext.cs" line-rate="0.704" branch-rate="0.6" complexity="0">
+          <methods>
+            <method name="get_ToDoItems" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="26" hits="19" branch="False" />
+              </lines>
+            </method>
+            <method name="OnModelCreating" signature="(Microsoft.EntityFrameworkCore.ModelBuilder)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="29" hits="6" branch="False" />
+                <line number="30" hits="6" branch="False" />
+                <line number="32" hits="6" branch="False" />
+                <line number="36" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="SaveChanges" signature="()" line-rate="0.556" branch-rate="0.6">
+              <lines>
+                <line number="39" hits="11" branch="False" />
+                <line number="40" hits="11" branch="False" />
+                <line number="43" hits="11" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="19" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="46" hits="11" branch="True" condition-coverage="100% (4/4)">
+                  <conditions>
+                    <condition number="45" type="jump" coverage="100%" />
+                    <condition number="81" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="47" hits="24" branch="False" />
+                <line number="48" hits="24" branch="False" />
+                <line number="49" hits="11" branch="False" />
+                <line number="51" hits="33" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="221" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="55" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="206" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="58" hits="0" branch="False" />
+                <line number="59" hits="0" branch="False" />
+                <line number="61" hits="11" branch="False" />
+                <line number="62" hits="11" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Microsoft.EntityFrameworkCore.DbContextOptions`1&lt;CleanArchitecture.Infrastructure.Data.AppDbContext&gt;,CleanArchitecture.Core.Interfaces.IDomainEventDispatcher)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="21" hits="7" branch="False" />
+                <line number="22" hits="7" branch="False" />
+                <line number="23" hits="7" branch="False" />
+                <line number="24" hits="7" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="26" hits="19" branch="False" />
+            <line number="29" hits="6" branch="False" />
+            <line number="30" hits="6" branch="False" />
+            <line number="32" hits="6" branch="False" />
+            <line number="36" hits="6" branch="False" />
+            <line number="39" hits="11" branch="False" />
+            <line number="40" hits="11" branch="False" />
+            <line number="43" hits="11" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="19" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="46" hits="11" branch="True" condition-coverage="100% (4/4)">
+              <conditions>
+                <condition number="45" type="jump" coverage="100%" />
+                <condition number="81" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="47" hits="24" branch="False" />
+            <line number="48" hits="24" branch="False" />
+            <line number="49" hits="11" branch="False" />
+            <line number="51" hits="33" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="221" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="55" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="206" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="58" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="61" hits="11" branch="False" />
+            <line number="62" hits="11" branch="False" />
+            <line number="21" hits="7" branch="False" />
+            <line number="22" hits="7" branch="False" />
+            <line number="23" hits="7" branch="False" />
+            <line number="24" hits="7" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Infrastructure.Data.EfRepository" filename="CleanArchitecture.Infrastructure\Data\EfRepository.cs" line-rate="0.87" branch-rate="0" complexity="0">
+          <methods>
+            <method name="GetById" signature="(System.Int32)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="List" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="24" hits="5" branch="False" />
+                <line number="25" hits="5" branch="False" />
+                <line number="26" hits="5" branch="False" />
+              </lines>
+            </method>
+            <method name="Add" signature="(T)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="29" hits="3" branch="False" />
+                <line number="30" hits="3" branch="False" />
+                <line number="31" hits="2" branch="False" />
+                <line number="33" hits="3" branch="False" />
+                <line number="34" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="Delete" signature="(T)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="37" hits="1" branch="False" />
+                <line number="38" hits="1" branch="False" />
+                <line number="39" hits="1" branch="False" />
+                <line number="40" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Update" signature="(T)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="43" hits="1" branch="False" />
+                <line number="44" hits="1" branch="False" />
+                <line number="45" hits="1" branch="False" />
+                <line number="46" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Infrastructure.Data.AppDbContext)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="13" hits="4" branch="False" />
+                <line number="14" hits="4" branch="False" />
+                <line number="15" hits="4" branch="False" />
+                <line number="16" hits="4" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="24" hits="5" branch="False" />
+            <line number="25" hits="5" branch="False" />
+            <line number="26" hits="5" branch="False" />
+            <line number="29" hits="3" branch="False" />
+            <line number="30" hits="3" branch="False" />
+            <line number="31" hits="2" branch="False" />
+            <line number="33" hits="3" branch="False" />
+            <line number="34" hits="3" branch="False" />
+            <line number="37" hits="1" branch="False" />
+            <line number="38" hits="1" branch="False" />
+            <line number="39" hits="1" branch="False" />
+            <line number="40" hits="1" branch="False" />
+            <line number="43" hits="1" branch="False" />
+            <line number="44" hits="1" branch="False" />
+            <line number="45" hits="1" branch="False" />
+            <line number="46" hits="1" branch="False" />
+            <line number="13" hits="4" branch="False" />
+            <line number="14" hits="4" branch="False" />
+            <line number="15" hits="4" branch="False" />
+            <line number="16" hits="4" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Infrastructure.Data.Config.ToDoConfiguration" filename="CleanArchitecture.Infrastructure\Data\Config\ToDoConfiguration.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Configure" signature="(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1&lt;CleanArchitecture.Core.Entities.ToDoItem&gt;)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="10" hits="0" branch="False" />
+                <line number="11" hits="0" branch="False" />
+                <line number="12" hits="0" branch="False" />
+                <line number="13" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="0" branch="False" />
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="CleanArchitecture.Web" line-rate="0.542" branch-rate="0.7" complexity="0">
+      <classes>
+        <class name="CleanArchitecture.Web.Program" filename="CleanArchitecture.Web\Program.cs" line-rate="0.1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Main" signature="(System.String[])" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+                <line number="18" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+                <line number="22" hits="0" branch="False" />
+                <line number="23" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+                <line number="28" hits="0" branch="False" />
+                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="35" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="CreateWebHostBuilder" signature="(System.String[])" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="39" hits="3" branch="False" />
+                <line number="40" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="23" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="28" hits="0" branch="False" />
+            <line number="29" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="35" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="39" hits="3" branch="False" />
+            <line number="40" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.SeedData" filename="CleanArchitecture.Web\SeedData.cs" line-rate="0.639" branch-rate="0.25" complexity="0">
+          <methods>
+            <method name="Initialize" signature="(System.IServiceProvider)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="29" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="34" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="28" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="35" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="PopulateTestData" signature="(CleanArchitecture.Infrastructure.Data.AppDbContext)" line-rate="0.727" branch-rate="0.5">
+              <lines>
+                <line number="45" hits="3" branch="False" />
+                <line number="46" hits="8" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="39" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+                <line number="50" hits="3" branch="False" />
+                <line number="51" hits="3" branch="False" />
+                <line number="52" hits="3" branch="False" />
+                <line number="53" hits="3" branch="False" />
+                <line number="55" hits="3" branch="False" />
+                <line number="56" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name=".cctor" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="12" hits="1" branch="False" />
+                <line number="13" hits="1" branch="False" />
+                <line number="14" hits="1" branch="False" />
+                <line number="15" hits="1" branch="False" />
+                <line number="16" hits="1" branch="False" />
+                <line number="17" hits="1" branch="False" />
+                <line number="18" hits="1" branch="False" />
+                <line number="19" hits="1" branch="False" />
+                <line number="20" hits="1" branch="False" />
+                <line number="21" hits="1" branch="False" />
+                <line number="22" hits="1" branch="False" />
+                <line number="23" hits="1" branch="False" />
+                <line number="24" hits="1" branch="False" />
+                <line number="25" hits="1" branch="False" />
+                <line number="26" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="29" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="34" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="28" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="35" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="45" hits="3" branch="False" />
+            <line number="46" hits="8" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="39" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+            <line number="50" hits="3" branch="False" />
+            <line number="51" hits="3" branch="False" />
+            <line number="52" hits="3" branch="False" />
+            <line number="53" hits="3" branch="False" />
+            <line number="55" hits="3" branch="False" />
+            <line number="56" hits="3" branch="False" />
+            <line number="12" hits="1" branch="False" />
+            <line number="13" hits="1" branch="False" />
+            <line number="14" hits="1" branch="False" />
+            <line number="15" hits="1" branch="False" />
+            <line number="16" hits="1" branch="False" />
+            <line number="17" hits="1" branch="False" />
+            <line number="18" hits="1" branch="False" />
+            <line number="19" hits="1" branch="False" />
+            <line number="20" hits="1" branch="False" />
+            <line number="21" hits="1" branch="False" />
+            <line number="22" hits="1" branch="False" />
+            <line number="23" hits="1" branch="False" />
+            <line number="24" hits="1" branch="False" />
+            <line number="25" hits="1" branch="False" />
+            <line number="26" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Startup" filename="CleanArchitecture.Web\Startup.cs" line-rate="0.914" branch-rate="0.917" complexity="0">
+          <methods>
+            <method name="get_Configuration" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="26" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="ConfigureServices" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="1" branch-rate="1">
+              <lines>
+                <line number="29" hits="3" branch="False" />
+                <line number="30" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="8" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="31" hits="6" branch="False" />
+                <line number="32" hits="3" branch="False" />
+                <line number="33" hits="6" branch="False" />
+                <line number="34" hits="6" branch="False" />
+                <line number="35" hits="6" branch="False" />
+                <line number="37" hits="3" branch="False" />
+                <line number="39" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="66" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="40" hits="3" branch="False" />
+                <line number="44" hits="3" branch="False" />
+                <line number="45" hits="3" branch="False" />
+                <line number="46" hits="3" branch="False" />
+                <line number="48" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="124" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="49" hits="6" branch="False" />
+                <line number="50" hits="6" branch="False" />
+                <line number="51" hits="6" branch="False" />
+                <line number="53" hits="3" branch="False" />
+                <line number="54" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="BuildDependencyInjectionProvider" signature="(Microsoft.Extensions.DependencyInjection.IServiceCollection)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="57" hits="3" branch="False" />
+                <line number="58" hits="3" branch="False" />
+                <line number="61" hits="3" branch="False" />
+                <line number="63" hits="2" branch="False" />
+                <line number="64" hits="2" branch="False" />
+                <line number="65" hits="2" branch="False" />
+                <line number="66" hits="2" branch="False" />
+                <line number="68" hits="3" branch="False" />
+                <line number="69" hits="3" branch="False" />
+                <line number="70" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name="Configure" signature="(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)" line-rate="0.833" branch-rate="0.833">
+              <lines>
+                <line number="73" hits="3" branch="False" />
+                <line number="74" hits="3" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="9" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+                <line number="75" hits="3" branch="False" />
+                <line number="76" hits="3" branch="False" />
+                <line number="77" hits="3" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
+                <line number="81" hits="0" branch="False" />
+                <line number="82" hits="0" branch="False" />
+                <line number="84" hits="3" branch="False" />
+                <line number="85" hits="3" branch="False" />
+                <line number="86" hits="3" branch="False" />
+                <line number="89" hits="3" branch="False" />
+                <line number="92" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="79" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="93" hits="6" branch="False" />
+                <line number="94" hits="6" branch="False" />
+                <line number="95" hits="6" branch="False" />
+                <line number="97" hits="3" branch="True" condition-coverage="100% (2/2)">
+                  <conditions>
+                    <condition number="117" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+                <line number="98" hits="6" branch="False" />
+                <line number="99" hits="6" branch="False" />
+                <line number="100" hits="6" branch="False" />
+                <line number="101" hits="6" branch="False" />
+                <line number="102" hits="6" branch="False" />
+                <line number="103" hits="3" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(Microsoft.Extensions.Configuration.IConfiguration)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="21" hits="3" branch="False" />
+                <line number="22" hits="3" branch="False" />
+                <line number="23" hits="3" branch="False" />
+                <line number="24" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="26" hits="0" branch="False" />
+            <line number="29" hits="3" branch="False" />
+            <line number="30" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="8" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="31" hits="6" branch="False" />
+            <line number="32" hits="3" branch="False" />
+            <line number="33" hits="6" branch="False" />
+            <line number="34" hits="6" branch="False" />
+            <line number="35" hits="6" branch="False" />
+            <line number="37" hits="3" branch="False" />
+            <line number="39" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="66" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="40" hits="3" branch="False" />
+            <line number="44" hits="3" branch="False" />
+            <line number="45" hits="3" branch="False" />
+            <line number="46" hits="3" branch="False" />
+            <line number="48" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="124" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="49" hits="6" branch="False" />
+            <line number="50" hits="6" branch="False" />
+            <line number="51" hits="6" branch="False" />
+            <line number="53" hits="3" branch="False" />
+            <line number="54" hits="3" branch="False" />
+            <line number="57" hits="3" branch="False" />
+            <line number="58" hits="3" branch="False" />
+            <line number="61" hits="3" branch="False" />
+            <line number="63" hits="2" branch="False" />
+            <line number="64" hits="2" branch="False" />
+            <line number="65" hits="2" branch="False" />
+            <line number="66" hits="2" branch="False" />
+            <line number="68" hits="3" branch="False" />
+            <line number="69" hits="3" branch="False" />
+            <line number="70" hits="3" branch="False" />
+            <line number="73" hits="3" branch="False" />
+            <line number="74" hits="3" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="9" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+            <line number="75" hits="3" branch="False" />
+            <line number="76" hits="3" branch="False" />
+            <line number="77" hits="3" branch="False" />
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
+            <line number="81" hits="0" branch="False" />
+            <line number="82" hits="0" branch="False" />
+            <line number="84" hits="3" branch="False" />
+            <line number="85" hits="3" branch="False" />
+            <line number="86" hits="3" branch="False" />
+            <line number="89" hits="3" branch="False" />
+            <line number="92" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="79" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="93" hits="6" branch="False" />
+            <line number="94" hits="6" branch="False" />
+            <line number="95" hits="6" branch="False" />
+            <line number="97" hits="3" branch="True" condition-coverage="100% (2/2)">
+              <conditions>
+                <condition number="117" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+            <line number="98" hits="6" branch="False" />
+            <line number="99" hits="6" branch="False" />
+            <line number="100" hits="6" branch="False" />
+            <line number="101" hits="6" branch="False" />
+            <line number="102" hits="6" branch="False" />
+            <line number="103" hits="3" branch="False" />
+            <line number="21" hits="3" branch="False" />
+            <line number="22" hits="3" branch="False" />
+            <line number="23" hits="3" branch="False" />
+            <line number="24" hits="3" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Startup/&lt;&gt;c" filename="CleanArchitecture.Web\Startup.cs" line-rate="0" branch-rate="1" complexity="0">
+          <methods />
+          <lines />
+        </class>
+        <class name="CleanArchitecture.Web.Pages.ToDoRazorPage.IndexModel" filename="CleanArchitecture.Web\Pages\ToDoRazorPage\Index.cshtml.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_ToDoItems" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="OnGet" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+                <line number="22" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Core.Interfaces.IRepository)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="16" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="12" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Pages.ToDoRazorPage.PopulateModel" filename="CleanArchitecture.Web\Pages\ToDoRazorPage\Populate.cshtml.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_RecordsAdded" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="16" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="OnGet" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Core.Interfaces.IRepository)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+                <line number="12" hits="0" branch="False" />
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="16" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Filters.ValidateModelAttribute" filename="CleanArchitecture.Web\Filters\ValidateModelAttribute.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="OnActionExecuting" signature="(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="9" hits="0" branch="False" />
+                <line number="10" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="17" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="11" hits="0" branch="False" />
+                <line number="12" hits="0" branch="False" />
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="9" hits="0" branch="False" />
+            <line number="10" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="17" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Controllers.HomeController" filename="CleanArchitecture.Web\Controllers\HomeController.cs" line-rate="0.5" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Index" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="8" hits="1" branch="False" />
+                <line number="9" hits="1" branch="False" />
+                <line number="10" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="Error" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="8" hits="1" branch="False" />
+            <line number="9" hits="1" branch="False" />
+            <line number="10" hits="1" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Controllers.ToDoController" filename="CleanArchitecture.Web\Controllers\ToDoController.cs" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Index" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="False" />
+                <line number="21" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Populate" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+                <line number="27" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Core.Interfaces.IRepository)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="18" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="False" />
+            <line number="21" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+            <line number="27" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Api.MetaController" filename="CleanArchitecture.Web\Api\MetaController.cs" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="Info" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="10" hits="1" branch="False" />
+                <line number="11" hits="1" branch="False" />
+                <line number="13" hits="1" branch="False" />
+                <line number="14" hits="1" branch="False" />
+                <line number="16" hits="1" branch="False" />
+                <line number="17" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="1" branch="False" />
+            <line number="11" hits="1" branch="False" />
+            <line number="13" hits="1" branch="False" />
+            <line number="14" hits="1" branch="False" />
+            <line number="16" hits="1" branch="False" />
+            <line number="17" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.Api.ToDoItemsController" filename="CleanArchitecture.Web\Api\ToDoItemsController.cs" line-rate="0.321" branch-rate="0" complexity="0">
+          <methods>
+            <method name="List" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="22" hits="1" branch="False" />
+                <line number="23" hits="1" branch="False" />
+                <line number="24" hits="1" branch="False" />
+                <line number="25" hits="1" branch="False" />
+                <line number="26" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name="GetById" signature="(System.Int32)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="31" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Post" signature="(CleanArchitecture.Web.ApiModels.ToDoItemDTO)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="False" />
+                <line number="41" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="46" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Complete" signature="(System.Int32)" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="53" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(CleanArchitecture.Core.Interfaces.IRepository)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="14" hits="1" branch="False" />
+                <line number="15" hits="1" branch="False" />
+                <line number="16" hits="1" branch="False" />
+                <line number="17" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="22" hits="1" branch="False" />
+            <line number="23" hits="1" branch="False" />
+            <line number="24" hits="1" branch="False" />
+            <line number="25" hits="1" branch="False" />
+            <line number="26" hits="1" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="False" />
+            <line number="41" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="53" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="14" hits="1" branch="False" />
+            <line number="15" hits="1" branch="False" />
+            <line number="16" hits="1" branch="False" />
+            <line number="17" hits="1" branch="False" />
+          </lines>
+        </class>
+        <class name="CleanArchitecture.Web.ApiModels.ToDoItemDTO" filename="CleanArchitecture.Web\ApiModels\ToDoItemDTO.cs" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="get_Id" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="13" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Title" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="15" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Description" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="16" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="get_IsDone" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="17" hits="6" branch="False" />
+              </lines>
+            </method>
+            <method name="FromToDoItem" signature="(CleanArchitecture.Core.Entities.ToDoItem)" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="20" hits="3" branch="False" />
+                <line number="21" hits="3" branch="False" />
+                <line number="22" hits="3" branch="False" />
+                <line number="23" hits="3" branch="False" />
+                <line number="24" hits="3" branch="False" />
+                <line number="25" hits="3" branch="False" />
+                <line number="26" hits="3" branch="False" />
+                <line number="27" hits="3" branch="False" />
+                <line number="28" hits="3" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="13" hits="6" branch="False" />
+            <line number="15" hits="6" branch="False" />
+            <line number="16" hits="6" branch="False" />
+            <line number="17" hits="6" branch="False" />
+            <line number="20" hits="3" branch="False" />
+            <line number="21" hits="3" branch="False" />
+            <line number="22" hits="3" branch="False" />
+            <line number="23" hits="3" branch="False" />
+            <line number="24" hits="3" branch="False" />
+            <line number="25" hits="3" branch="False" />
+            <line number="26" hits="3" branch="False" />
+            <line number="27" hits="3" branch="False" />
+            <line number="28" hits="3" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+    <package name="CleanArchitecture.Web.Views" line-rate="0.3" branch-rate="0.372" complexity="0">
+      <classes>
+        <class name="AspNetCore.Pages_ToDoRazorPage_Index/&lt;ExecuteAsync&gt;d__0" filename="CleanArchitecture.Web\Pages\ToDoRazorPage\Index.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="6" hits="0" branch="False" />
+                <line number="7" hits="0" branch="False" />
+                <line number="8" hits="0" branch="False" />
+                <line number="9" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="6" hits="0" branch="False" />
+            <line number="7" hits="0" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="9" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="AspNetCore.Pages_ToDoRazorPage_Populate/&lt;ExecuteAsync&gt;d__8" filename="CleanArchitecture.Web\Pages\ToDoRazorPage\Populate.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="3" hits="0" branch="True" condition-coverage="0% (0/8)">
+                  <conditions>
+                    <condition number="14" type="jump" coverage="0%" />
+                    <condition number="399" type="jump" coverage="0%" />
+                    <condition number="502" type="jump" coverage="0%" />
+                    <condition number="535" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="3" hits="0" branch="True" condition-coverage="0% (0/8)">
+              <conditions>
+                <condition number="14" type="jump" coverage="0%" />
+                <condition number="399" type="jump" coverage="0%" />
+                <condition number="502" type="jump" coverage="0%" />
+                <condition number="535" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Pages__ViewStart/&lt;ExecuteAsync&gt;d__0" filename="CleanArchitecture.Web\Pages\_ViewStart.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="2" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="2" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Home_Index/&lt;ExecuteAsync&gt;d__13" filename="CleanArchitecture.Web\Views\Home\Index.cshtml" line-rate="1" branch-rate="1" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="1">
+              <lines>
+                <line number="2" hits="1" branch="True" condition-coverage="100% (16/16)">
+                  <conditions>
+                    <condition number="488" type="jump" coverage="100%" />
+                    <condition number="591" type="jump" coverage="100%" />
+                    <condition number="624" type="jump" coverage="100%" />
+                    <condition number="1148" type="jump" coverage="100%" />
+                    <condition number="1255" type="jump" coverage="100%" />
+                    <condition number="1288" type="jump" coverage="100%" />
+                    <condition number="1707" type="jump" coverage="100%" />
+                    <condition number="1814" type="jump" coverage="100%" />
+                    <condition number="1847" type="jump" coverage="100%" />
+                    <condition number="2263" type="jump" coverage="100%" />
+                    <condition number="2370" type="jump" coverage="100%" />
+                    <condition number="2403" type="jump" coverage="100%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="2" hits="1" branch="True" condition-coverage="100% (16/16)">
+              <conditions>
+                <condition number="488" type="jump" coverage="100%" />
+                <condition number="591" type="jump" coverage="100%" />
+                <condition number="624" type="jump" coverage="100%" />
+                <condition number="1148" type="jump" coverage="100%" />
+                <condition number="1255" type="jump" coverage="100%" />
+                <condition number="1288" type="jump" coverage="100%" />
+                <condition number="1707" type="jump" coverage="100%" />
+                <condition number="1814" type="jump" coverage="100%" />
+                <condition number="1847" type="jump" coverage="100%" />
+                <condition number="2263" type="jump" coverage="100%" />
+                <condition number="2370" type="jump" coverage="100%" />
+                <condition number="2403" type="jump" coverage="100%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Shared_Error/&lt;ExecuteAsync&gt;d__0" filename="CleanArchitecture.Web\Views\Shared\Error.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="2" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="2" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Shared__Layout/&lt;&lt;ExecuteAsync&gt;b__38_3&gt;d" filename="CleanArchitecture.Web\Views\Shared\_Layout.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="16" hits="0" branch="True" condition-coverage="0% (0/21)">
+                  <conditions>
+                    <condition number="8" type="switch" coverage="0%" />
+                    <condition number="158" type="jump" coverage="0%" />
+                    <condition number="575" type="jump" coverage="0%" />
+                    <condition number="678" type="jump" coverage="0%" />
+                    <condition number="711" type="jump" coverage="0%" />
+                    <condition number="961" type="jump" coverage="0%" />
+                    <condition number="1280" type="jump" coverage="0%" />
+                    <condition number="1387" type="jump" coverage="0%" />
+                    <condition number="1420" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="16" hits="0" branch="True" condition-coverage="0% (0/21)">
+              <conditions>
+                <condition number="8" type="switch" coverage="0%" />
+                <condition number="158" type="jump" coverage="0%" />
+                <condition number="575" type="jump" coverage="0%" />
+                <condition number="678" type="jump" coverage="0%" />
+                <condition number="711" type="jump" coverage="0%" />
+                <condition number="961" type="jump" coverage="0%" />
+                <condition number="1280" type="jump" coverage="0%" />
+                <condition number="1387" type="jump" coverage="0%" />
+                <condition number="1420" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Shared__Layout/&lt;&lt;ExecuteAsync&gt;b__38_0&gt;d" filename="CleanArchitecture.Web\Views\Shared\_Layout.cshtml" line-rate="1" branch-rate="0.412" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="0.412">
+              <lines>
+                <line number="6" hits="1" branch="True" condition-coverage="41.199999999999996% (7/17)">
+                  <conditions>
+                    <condition number="8" type="switch" coverage="20%" />
+                    <condition number="434" type="jump" coverage="50%" />
+                    <condition number="537" type="jump" coverage="100%" />
+                    <condition number="570" type="jump" coverage="50%" />
+                    <condition number="988" type="jump" coverage="50%" />
+                    <condition number="1095" type="jump" coverage="50%" />
+                    <condition number="1128" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="6" hits="1" branch="True" condition-coverage="41.199999999999996% (7/17)">
+              <conditions>
+                <condition number="8" type="switch" coverage="20%" />
+                <condition number="434" type="jump" coverage="50%" />
+                <condition number="537" type="jump" coverage="100%" />
+                <condition number="570" type="jump" coverage="50%" />
+                <condition number="988" type="jump" coverage="50%" />
+                <condition number="1095" type="jump" coverage="50%" />
+                <condition number="1128" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Shared__Layout/&lt;&lt;ExecuteAsync&gt;b__38_10&gt;d" filename="CleanArchitecture.Web\Views\Shared\_Layout.cshtml" line-rate="1" branch-rate="0.613" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="0.613">
+              <lines>
+                <line number="49" hits="1" branch="True" condition-coverage="61.3% (19/31)">
+                  <conditions>
+                    <condition number="8" type="switch" coverage="14.299999999999999%" />
+                    <condition number="173" type="jump" coverage="100%" />
+                    <condition number="320" type="jump" coverage="50%" />
+                    <condition number="423" type="jump" coverage="100%" />
+                    <condition number="456" type="jump" coverage="50%" />
+                    <condition number="706" type="jump" coverage="100%" />
+                    <condition number="854" type="jump" coverage="50%" />
+                    <condition number="961" type="jump" coverage="100%" />
+                    <condition number="994" type="jump" coverage="50%" />
+                    <condition number="1244" type="jump" coverage="100%" />
+                    <condition number="1541" type="jump" coverage="50%" />
+                    <condition number="1648" type="jump" coverage="100%" />
+                    <condition number="1681" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="49" hits="1" branch="True" condition-coverage="61.3% (19/31)">
+              <conditions>
+                <condition number="8" type="switch" coverage="14.299999999999999%" />
+                <condition number="173" type="jump" coverage="100%" />
+                <condition number="320" type="jump" coverage="50%" />
+                <condition number="423" type="jump" coverage="100%" />
+                <condition number="456" type="jump" coverage="50%" />
+                <condition number="706" type="jump" coverage="100%" />
+                <condition number="854" type="jump" coverage="50%" />
+                <condition number="961" type="jump" coverage="100%" />
+                <condition number="994" type="jump" coverage="50%" />
+                <condition number="1244" type="jump" coverage="100%" />
+                <condition number="1541" type="jump" coverage="50%" />
+                <condition number="1648" type="jump" coverage="100%" />
+                <condition number="1681" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Shared__Layout/&lt;&lt;ExecuteAsync&gt;b__38_11&gt;d" filename="CleanArchitecture.Web\Views\Shared\_Layout.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="60" hits="0" branch="True" condition-coverage="0% (0/27)">
+                  <conditions>
+                    <condition number="8" type="switch" coverage="0%" />
+                    <condition number="449" type="jump" coverage="0%" />
+                    <condition number="552" type="jump" coverage="0%" />
+                    <condition number="585" type="jump" coverage="0%" />
+                    <condition number="1112" type="jump" coverage="0%" />
+                    <condition number="1219" type="jump" coverage="0%" />
+                    <condition number="1252" type="jump" coverage="0%" />
+                    <condition number="1502" type="jump" coverage="0%" />
+                    <condition number="1799" type="jump" coverage="0%" />
+                    <condition number="1906" type="jump" coverage="0%" />
+                    <condition number="1939" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="60" hits="0" branch="True" condition-coverage="0% (0/27)">
+              <conditions>
+                <condition number="8" type="switch" coverage="0%" />
+                <condition number="449" type="jump" coverage="0%" />
+                <condition number="552" type="jump" coverage="0%" />
+                <condition number="585" type="jump" coverage="0%" />
+                <condition number="1112" type="jump" coverage="0%" />
+                <condition number="1219" type="jump" coverage="0%" />
+                <condition number="1252" type="jump" coverage="0%" />
+                <condition number="1502" type="jump" coverage="0%" />
+                <condition number="1799" type="jump" coverage="0%" />
+                <condition number="1906" type="jump" coverage="0%" />
+                <condition number="1939" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_Shared__Layout/&lt;&lt;ExecuteAsync&gt;b__38_1&gt;d" filename="CleanArchitecture.Web\Views\Shared\_Layout.cshtml" line-rate="1" branch-rate="0.444" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="0.444">
+              <lines>
+                <line number="39" hits="1" branch="True" condition-coverage="44.1% (15/34)">
+                  <conditions>
+                    <condition number="8" type="switch" coverage="10%" />
+                    <condition number="498" type="jump" coverage="50%" />
+                    <condition number="601" type="jump" coverage="100%" />
+                    <condition number="634" type="jump" coverage="50%" />
+                    <condition number="1161" type="jump" coverage="50%" />
+                    <condition number="1268" type="jump" coverage="100%" />
+                    <condition number="1301" type="jump" coverage="50%" />
+                    <condition number="1830" type="jump" coverage="50%" />
+                    <condition number="1937" type="jump" coverage="100%" />
+                    <condition number="1970" type="jump" coverage="50%" />
+                    <condition number="2388" type="jump" coverage="50%" />
+                    <condition number="2495" type="jump" coverage="50%" />
+                    <condition number="2528" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="63" hits="1" branch="True" condition-coverage="50% (1/2)">
+                  <conditions>
+                    <condition number="2784" type="jump" coverage="50%" />
+                  </conditions>
+                </line>
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="39" hits="1" branch="True" condition-coverage="44.1% (15/34)">
+              <conditions>
+                <condition number="8" type="switch" coverage="10%" />
+                <condition number="498" type="jump" coverage="50%" />
+                <condition number="601" type="jump" coverage="100%" />
+                <condition number="634" type="jump" coverage="50%" />
+                <condition number="1161" type="jump" coverage="50%" />
+                <condition number="1268" type="jump" coverage="100%" />
+                <condition number="1301" type="jump" coverage="50%" />
+                <condition number="1830" type="jump" coverage="50%" />
+                <condition number="1937" type="jump" coverage="100%" />
+                <condition number="1970" type="jump" coverage="50%" />
+                <condition number="2388" type="jump" coverage="50%" />
+                <condition number="2495" type="jump" coverage="50%" />
+                <condition number="2528" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="63" hits="1" branch="True" condition-coverage="50% (1/2)">
+              <conditions>
+                <condition number="2784" type="jump" coverage="50%" />
+              </conditions>
+            </line>
+          </lines>
+        </class>
+        <class name="AspNetCore.Views_ToDo_Index/&lt;ExecuteAsync&gt;d__0" filename="CleanArchitecture.Web\Views\ToDo\Index.cshtml" line-rate="0" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0">
+              <lines>
+                <line number="2" hits="0" branch="False" />
+                <line number="7" hits="0" branch="False" />
+                <line number="8" hits="0" branch="False" />
+                <line number="9" hits="0" branch="False" />
+                <line number="10" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="2" hits="0" branch="False" />
+            <line number="7" hits="0" branch="False" />
+            <line number="8" hits="0" branch="False" />
+            <line number="9" hits="0" branch="False" />
+            <line number="10" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="AspNetCore.Views__ViewStart/&lt;ExecuteAsync&gt;d__0" filename="CleanArchitecture.Web\Views\_ViewStart.cshtml" line-rate="1" branch-rate="0" complexity="0">
+          <methods>
+            <method name="MoveNext" signature="()" line-rate="1" branch-rate="0">
+              <lines>
+                <line number="2" hits="1" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="2" hits="1" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>
