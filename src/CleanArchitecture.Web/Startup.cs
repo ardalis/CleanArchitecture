@@ -24,8 +24,9 @@ namespace CleanArchitecture.Web
         }
 
         public IConfiguration Configuration { get; }
+        //public ILifetimeScope AutofacContainer { get; private set; }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -38,40 +39,49 @@ namespace CleanArchitecture.Web
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
-//                options.UseInMemoryDatabase(dbName));
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                                                                   //                options.UseInMemoryDatabase(dbName));
+                                                                   //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc()
-                .AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .AddControllersAsServices();
+                //.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            //});
 
-            return BuildDependencyInjectionProvider(services);
+            //return BuildDependencyInjectionProvider(services);
         }
 
-        private static IServiceProvider BuildDependencyInjectionProvider(IServiceCollection services)
+        public void ConfigureContainer(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();
-
-            // Populate the container using the service collection
-            builder.Populate(services);
-
+            //            builder.RegisterModule(new AutofacModule());
             Assembly webAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
             Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
             builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
-
-            IContainer applicationContainer = builder.Build();
-            return new AutofacServiceProvider(applicationContainer);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        //private static IServiceProvider BuildDependencyInjectionProvider(IServiceCollection services)
+        //{
+        //    var builder = new ContainerBuilder();
+
+        //    // Populate the container using the service collection
+        //    builder.Populate(services);
+
+        //    Assembly webAssembly = Assembly.GetExecutingAssembly();
+        //    Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
+        //    Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
+        //    builder.RegisterAssemblyTypes(webAssembly, coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
+
+        //    IContainer applicationContainer = builder.Build();
+        //    return new AutofacServiceProvider(applicationContainer);
+        //}
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -86,19 +96,22 @@ namespace CleanArchitecture.Web
             app.UseCookiePolicy();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            //app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            //});
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
