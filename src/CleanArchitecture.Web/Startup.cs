@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -27,9 +26,8 @@ namespace CleanArchitecture.Web
 
 			services.AddDbContext();
 
-			services.AddMvc(setupAction => setupAction.EnableEndpointRouting = false)
-				.AddControllersAsServices()
-				.SetCompatibilityVersion(CompatibilityVersion.Latest);
+			services.AddControllersWithViews().AddNewtonsoftJson();
+			services.AddRazorPages();
 
 			services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" }));
 
@@ -47,6 +45,7 @@ namespace CleanArchitecture.Web
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
+			app.UseRouting();
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
@@ -58,7 +57,11 @@ namespace CleanArchitecture.Web
 			// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 			app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
-			app.UseMvcWithDefaultRoute();
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapDefaultControllerRoute();
+				endpoints.MapRazorPages();
+			});
 		}
 	}
 }
