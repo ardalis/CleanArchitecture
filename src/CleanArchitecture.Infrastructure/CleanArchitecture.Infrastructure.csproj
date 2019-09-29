@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="SQLite" />
+    <PackageReference Include="NETStandard.Library" />
   </ItemGroup>
   
   <ItemGroup>

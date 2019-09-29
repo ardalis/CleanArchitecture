@@ -20,6 +20,7 @@
   </ItemGroup>
   
   <ItemGroup Condition="'$(TestProjectMode)' == 'true'">
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="coverlet.msbuild" Version="2.7.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
