@@ -49,6 +49,5 @@ can quickly merge or address your contributions.
   so that the issue is linked to the PR (and vice versa) and if/when the PR is merged,
   the issue is automatically closed.
   
-Thank for reading this and for considering contributing to this project!
-  
+Thank you for reading this and for considering contributing to this project!
   
