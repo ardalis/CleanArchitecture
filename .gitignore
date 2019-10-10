@@ -109,6 +109,10 @@ _TeamCity*
 # DotCover is a Code Coverage Tool
 *.dotCover
 
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
@@ -250,3 +254,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+*.sqlite

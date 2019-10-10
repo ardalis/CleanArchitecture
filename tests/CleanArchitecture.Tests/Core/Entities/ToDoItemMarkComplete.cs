@@ -3,14 +3,17 @@ using CleanArchitecture.Core.Events;
 using System.Linq;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Core.Entities
+namespace CleanArchitecture.UnitTests.Core.Entities
 {
-    public class ToDoItemMarkCompleteShould
+    public class ToDoItemMarkComplete
     {
         [Fact]
-        public void SetIsDoneToTrue()
+        public void SetsIsDoneToTrue()
         {
-            var item = new ToDoItem();
+            var item = new ToDoItemBuilder()
+                .WithDefaultValues()
+                .Description("")
+                .Build();
 
             item.MarkComplete();
 
@@ -18,9 +21,9 @@ namespace CleanArchitecture.Tests.Core.Entities
         }
 
         [Fact]
-        public void RaiseToDoItemCompletedEvent()
+        public void RaisesToDoItemCompletedEvent()
         {
-            var item = new ToDoItem();
+            var item = new ToDoItemBuilder().Build();
 
             item.MarkComplete();
 

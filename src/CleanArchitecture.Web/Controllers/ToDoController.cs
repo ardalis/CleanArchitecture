@@ -1,50 +1,29 @@
-﻿using CleanArchitecture.Core.Entities;
+﻿using CleanArchitecture.Core;
+using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace CleanArchitecture.Web.Controllers
 {
     public class ToDoController : Controller
     {
-        private readonly IRepository<ToDoItem> _todoRepository;
+        private readonly IRepository _repository;
 
-        public ToDoController(IRepository<ToDoItem> todoRepository)
+        public ToDoController(IRepository repository)
         {
-            _todoRepository = todoRepository;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            var items = _todoRepository.List();
+            var items = _repository.List<ToDoItem>();
             return View(items);
         }
 
         public IActionResult Populate()
         {
-            int recordsAdded = PopulateDatabase();
+            int recordsAdded = DatabasePopulator.PopulateDatabase(_repository);
             return Ok(recordsAdded);
-        }
-
-        public int PopulateDatabase()
-        {
-            if (_todoRepository.List().Any()) return 0;
-            _todoRepository.Add(new ToDoItem()
-            {
-                Title = "Get Sample Working",
-                Description = "Try to get the sample to build."
-            });
-            _todoRepository.Add(new ToDoItem()
-            {
-                Title = "Review Solution",
-                Description = "Review the different projects in the solution and how they relate to one another."
-            });
-            _todoRepository.Add(new ToDoItem()
-            {
-                Title = "Run and Review Tests",
-                Description = "Make sure all the tests run and review what they are doing."
-            });
-            return _todoRepository.List().Count;
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿@page
+@model CleanArchitecture.Web.Pages.ToDoRazorPage.IndexModel
+
+<h2>To Do Items (Razor Page)</h2>
+<ul>
+    @foreach (var item in Model.ToDoItems)
+    {
+        <li>@item.Title<br />@item.Description</li>
+    }
+</ul>

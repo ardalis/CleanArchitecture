@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Scripts">
+    <PowerShell>powershell -NoProfile -ExecutionPolicy Unrestricted -command</PowerShell>
+    <Pack>dotnet pack &quot;$(MSBuildProjectDirectory)\$(ProjectFileName)&quot; --no-build -o C:\NugetSource -c $(Configuration)</Pack>
+  </PropertyGroup>
+
+  <Target Name="PackNugets" AfterTargets="AfterBuild" Condition="'$(DeployNugetPackages)'=='true'">
+    <Exec Command="$(Pack)"/>
+  </Target>
+  
+  <!-- https://github.com/NuGet/Home/issues/4412. -->
+  <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
+    <ItemGroup>
+      <DepsFilePaths Include="$([System.IO.Path]::ChangeExtension('%(_ResolvedProjectReferencePaths.FullPath)', '.deps.json'))" />
+    </ItemGroup>
+    <Copy SourceFiles="%(DepsFilePaths.FullPath)" DestinationFolder="$(OutputPath)" Condition="Exists('%(DepsFilePaths.FullPath)')" />
+  </Target>
+  
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish" Condition="'$(WebProjectMode)' == 'true'">
+    <Exec Command="bower install" />
+    <Exec Command="dotnet bundle" />
+  </Target>
+</Project>

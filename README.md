@@ -1,18 +1,39 @@
-# CleanArchitecture
+[![Build Status](https://dev.azure.com/ardalis/CleanArchitecture/_apis/build/status/ardalis.CleanArchitecture?branchName=master)](https://dev.azure.com/ardalis/CleanArchitecture/_build/latest?definitionId=3&branchName=master)
+![Test Status](https://img.shields.io/azure-devops/tests/ardalis/CleanArchitecture/3.svg)
+[![Test Coverage](https://img.shields.io/azure-devops/coverage/ardalis/CleanArchitecture/3.svg)](https://dev.azure.com/ardalis/CleanArchitecture/_build?definitionId=3)
+
+# Clean Architecture
 
 A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is just the latest in a series of names for the same loosely-coupled, dependency-inverted architecture. You will also find it named [hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/).
+
+## Give a Star! :star:
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+
+## *Now available as a [project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) within Visual Studio.*
+
+## Versions
+
+The master branch is now using .NET Core Version 3.0. If you need a 2.x version use one of these tagged commits:
+
+- [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
+- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
+
+## Learn More
+
+- [DotNetRocks Podcast Discussion with Steve "ardalis" Smith](https://player.fm/series/net-rocks/clean-architecture-with-steve-smith)
+- [Fritz and Friends Streaming Discussion with Steve "ardalis" Smith](https://www.youtube.com/watch?v=k8cZUW4MS3I)
 
 # Goals
 
 The goal of this repository is to provide a basic solution structure that can be used to build Domain-Driven Design (DDD)-based or simply well-factored, SOLID applications using .NET Core. Learn more about these topics here:
 
-- [SOLID Principles of Object Oriented Design](http://bit.ly/SOLID-OOP)
-- [Domain-Driven Design Fundamentals](http://bit.ly/ddd-fundamentals)
+- [SOLID Principles of Object Oriented Design](https://www.pluralsight.com/courses/principles-oo-design)
+- [Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
 
 If you're used to building applications as single-project or as a set of projects that follow the traditional UI -> Business Layer -> Data Access Layer "N-Tier" architecture, I recommend you check out these two courses:
 
-- [Creating N-Tier Applications in C#, Part 1](http://bit.ly/PS-NTier1)
-- [Creating N-Tier Applications in C#, Part 2](http://bit.ly/PS-NTier2)
+- [Creating N-Tier Applications in C#, Part 1](https://www.pluralsight.com/courses/n-tier-apps-part1)
+- [Creating N-Tier Applications in C#, Part 2](https://www.pluralsight.com/courses/n-tier-csharp-part2)
 
 ## History and Shameless Plug Section
 
@@ -41,15 +62,15 @@ Many solutions will also reference a separate Shared Kernel project/package. I r
 
 Most of your application's dependencies on external resources should be implemented in classes defined in the Infrastructure project. These classes should implement interfaces defined in Core. If you have a very large project with many dependencies, it may make sense to have multiple Infrastructure projects (e.g. Infrastructure.Data), but for most projects one Infrastructure project with folders works fine. The sample includes data access and domain event implementations, but you would also add things like email providers, file access, web api clients, etc. to this project so they're not adding coupling to your Core or UI projects.
 
-The Infrastructure project depends on `Microsoft.EntityFrameworkCore.SqlServer` and `StructureMap.Microsoft.DependencyInjection`. The former is used because it's built into the default ASP.NET Core templates and is the least common denominator of data access. If desired, it can easily be replaced with a lighter-weight ORM like Dapper. StructureMap is used to allow wireup of dependencies to take place closest to where the implementations reside. In this case, an InfrastructreRegistry class can be used in the Infrastructure class to allow wireup of dependencies there, without the entry point of the application even having to have a reference to the project or its types. [Learn more about this technique](https://ardalis.com/avoid-referencing-infrastructure-in-visual-studio-solutions). The current implementation doesn't include this behavior - it's something I typically cover and have students add themselves in my workshops.
+The Infrastructure project depends on `Microsoft.EntityFrameworkCore.SqlServer` and `Autofac`. The former is used because it's built into the default ASP.NET Core templates and is the least common denominator of data access. If desired, it can easily be replaced with a lighter-weight ORM like Dapper. Autofac (formerly StructureMap) is used to allow wireup of dependencies to take place closest to where the implementations reside. In this case, an InfrastructreRegistry class can be used in the Infrastructure class to allow wireup of dependencies there, without the entry point of the application even having to have a reference to the project or its types. [Learn more about this technique](https://ardalis.com/avoid-referencing-infrastructure-in-visual-studio-solutions). The current implementation doesn't include this behavior - it's something I typically cover and have students add themselves in my workshops.
 
 ## The Web Project
 
 The entry point of the application is the ASP.NET Core web project. This is actually a console application, with a `public static void Main` method in `Program.cs`. It currently uses the default MVC organization (Controllers and Views folders) as well as most of the default ASP.NET Core project template code. This includes its configuration system, which uses the default `appsettings.json` file plus environment variables, and is configured in `Startup.cs`. The one dependency that you'll see used in this project is `StructureMap`, which is configured in the `Startup.cs` class. There are two reasons I prefer `StructureMap` to the built-in container that ships with ASP.NET Core (and which Microsoft states is only a starting point with minimal functionality). First, the above-mentioned technique for avoiding the need for project references between Web and Infrastructure projects. Second, its `WithDefaultConventions` convention saves a lot of boilerplate coding when you are wiring up implementations to interfaces that follow a simple naming convention. If for instance I have an `INotificationService` interface that I want to be resolved using an instance of `NotificationService`, in ASP.NET Core I would need to add a line of code to add this. With StructureMap's `WithDefaultConventions` convention, this wireup happens automatically. Any interface named `IWhatever` will be resolved by a class named `Whatever`.
 
-## The Test Project
+## The Test Projects
 
-In a real application I will likely have separate test projects, organized based on the kind of test (unit, functional, integration, performance, etc.) or by the project they are testing (Core, Infrastructure, Web), or both. For this simple starter kit, there is just one test project, with folders representing the projects being tested. In terms of dependencies, there are three worth noting:
+Test projects could be organized based on the kind of test (unit, functional, integration, performance, etc.) or by the project they are testing (Core, Infrastructure, Web), or both. For this simple starter kit, the test projects are organized based on the kind of test, with unit, functional and integration test projects existing in this solution. In terms of dependencies, there are three worth noting:
 
 - [xunit](https://www.nuget.org/packages/xunit) I'm using xunit because that's what ASP.NET Core uses internally to test the product. It works great and as new versions of ASP.NET Core ship, I'm confident it will continue to work well with it.
 
