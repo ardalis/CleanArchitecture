@@ -1,6 +1,8 @@
 ﻿using CleanArchitecture.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
 using Ardalis.EFCore.Extensions;
@@ -35,9 +37,9 @@ namespace CleanArchitecture.Infrastructure.Data
             //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public override int SaveChanges()
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            int result = base.SaveChanges();
+            int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             // ignore events if no dispatcher provided
             if (_dispatcher == null) return result;
@@ -54,11 +56,16 @@ namespace CleanArchitecture.Infrastructure.Data
                 entity.Events.Clear();
                 foreach (var domainEvent in events)
                 {
-                    _dispatcher.Dispatch(domainEvent);
+                    await _dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
                 }
             }
 
             return result;
+        }
+
+        public override int SaveChanges()
+        {
+            return SaveChangesAsync().GetAwaiter().GetResult();
         }
     }
 }

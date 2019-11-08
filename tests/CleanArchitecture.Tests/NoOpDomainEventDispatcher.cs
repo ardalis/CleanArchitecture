@@ -1,10 +1,14 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using System.Threading.Tasks;
+using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
 
 namespace CleanArchitecture.UnitTests
 {
     public class NoOpDomainEventDispatcher : IDomainEventDispatcher
     {
-        public void Dispatch(BaseDomainEvent domainEvent) { }
+        public Task Dispatch(BaseDomainEvent domainEvent)
+        {
+            return Task.CompletedTask;
+        }
     }
 }
