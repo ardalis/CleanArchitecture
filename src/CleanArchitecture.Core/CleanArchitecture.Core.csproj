@@ -9,4 +9,8 @@
     <PackageReference Include="Ardalis.GuardClauses" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArchitecture.SharedKernel\CleanArchitecture.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>
