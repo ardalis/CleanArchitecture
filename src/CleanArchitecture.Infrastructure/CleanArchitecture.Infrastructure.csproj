@@ -18,5 +18,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.Core\CleanArchitecture.Core.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.SharedKernel\CleanArchitecture.SharedKernel.csproj" />
   </ItemGroup>
 </Project>

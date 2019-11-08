@@ -3,7 +3,7 @@
   <ItemGroup>
     <PackageReference Update="ReportGenerator" Version="4.2.20" />
     <PackageReference Update="Moq" Version="4.13.0" />
-    
+    <PackageReference Update="Ardalis.ListStartupServices" Version="1.1.3" />
     <PackageReference Update="Autofac" Version="4.9.4" />
     <PackageReference Update="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
     <PackageReference Update="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
