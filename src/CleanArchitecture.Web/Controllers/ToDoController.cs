@@ -1,7 +1,9 @@
 ﻿using CleanArchitecture.Core;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CleanArchitecture.Web.Controllers
 {
@@ -16,7 +18,8 @@ namespace CleanArchitecture.Web.Controllers
 
         public IActionResult Index()
         {
-            var items = _repository.List<ToDoItem>();
+            var items = _repository.List<ToDoItem>()
+                            .Select(ToDoItemDTO.FromToDoItem);
             return View(items);
         }
 
