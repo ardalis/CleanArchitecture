@@ -2,6 +2,7 @@
 using CleanArchitecture.Core.Events;
 using CleanArchitecture.Core.Services;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CleanArchitecture.UnitTests.Core.Entities
@@ -9,19 +10,19 @@ namespace CleanArchitecture.UnitTests.Core.Entities
     public class ItemCompletedEmailNotificationHandlerHandle
     {
         [Fact]
-        public void ThrowsExceptionGivenNullEventArgument()
+        public async Task ThrowsExceptionGivenNullEventArgument()
         {
             var handler = new ItemCompletedEmailNotificationHandler();
 
-            Exception ex = Assert.Throws<ArgumentNullException>(() => handler.Handle(null));
+            Exception ex = await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null));
         }
 
         [Fact]
-        public void DoesNothingGivenEventInstance()
+        public async Task DoesNothingGivenEventInstance()
         {
             var handler = new ItemCompletedEmailNotificationHandler();
 
-            handler.Handle(new ToDoItemCompletedEvent(new ToDoItem()));
+            await handler.Handle(new ToDoItemCompletedEvent(new ToDoItem()));
         }
     }
 }
