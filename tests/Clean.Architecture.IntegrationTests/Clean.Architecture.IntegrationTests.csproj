@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.46" />
-  
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TestProjectMode>true</TestProjectMode>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Tests\Clean.Architecture.UnitTests.csproj" />
+    <ProjectReference Include="..\Clean.Architecture.Tests\Clean.Architecture.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

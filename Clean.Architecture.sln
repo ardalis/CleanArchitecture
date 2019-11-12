@@ -7,37 +7,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{106AE906-507
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B31B4797-1D9F-4288-808C-BE9A31A98C7D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Core", "src\CleanArchitecture.Core\Clean.Architecture.Core.csproj", "{4548EB20-1D1B-477B-AF6E-DD55653A6583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Core", "src\Clean.Architecture.Core\Clean.Architecture.Core.csproj", "{4548EB20-1D1B-477B-AF6E-DD55653A6583}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Infrastructure", "src\CleanArchitecture.Infrastructure\Clean.Architecture.Infrastructure.csproj", "{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Infrastructure", "src\Clean.Architecture.Infrastructure\Clean.Architecture.Infrastructure.csproj", "{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Web", "src\CleanArchitecture.Web\Clean.Architecture.Web.csproj", "{C9751CB7-4CD6-4633-A99A-4F6ADD525437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Web", "src\Clean.Architecture.Web\Clean.Architecture.Web.csproj", "{C9751CB7-4CD6-4633-A99A-4F6ADD525437}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.UnitTests", "tests\CleanArchitecture.Tests\Clean.Architecture.UnitTests.csproj", "{AEE17BAB-D187-4BC5-B640-40CC0749566C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.UnitTests", "tests\Clean.Architecture.Tests\Clean.Architecture.UnitTests.csproj", "{AEE17BAB-D187-4BC5-B640-40CC0749566C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{250F283E-FE2F-4BBD-9E63-A2265B84E23F}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipelines.yml = azure-pipelines.yml
-		CleanArchitecture.nuspec = CleanArchitecture.nuspec
 		DeploymentSettings.props = DeploymentSettings.props
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
+		LICENSE = LICENSE
 		nuget.config = nuget.config
 		Packages.props = Packages.props
-		.template.config\template.json = .template.config\template.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.FunctionalTests", "tests\CleanArchitecture.FunctionalTests\Clean.Architecture.FunctionalTests.csproj", "{7D84EFEE-A7D9-44AD-A0A3-38EC7882D94C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.FunctionalTests", "tests\Clean.Architecture.FunctionalTests\Clean.Architecture.FunctionalTests.csproj", "{7D84EFEE-A7D9-44AD-A0A3-38EC7882D94C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C9751CB7-4CD6-4633-A99A-4F6ADD525437} = {C9751CB7-4CD6-4633-A99A-4F6ADD525437}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.IntegrationTests", "tests\CleanArchitecture.IntegrationTests\Clean.Architecture.IntegrationTests.csproj", "{0776DC14-9000-47A4-A3F4-ECBCF8CEBC17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.IntegrationTests", "tests\Clean.Architecture.IntegrationTests\Clean.Architecture.IntegrationTests.csproj", "{0776DC14-9000-47A4-A3F4-ECBCF8CEBC17}"
 	ProjectSection(ProjectDependencies) = postProject
 		{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D} = {220361D6-9C76-4E3F-BD34-3C7B50E2CA4D}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.SharedKernel", "src\CleanArchitecture.SharedKernel\Clean.Architecture.SharedKernel.csproj", "{744AD1DC-E83E-4ACE-BE57-395395D6E357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.SharedKernel", "src\Clean.Architecture.SharedKernel\Clean.Architecture.SharedKernel.csproj", "{744AD1DC-E83E-4ACE-BE57-395395D6E357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

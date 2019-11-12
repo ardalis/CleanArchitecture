@@ -3,11 +3,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
     <TestProjectMode>true</TestProjectMode>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Tests\Clean.Architecture.UnitTests.csproj" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="ReportGenerator" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Clean.Architecture.Web\Clean.Architecture.Web.csproj" />
   </ItemGroup>
 
 </Project>
