@@ -1,13 +1,13 @@
 ﻿using Autofac;
-using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Core.SharedKernel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.SharedKernel;
 
-namespace CleanArchitecture.Infrastructure.DomainEvents
+namespace Clean.Architecture.Infrastructure.DomainEvents
 {
     // https://gist.github.com/jbogard/54d6569e883f63afebc7
     // http://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/

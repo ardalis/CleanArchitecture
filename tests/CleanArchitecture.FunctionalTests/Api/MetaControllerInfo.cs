@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Web;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Clean.Architecture.Web;
 using Xunit;
 
-namespace CleanArchitecture.FunctionalTests.Api
+namespace Clean.Architecture.FunctionalTests.Api
 {
     public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

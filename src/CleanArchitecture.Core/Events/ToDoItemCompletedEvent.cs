@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Core.SharedKernel;
+﻿using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.SharedKernel;
 
-namespace CleanArchitecture.Core.Events
+namespace Clean.Architecture.Core.Events
 {
     public class ToDoItemCompletedEvent : BaseDomainEvent
     {

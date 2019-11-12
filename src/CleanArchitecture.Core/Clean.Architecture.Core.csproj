@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.SharedKernel\CleanArchitecture.SharedKernel.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.SharedKernel\Clean.Architecture.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

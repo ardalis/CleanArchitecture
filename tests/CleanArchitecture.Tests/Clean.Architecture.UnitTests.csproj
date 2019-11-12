@@ -11,9 +11,9 @@
     <PackageReference Include="Moq" />
     <PackageReference Include="ReportGenerator" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CleanArchitecture.Web\CleanArchitecture.Web.csproj" />
+    <ProjectReference Include="..\..\src\CleanArchitecture.Web\Clean.Architecture.Web.csproj" />
   </ItemGroup>
 
 </Project>

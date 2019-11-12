@@ -1,12 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using CleanArchitecture.Core.SharedKernel;
-using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using Clean.Architecture.Core.SharedKernel;
+using Clean.Architecture.Infrastructure.Data;
 
-namespace CleanArchitecture.Infrastructure
+namespace Clean.Architecture.Infrastructure
 {
 	public static class ContainerSetup
 	{

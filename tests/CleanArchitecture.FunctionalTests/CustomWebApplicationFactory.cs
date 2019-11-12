@@ -1,15 +1,15 @@
-﻿using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.UnitTests;
-using CleanArchitecture.Web;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Infrastructure.Data;
+using Clean.Architecture.UnitTests;
+using Clean.Architecture.Web;
 
-namespace CleanArchitecture.FunctionalTests
+namespace Clean.Architecture.FunctionalTests
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {

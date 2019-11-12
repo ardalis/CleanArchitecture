@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Core.SharedKernel
+namespace Clean.Architecture.Core.SharedKernel
 {
     public abstract class BaseDomainEvent
     {

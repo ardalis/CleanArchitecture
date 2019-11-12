@@ -5,9 +5,9 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TestProjectMode>true</TestProjectMode>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Tests\CleanArchitecture.UnitTests.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Tests\Clean.Architecture.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

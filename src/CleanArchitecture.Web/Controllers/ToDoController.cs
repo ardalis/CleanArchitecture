@@ -1,11 +1,11 @@
-﻿using CleanArchitecture.Core;
-using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Web.ApiModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Clean.Architecture.Core;
+using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Web.ApiModels;
 
-namespace CleanArchitecture.Web.Controllers
+namespace Clean.Architecture.Web.Controllers
 {
     public class ToDoController : Controller
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using CleanArchitecture.Core.Interfaces;
-using CleanArchitecture.Core.SharedKernel;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.SharedKernel;
 
-namespace CleanArchitecture.UnitTests
+namespace Clean.Architecture.UnitTests
 {
     public class NoOpDomainEventDispatcher : IDomainEventDispatcher
     {

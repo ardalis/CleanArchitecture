@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Tests\CleanArchitecture.UnitTests.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Tests\Clean.Architecture.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

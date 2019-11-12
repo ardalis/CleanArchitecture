@@ -1,15 +1,15 @@
-﻿using CleanArchitecture.Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Core.SharedKernel;
 using Ardalis.EFCore.Extensions;
 using System.Reflection;
+using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.SharedKernel;
 using JetBrains.Annotations;
 
-namespace CleanArchitecture.Infrastructure.Data
+namespace Clean.Architecture.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

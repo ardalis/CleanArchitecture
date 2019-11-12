@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using CleanArchitecture.Core.SharedKernel;
+using Clean.Architecture.Core.SharedKernel;
 
-namespace CleanArchitecture.Core.Interfaces
+namespace Clean.Architecture.Core.Interfaces
 {
     public interface IHandle<in T> where T : BaseDomainEvent
     {

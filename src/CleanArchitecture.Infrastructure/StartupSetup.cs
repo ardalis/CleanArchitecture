@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Infrastructure.Data;
+﻿using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CleanArchitecture.Infrastructure
+namespace Clean.Architecture.Infrastructure
 {
 	public static class StartupSetup
 	{

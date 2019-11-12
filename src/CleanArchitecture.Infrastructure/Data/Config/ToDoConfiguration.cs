@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Core.Entities;
+﻿using Clean.Architecture.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CleanArchitecture.Infrastructure.Data.Config
+namespace Clean.Architecture.Infrastructure.Data.Config
 {
     public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
     {

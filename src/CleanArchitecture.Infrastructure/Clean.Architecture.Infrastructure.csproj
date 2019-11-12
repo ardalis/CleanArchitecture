@@ -15,8 +15,8 @@
     <PackageReference Include="SQLite" />
     <PackageReference Include="NETStandard.Library" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Core\CleanArchitecture.Core.csproj" />
+    <ProjectReference Include="..\CleanArchitecture.Core\Clean.Architecture.Core.csproj" />
   </ItemGroup>
 </Project>

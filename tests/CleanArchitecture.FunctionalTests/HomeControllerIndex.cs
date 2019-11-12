@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Web;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Clean.Architecture.Web;
 using Xunit;
 
-namespace CleanArchitecture.FunctionalTests
+namespace Clean.Architecture.FunctionalTests
 {
     public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

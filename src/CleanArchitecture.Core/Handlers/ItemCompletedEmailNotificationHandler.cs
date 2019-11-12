@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Ardalis.GuardClauses;
-using CleanArchitecture.Core.Events;
-using CleanArchitecture.Core.Interfaces;
+using Clean.Architecture.Core.Events;
+using Clean.Architecture.Core.Interfaces;
 
-namespace CleanArchitecture.Core.Services
+namespace Clean.Architecture.Core.Services
 {
     public class ItemCompletedEmailNotificationHandler : IHandle<ToDoItemCompletedEvent>
     {

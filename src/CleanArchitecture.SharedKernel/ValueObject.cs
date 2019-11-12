@@ -5,7 +5,7 @@ using System.Reflection;
 
 
 
-namespace CleanArchitecture.Core.SharedKernel
+namespace Clean.Architecture.Core.SharedKernel
 {
     // source: https://github.com/jhewlett/ValueObject
     public abstract class ValueObject : IEquatable<ValueObject>

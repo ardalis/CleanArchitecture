@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Core.SharedKernel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Clean.Architecture.Core.SharedKernel;
 
-namespace CleanArchitecture.Core.Interfaces
+namespace Clean.Architecture.Core.Interfaces
 {
     public interface IRepository
     {
