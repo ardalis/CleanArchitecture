@@ -1,14 +1,23 @@
 ﻿using CleanArchitecture.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.SharedKernel;
+using Ardalis.EFCore.Extensions;
+using System.Reflection;
+using JetBrains.Annotations;
 
 namespace CleanArchitecture.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
         private readonly IDomainEventDispatcher _dispatcher;
+
+        //public AppDbContext(DbContextOptions options) : base(options)
+        //{
+        //}
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
             : base(options)
@@ -18,9 +27,22 @@ namespace CleanArchitecture.Infrastructure.Data
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
 
-        public override int SaveChanges()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            int result = base.SaveChanges();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
+
+            // alternately this is built-in to EF Core 2.2
+            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            // ignore events if no dispatcher provided
+            if (_dispatcher == null) return result;
 
             // dispatch events only if save was successful
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
@@ -34,11 +56,16 @@ namespace CleanArchitecture.Infrastructure.Data
                 entity.Events.Clear();
                 foreach (var domainEvent in events)
                 {
-                    _dispatcher.Dispatch(domainEvent);
+                    await _dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
                 }
             }
 
             return result;
+        }
+
+        public override int SaveChanges()
+        {
+            return SaveChangesAsync().GetAwaiter().GetResult();
         }
     }
 }

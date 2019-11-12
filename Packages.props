@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <PackageReference Update="ReportGenerator" Version="4.2.20" />
+    <PackageReference Update="Moq" Version="4.13.0" />
+    
+    <PackageReference Update="Autofac" Version="4.9.4" />
+    <PackageReference Update="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Update="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Update="Microsoft.Web.LibraryManager.Build" Version="2.0.76" />
+    <PackageReference Update="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
+    <PackageReference Update="SQLite" Version="3.13.0" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
+    <PackageReference Update="Ardalis.EFCore.Extensions" Version="1.1.0" />
+    <PackageReference Update="Ardalis.GuardClauses" Version="1.2.9" />
+    <PackageReference Update="NETStandard.Library" Version="2.0.3" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TestProjectMode)' == 'true'">
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="coverlet.msbuild" Version="2.7.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.0.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.console" Version="2.4.1" PrivateAssets="all" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Integration.Web.Api
+namespace CleanArchitecture.FunctionalTests.Api
 {
     public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CleanArchitecture.Tests.Integration.Web
+namespace CleanArchitecture.FunctionalTests
 {
     public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
