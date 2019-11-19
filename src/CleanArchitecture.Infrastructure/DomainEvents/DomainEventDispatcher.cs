@@ -22,11 +22,7 @@ namespace CleanArchitecture.Infrastructure.DomainEvents
 
         public async Task Dispatch(BaseDomainEvent domainEvent)
         {
-            Type handlerType = typeof(IHandle<>).MakeGenericType(domainEvent.GetType());
-            Type wrapperType = typeof(DomainEventHandler<>).MakeGenericType(domainEvent.GetType());
-            IEnumerable handlers = (IEnumerable)_container.Resolve(typeof(IEnumerable<>).MakeGenericType(handlerType));
-            IEnumerable<DomainEventHandler> wrappedHandlers = handlers.Cast<object>()
-                .Select(handler => (DomainEventHandler)Activator.CreateInstance(wrapperType, handler));
+            var wrappedHandlers = GetWrappedHandlers(domainEvent);
 
             foreach (DomainEventHandler handler in wrappedHandlers)
             {
@@ -34,12 +30,23 @@ namespace CleanArchitecture.Infrastructure.DomainEvents
             }
         }
 
-        private abstract class DomainEventHandler
+        public IEnumerable<DomainEventHandler> GetWrappedHandlers(BaseDomainEvent domainEvent)
+        {
+            Type handlerType = typeof(IHandle<>).MakeGenericType(domainEvent.GetType());
+            Type wrapperType = typeof(DomainEventHandler<>).MakeGenericType(domainEvent.GetType());
+            IEnumerable handlers = (IEnumerable)_container.Resolve(typeof(IEnumerable<>).MakeGenericType(handlerType));
+            IEnumerable<DomainEventHandler> wrappedHandlers = handlers.Cast<object>()
+                .Select(handler => (DomainEventHandler)Activator.CreateInstance(wrapperType, handler));
+
+            return wrappedHandlers;
+        }
+
+        public abstract class DomainEventHandler
         {
             public abstract Task Handle(BaseDomainEvent domainEvent);
         }
 
-        private class DomainEventHandler<T> : DomainEventHandler
+        public class DomainEventHandler<T> : DomainEventHandler
             where T : BaseDomainEvent
         {
             private readonly IHandle<T> _handler;

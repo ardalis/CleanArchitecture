@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using CleanArchitecture.Core.SharedKernel;
+using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace CleanArchitecture.Infrastructure
 {
-	public static class ContainerSetup
+    public static class ContainerSetup
 	{
 		public static IServiceProvider InitializeWeb(Assembly webAssembly, IServiceCollection services) =>
 			new AutofacServiceProvider(BaseAutofacInitialization(setupAction =>
@@ -21,7 +21,7 @@ namespace CleanArchitecture.Infrastructure
 		{
 			var builder = new ContainerBuilder();
 
-			var coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
+			var coreAssembly = Assembly.GetAssembly(typeof(ToDoItem));
 			var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
 			builder.RegisterAssemblyTypes(coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
 
