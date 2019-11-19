@@ -12,7 +12,6 @@ namespace CleanArchitecture.Core.Services
             Guard.Against.Null(domainEvent, nameof(domainEvent));
 
             // Do Nothing
-
             return Task.CompletedTask;
         }
     }
