@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using CleanArchitecture.Core.Entities;
+using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -21,7 +21,7 @@ namespace CleanArchitecture.Infrastructure
 		{
 			var builder = new ContainerBuilder();
 
-			var coreAssembly = Assembly.GetAssembly(typeof(ToDoItem));
+			var coreAssembly = Assembly.GetAssembly(typeof(IRepository));
 			var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
 			builder.RegisterAssemblyTypes(coreAssembly, infrastructureAssembly).AsImplementedInterfaces();
 
