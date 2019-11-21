@@ -56,7 +56,7 @@ namespace CleanArchitecture.FunctionalTests
                     catch (Exception ex)
                     {
                         logger.LogError(ex, "An error occurred seeding the " +
-                            "database with test messages. Error: {ex.Message}");
+                            $"database with test messages. Error: {ex.Message}");
                     }
                 }
             });
