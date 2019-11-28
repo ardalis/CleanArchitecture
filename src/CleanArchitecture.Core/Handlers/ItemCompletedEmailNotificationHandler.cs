@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using CleanArchitecture.Core.Events;
-using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.SharedKernel.Interfaces;
 
 namespace CleanArchitecture.Core.Services
 {
