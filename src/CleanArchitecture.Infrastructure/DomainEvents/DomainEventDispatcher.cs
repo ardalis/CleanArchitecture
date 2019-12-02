@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
 using System;
 using System.Collections;

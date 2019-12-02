@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
 
 namespace CleanArchitecture.UnitTests

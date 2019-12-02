@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

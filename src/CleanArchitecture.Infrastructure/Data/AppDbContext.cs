@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
