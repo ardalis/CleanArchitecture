@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.SharedKernel.Interfaces;
-using CleanArchitecture.Core.SharedKernel;
+using CleanArchitecture.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using CleanArchitecture.SharedKernel.Interfaces;
-using CleanArchitecture.Core.SharedKernel;
+using CleanArchitecture.SharedKernel;
 using System;
 using System.Collections;
 using System.Collections.Generic;

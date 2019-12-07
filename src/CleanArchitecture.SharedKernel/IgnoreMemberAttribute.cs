@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Core.SharedKernel
+namespace CleanArchitecture.SharedKernel
 {
     // source: https://github.com/jhewlett/ValueObject
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
