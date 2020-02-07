@@ -13,7 +13,7 @@ If you like or are using this project to learn or start your solution, please gi
 
 ## Versions
 
-The master branch is now using .NET Core Version 3.0. If you need a 2.x version use one of these tagged commits:
+The master branch is now using .NET Core Version 3.1. If you need a 2.x version use one of these tagged commits:
 
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
 - [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
@@ -27,13 +27,19 @@ The master branch is now using .NET Core Version 3.0. If you need a 2.x version 
 
 The goal of this repository is to provide a basic solution structure that can be used to build Domain-Driven Design (DDD)-based or simply well-factored, SOLID applications using .NET Core. Learn more about these topics here:
 
-- [SOLID Principles of Object Oriented Design](https://www.pluralsight.com/courses/principles-oo-design)
+- [SOLID Principles for C# Developers](https://www.pluralsight.com/courses/csharp-solid-principles)
+- [SOLID Principles of Object Oriented Design](https://www.pluralsight.com/courses/principles-oo-design) (the original, longer course)
 - [Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
 
-If you're used to building applications as single-project or as a set of projects that follow the traditional UI -> Business Layer -> Data Access Layer "N-Tier" architecture, I recommend you check out these two courses:
+If you're used to building applications as single-project or as a set of projects that follow the traditional UI -> Business Layer -> Data Access Layer "N-Tier" architecture, I recommend you check out these two courses (ideally before DDD Fundamentals):
 
 - [Creating N-Tier Applications in C#, Part 1](https://www.pluralsight.com/courses/n-tier-apps-part1)
 - [Creating N-Tier Applications in C#, Part 2](https://www.pluralsight.com/courses/n-tier-csharp-part2)
+
+I also maintain Microsoft's reference application, eShopOnWeb, and its associated free eBook. Check them out here:
+
+- [eShopOnWeb on GitHub](https://github.com/dotnet-architecture/eShopOnWeb)
+- [Architecting Modern Web Applications with ASP.NET Core and Microsoft Azure](https://aka.ms/webappebook) (eBook)
 
 ## History and Shameless Plug Section
 
