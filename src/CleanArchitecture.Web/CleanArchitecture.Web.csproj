@@ -2,19 +2,20 @@
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.46" />
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <OutputType>Exe</OutputType>
     <WebProjectMode>true</WebProjectMode>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Ardalis.ListStartupServices" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" />
-    <PackageReference Include="Swashbuckle.AspNetCore" />
-    <PackageReference Include="NETStandard.Library" />
+    <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
   
   <ItemGroup>

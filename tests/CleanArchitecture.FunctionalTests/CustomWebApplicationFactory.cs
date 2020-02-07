@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.TestHost;
 
 namespace CleanArchitecture.FunctionalTests
 {
@@ -15,7 +16,9 @@ namespace CleanArchitecture.FunctionalTests
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.ConfigureServices(services =>
+            builder
+                .UseSolutionRelativeContentRoot("src/CleanArchitecture.Web")
+                .ConfigureServices(services =>
             {
                 // Create a new service provider.
                 var serviceProvider = new ServiceCollection()

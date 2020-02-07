@@ -255,3 +255,9 @@ paket-files/
 .idea/
 *.sln.iml
 *.sqlite
+
+# Nuget files
+DeploymentSettings.props
+Directory.Build.props
+Directory.Build.targets
+Packages.props

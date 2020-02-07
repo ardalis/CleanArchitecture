@@ -7,7 +7,6 @@ namespace CleanArchitecture.IntegrationTests.Data
 {
     public class EfRepositoryAdd : BaseEfRepoTestFixture
     {
-
         [Fact]
         public void AddsItemAndSetsId()
         {

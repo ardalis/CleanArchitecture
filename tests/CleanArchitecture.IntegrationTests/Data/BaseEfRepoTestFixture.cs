@@ -35,7 +35,5 @@ namespace CleanArchitecture.IntegrationTests.Data
             _dbContext = new AppDbContext(options, mockDispatcher.Object);
             return new EfRepository(_dbContext);
         }
-
-
     }
 }
