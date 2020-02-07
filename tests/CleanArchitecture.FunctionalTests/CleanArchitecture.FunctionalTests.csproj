@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Tests\CleanArchitecture.UnitTests.csproj" />
     <ProjectReference Include="..\CleanArchitecture.UnitTests\CleanArchitecture.UnitTests.csproj" />
   </ItemGroup>
 
