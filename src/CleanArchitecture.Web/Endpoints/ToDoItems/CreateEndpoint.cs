@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CleanArchitecture.Web.Endpoints.ToDoItems
 {
-    public class CreateHandler : BaseEndpoint<CreateCommand, CreatedResult>
+    public class CreateEndpoint : BaseEndpoint<CreateCommand, CreatedResult>
     {
         private readonly IRepository _repository;
 
-        public CreateHandler(IRepository repository)
+        public CreateEndpoint(IRepository repository)
         {
             _repository = repository;
         }
