@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Web.ApiModels;
-using CleanArchitecture.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 

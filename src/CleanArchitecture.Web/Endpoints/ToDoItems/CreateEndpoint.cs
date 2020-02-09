@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace CleanArchitecture.Web.Endpoints.ToDoItems
 {
@@ -32,20 +31,6 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             };
             return Ok(result);
         }
-    }
-
-    // Imagine these are separate classes attached to the Handler/Endpoint with + expansion in VS
-    public class CreateCommand
-    {
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string Description { get; set; }
-    }
-
-    public class CreatedResult : CreateCommand
-    {
-        public int Id { get; set; }
     }
 
 }
