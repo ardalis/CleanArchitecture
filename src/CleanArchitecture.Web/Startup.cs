@@ -1,4 +1,5 @@
 ﻿using Ardalis.ListStartupServices;
+using Autofac;
 using CleanArchitecture.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,11 +15,17 @@ namespace CleanArchitecture.Web
 {
 	public class Startup
 	{
-		public Startup(IConfiguration config) => this.Configuration = config;
+		private readonly IWebHostEnvironment _env;
+
+		public Startup(IConfiguration config, IWebHostEnvironment env)
+		{
+			Configuration = config;
+			_env = env;
+		}
 
 		public IConfiguration Configuration { get; }
 
-		public IServiceProvider ConfigureServices(IServiceCollection services)
+		public void ConfigureServices(IServiceCollection services)
 		{
 			services.Configure<CookiePolicyOptions>(options =>
 			{
@@ -42,10 +49,16 @@ namespace CleanArchitecture.Web
                 config.Path = "/listservices";
             });
 
-            return ContainerSetup.InitializeWeb(Assembly.GetExecutingAssembly(), services);
+            //return ContainerSetup.InitializeWeb(Assembly.GetExecutingAssembly(), services);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void ConfigureContainer(ContainerBuilder builder)
+		{
+			builder.RegisterModule(new DefaultInfrastructureModule(_env.EnvironmentName == "Development"));
+		}
+
+
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.EnvironmentName == "Development")
 			{
