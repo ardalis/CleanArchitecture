@@ -7,9 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace CleanArchitecture.Web
 {
