@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using Microsoft.AspNetCore.TestHost;
+using System.Linq;
 
 namespace CleanArchitecture.FunctionalTests
 {
@@ -20,18 +21,34 @@ namespace CleanArchitecture.FunctionalTests
                 .UseSolutionRelativeContentRoot("src/CleanArchitecture.Web")
                 .ConfigureServices(services =>
             {
-                // Create a new service provider.
-                var serviceProvider = new ServiceCollection()
-                    .AddEntityFrameworkInMemoryDatabase()
-                    .BuildServiceProvider();
+                // Remove the app's ApplicationDbContext registration.
+                var descriptor = services.SingleOrDefault(
+                    d => d.ServiceType ==
+                        typeof(DbContextOptions<AppDbContext>));
 
-                // Add a database context (AppDbContext) using an in-memory
-                // database for testing.
+                if (descriptor != null)
+                {
+                    services.Remove(descriptor);
+                }
+
+                // Add ApplicationDbContext using an in-memory database for testing.
                 services.AddDbContext<AppDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    options.UseInternalServiceProvider(serviceProvider);
                 });
+
+                //// Create a new service provider.
+                //var serviceProvider = new ServiceCollection()
+                //    .AddEntityFrameworkInMemoryDatabase()
+                //    .BuildServiceProvider();
+
+                //// Add a database context (AppDbContext) using an in-memory
+                //// database for testing.
+                //services.AddDbContext<AppDbContext>(options =>
+                //{
+                //    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                //    options.UseInternalServiceProvider(serviceProvider);
+                //});
 
                 services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
 

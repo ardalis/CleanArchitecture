@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Core.Entities;
+﻿using Autofac;
+using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Events;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.DomainEvents;
@@ -11,7 +12,9 @@ namespace CleanArchitecture.UnitTests.Core.DomainEvents
         [Fact]
         public void NotReturnAnEmptyListOfAvailableHandlers()
         {
-            var container = ContainerSetup.BaseAutofacInitialization();
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new DefaultInfrastructureModule(isDevelopment: true));
+            var container = builder.Build();
 
             var domainEventDispatcher = new DomainEventDispatcher(container);
             var toDoItemCompletedEvent = new ToDoItemCompletedEvent(new ToDoItem());
