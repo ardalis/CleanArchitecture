@@ -9,6 +9,8 @@ A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
+Or if you're feeling really generous, we now support GitHub sponsorships - see the button above.
+
 ## *Now available as a [project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) within Visual Studio.*
 
 ## Versions
