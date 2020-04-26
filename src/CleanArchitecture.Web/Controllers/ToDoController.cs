@@ -4,6 +4,7 @@ using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Controllers
 {
@@ -16,9 +17,9 @@ namespace CleanArchitecture.Web.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var items = _repository.List<ToDoItem>()
+            var items = (await _repository.ListAsync<ToDoItem>())
                             .Select(ToDoItemDTO.FromToDoItem);
             return View(items);
         }

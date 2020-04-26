@@ -1,14 +1,13 @@
-﻿using CleanArchitecture.Core.Entities;
+﻿using Ardalis.ApiEndpoints;
+using CleanArchitecture.Core.Entities;
 using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Swashbuckle.Swagger.Annotations;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Endpoints.ToDoItems
 {
-    public class GetById : Ardalis.ApiEndpoints.BaseAsyncEndpoint<GetByIdRequest,ToDoItemResponse>
+    public class GetById : BaseAsyncEndpoint<int,ToDoItemResponse>
     {
         private readonly IRepository _repository;
 
@@ -16,10 +15,11 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
         {
             _repository = repository;
         }
-        [HttpGet("{id:int}")]
-        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(GetByIdRequest request)
+        [HttpGet("/ToDoItems/{id:int}")]
+        [SwaggerOperation(Tags = new[] { "ToDoItem" })]
+        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id)
         {
-            var item = await _repository.GetByIdAsync<ToDoItem>(request.Id);
+            var item = await _repository.GetByIdAsync<ToDoItem>(id);
 
             var response = new ToDoItemResponse
             {

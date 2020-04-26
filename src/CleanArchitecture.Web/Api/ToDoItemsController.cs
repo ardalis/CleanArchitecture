@@ -19,9 +19,9 @@ namespace CleanArchitecture.Web.Api
 
         // GET: api/ToDoItems
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            var items = _repository.List<ToDoItem>()
+            var items = (await _repository.ListAsync<ToDoItem>())
                             .Select(ToDoItemDTO.FromToDoItem);
             return Ok(items);
         }

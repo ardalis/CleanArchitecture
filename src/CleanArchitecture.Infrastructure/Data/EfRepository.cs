@@ -26,9 +26,9 @@ namespace CleanArchitecture.Infrastructure.Data
             return _dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
 
-        public List<T> List<T>() where T : BaseEntity
+        public Task<List<T>> ListAsync<T>() where T : BaseEntity
         {
-            return _dbContext.Set<T>().ToList();
+            return _dbContext.Set<T>().ToListAsync();
         }
 
         public T Add<T>(T entity) where T : BaseEntity

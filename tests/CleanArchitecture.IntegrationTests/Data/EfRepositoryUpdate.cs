@@ -3,6 +3,7 @@ using CleanArchitecture.UnitTests;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CleanArchitecture.IntegrationTests.Data
@@ -10,7 +11,7 @@ namespace CleanArchitecture.IntegrationTests.Data
     public class EfRepositoryUpdate : BaseEfRepoTestFixture
     {
         [Fact]
-        public void UpdatesItemAfterAddingIt()
+        public async Task UpdatesItemAfterAddingIt()
         {
             // add an item
             var repository = GetRepository();
@@ -23,7 +24,7 @@ namespace CleanArchitecture.IntegrationTests.Data
             _dbContext.Entry(item).State = EntityState.Detached;
 
             // fetch the item and update its title
-            var newItem = repository.List<ToDoItem>()
+            var newItem = (await repository.ListAsync<ToDoItem>())
                 .FirstOrDefault(i => i.Title == initialTitle);
             Assert.NotNull(newItem);
             Assert.NotSame(item, newItem);
@@ -32,7 +33,7 @@ namespace CleanArchitecture.IntegrationTests.Data
 
             // Update the item
             repository.Update(newItem);
-            var updatedItem = repository.List<ToDoItem>()
+            var updatedItem = (await repository.ListAsync<ToDoItem>())
                 .FirstOrDefault(i => i.Title == newTitle);
 
             Assert.NotNull(updatedItem);
