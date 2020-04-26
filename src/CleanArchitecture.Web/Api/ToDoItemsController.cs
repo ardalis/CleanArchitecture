@@ -4,6 +4,7 @@ using CleanArchitecture.Web.ApiModels;
 using CleanArchitecture.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Api
 {
@@ -27,9 +28,9 @@ namespace CleanArchitecture.Web.Api
 
         // GET: api/ToDoItems
         [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem>(id));
+            var item =  ToDoItemDTO.FromToDoItem(await _repository.GetByIdAsync<ToDoItem>(id));
             return Ok(item);
         }
 
@@ -47,9 +48,9 @@ namespace CleanArchitecture.Web.Api
         }
 
         [HttpPatch("{id:int}/complete")]
-        public IActionResult Complete(int id)
+        public async Task<IActionResult> Complete(int id)
         {
-            var toDoItem = _repository.GetById<ToDoItem>(id);
+            var toDoItem = await _repository.GetByIdAsync<ToDoItem>(id);
             toDoItem.MarkComplete();
             _repository.Update(toDoItem);
 

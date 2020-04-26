@@ -3,6 +3,7 @@ using CleanArchitecture.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Data
 {
@@ -18,6 +19,11 @@ namespace CleanArchitecture.Infrastructure.Data
         public T GetById<T>(int id) where T : BaseEntity
         {
             return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+        }
+
+        public Task<T> GetByIdAsync<T>(int id) where T : BaseEntity
+        {
+            return _dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public List<T> List<T>() where T : BaseEntity
