@@ -9,7 +9,6 @@ namespace CleanArchitecture.SharedKernel.Interfaces
         Task<List<T>> ListAsync<T>() where T : BaseEntity;
         Task<T> AddAsync<T>(T entity) where T : BaseEntity;
         Task UpdateAsync<T>(T entity) where T : BaseEntity;
-
-        void Delete<T>(T entity) where T : BaseEntity;
+        Task DeleteAsync<T>(T entity) where T : BaseEntity;
     }
 }

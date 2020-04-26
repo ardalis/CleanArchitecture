@@ -45,10 +45,10 @@ namespace CleanArchitecture.Infrastructure.Data
             await _dbContext.SaveChangesAsync();
         }
 
-        public void Delete<T>(T entity) where T : BaseEntity
+        public async Task DeleteAsync<T>(T entity) where T : BaseEntity
         {
             _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

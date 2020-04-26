@@ -18,7 +18,7 @@ namespace CleanArchitecture.IntegrationTests.Data
             await repository.AddAsync(item);
 
             // delete the item
-            repository.Delete(item);
+            await repository.DeleteAsync(item);
 
             // verify it's no longer there
             Assert.DoesNotContain(await repository.ListAsync<ToDoItem>(),
