@@ -15,7 +15,7 @@ namespace CleanArchitecture.IntegrationTests.Data
             var repository = GetRepository();
             var initialTitle = Guid.NewGuid().ToString();
             var item = new ToDoItemBuilder().Title(initialTitle).Build();
-            repository.Add(item);
+            await repository.AddAsync(item);
 
             // delete the item
             repository.Delete(item);

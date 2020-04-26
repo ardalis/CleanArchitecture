@@ -18,7 +18,7 @@ namespace CleanArchitecture.IntegrationTests.Data
             var initialTitle = Guid.NewGuid().ToString();
             var item = new ToDoItemBuilder().Title(initialTitle).Build();
 
-            repository.Add(item);
+            await repository.AddAsync(item);
 
             // detach the item so we get a different instance
             _dbContext.Entry(item).State = EntityState.Detached;
@@ -32,7 +32,7 @@ namespace CleanArchitecture.IntegrationTests.Data
             newItem.Title = newTitle;
 
             // Update the item
-            repository.Update(newItem);
+            await repository.UpdateAsync(newItem);
             var updatedItem = (await repository.ListAsync<ToDoItem>())
                 .FirstOrDefault(i => i.Title == newTitle);
 

@@ -14,7 +14,7 @@ namespace CleanArchitecture.IntegrationTests.Data
             var repository = GetRepository();
             var item = new ToDoItemBuilder().Build();
 
-            repository.Add(item);
+            await repository.AddAsync(item);
 
             var newItem = (await repository.ListAsync<ToDoItem>())
                             .FirstOrDefault();

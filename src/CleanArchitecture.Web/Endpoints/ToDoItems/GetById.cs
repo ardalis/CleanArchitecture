@@ -15,6 +15,7 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
         {
             _repository = repository;
         }
+
         [HttpGet("/ToDoItems/{id:int}")]
         [SwaggerOperation(
             Summary = "Gets a single ToDoItem",

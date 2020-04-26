@@ -36,14 +36,14 @@ namespace CleanArchitecture.Web.Api
 
         // POST: api/ToDoItems
         [HttpPost]
-        public IActionResult Post([FromBody] ToDoItemDTO item)
+        public async Task<IActionResult> Post([FromBody] ToDoItemDTO item)
         {
             var todoItem = new ToDoItem()
             {
                 Title = item.Title,
                 Description = item.Description
             };
-            _repository.Add(todoItem);
+            await _repository.AddAsync(todoItem);
             return Ok(ToDoItemDTO.FromToDoItem(todoItem));
         }
 
@@ -52,7 +52,7 @@ namespace CleanArchitecture.Web.Api
         {
             var toDoItem = await _repository.GetByIdAsync<ToDoItem>(id);
             toDoItem.MarkComplete();
-            _repository.Update(toDoItem);
+            await _repository.UpdateAsync(toDoItem);
 
             return Ok(ToDoItemDTO.FromToDoItem(toDoItem));
         }
