@@ -2,8 +2,7 @@
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.Swagger.Annotations;
-using System;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +19,12 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
         }
 
         [HttpGet("/ToDoItems")]
-        [SwaggerOperation(Tags = new[] { "ToDoItem" })]
+        [SwaggerOperation(
+            Summary = "Gets a list of all ToDoItems",
+            Description = "Gets a list of all ToDoItems",
+            OperationId = "ToDoItem.List",
+            Tags = new[] { "ToDoItemEndpoint" })
+        ]
         public override async Task<ActionResult<List<ToDoItemResponse>>> HandleAsync()
         {
             var items = (await _repository.ListAsync<ToDoItem>())

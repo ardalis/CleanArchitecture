@@ -2,7 +2,7 @@
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.Swagger.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Endpoints.ToDoItems
@@ -16,7 +16,12 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             _repository = repository;
         }
         [HttpGet("/ToDoItems/{id:int}")]
-        [SwaggerOperation(Tags = new[] { "ToDoItem" })]
+        [SwaggerOperation(
+            Summary = "Gets a single ToDoItem",
+            Description = "Gets a single ToDoItem by Id",
+            OperationId = "ToDoItem.GetById",
+            Tags = new[] { "ToDoItemEndpoint" })
+        ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id)
         {
             var item = await _repository.GetByIdAsync<ToDoItem>(id);

@@ -45,6 +45,7 @@ namespace CleanArchitecture.Web
 
 			services.AddSwaggerGen(c => {
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+				c.EnableAnnotations();
 			});
 
 			// add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
