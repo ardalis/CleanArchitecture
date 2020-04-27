@@ -64,7 +64,9 @@ The Core project is the center of the Clean Architecture design, and all other p
 - Domain Services
 - Specifications
 
-Many solutions will also reference a separate Shared Kernel project/package. I recommend creating a separate SharedKernel project and solution if you will require sharing code between multiple projects. I further recommend this be published as a nuget package (more likely privately) and referenced as a nuget dependency by those projects that require it. For this sample, in the interest of simplicity, I've added a SharedKernel folder to the Core project which contains types that would likely be shared between multiple projects, in my experience.
+## The SharedKernel Project
+
+Many solutions will also reference a separate **Shared Kernel** project/package. I recommend creating a separate SharedKernel project and solution if you will require sharing code between multiple projects. I further recommend this be published as a nuget package (more likely privately within your organization) and referenced as a nuget dependency by those projects that require it. For this sample, in the interest of simplicity, I've added a SharedKernel project to the solution. It contains types that would likely be shared between multiple projects, in my experience.
 
 ## The Infrastructure Project
 
