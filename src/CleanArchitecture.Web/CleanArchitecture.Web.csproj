@@ -9,17 +9,25 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="Ardalis.ApiEndpoints" Version="0.9.4" />
     <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="3.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="3.1.1" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="3.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.3" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.3.3" />
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.Infrastructure\CleanArchitecture.Infrastructure.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Endpoints\ToDoItems\Update.NewToDoItemRequest.cs">
+      <DependentUpon>Update.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

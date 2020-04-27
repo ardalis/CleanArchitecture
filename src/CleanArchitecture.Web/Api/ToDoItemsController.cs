@@ -4,6 +4,7 @@ using CleanArchitecture.Web.ApiModels;
 using CleanArchitecture.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Api
 {
@@ -18,40 +19,40 @@ namespace CleanArchitecture.Web.Api
 
         // GET: api/ToDoItems
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            var items = _repository.List<ToDoItem>()
+            var items = (await _repository.ListAsync<ToDoItem>())
                             .Select(ToDoItemDTO.FromToDoItem);
             return Ok(items);
         }
 
         // GET: api/ToDoItems
         [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem>(id));
+            var item =  ToDoItemDTO.FromToDoItem(await _repository.GetByIdAsync<ToDoItem>(id));
             return Ok(item);
         }
 
         // POST: api/ToDoItems
         [HttpPost]
-        public IActionResult Post([FromBody] ToDoItemDTO item)
+        public async Task<IActionResult> Post([FromBody] ToDoItemDTO item)
         {
             var todoItem = new ToDoItem()
             {
                 Title = item.Title,
                 Description = item.Description
             };
-            _repository.Add(todoItem);
+            await _repository.AddAsync(todoItem);
             return Ok(ToDoItemDTO.FromToDoItem(todoItem));
         }
 
         [HttpPatch("{id:int}/complete")]
-        public IActionResult Complete(int id)
+        public async Task<IActionResult> Complete(int id)
         {
-            var toDoItem = _repository.GetById<ToDoItem>(id);
+            var toDoItem = await _repository.GetByIdAsync<ToDoItem>(id);
             toDoItem.MarkComplete();
-            _repository.Update(toDoItem);
+            await _repository.UpdateAsync(toDoItem);
 
             return Ok(ToDoItemDTO.FromToDoItem(toDoItem));
         }
