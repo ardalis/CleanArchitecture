@@ -8,7 +8,7 @@ namespace CleanArchitecture.Web.Controllers
         {
             return View();
         }
-
+//changes
         public IActionResult Error()
         {
             return View();
