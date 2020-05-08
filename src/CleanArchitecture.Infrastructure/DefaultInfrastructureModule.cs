@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CleanArchitecture.Core;
+using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.DomainEvents;
 using CleanArchitecture.SharedKernel.Interfaces;
@@ -49,6 +50,9 @@ namespace CleanArchitecture.Infrastructure
 
             builder.RegisterAssemblyTypes(_assemblies.ToArray())
                 .AsClosedTypesOf(typeof(IHandle<>));
+
+            builder.RegisterType<EmailSender>().As<IEmailSender>()
+                .InstancePerLifetimeScope();
         }
 
         private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)

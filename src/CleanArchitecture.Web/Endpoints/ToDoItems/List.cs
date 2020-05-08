@@ -23,7 +23,7 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             Summary = "Gets a list of all ToDoItems",
             Description = "Gets a list of all ToDoItems",
             OperationId = "ToDoItem.List",
-            Tags = new[] { "ToDoItemEndpoint" })
+            Tags = new[] { "ToDoItemEndpoints" })
         ]
         public override async Task<ActionResult<List<ToDoItemResponse>>> HandleAsync()
         {

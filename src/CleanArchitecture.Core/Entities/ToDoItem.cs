@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Core.Events;
+using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.SharedKernel;
 
 namespace CleanArchitecture.Core.Entities
@@ -12,7 +13,14 @@ namespace CleanArchitecture.Core.Entities
         public void MarkComplete()
         {
             IsDone = true;
+
             Events.Add(new ToDoItemCompletedEvent(this));
+        }
+
+        public override string ToString()
+        {
+            string status = IsDone ? "Done!" : "Not done.";
+            return $"{Id}: Status: {status} - {Title} - {Description}";
         }
     }
 }

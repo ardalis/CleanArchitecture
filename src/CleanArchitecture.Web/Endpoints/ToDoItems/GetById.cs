@@ -21,7 +21,7 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             Summary = "Gets a single ToDoItem",
             Description = "Gets a single ToDoItem by Id",
             OperationId = "ToDoItem.GetById",
-            Tags = new[] { "ToDoItemEndpoint" })
+            Tags = new[] { "ToDoItemEndpoints" })
         ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id)
         {

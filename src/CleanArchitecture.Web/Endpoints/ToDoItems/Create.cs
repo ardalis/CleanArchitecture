@@ -21,7 +21,7 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             Summary = "Creates a new ToDoItem",
             Description = "Creates a new ToDoItem",
             OperationId = "ToDoItem.Create",
-            Tags = new[] { "ToDoItemEndpoint" })
+            Tags = new[] { "ToDoItemEndpoints" })
         ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(NewToDoItemRequest request)
         {

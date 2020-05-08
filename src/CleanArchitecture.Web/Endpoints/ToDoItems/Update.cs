@@ -19,9 +19,9 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
         [HttpPut("/ToDoItems")]
         [SwaggerOperation(
             Summary = "Updates a ToDoItem",
-            Description = "Updates a ToDoItem",
+            Description = "Updates a ToDoItem with a longer description",
             OperationId = "ToDoItem.Update",
-            Tags = new[] { "ToDoItemEndpoint" })
+            Tags = new[] { "ToDoItemEndpoints" })
         ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(UpdateToDoItemRequest request)
         {
