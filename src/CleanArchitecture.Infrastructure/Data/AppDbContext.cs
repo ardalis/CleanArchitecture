@@ -8,21 +8,22 @@ using CleanArchitecture.SharedKernel;
 using Ardalis.EFCore.Extensions;
 using System.Reflection;
 using JetBrains.Annotations;
+using MediatR;
 
 namespace CleanArchitecture.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly IDomainEventDispatcher _dispatcher;
+        private readonly IMediator _mediator;
 
         //public AppDbContext(DbContextOptions options) : base(options)
         //{
         //}
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IMediator mediator)
             : base(options)
         {
-            _dispatcher = dispatcher;
+            _mediator = mediator;
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
@@ -42,7 +43,7 @@ namespace CleanArchitecture.Infrastructure.Data
             int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             // ignore events if no dispatcher provided
-            if (_dispatcher == null) return result;
+            if (_mediator == null) return result;
 
             // dispatch events only if save was successful
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
@@ -56,7 +57,7 @@ namespace CleanArchitecture.Infrastructure.Data
                 entity.Events.Clear();
                 foreach (var domainEvent in events)
                 {
-                    await _dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
+                    await _mediator.Publish(domainEvent).ConfigureAwait(false);
                 }
             }
 

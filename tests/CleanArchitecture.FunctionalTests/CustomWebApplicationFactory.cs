@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using Microsoft.AspNetCore.TestHost;
 using System.Linq;
+using MediatR;
 
 namespace CleanArchitecture.FunctionalTests
 {
@@ -50,7 +51,7 @@ namespace CleanArchitecture.FunctionalTests
                 //    options.UseInternalServiceProvider(serviceProvider);
                 //});
 
-                services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+                services.AddScoped<IMediator, NoOpMediator>();
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
