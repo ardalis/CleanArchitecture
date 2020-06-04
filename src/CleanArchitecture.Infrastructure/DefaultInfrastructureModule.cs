@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using CleanArchitecture.Core;
 using CleanArchitecture.Core.Interfaces;
+using CleanArchitecture.Core.Services;
 using CleanArchitecture.Infrastructure.Data;
-using CleanArchitecture.Infrastructure.DomainEvents;
 using CleanArchitecture.SharedKernel.Interfaces;
+using MediatR;
+using MediatR.Pipeline;
 using System.Collections.Generic;
 using System.Reflection;
 using Module = Autofac.Module;
@@ -43,13 +45,35 @@ namespace CleanArchitecture.Infrastructure
 
         private void RegisterCommonDependencies(ContainerBuilder builder)
         {
-            builder.RegisterType<DomainEventDispatcher>().As<IDomainEventDispatcher>()
-                .InstancePerLifetimeScope();
             builder.RegisterType<EfRepository>().As<IRepository>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(_assemblies.ToArray())
-                .AsClosedTypesOf(typeof(IHandle<>));
+            builder
+                .RegisterType<Mediator>()
+                .As<IMediator>()
+                .InstancePerLifetimeScope();
+
+            builder.Register<ServiceFactory>(context =>
+            {
+                var c = context.Resolve<IComponentContext>();
+                return t => c.Resolve(t);
+            });
+
+            var mediatrOpenTypes = new[]
+            {
+                typeof(IRequestHandler<,>),
+                typeof(IRequestExceptionHandler<,,>),
+                typeof(IRequestExceptionAction<,>),
+                typeof(INotificationHandler<>),
+            };
+
+            foreach (var mediatrOpenType in mediatrOpenTypes)
+            {
+                builder
+                .RegisterAssemblyTypes(_assemblies.ToArray())
+                .AsClosedTypesOf(mediatrOpenType)
+                .AsImplementedInterfaces();
+            }
 
             builder.RegisterType<EmailSender>().As<IEmailSender>()
                 .InstancePerLifetimeScope();
