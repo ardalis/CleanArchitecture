@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.UnitTests;
 using CleanArchitecture.Web;
@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.TestHost;
+using System.Linq;
+using MediatR;
 
 namespace CleanArchitecture.FunctionalTests
 {
@@ -15,22 +18,40 @@ namespace CleanArchitecture.FunctionalTests
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.ConfigureServices(services =>
+            builder
+                .UseSolutionRelativeContentRoot("src/CleanArchitecture.Web")
+                .ConfigureServices(services =>
             {
-                // Create a new service provider.
-                var serviceProvider = new ServiceCollection()
-                    .AddEntityFrameworkInMemoryDatabase()
-                    .BuildServiceProvider();
+                // Remove the app's ApplicationDbContext registration.
+                var descriptor = services.SingleOrDefault(
+                    d => d.ServiceType ==
+                        typeof(DbContextOptions<AppDbContext>));
 
-                // Add a database context (AppDbContext) using an in-memory
-                // database for testing.
+                if (descriptor != null)
+                {
+                    services.Remove(descriptor);
+                }
+
+                // Add ApplicationDbContext using an in-memory database for testing.
                 services.AddDbContext<AppDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    options.UseInternalServiceProvider(serviceProvider);
                 });
 
-                services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+                //// Create a new service provider.
+                //var serviceProvider = new ServiceCollection()
+                //    .AddEntityFrameworkInMemoryDatabase()
+                //    .BuildServiceProvider();
+
+                //// Add a database context (AppDbContext) using an in-memory
+                //// database for testing.
+                //services.AddDbContext<AppDbContext>(options =>
+                //{
+                //    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                //    options.UseInternalServiceProvider(serviceProvider);
+                //});
+
+                services.AddScoped<IMediator, NoOpMediator>();
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
@@ -56,7 +77,7 @@ namespace CleanArchitecture.FunctionalTests
                     catch (Exception ex)
                     {
                         logger.LogError(ex, "An error occurred seeding the " +
-                            "database with test messages. Error: {ex.Message}");
+                            $"database with test messages. Error: {ex.Message}");
                     }
                 }
             });

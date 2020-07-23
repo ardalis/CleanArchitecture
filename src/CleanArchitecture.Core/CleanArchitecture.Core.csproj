@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses" />
+    <PackageReference Include="Ardalis.GuardClauses" Version="1.4.2" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArchitecture.SharedKernel\CleanArchitecture.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Core.SharedKernel;
+using CleanArchitecture.SharedKernel;
 
 namespace CleanArchitecture.Core.Events
 {
