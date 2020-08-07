@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Web.Endpoints.ToDoItems
@@ -25,7 +26,7 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             OperationId = "ToDoItem.List",
             Tags = new[] { "ToDoItemEndpoints" })
         ]
-        public override async Task<ActionResult<List<ToDoItemResponse>>> HandleAsync()
+        public override async Task<ActionResult<List<ToDoItemResponse>>> HandleAsync(CancellationToken cancellationToken)
         {
             var items = (await _repository.ListAsync<ToDoItem>())
                 .Select(item => new ToDoItemResponse
