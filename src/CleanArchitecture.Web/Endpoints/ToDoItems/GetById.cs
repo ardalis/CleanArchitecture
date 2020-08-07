@@ -1,4 +1,5 @@
-﻿using Ardalis.ApiEndpoints;
+﻿using System.Threading;
+using Ardalis.ApiEndpoints;
 using CleanArchitecture.Core.Entities;
 using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace CleanArchitecture.Web.Endpoints.ToDoItems
             OperationId = "ToDoItem.GetById",
             Tags = new[] { "ToDoItemEndpoints" })
         ]
-        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id)
+        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id, CancellationToken cancellationToken)
         {
             var item = await _repository.GetByIdAsync<ToDoItem>(id);
 
