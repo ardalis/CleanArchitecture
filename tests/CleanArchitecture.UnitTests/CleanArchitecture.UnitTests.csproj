@@ -4,7 +4,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <TestProjectMode>true</TestProjectMode>
   </PropertyGroup>
 
   <ItemGroup>
