@@ -1,5 +1,7 @@
-﻿using CleanArchitecture.SharedKernel.Interfaces;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
 using CleanArchitecture.SharedKernel;
+using CleanArchitecture.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,12 @@ namespace CleanArchitecture.Infrastructure.Data
             return _dbContext.Set<T>().ToListAsync();
         }
 
+        public async Task<List<T>> ListAsync<T>(ISpecification<T> spec) where T : BaseEntity
+        {
+            var specificationResult = ApplySpecification(spec);
+            return await specificationResult.ToListAsync();
+        }
+
         public async Task<T> AddAsync<T>(T entity) where T : BaseEntity
         {
             await _dbContext.Set<T>().AddAsync(entity);
@@ -49,6 +57,12 @@ namespace CleanArchitecture.Infrastructure.Data
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
+        }
+
+        private IQueryable<T> ApplySpecification<T>(ISpecification<T> spec) where T : BaseEntity
+        {
+            var evaluator = new SpecificationEvaluator<T>();
+            return evaluator.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
         }
     }
 }
