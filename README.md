@@ -1,6 +1,3 @@
-[![Build Status](https://dev.azure.com/ardalis/CleanArchitecture/_apis/build/status/ardalis.CleanArchitecture?branchName=master)](https://dev.azure.com/ardalis/CleanArchitecture/_build/latest?definitionId=3&branchName=master)
-![Test Status](https://img.shields.io/azure-devops/tests/ardalis/CleanArchitecture/3.svg)
-[![Test Coverage](https://img.shields.io/azure-devops/coverage/ardalis/CleanArchitecture/3.svg)](https://dev.azure.com/ardalis/CleanArchitecture/_build?definitionId=3)
 
 # Clean Architecture
 
