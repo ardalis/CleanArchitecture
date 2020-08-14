@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses" Version="1.4.2" />
-    <PackageReference Include="MediatR" Version="8.0.1" />
+    <PackageReference Include="Ardalis.GuardClauses" Version="2.0.0" />
+    <PackageReference Include="Ardalis.Specification" Version="4.0.0" />
+    <PackageReference Include="MediatR" Version="8.1.0" />
   </ItemGroup>
 
   <ItemGroup>
