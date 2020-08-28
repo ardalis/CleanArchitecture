@@ -24,6 +24,17 @@ namespace CleanArchitecture.UnitTests.Core.Services
             Assert.Equal(Ardalis.Result.ResultStatus.Invalid, result.Status);
         }
 
+        [Fact]
+        public async Task ReturnsListGivenSearchString()
+        {
+            var repo = new Mock<IRepository>();
+            var service = new ToDoItemSearchService(repo.Object);
+
+            var result = await service.GetAllIncompleteItems("foo");
+
+            Assert.Equal(Ardalis.Result.ResultStatus.Ok, result.Status);
+        }
+
         private List<ToDoItem> GetTestItems()
         {
             // Note: could use AutoFixture
