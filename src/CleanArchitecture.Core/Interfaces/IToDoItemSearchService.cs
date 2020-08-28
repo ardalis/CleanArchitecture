@@ -7,7 +7,7 @@ namespace CleanArchitecture.Core.Interfaces
 {
     public interface IToDoItemSearchService
     {
-        Task<Result<ToDoItem>> GetNextIncompleteItem();
-        Task<Result<List<ToDoItem>>> GetAllIncompleteItems(string searchString);
+        Task<Result<ToDoItem>> GetNextIncompleteItemAsync();
+        Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string searchString);
     }
 }

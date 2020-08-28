@@ -3,6 +3,7 @@ using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Interfaces;
 using CleanArchitecture.Core.Specifications;
 using CleanArchitecture.SharedKernel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace CleanArchitecture.Core.Services
             _repository = repository;
         }
 
-        public async Task<Result<List<ToDoItem>>> GetAllIncompleteItems(string searchString)
+        public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string searchString)
         {
             if(string.IsNullOrEmpty(searchString))
             {
@@ -33,12 +34,20 @@ namespace CleanArchitecture.Core.Services
 
             var incompleteSpec = new IncompleteItemsSpecification();
 
-            var items = await _repository.ListAsync(incompleteSpec);
-            
-            return new Result<List<ToDoItem>>(items);
+            try
+            {
+                var items = await _repository.ListAsync(incompleteSpec);
+
+                return new Result<List<ToDoItem>>(items);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log details here
+                return Result<List<ToDoItem>>.Error(new[] { ex.Message });
+            }
         }
 
-        public async Task<Result<ToDoItem>> GetNextIncompleteItem()
+        public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync()
         {
             var incompleteSpec = new IncompleteItemsSpecification();
 

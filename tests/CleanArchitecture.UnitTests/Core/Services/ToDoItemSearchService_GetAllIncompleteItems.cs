@@ -19,9 +19,25 @@ namespace CleanArchitecture.UnitTests.Core.Services
             var repo = new Mock<IRepository>();
             var service = new ToDoItemSearchService(repo.Object);
 
-            var result = await service.GetAllIncompleteItems(null);
+            var result = await service.GetAllIncompleteItemsAsync(null);
 
             Assert.Equal(Ardalis.Result.ResultStatus.Invalid, result.Status);
+            Assert.Equal("searchString is required.", result.ValidationErrors.First().ErrorMessage);
+        }
+
+        [Fact]
+        public async Task ReturnsErrorGivenDataAccessException()
+        {
+            string expectedErrorMessage = "Database not there.";
+            var repo = new Mock<IRepository>();
+            var service = new ToDoItemSearchService(repo.Object);
+            repo.Setup(r => r.ListAsync(It.IsAny<ISpecification<ToDoItem>>()))
+                .ThrowsAsync(new System.Exception(expectedErrorMessage));
+
+            var result = await service.GetAllIncompleteItemsAsync("something");
+
+            Assert.Equal(Ardalis.Result.ResultStatus.Error, result.Status);
+            Assert.Equal(expectedErrorMessage, result.Errors.First());
         }
 
         [Fact]
@@ -30,28 +46,9 @@ namespace CleanArchitecture.UnitTests.Core.Services
             var repo = new Mock<IRepository>();
             var service = new ToDoItemSearchService(repo.Object);
 
-            var result = await service.GetAllIncompleteItems("foo");
+            var result = await service.GetAllIncompleteItemsAsync("foo");
 
             Assert.Equal(Ardalis.Result.ResultStatus.Ok, result.Status);
-        }
-
-        private List<ToDoItem> GetTestItems()
-        {
-            // Note: could use AutoFixture
-            var builder = new ToDoItemBuilder();
-
-            var items = new List<ToDoItem>();
-
-            var item1 = builder.WithDefaultValues().Build();
-            items.Add(item1);
-
-            var item2 = builder.WithDefaultValues().Id(2).Build();
-            items.Add(item2);
-
-            var item3 = builder.WithDefaultValues().Id(3).Build();
-            items.Add(item3);
-
-            return items;
         }
     }
 }
