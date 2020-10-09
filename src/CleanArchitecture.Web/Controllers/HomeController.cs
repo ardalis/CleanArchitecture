@@ -12,7 +12,7 @@ namespace CleanArchitecture.Web.Controllers
         }
         public IActionResult Index()
         {
-            _logger.LogInformation($"Called GET on {nameof(Index)}"); //, nameof(Index));
+            _logger.LogInformation("Called GET on {action}", nameof(Index));
             return View();
         }
 
