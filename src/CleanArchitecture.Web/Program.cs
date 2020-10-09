@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using Serilog;
+using Serilog.Formatting.Compact;
 
 namespace CleanArchitecture.Web
 {
@@ -14,42 +16,61 @@ namespace CleanArchitecture.Web
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateLogger();
 
-            using (var scope = host.Services.CreateScope())
+            try
             {
-                var services = scope.ServiceProvider;
+                Log.Information("Starting up");
+                var host = CreateHostBuilder(args).Build();
 
-                try
+                using (var scope = host.Services.CreateScope())
                 {
-                    var context = services.GetRequiredService<AppDbContext>();
-//                    context.Database.Migrate();
-                    context.Database.EnsureCreated();
-                    SeedData.Initialize(services);
+                    var services = scope.ServiceProvider;
+
+                    try
+                    {
+                        var context = services.GetRequiredService<AppDbContext>();
+                        //                    context.Database.Migrate();
+                        context.Database.EnsureCreated();
+                        SeedData.Initialize(services);
+                    }
+                    catch (Exception ex)
+                    {
+                        var logger = services.GetRequiredService<ILogger<Program>>();
+                        logger.LogError(ex, "An error occurred seeding the DB.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }
+
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Application start-up failed");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
             }
 
-            host.Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
+        .UseSerilog()
         .UseServiceProviderFactory(new AutofacServiceProviderFactory())
         .ConfigureWebHostDefaults(webBuilder =>
         {
-            webBuilder
-                .UseStartup<Startup>()
-                .ConfigureLogging(logging =>
-            {
-                logging.ClearProviders();
-                logging.AddConsole();
-                // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
-            });
+            webBuilder.UseStartup<Startup>();
+            //     .ConfigureLogging(logging =>
+            // {
+            //     logging.ClearProviders();
+            //     logging.AddConsole();
+            //     // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
+            // });
         });
 
     }
