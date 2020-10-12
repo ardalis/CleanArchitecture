@@ -1,8 +1,9 @@
-﻿using CleanArchitecture.Core.Interfaces;
+﻿using CleanArchitecture.SharedKernel.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using MediatR;
 
 namespace CleanArchitecture.IntegrationTests.Data
 {
@@ -30,12 +31,10 @@ namespace CleanArchitecture.IntegrationTests.Data
         protected EfRepository GetRepository()
         {
             var options = CreateNewContextOptions();
-            var mockDispatcher = new Mock<IDomainEventDispatcher>();
+            var mockMediator = new Mock<IMediator>();
 
-            _dbContext = new AppDbContext(options, mockDispatcher.Object);
+            _dbContext = new AppDbContext(options, mockMediator.Object);
             return new EfRepository(_dbContext);
         }
-
-
     }
 }

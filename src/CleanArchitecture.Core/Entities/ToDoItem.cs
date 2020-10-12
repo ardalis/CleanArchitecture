@@ -1,9 +1,10 @@
 ﻿using CleanArchitecture.Core.Events;
-using CleanArchitecture.Core.SharedKernel;
+using CleanArchitecture.SharedKernel;
+using CleanArchitecture.SharedKernel.Interfaces;
 
 namespace CleanArchitecture.Core.Entities
 {
-    public class ToDoItem : BaseEntity
+    public class ToDoItem : BaseEntity, IAggregateRoot
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; }
@@ -12,7 +13,14 @@ namespace CleanArchitecture.Core.Entities
         public void MarkComplete()
         {
             IsDone = true;
+
             Events.Add(new ToDoItemCompletedEvent(this));
+        }
+
+        public override string ToString()
+        {
+            string status = IsDone ? "Done!" : "Not done.";
+            return $"{Id}: Status: {status} - {Title} - {Description}";
         }
     }
 }

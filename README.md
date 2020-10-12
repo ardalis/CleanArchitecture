@@ -1,6 +1,4 @@
-[![Build Status](https://dev.azure.com/ardalis/CleanArchitecture/_apis/build/status/ardalis.CleanArchitecture?branchName=master)](https://dev.azure.com/ardalis/CleanArchitecture/_build/latest?definitionId=3&branchName=master)
-![Test Status](https://img.shields.io/azure-devops/tests/ardalis/CleanArchitecture/3.svg)
-[![Test Coverage](https://img.shields.io/azure-devops/coverage/ardalis/CleanArchitecture/3.svg)](https://dev.azure.com/ardalis/CleanArchitecture/_build?definitionId=3)
+[![.NET Core](https://github.com/ardalis/CleanArchitecture/workflows/.NET%20Core/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions)
 
 # Clean Architecture
 
@@ -9,11 +7,13 @@ A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
+Or if you're feeling really generous, we now support GitHub sponsorships - see the button above.
+
 ## *Now available as a [project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) within Visual Studio.*
 
 ## Versions
 
-The master branch is now using .NET Core Version 3.0. If you need a 2.x version use one of these tagged commits:
+The master branch is now using .NET Core Version 3.1. If you need a 2.x version use one of these tagged commits:
 
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
 - [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
@@ -23,17 +23,54 @@ The master branch is now using .NET Core Version 3.0. If you need a 2.x version 
 - [DotNetRocks Podcast Discussion with Steve "ardalis" Smith](https://player.fm/series/net-rocks/clean-architecture-with-steve-smith)
 - [Fritz and Friends Streaming Discussion with Steve "ardalis" Smith](https://www.youtube.com/watch?v=k8cZUW4MS3I)
 
+# Getting Started
+
+To use this template, there are a few options:
+
+- [Install the Visual Studio Template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) and use it within Visual Studio
+- Download this Repository
+
+I'll cover both options here.
+
+## Using the Visual Studio Item Template
+
+After installing the template, you should be able to create a new project in Visual Studio and search for Clean Architecture. You should see the template appear in your list of project templates:
+
+![Clean Architecture Project Template](https://user-images.githubusercontent.com/782127/80412393-cd116880-889b-11ea-886f-9b91fffbc767.png)
+
+After choosing this template, provide a project name and finish the project creation wizard. You should be all set.
+
+![Clean Architecture Project Template step 2](https://user-images.githubusercontent.com/782127/80412455-e5818300-889b-11ea-8219-379581583a92.png)
+
+Note that the template is generally only updated with major updates to the project. The GitHub repository will always have the latest bug fixes and enhancements.
+
+## Using the GitHub Repository
+
+To get started based on this repository, you need to get a copy locally. You have three options: fork, clone, or download. Most of the time, you probably just want to download.
+
+You should **download the repository**, unblock the zip file, and extract it to a new folder if you just want to play with the project or you wish to use it as the starting point for an application.
+
+You should **fork this repository** only if you plan on submitting a pull request. Or if you'd like to keep a copy of a snapshot of the repository in your own GitHub account.
+
+You should **clone this repository** if you're one of the contributors and you have commit access to it. Otherwise you probably want one of the other options.
+
 # Goals
 
 The goal of this repository is to provide a basic solution structure that can be used to build Domain-Driven Design (DDD)-based or simply well-factored, SOLID applications using .NET Core. Learn more about these topics here:
 
-- [SOLID Principles of Object Oriented Design](https://www.pluralsight.com/courses/principles-oo-design)
+- [SOLID Principles for C# Developers](https://www.pluralsight.com/courses/csharp-solid-principles)
+- [SOLID Principles of Object Oriented Design](https://www.pluralsight.com/courses/principles-oo-design) (the original, longer course)
 - [Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)
 
-If you're used to building applications as single-project or as a set of projects that follow the traditional UI -> Business Layer -> Data Access Layer "N-Tier" architecture, I recommend you check out these two courses:
+If you're used to building applications as single-project or as a set of projects that follow the traditional UI -> Business Layer -> Data Access Layer "N-Tier" architecture, I recommend you check out these two courses (ideally before DDD Fundamentals):
 
 - [Creating N-Tier Applications in C#, Part 1](https://www.pluralsight.com/courses/n-tier-apps-part1)
 - [Creating N-Tier Applications in C#, Part 2](https://www.pluralsight.com/courses/n-tier-csharp-part2)
+
+I also maintain Microsoft's reference application, eShopOnWeb, and its associated free eBook. Check them out here:
+
+- [eShopOnWeb on GitHub](https://github.com/dotnet-architecture/eShopOnWeb)
+- [Architecting Modern Web Applications with ASP.NET Core and Microsoft Azure](https://aka.ms/webappebook) (eBook)
 
 ## History and Shameless Plug Section
 
@@ -56,7 +93,9 @@ The Core project is the center of the Clean Architecture design, and all other p
 - Domain Services
 - Specifications
 
-Many solutions will also reference a separate Shared Kernel project/package. I recommend creating a separate SharedKernel project and solution if you will require sharing code between multiple projects. I further recommend this be published as a nuget package (more likely privately) and referenced as a nuget dependency by those projects that require it. For this sample, in the interest of simplicity, I've added a SharedKernel folder to the Core project which contains types that would likely be shared between multiple projects, in my experience.
+## The SharedKernel Project
+
+Many solutions will also reference a separate **Shared Kernel** project/package. I recommend creating a separate SharedKernel project and solution if you will require sharing code between multiple projects. I further recommend this be published as a nuget package (more likely privately within your organization) and referenced as a nuget dependency by those projects that require it. For this sample, in the interest of simplicity, I've added a SharedKernel project to the solution. It contains types that would likely be shared between multiple projects, in my experience.
 
 ## The Infrastructure Project
 
@@ -78,4 +117,13 @@ Test projects could be organized based on the kind of test (unit, functional, in
 
 - [Microsoft.AspNetCore.TestHost](https://www.nuget.org/packages/Microsoft.AspNetCore.TestHost) I'm using TestHost to test my web project using its full stack, not just unit testing action methods. Using TestHost, you make actual HttpClient requests without going over the wire (so no firewall or port configuration issues). Tests run in memory and are very fast, and requests exercise the full MVC stack, including routing, model binding, model validation, filters, etc.
 
+# Patterns Used
+
+This solution template has code built in to support a few common patterns, especially Domain-Driven Design patterns. Here is a brief overview of how a few of them work.
+
+## Domain Events
+
+Domain events are a great pattern for decoupling a trigger for an operation from its implementation. This is especially useful from within domain entities since the handlers of the events can have dependencies while the entities themselves typically do not. In the sample, you can see this in action with the `ToDoItem.MarkComplete()` method. The following sequence diagram demonstrates how the event and its handler are used when an item is marked complete through a web API endpoint.
+
+![Domain Event Sequence Diagram](https://user-images.githubusercontent.com/782127/75702680-216ce300-5c73-11ea-9187-ec656192ad3b.png)
 

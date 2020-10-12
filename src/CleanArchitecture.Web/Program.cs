@@ -1,8 +1,10 @@
-﻿using CleanArchitecture.Infrastructure.Data;
+﻿using Autofac.Extensions.DependencyInjection;
+using CleanArchitecture.Infrastructure.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -12,7 +14,7 @@ namespace CleanArchitecture.Web
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
@@ -35,8 +37,20 @@ namespace CleanArchitecture.Web
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+                // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
+            });
+        });
+
     }
 }
