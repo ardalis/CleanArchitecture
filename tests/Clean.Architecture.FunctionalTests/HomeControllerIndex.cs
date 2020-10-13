@@ -21,7 +21,7 @@ namespace Clean.Architecture.FunctionalTests
             response.EnsureSuccessStatusCode();
             string stringResponse = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("CleanArchitecture.Web", stringResponse);
+            Assert.Contains("Clean.Architecture.Web", stringResponse);
         }
     }
 }
