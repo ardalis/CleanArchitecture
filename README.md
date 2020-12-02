@@ -144,3 +144,10 @@ Domain events are a great pattern for decoupling a trigger for an operation from
 
 ![Domain Event Sequence Diagram](https://user-images.githubusercontent.com/782127/75702680-216ce300-5c73-11ea-9187-ec656192ad3b.png)
 
+## Related Projects
+
+- [ApiEndpoints](https://github.com/ardalis/apiendpoints)
+- [GuardClauses](https://github.com/ardalis/guardclauses)
+- [Result](https://github.com/ardalis/result)
+- [Specification](https://github.com/ardalis/specification)
+
