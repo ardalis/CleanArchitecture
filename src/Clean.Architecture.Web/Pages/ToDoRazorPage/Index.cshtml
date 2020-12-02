@@ -1,0 +1,20 @@
+﻿@page
+@model Clean.Architecture.Web.Pages.ToDoRazorPage.IndexModel
+
+<h2>To Do Items (Razor Page)</h2>
+<ul>
+    @foreach (var item in Model.ToDoItems)
+    {
+        <li>
+            @item.Title @if (item.IsDone)
+        {
+            <span>DONE!</span>
+        }
+        else
+        {
+        <span>NOT DONE</span>
+        }
+            <br />@item.Description
+        </li>
+    }
+</ul>

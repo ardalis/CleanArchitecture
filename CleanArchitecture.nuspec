@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>CleanArchitecture.Template</id>
+    <version>1.0.0</version>
+    <authors>Steve Smith, Erik Dahl</authors>
+    <description>
+ASP.NET Core template for solution using the Steve Smith's CleanArchitecture.   
+    </description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
+    <releaseNotes>
+  </releaseNotes>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+</package> 
