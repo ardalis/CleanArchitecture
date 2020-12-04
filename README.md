@@ -46,6 +46,23 @@ After choosing this template, provide a project name and finish the project crea
 
 Note that the template is generally only updated with major updates to the project. The GitHub repository will always have the latest bug fixes and enhancements.
 
+## Using the dotnet CLI template
+
+* Clone the repo into an empty folder
+* Make sure you have the [nuget CLI](https://www.nuget.org/downloads) installed
+* In the root directory, run `nuget pack`. This will create CleanArchitecture.Template.1.0.0.nupkg.
+* Make sure you have the [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) installed
+Run `dotnet new -i CleanArchitecture.Template.1.0.0.nupkg`. This will install the templates from this package into the dotnet CLI.
+
+Now to create a brand new project using the template:
+
+Navigate to the directory where you will put the new solution.
+Run `dotnet new clean-arch -o Your.ProjectName` where `Your.ProjectName` is whatever you want to name the project.
+The `Your.ProjectName` directory and solution file will be created, and inside that will be all of your new solution
+contents, properly namespaced and ready to run/test.
+
+**NOTE**: Eventually the template will be on NuGet.org itself, at which point you'll be able to just run `dotnet new -i CleanArchitecture.Templates`, but this isn't ready yet.
+
 ## Using the GitHub Repository
 
 To get started based on this repository, you need to get a copy locally. You have three options: fork, clone, or download. Most of the time, you probably just want to download.
@@ -128,4 +145,11 @@ This solution template has code built in to support a few common patterns, espec
 Domain events are a great pattern for decoupling a trigger for an operation from its implementation. This is especially useful from within domain entities since the handlers of the events can have dependencies while the entities themselves typically do not. In the sample, you can see this in action with the `ToDoItem.MarkComplete()` method. The following sequence diagram demonstrates how the event and its handler are used when an item is marked complete through a web API endpoint.
 
 ![Domain Event Sequence Diagram](https://user-images.githubusercontent.com/782127/75702680-216ce300-5c73-11ea-9187-ec656192ad3b.png)
+
+## Related Projects
+
+- [ApiEndpoints](https://github.com/ardalis/apiendpoints)
+- [GuardClauses](https://github.com/ardalis/guardclauses)
+- [Result](https://github.com/ardalis/result)
+- [Specification](https://github.com/ardalis/specification)
 
