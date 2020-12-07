@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Clean.Architecture.UnitTests\Clean.Architecture.UnitTests.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
