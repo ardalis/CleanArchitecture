@@ -20,6 +20,7 @@ namespace Clean.Architecture.FunctionalTests
         {
             var host = builder.Build();
 
+
             // Get service provider.
             var serviceProvider = host.Services;
 
