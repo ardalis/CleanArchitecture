@@ -13,8 +13,9 @@ Or if you're feeling really generous, we now support GitHub sponsorships - see t
 
 ## Versions
 
-The master branch is now using .NET Core Version 3.1. If you need a 2.x version use one of these tagged commits:
+The master branch is now using .NET 5. If you need a previous version use one of these tagged commits:
 
+- [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
 - [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
 
