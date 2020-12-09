@@ -21,6 +21,7 @@ The master branch is now using .NET 5. If you need a previous version use one of
 
 ## Learn More
 
+- [Live Stream Recordings Working on Clean Architecture](https://www.youtube.com/c/Ardalis/search?query=clean%20architecture)
 - [DotNetRocks Podcast Discussion with Steve "ardalis" Smith](https://player.fm/series/net-rocks/clean-architecture-with-steve-smith)
 - [Fritz and Friends Streaming Discussion with Steve "ardalis" Smith](https://www.youtube.com/watch?v=k8cZUW4MS3I)
 
@@ -30,8 +31,9 @@ To use this template, there are a few options:
 
 - [Install the Visual Studio Template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) and use it within Visual Studio
 - Download this Repository
+- Install using `dotnet new` (see below)
 
-I'll cover both options here.
+These are all covered below.
 
 ## Using the Visual Studio Item Template
 
@@ -49,7 +51,7 @@ Note that the template is generally only updated with major updates to the proje
 
 First, install the template from NuGet:
 
-```
+```powershell
 dotnet new -i Ardalis.CleanArchitecture.Template
 ```
 
