@@ -64,6 +64,8 @@ The `Your.ProjectName` directory and solution file will be created, and inside t
 Example:
 ![powershell screenshot showing steps](https://user-images.githubusercontent.com/782127/101661723-9fd28e80-3a16-11eb-8be4-f9195d825ad6.png)
 
+Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
+
 ## Using the GitHub Repository
 
 To get started based on this repository, you need to get a copy locally. You have three options: fork, clone, or download. Most of the time, you probably just want to download.
