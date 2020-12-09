@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>CleanArchitecture.Template</id>
+    <id>Ardalis.CleanArchitecture.Template</id>
+    <title>Ardalis.CleanArchitecture.Template</title>
     <version>1.0.0</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
-ASP.NET Core template for solution using the Steve Smith's CleanArchitecture.   
+ASP.NET Core template for solution using Steve @ardalis Smith's CleanArchitecture.   
     </description>
     <language>en-US</language>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
-    <releaseNotes>
-  </releaseNotes>
+    <releaseNotes>Initial release with .NET 5 support.</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
+    <tags>cleanarchitecture clean architecture ddd dddesign template project solution csharp</tags>
+    <icon>./content/icon.png</icon>
   </metadata>
+  <files>
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**" />
+  </files>
 </package> 
