@@ -46,20 +46,20 @@ Note that the template is generally only updated with major updates to the proje
 
 ## Using the dotnet CLI template
 
-* Clone the repo into an empty folder
-* Make sure you have the [nuget CLI](https://www.nuget.org/downloads) installed
-* In the root directory, run `nuget pack`. This will create CleanArchitecture.Template.1.0.0.nupkg.
-* Make sure you have the [dotnet CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) installed
-Run `dotnet new -i CleanArchitecture.Template.1.0.0.nupkg`. This will install the templates from this package into the dotnet CLI.
+First, install the template from NuGet:
 
-Now to create a brand new project using the template:
+```
+dotnet new -i Ardalis.CleanArchitecture.Template
+```
+
+You should see the template in the list of templates from `dotnet new` after this install successfully. Look for "Steve Smith Clean Architecture" with Short Name of "clean-arch".
 
 Navigate to the directory where you will put the new solution.
 Run `dotnet new clean-arch -o Your.ProjectName` where `Your.ProjectName` is whatever you want to name the project.
-The `Your.ProjectName` directory and solution file will be created, and inside that will be all of your new solution
-contents, properly namespaced and ready to run/test.
+The `Your.ProjectName` directory and solution file will be created, and inside that will be all of your new solution contents, properly namespaced and ready to run/test!
 
-**NOTE**: Eventually the template will be on NuGet.org itself, at which point you'll be able to just run `dotnet new -i CleanArchitecture.Templates`, but this isn't ready yet.
+Example:
+![powershell screenshot showing steps](https://user-images.githubusercontent.com/782127/101661723-9fd28e80-3a16-11eb-8be4-f9195d825ad6.png)
 
 ## Using the GitHub Repository
 
