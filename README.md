@@ -58,7 +58,13 @@ dotnet new -i Ardalis.CleanArchitecture.Template
 You should see the template in the list of templates from `dotnet new` after this install successfully. Look for "Steve Smith Clean Architecture" with Short Name of "clean-arch".
 
 Navigate to the directory where you will put the new solution.
-Run `dotnet new clean-arch -o Your.ProjectName` where `Your.ProjectName` is whatever you want to name the project.
+
+Run this command to create the solution structure in a subfolder name `Your.ProjectName`:
+
+```
+dotnet new clean-arch -o Your.ProjectName
+```
+
 The `Your.ProjectName` directory and solution file will be created, and inside that will be all of your new solution contents, properly namespaced and ready to run/test!
 
 Example:
