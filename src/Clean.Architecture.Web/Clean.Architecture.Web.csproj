@@ -15,7 +15,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
@@ -26,10 +25,4 @@
     <ProjectReference Include="..\Clean.Architecture.Infrastructure\Clean.Architecture.Infrastructure.csproj" />
   </ItemGroup>
   
-  <ItemGroup>
-    <Compile Update="Endpoints\ToDoItems\Update.NewToDoItemRequest.cs">
-      <DependentUpon>Update.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
 </Project>

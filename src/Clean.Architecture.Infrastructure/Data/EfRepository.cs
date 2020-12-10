@@ -33,10 +33,10 @@ namespace Clean.Architecture.Infrastructure.Data
             return _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<List<T>> ListAsync<T>(ISpecification<T> spec) where T : BaseEntity, IAggregateRoot
+        public Task<List<T>> ListAsync<T>(ISpecification<T> spec) where T : BaseEntity, IAggregateRoot
         {
             var specificationResult = ApplySpecification(spec);
-            return await specificationResult.ToListAsync();
+            return specificationResult.ToListAsync();
         }
 
         public async Task<T> AddAsync<T>(T entity) where T : BaseEntity, IAggregateRoot
@@ -47,16 +47,16 @@ namespace Clean.Architecture.Infrastructure.Data
             return entity;
         }
 
-        public async Task UpdateAsync<T>(T entity) where T : BaseEntity, IAggregateRoot
+        public Task UpdateAsync<T>(T entity) where T : BaseEntity, IAggregateRoot
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            return _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync<T>(T entity) where T : BaseEntity, IAggregateRoot
+        public Task DeleteAsync<T>(T entity) where T : BaseEntity, IAggregateRoot
         {
             _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            return _dbContext.SaveChangesAsync();
         }
 
         private IQueryable<T> ApplySpecification<T>(ISpecification<T> spec) where T : BaseEntity
