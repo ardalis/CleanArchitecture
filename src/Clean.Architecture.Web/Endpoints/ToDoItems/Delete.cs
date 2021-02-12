@@ -8,7 +8,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.Endpoints.ToDoItems
 {
-    public class Delete : BaseAsyncEndpoint<int,ToDoItemResponse>
+    public class Delete : BaseAsyncEndpoint
+        .WithRequest<int>
+        .WithoutResponse
     {
         private readonly IRepository _repository;
 
@@ -24,7 +26,7 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
             OperationId = "ToDoItem.Delete",
             Tags = new[] { "ToDoItemEndpoints" })
         ]
-        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id, CancellationToken cancellationToken)
+        public override async Task<ActionResult> HandleAsync(int id, CancellationToken cancellationToken)
         {
             var itemToDelete = await _repository.GetByIdAsync<ToDoItem>(id);
             if (itemToDelete == null) return NotFound();

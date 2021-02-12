@@ -8,7 +8,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.Endpoints.ToDoItems
 {
-    public class GetById : BaseAsyncEndpoint<int,ToDoItemResponse>
+    public class GetById : BaseAsyncEndpoint
+        .WithRequest<int>
+        .WithResponse<ToDoItemResponse>
     {
         private readonly IRepository _repository;
 
