@@ -38,6 +38,11 @@ namespace Clean.Architecture.Infrastructure.Data
             var specificationResult = ApplySpecification(spec);
             return specificationResult.ToListAsync();
         }
+        
+        public IAsyncEnumerable<T> GetAsyncEnumerable<T>() where T : BaseEntity, IAggregateRoot
+        {
+            return _dbContext.Set<T>().AsAsyncEnumerable<T>();
+        }
 
         public async Task<T> AddAsync<T>(T entity) where T : BaseEntity, IAggregateRoot
         {
