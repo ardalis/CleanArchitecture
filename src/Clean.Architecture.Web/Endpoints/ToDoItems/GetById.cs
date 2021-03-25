@@ -12,9 +12,9 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         .WithRequest<int>
         .WithResponse<ToDoItemResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public GetById(IRepository repository)
+        public GetById(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -28,7 +28,7 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id, CancellationToken cancellationToken)
         {
-            var item = await _repository.GetByIdAsync<ToDoItem>(id);
+            var item = await _repository.GetByIdAsync(id);
 
             var response = new ToDoItemResponse
             {

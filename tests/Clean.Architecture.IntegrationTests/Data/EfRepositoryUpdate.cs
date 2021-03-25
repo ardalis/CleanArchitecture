@@ -24,7 +24,7 @@ namespace Clean.Architecture.IntegrationTests.Data
             _dbContext.Entry(item).State = EntityState.Detached;
 
             // fetch the item and update its title
-            var newItem = (await repository.ListAsync<ToDoItem>())
+            var newItem = (await repository.ListAsync())
                 .FirstOrDefault(i => i.Title == initialTitle);
             Assert.NotNull(newItem);
             Assert.NotSame(item, newItem);
@@ -33,7 +33,7 @@ namespace Clean.Architecture.IntegrationTests.Data
 
             // Update the item
             await repository.UpdateAsync(newItem);
-            var updatedItem = (await repository.ListAsync<ToDoItem>())
+            var updatedItem = (await repository.ListAsync())
                 .FirstOrDefault(i => i.Title == newTitle);
 
             Assert.NotNull(updatedItem);

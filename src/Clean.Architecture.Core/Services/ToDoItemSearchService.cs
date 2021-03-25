@@ -12,9 +12,9 @@ namespace Clean.Architecture.Core.Services
 {
     public class ToDoItemSearchService : IToDoItemSearchService
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public ToDoItemSearchService(IRepository repository)
+        public ToDoItemSearchService(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }

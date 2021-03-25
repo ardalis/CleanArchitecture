@@ -9,11 +9,11 @@ namespace Clean.Architecture.Web.Pages.ToDoRazorPage
 {
     public class IncompleteModel : PageModel
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
         public List<ToDoItem> ToDoItems { get; set; }
 
-        public IncompleteModel(IRepository repository)
+        public IncompleteModel(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
