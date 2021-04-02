@@ -7,9 +7,9 @@ namespace Clean.Architecture.Web.Pages.ToDoRazorPage
 {
     public class PopulateModel : PageModel
     {
-        private readonly IRepository<ToDoItem> _repository;
+        private readonly IRepository<Project> _repository;
 
-        public PopulateModel(IRepository<ToDoItem> repository)
+        public PopulateModel(IRepository<Project> repository)
         {
             _repository = repository;
         }

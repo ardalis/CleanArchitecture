@@ -24,6 +24,7 @@ namespace Clean.Architecture.Infrastructure.Data
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

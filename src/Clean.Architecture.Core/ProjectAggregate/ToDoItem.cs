@@ -4,7 +4,7 @@ using Clean.Architecture.SharedKernel.Interfaces;
 
 namespace Clean.Architecture.Core.ProjectAggregate
 {
-    public class ToDoItem : BaseEntity, IAggregateRoot
+    public class ToDoItem : BaseEntity
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; }

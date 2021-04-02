@@ -6,27 +6,31 @@ namespace Clean.Architecture.Core
 {
     public static class DatabasePopulator
     {
-        public static int PopulateDatabase(IRepository<ToDoItem> todoRepository)
+        public static int PopulateDatabase(IRepository<Project> projectRepository)
         {
-            if (todoRepository.ListAsync().Result.Count() >= 3) return 0;
+            if (projectRepository.ListAsync().Result.Count() > 0) return 0;
 
-            todoRepository.AddAsync(new ToDoItem
+            var project = new Project("Get familiar with Clean Architecture template");
+
+            project.AddItem(new ToDoItem
             {
                 Title = "Get Sample Working",
                 Description = "Try to get the sample to build."
-            }).Wait();
-            todoRepository.AddAsync(new ToDoItem
+            });
+            project.AddItem(new ToDoItem
             {
                 Title = "Review Solution",
                 Description = "Review the different projects in the solution and how they relate to one another."
-            }).Wait();
-            todoRepository.AddAsync(new ToDoItem
+            });
+            project.AddItem(new ToDoItem
             {
                 Title = "Run and Review Tests",
                 Description = "Make sure all the tests run and review what they are doing."
-            }).Wait();
+            });
 
-            return todoRepository.ListAsync().Result.Count;
+            projectRepository.AddAsync(project).Wait();
+
+            return projectRepository.ListAsync().Result.Count;
         }
     }
 }

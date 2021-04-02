@@ -28,13 +28,13 @@ namespace Clean.Architecture.IntegrationTests.Data
             return builder.Options;
         }
 
-        protected EfRepository<ToDoItem> GetRepository()
+        protected EfRepository<Project> GetRepository()
         {
             var options = CreateNewContextOptions();
             var mockMediator = new Mock<IMediator>();
 
             _dbContext = new AppDbContext(options, mockMediator.Object);
-            return new EfRepository<ToDoItem>(_dbContext);
+            return new EfRepository<Project>(_dbContext);
         }
     }
 }

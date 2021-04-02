@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Clean.Architecture.Core.ProjectAggregate;
+using Clean.Architecture.Core.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,9 @@ namespace Clean.Architecture.Web.Api
 {
     public class ToDoItemsController : BaseApiController
     {
-        private readonly IRepository<ToDoItem> _repository;
+        private readonly IRepository<Project> _repository;
 
-        public ToDoItemsController(IRepository<ToDoItem> repository)
+        public ToDoItemsController(IRepository<Project> repository)
         {
             _repository = repository;
         }
@@ -20,7 +21,10 @@ namespace Clean.Architecture.Web.Api
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var items = (await _repository.ListAsync())
+            var projectSpec = new ProjectByIdWithItemsSpec(1);
+            var project = await _repository.GetBySpecAsync(projectSpec);
+
+            var items = project.Items
                             .Select(ToDoItemDTO.FromToDoItem);
             return Ok(items);
         }
@@ -29,7 +33,10 @@ namespace Clean.Architecture.Web.Api
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var item =  ToDoItemDTO.FromToDoItem(await _repository.GetByIdAsync(id));
+            var projectSpec = new ProjectByIdWithItemsSpec(1);
+            var project = await _repository.GetBySpecAsync(projectSpec);
+
+            var item =  ToDoItemDTO.FromToDoItem(project.Items.FirstOrDefault(i => i.Id == id));
             return Ok(item);
         }
 
@@ -42,16 +49,24 @@ namespace Clean.Architecture.Web.Api
                 Title = item.Title,
                 Description = item.Description
             };
-            await _repository.AddAsync(todoItem);
+            var projectSpec = new ProjectByIdWithItemsSpec(1);
+            var project = await _repository.GetBySpecAsync(projectSpec);
+
+            project.AddItem(todoItem);
+            await _repository.UpdateAsync(project);
+
             return Ok(ToDoItemDTO.FromToDoItem(todoItem));
         }
 
         [HttpPatch("{id:int}/complete")]
         public async Task<IActionResult> Complete(int id)
         {
-            var toDoItem = await _repository.GetByIdAsync(id);
+            var projectSpec = new ProjectByIdWithItemsSpec(1);
+            var project = await _repository.GetBySpecAsync(projectSpec);
+
+            var toDoItem = project.Items.First(item => item.Id == id);
             toDoItem.MarkComplete();
-            await _repository.UpdateAsync(toDoItem);
+            await _repository.UpdateAsync(project);
 
             return Ok(ToDoItemDTO.FromToDoItem(toDoItem));
         }
