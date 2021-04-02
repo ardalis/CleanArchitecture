@@ -14,9 +14,9 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         .WithoutRequest
         .WithResponse<List<ToDoItemResponse>>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public List(IRepository repository)
+        public List(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -30,7 +30,7 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         ]
         public override async Task<ActionResult<List<ToDoItemResponse>>> HandleAsync(CancellationToken cancellationToken)
         {
-            var items = (await _repository.ListAsync<ToDoItem>())
+            var items = (await _repository.ListAsync())
                 .Select(item => new ToDoItemResponse
                 {
                     Id = item.Id,

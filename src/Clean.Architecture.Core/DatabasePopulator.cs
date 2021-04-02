@@ -6,9 +6,9 @@ namespace Clean.Architecture.Core
 {
     public static class DatabasePopulator
     {
-        public static int PopulateDatabase(IRepository todoRepository)
+        public static int PopulateDatabase(IRepository<ToDoItem> todoRepository)
         {
-            if (todoRepository.ListAsync<ToDoItem>().Result.Count() >= 3) return 0;
+            if (todoRepository.ListAsync().Result.Count() >= 3) return 0;
 
             todoRepository.AddAsync(new ToDoItem
             {
@@ -26,7 +26,7 @@ namespace Clean.Architecture.Core
                 Description = "Make sure all the tests run and review what they are doing."
             }).Wait();
 
-            return todoRepository.ListAsync<ToDoItem>().Result.Count;
+            return todoRepository.ListAsync().Result.Count;
         }
     }
 }

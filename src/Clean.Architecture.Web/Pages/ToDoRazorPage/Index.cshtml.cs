@@ -8,18 +8,18 @@ namespace Clean.Architecture.Web.Pages.ToDoRazorPage
 {
     public class IndexModel : PageModel
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
         public List<ToDoItem> ToDoItems { get; set; }
 
-        public IndexModel(IRepository repository)
+        public IndexModel(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
 
         public async Task OnGetAsync()
         {
-            ToDoItems = await _repository.ListAsync<ToDoItem>();
+            ToDoItems = await _repository.ListAsync();
         }
     }
 }

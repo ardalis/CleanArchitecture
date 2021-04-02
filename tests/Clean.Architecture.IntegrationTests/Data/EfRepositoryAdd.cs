@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Clean.Architecture.Core.Entities;
 using Clean.Architecture.UnitTests;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace Clean.Architecture.IntegrationTests.Data
 
             await repository.AddAsync(item);
 
-            var newItem = (await repository.ListAsync<ToDoItem>())
+            var newItem = (await repository.ListAsync())
                             .FirstOrDefault();
 
             Assert.Equal(item, newItem);

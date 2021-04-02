@@ -11,13 +11,18 @@ namespace Clean.Architecture.UnitTests.Core.Services
 {
     public class ToDoItemSearchService_GetAllIncompleteItems
     {
+        private Mock<IRepository<ToDoItem>> _mockRepo = new Mock<IRepository<ToDoItem>>();
+        private ToDoItemSearchService _searchService;
+
+        public ToDoItemSearchService_GetAllIncompleteItems()
+        {
+            _searchService = new ToDoItemSearchService(_mockRepo.Object);
+        }
+
         [Fact]
         public async Task ReturnsInvalidGivenNullSearchString()
         {
-            var repo = new Mock<IRepository>();
-            var service = new ToDoItemSearchService(repo.Object);
-
-            var result = await service.GetAllIncompleteItemsAsync(null);
+            var result = await _searchService.GetAllIncompleteItemsAsync(null);
 
             Assert.Equal(Ardalis.Result.ResultStatus.Invalid, result.Status);
             Assert.Equal("searchString is required.", result.ValidationErrors.First().ErrorMessage);
@@ -27,12 +32,10 @@ namespace Clean.Architecture.UnitTests.Core.Services
         public async Task ReturnsErrorGivenDataAccessException()
         {
             string expectedErrorMessage = "Database not there.";
-            var repo = new Mock<IRepository>();
-            var service = new ToDoItemSearchService(repo.Object);
-            repo.Setup(r => r.ListAsync(It.IsAny<ISpecification<ToDoItem>>()))
+            _mockRepo.Setup(r => r.ListAsync(It.IsAny<ISpecification<ToDoItem>>()))
                 .ThrowsAsync(new System.Exception(expectedErrorMessage));
 
-            var result = await service.GetAllIncompleteItemsAsync("something");
+            var result = await _searchService.GetAllIncompleteItemsAsync("something");
 
             Assert.Equal(Ardalis.Result.ResultStatus.Error, result.Status);
             Assert.Equal(expectedErrorMessage, result.Errors.First());
@@ -41,10 +44,7 @@ namespace Clean.Architecture.UnitTests.Core.Services
         [Fact]
         public async Task ReturnsListGivenSearchString()
         {
-            var repo = new Mock<IRepository>();
-            var service = new ToDoItemSearchService(repo.Object);
-
-            var result = await service.GetAllIncompleteItemsAsync("foo");
+            var result = await _searchService.GetAllIncompleteItemsAsync("foo");
 
             Assert.Equal(Ardalis.Result.ResultStatus.Ok, result.Status);
         }

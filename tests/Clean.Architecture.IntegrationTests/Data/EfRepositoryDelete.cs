@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Clean.Architecture.Core.Entities;
 using Clean.Architecture.UnitTests;
 using Xunit;
 
@@ -21,7 +20,7 @@ namespace Clean.Architecture.IntegrationTests.Data
             await repository.DeleteAsync(item);
 
             // verify it's no longer there
-            Assert.DoesNotContain(await repository.ListAsync<ToDoItem>(),
+            Assert.DoesNotContain(await repository.ListAsync(),
                 i => i.Title == initialTitle);
         }
     }

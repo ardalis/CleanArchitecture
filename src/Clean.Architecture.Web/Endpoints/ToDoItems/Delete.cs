@@ -12,9 +12,9 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         .WithRequest<int>
         .WithoutResponse
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public Delete(IRepository repository)
+        public Delete(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -28,10 +28,10 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         ]
         public override async Task<ActionResult> HandleAsync(int id, CancellationToken cancellationToken)
         {
-            var itemToDelete = await _repository.GetByIdAsync<ToDoItem>(id);
+            var itemToDelete = await _repository.GetByIdAsync(id);
             if (itemToDelete == null) return NotFound();
 
-            await _repository.DeleteAsync<ToDoItem>(itemToDelete);
+            await _repository.DeleteAsync(itemToDelete);
 
             return NoContent();
         }

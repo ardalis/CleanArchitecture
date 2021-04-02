@@ -10,16 +10,16 @@ namespace Clean.Architecture.Web.Controllers
 {
     public class ToDoController : Controller
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public ToDoController(IRepository repository)
+        public ToDoController(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var items = (await _repository.ListAsync<ToDoItem>())
+            var items = (await _repository.ListAsync())
                             .Select(ToDoItemDTO.FromToDoItem);
             return View(items);
         }

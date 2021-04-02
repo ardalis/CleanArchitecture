@@ -12,9 +12,9 @@ namespace Clean.Architecture.Web.Endpoints.ToDoItems
         .WithRequest<NewToDoItemRequest>
         .WithResponse<ToDoItemResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public Create(IRepository repository)
+        public Create(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
