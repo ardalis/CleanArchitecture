@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Clean.Architecture.Core;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;

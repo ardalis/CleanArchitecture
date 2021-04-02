@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 
 namespace Clean.Architecture.Web.ApiModels
 {

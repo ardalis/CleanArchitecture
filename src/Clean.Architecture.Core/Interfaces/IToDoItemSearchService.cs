@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ardalis.Result;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 
 namespace Clean.Architecture.Core.Interfaces
 {

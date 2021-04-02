@@ -2,7 +2,7 @@
 using Clean.Architecture.Core.Events;
 using Xunit;
 
-namespace Clean.Architecture.UnitTests.Core.Entities
+namespace Clean.Architecture.UnitTests.Core.ProjectAggregate
 {
     public class ToDoItemMarkComplete
     {

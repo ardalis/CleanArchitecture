@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Web;
 using Newtonsoft.Json;
 using Xunit;

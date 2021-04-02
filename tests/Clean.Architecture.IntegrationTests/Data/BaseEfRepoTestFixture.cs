@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.Core.Entities;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

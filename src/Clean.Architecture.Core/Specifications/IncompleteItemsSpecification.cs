@@ -1,5 +1,5 @@
 ﻿using Ardalis.Specification;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 
 namespace Clean.Architecture.Core.Specifications
 {

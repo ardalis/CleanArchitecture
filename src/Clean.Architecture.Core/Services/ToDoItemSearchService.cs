@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ardalis.Result;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;

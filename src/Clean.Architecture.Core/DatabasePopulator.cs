@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel.Interfaces;
 
 namespace Clean.Architecture.Core

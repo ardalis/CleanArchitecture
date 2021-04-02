@@ -2,7 +2,7 @@
 using Clean.Architecture.SharedKernel;
 using Clean.Architecture.SharedKernel.Interfaces;
 
-namespace Clean.Architecture.Core.Entities
+namespace Clean.Architecture.Core.ProjectAggregate
 {
     public class ToDoItem : BaseEntity, IAggregateRoot
     {

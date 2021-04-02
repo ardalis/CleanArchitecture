@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.EFCore.Extensions;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

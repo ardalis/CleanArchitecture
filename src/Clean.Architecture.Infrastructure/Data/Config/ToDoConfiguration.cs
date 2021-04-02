@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.Core.Entities;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

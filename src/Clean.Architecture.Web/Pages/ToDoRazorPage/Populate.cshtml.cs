@@ -1,5 +1,5 @@
 ﻿using Clean.Architecture.Core;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
