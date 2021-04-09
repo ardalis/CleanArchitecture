@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.UnitTests;
 using Xunit;
 
 namespace Clean.Architecture.IntegrationTests.Data
