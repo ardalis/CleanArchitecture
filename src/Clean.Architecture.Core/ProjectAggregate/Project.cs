@@ -25,5 +25,10 @@ namespace Clean.Architecture.Core.ProjectAggregate
             Guard.Against.Null(newItem, nameof(newItem));
             _items.Add(newItem);
         }
+
+        public void UpdateName(string newName)
+        {
+            Name = newName;
+        }
     }
 }

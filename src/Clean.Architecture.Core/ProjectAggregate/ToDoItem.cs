@@ -1,6 +1,5 @@
 ﻿using Clean.Architecture.Core.Events;
 using Clean.Architecture.SharedKernel;
-using Clean.Architecture.SharedKernel.Interfaces;
 
 namespace Clean.Architecture.Core.ProjectAggregate
 {

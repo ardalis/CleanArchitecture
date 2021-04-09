@@ -4,13 +4,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Data\BaseEfRepoTestFixture.cs" />
-    <Compile Remove="Data\EfRepositoryAdd.cs" />
-    <Compile Remove="Data\EfRepositoryDelete.cs" />
-    <Compile Remove="Data\EfRepositoryUpdate.cs" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
@@ -35,10 +28,6 @@
     <None Update="xunit.runner.json">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
