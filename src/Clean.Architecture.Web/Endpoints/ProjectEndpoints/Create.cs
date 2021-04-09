@@ -6,35 +6,31 @@ using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Clean.Architecture.Web.Endpoints.ToDoItems
+namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class Create : BaseAsyncEndpoint
-        .WithRequest<NewToDoItemRequest>
-        .WithResponse<ToDoItemResponse>
+        .WithRequest<NewProjectRequest>
+        .WithResponse<NewProjectResponse>
     {
-        private readonly IRepository<ToDoItem> _repository;
+        private readonly IRepository<Project> _repository;
 
-        public Create(IRepository<ToDoItem> repository)
+        public Create(IRepository<Project> repository)
         {
             _repository = repository;
         }
 
-        [HttpPost("/ToDoItems")]
+        [HttpPost("/Projects")]
         [SwaggerOperation(
             Summary = "Creates a new ToDoItem",
             Description = "Creates a new ToDoItem",
             OperationId = "ToDoItem.Create",
             Tags = new[] { "ToDoItemEndpoints" })
         ]
-        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(NewToDoItemRequest request, CancellationToken cancellationToken)
+        public override async Task<ActionResult<NewProjectResponse>> HandleAsync(NewProjectRequest request, CancellationToken cancellationToken)
         {
-            var item = new ToDoItem
-            {
-                Title = request.Title,
-                Description = request.Description
-            };
+            var newProject = new Project(request.Name);
 
-            var createdItem = await _repository.AddAsync(item);
+            var createdItem = await _repository.AddAsync(newProject);
 
             return Ok(createdItem);
         }

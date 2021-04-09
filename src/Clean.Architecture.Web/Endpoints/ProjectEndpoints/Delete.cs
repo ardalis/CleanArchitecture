@@ -6,25 +6,25 @@ using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Clean.Architecture.Web.Endpoints.ToDoItems
+namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class Delete : BaseAsyncEndpoint
         .WithRequest<int>
         .WithoutResponse
     {
-        private readonly IRepository<ToDoItem> _repository;
+        private readonly IRepository<Project> _repository;
 
-        public Delete(IRepository<ToDoItem> repository)
+        public Delete(IRepository<Project> repository)
         {
             _repository = repository;
         }
 
-        [HttpDelete("/ToDoItems/{id:int}")]
+        [HttpDelete("/Projects/{id:int}")]
         [SwaggerOperation(
-            Summary = "Deletes a ToDoItem",
-            Description = "Deletes a ToDoItem",
-            OperationId = "ToDoItem.Delete",
-            Tags = new[] { "ToDoItemEndpoints" })
+            Summary = "Deletes a Project",
+            Description = "Deletes a Project",
+            OperationId = "Projects.Delete",
+            Tags = new[] { "ProjectEndpoints" })
         ]
         public override async Task<ActionResult> HandleAsync(int id, CancellationToken cancellationToken)
         {

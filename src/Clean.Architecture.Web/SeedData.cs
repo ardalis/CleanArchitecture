@@ -48,9 +48,12 @@ namespace Clean.Architecture.Web
                 dbContext.Remove(item);
             }
             dbContext.SaveChanges();
-            dbContext.ToDoItems.Add(ToDoItem1);
-            dbContext.ToDoItems.Add(ToDoItem2);
-            dbContext.ToDoItems.Add(ToDoItem3);
+
+            var project = new Project("test project");
+            project.AddItem(ToDoItem1);
+            project.AddItem(ToDoItem2);
+            project.AddItem(ToDoItem3);
+            dbContext.Projects.Add(project);
 
             dbContext.SaveChanges();
         }

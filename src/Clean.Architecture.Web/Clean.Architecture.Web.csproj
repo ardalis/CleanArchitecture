@@ -9,17 +9,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Compile Remove="Endpoints\ToDoItems\Create.cs" />
-    <Compile Remove="Endpoints\ToDoItems\Create.NewToDoItemRequest.cs" />
-    <Compile Remove="Endpoints\ToDoItems\Delete.cs" />
-    <Compile Remove="Endpoints\ToDoItems\GetById.cs" />
-    <Compile Remove="Endpoints\ToDoItems\GetById.ToDoItemResponse.cs" />
-    <Compile Remove="Endpoints\ToDoItems\List.cs" />
-    <Compile Remove="Endpoints\ToDoItems\Update.cs" />
-    <Compile Remove="Endpoints\ToDoItems\Update.UpdateToDoItemRequest.cs" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="3.0.0" />
     <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
     <PackageReference Include="MediatR" Version="9.0.0" />
@@ -34,10 +23,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Clean.Architecture.Infrastructure\Clean.Architecture.Infrastructure.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Endpoints\ToDoItems\" />
   </ItemGroup>
   
 </Project>

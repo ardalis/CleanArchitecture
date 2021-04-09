@@ -2,11 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Core.Events;
-using Clean.Architecture.Core.Handlers;
 using Clean.Architecture.Core.Interfaces;
 using Moq;
 using Xunit;
+using Clean.Architecture.Core.ProjectAggregate.Handlers;
+using Clean.Architecture.Core.ProjectAggregate.Events;
 
 namespace Clean.Architecture.UnitTests.Core.Handlers
 {

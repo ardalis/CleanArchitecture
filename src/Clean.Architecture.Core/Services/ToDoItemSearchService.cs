@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Ardalis.Result;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Core.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
 
 namespace Clean.Architecture.Core.Services
 {

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Clean.Architecture.Core.Events;
+using Clean.Architecture.Core.ProjectAggregate.Events;
 using Xunit;
 
 namespace Clean.Architecture.UnitTests.Core.ProjectAggregate

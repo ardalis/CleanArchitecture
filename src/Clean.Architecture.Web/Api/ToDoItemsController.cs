@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Core.Specifications;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,7 @@ namespace Clean.Architecture.Web.Api
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var projectSpec = new ProjectByIdWithItemsSpec(1);
+            var projectSpec = new ProjectByIdWithItemsSpec(1); // TODO: Get from route
             var project = await _repository.GetBySpecAsync(projectSpec);
 
             var items = project.Items

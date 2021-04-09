@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.Core.Events;
+﻿using Clean.Architecture.Core.ProjectAggregate.Events;
 using Clean.Architecture.SharedKernel;
 
 namespace Clean.Architecture.Core.ProjectAggregate

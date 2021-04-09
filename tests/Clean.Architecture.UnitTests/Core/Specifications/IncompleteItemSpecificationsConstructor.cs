@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Core.Specifications;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Xunit;
 
 namespace Clean.Architecture.UnitTests.Core.Specifications
