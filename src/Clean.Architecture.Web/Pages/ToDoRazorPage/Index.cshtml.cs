@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
+using Clean.Architecture.Web.ApiModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Clean.Architecture.Web.Pages.ToDoRazorPage
@@ -12,7 +14,11 @@ namespace Clean.Architecture.Web.Pages.ToDoRazorPage
     {
         private readonly IRepository<Project> _repository;
 
-        public List<ToDoItem> ToDoItems { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int ProjectId { get; set; }
+        public string Message { get; set; } = "";
+
+        public ProjectDTO Project { get; set; }
 
         public IndexModel(IRepository<Project> repository)
         {
@@ -21,10 +27,23 @@ namespace Clean.Architecture.Web.Pages.ToDoRazorPage
 
         public async Task OnGetAsync()
         {
-            var projectSpec = new ProjectByIdWithItemsSpec(1);
+            var projectSpec = new ProjectByIdWithItemsSpec(ProjectId);
             var project = await _repository.GetBySpecAsync(projectSpec);
 
-            ToDoItems = project.Items.ToList();
+            if(project == null)
+            {
+                Message = "No project found.";
+                return;
+            }
+
+            Project = new ProjectDTO
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Items = project.Items
+                .Select(item => ToDoItemDTO.FromToDoItem(item))
+                .ToList()
+            };
         }
     }
 }

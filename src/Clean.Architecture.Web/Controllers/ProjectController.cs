@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.Architecture.Web.Controllers
 {
+    [Route("{controller}")]
     public class ProjectController : Controller
     {
         private readonly IRepository<Project> _projectRepository;
@@ -18,7 +19,8 @@ namespace Clean.Architecture.Web.Controllers
             _projectRepository = projectRepository;
         }
 
-        [HttpGet("{projectId?}")]
+        // GET project/{projectId?}
+        [HttpGet("{projectId:int}")]
         public async Task<IActionResult> Index(int projectId = 1)
         {
             var spec = new ProjectByIdWithItemsSpec(projectId);
@@ -35,6 +37,8 @@ namespace Clean.Architecture.Web.Controllers
             return View(dto);
         }
 
+        // GET project/populate
+        [HttpGet("populate")]
         public IActionResult Populate()
         {
             int recordsAdded = DatabasePopulator.PopulateDatabase(_projectRepository);
