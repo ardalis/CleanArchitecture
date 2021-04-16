@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.Api
 {
+    [Collection("Sequential")]
     public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;

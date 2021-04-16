@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Web;
+using Clean.Architecture.Web.ApiModels;
 using Newtonsoft.Json;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.Api
 {
+    [Collection("Sequential")]
     public class ApiToDoItemsControllerList : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
@@ -19,12 +20,12 @@ namespace Clean.Architecture.FunctionalTests.Api
         }
 
         [Fact]
-        public async Task ReturnsTwoItems()
+        public async Task ReturnsThreeItems()
         {
             var response = await _client.GetAsync("/api/todoitems");
             response.EnsureSuccessStatusCode();
             var stringResponse = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IEnumerable<ToDoItem>>(stringResponse).ToList();
+            var result = JsonConvert.DeserializeObject<IEnumerable<ToDoItemDTO>>(stringResponse).ToList();
 
             Assert.Equal(3, result.Count());
             Assert.Contains(result, i => i.Title == SeedData.ToDoItem1.Title);
