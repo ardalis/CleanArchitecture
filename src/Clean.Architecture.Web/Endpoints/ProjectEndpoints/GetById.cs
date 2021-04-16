@@ -1,7 +1,9 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.ApiEndpoints;
 using Clean.Architecture.Core.ProjectAggregate;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,16 +26,20 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             Summary = "Gets a single Project",
             Description = "Gets a single Project by Id",
             OperationId = "Projects.GetById",
-            Tags = new[] { "Project" })
+            Tags = new[] { "ProjectEndpoints" })
         ]
         public override async Task<ActionResult<ProjectResponse>> HandleAsync(int id, CancellationToken cancellationToken)
         {
             var item = await _repository.GetByIdAsync(id);
 
+            var spec = new ProjectByIdWithItemsSpec(id);
+            var project = await _repository.GetBySpecAsync(spec);
+
             var response = new ProjectResponse
             {
-                Id = item.Id,
-                Name = item.Name
+                Id = project.Id,
+                Name = project.Name,
+                Items = project.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone)).ToList()
             };
             return Ok(response);
         }

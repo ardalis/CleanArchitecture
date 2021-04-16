@@ -2,6 +2,6 @@
 {
     public class UpdateProjectResponse
     {
-        public ProjectDTO Project { get; set; }
+        public ProjectRecord Project { get; set; }
     }
 }

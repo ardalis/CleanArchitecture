@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Ardalis.ApiEndpoints;
@@ -15,25 +14,25 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
         .WithoutRequest
         .WithResponse<ProjectListResponse>
     {
-        private readonly IRepository<Project> _repository;
+        private readonly IReadRepository<Project> _repository;
 
-        public List(IRepository<Project> repository)
+        public List(IReadRepository<Project> repository)
         {
             _repository = repository;
         }
 
-        [HttpGet("/ToDoItems")]
+        [HttpGet("/Projects")]
         [SwaggerOperation(
-            Summary = "Gets a list of all ToDoItems",
-            Description = "Gets a list of all ToDoItems",
-            OperationId = "ToDoItem.List",
-            Tags = new[] { "ToDoItemEndpoints" })
+            Summary = "Gets a list of all Projects",
+            Description = "Gets a list of all Projects",
+            OperationId = "Project.List",
+            Tags = new[] { "ProjectEndpoints" })
         ]
         public override async Task<ActionResult<ProjectListResponse>> HandleAsync(CancellationToken cancellationToken)
         {
             var response = new ProjectListResponse();
             response.Projects = (await _repository.ListAsync())
-                .Select(project => new ProjectDTO(project.Id, project.Name))
+                .Select(project => new ProjectRecord(project.Id, project.Name))
                 .ToList();
 
             return Ok(response);

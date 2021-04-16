@@ -36,7 +36,7 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 
             var response = new UpdateProjectResponse()
             {
-                Project = new ProjectDTO(existingProject.Id, existingProject.Name)
+                Project = new ProjectRecord(existingProject.Id, existingProject.Name)
             };
             return Ok(response);
         }

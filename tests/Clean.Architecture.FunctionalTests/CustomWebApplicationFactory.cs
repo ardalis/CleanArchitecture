@@ -74,7 +74,9 @@ namespace Clean.Architecture.FunctionalTests
                         services.Remove(descriptor);
                     }
 
+                    // This should be set for each individual test run
                     string inMemoryCollectionName = Guid.NewGuid().ToString();
+
                     // Add ApplicationDbContext using an in-memory database for testing.
                     services.AddDbContext<AppDbContext>(options =>
                     {

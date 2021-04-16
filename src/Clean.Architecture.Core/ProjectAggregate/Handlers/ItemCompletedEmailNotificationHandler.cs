@@ -11,6 +11,7 @@ namespace Clean.Architecture.Core.ProjectAggregate.Handlers
     {
         private readonly IEmailSender _emailSender;
 
+        // In a REAL app you might want to use the Outbox pattern and a command/queue here...
         public ItemCompletedEmailNotificationHandler(IEmailSender emailSender)
         {
             _emailSender = emailSender;

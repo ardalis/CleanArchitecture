@@ -1,4 +1,4 @@
 ﻿namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
-    public record ProjectDTO(int Id, string Name);
+    public record ProjectRecord(int Id, string Name);
 }

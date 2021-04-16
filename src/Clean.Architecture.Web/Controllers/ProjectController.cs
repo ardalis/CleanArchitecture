@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.Architecture.Web.Controllers
 {
-    [Route("{controller}")]
+    [Route("[controller]")]
     public class ProjectController : Controller
     {
         private readonly IRepository<Project> _projectRepository;

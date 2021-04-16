@@ -21,10 +21,10 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 
         [HttpPost("/Projects")]
         [SwaggerOperation(
-            Summary = "Creates a new ToDoItem",
-            Description = "Creates a new ToDoItem",
-            OperationId = "ToDoItem.Create",
-            Tags = new[] { "ToDoItemEndpoints" })
+            Summary = "Creates a new Project",
+            Description = "Creates a new Project",
+            OperationId = "Project.Create",
+            Tags = new[] { "ProjectEndpoints" })
         ]
         public override async Task<ActionResult<NewProjectResponse>> HandleAsync(NewProjectRequest request, CancellationToken cancellationToken)
         {
@@ -32,7 +32,13 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 
             var createdItem = await _repository.AddAsync(newProject);
 
-            return Ok(createdItem);
+            var response = new NewProjectResponse
+            {
+                Id = createdItem.Id,
+                Name = createdItem.Name
+            };
+
+            return Ok(response);
         }
     }
 }

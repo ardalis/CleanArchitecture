@@ -46,6 +46,7 @@ namespace Clean.Architecture.Infrastructure
         {
             builder.RegisterGeneric(typeof(EfRepository<>))
                 .As(typeof(IRepository<>))
+                .As(typeof(IReadRepository<>))
                 .InstancePerLifetimeScope();
 
             builder

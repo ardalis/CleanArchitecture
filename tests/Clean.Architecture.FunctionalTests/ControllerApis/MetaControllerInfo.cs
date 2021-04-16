@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Clean.Architecture.Web;
 using Xunit;
 
-namespace Clean.Architecture.FunctionalTests.Api
+namespace Clean.Architecture.FunctionalTests.ControllerApis
 {
     [Collection("Sequential")]
     public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Startup>>
