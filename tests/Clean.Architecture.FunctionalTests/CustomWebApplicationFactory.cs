@@ -16,10 +16,15 @@ namespace Clean.Architecture.FunctionalTests
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {
+        /// <summary>
+        /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
+        /// https://github.com/dotnet-architecture/eShopOnWeb/issues/465
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         protected override IHost CreateHost(IHostBuilder builder)
         {
             var host = builder.Build();
-
 
             // Get service provider.
             var serviceProvider = host.Services;
@@ -69,24 +74,14 @@ namespace Clean.Architecture.FunctionalTests
                         services.Remove(descriptor);
                     }
 
+                    // This should be set for each individual test run
+                    string inMemoryCollectionName = Guid.NewGuid().ToString();
+
                     // Add ApplicationDbContext using an in-memory database for testing.
                     services.AddDbContext<AppDbContext>(options =>
                     {
-                        options.UseInMemoryDatabase("InMemoryDbForTesting");
+                        options.UseInMemoryDatabase(inMemoryCollectionName);
                     });
-
-                    //// Create a new service provider.
-                    //var serviceProvider = new ServiceCollection()
-                    //    .AddEntityFrameworkInMemoryDatabase()
-                    //    .BuildServiceProvider();
-
-                    //// Add a database context (AppDbContext) using an in-memory
-                    //// database for testing.
-                    //services.AddDbContext<AppDbContext>(options =>
-                    //{
-                    //    options.UseInMemoryDatabase("InMemoryDbForTesting");
-                    //    options.UseInternalServiceProvider(serviceProvider);
-                    //});
 
                     services.AddScoped<IMediator, NoOpMediator>();
                 });

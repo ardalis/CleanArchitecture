@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Ardalis.Specification;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Services;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Moq;

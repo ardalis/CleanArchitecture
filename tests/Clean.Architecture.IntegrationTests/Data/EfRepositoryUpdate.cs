@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.UnitTests;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -13,32 +13,34 @@ namespace Clean.Architecture.IntegrationTests.Data
         [Fact]
         public async Task UpdatesItemAfterAddingIt()
         {
-            // add an item
+            // add a project
             var repository = GetRepository();
-            var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItemBuilder().Title(initialTitle).Build();
+            var initialName = Guid.NewGuid().ToString();
+            var project = new Project(initialName);
 
-            await repository.AddAsync(item);
+            await repository.AddAsync(project);
 
             // detach the item so we get a different instance
-            _dbContext.Entry(item).State = EntityState.Detached;
+            _dbContext.Entry(project).State = EntityState.Detached;
 
             // fetch the item and update its title
-            var newItem = (await repository.ListAsync())
-                .FirstOrDefault(i => i.Title == initialTitle);
-            Assert.NotNull(newItem);
-            Assert.NotSame(item, newItem);
-            var newTitle = Guid.NewGuid().ToString();
-            newItem.Title = newTitle;
+            var newProject = (await repository.ListAsync())
+                .FirstOrDefault(project => project.Name == initialName);
+            Assert.NotNull(newProject);
+            Assert.NotSame(project, newProject);
+            var newName = Guid.NewGuid().ToString();
+            newProject.UpdateName(newName);
 
             // Update the item
-            await repository.UpdateAsync(newItem);
+            await repository.UpdateAsync(newProject);
+
+            // Fetch the updated item
             var updatedItem = (await repository.ListAsync())
-                .FirstOrDefault(i => i.Title == newTitle);
+                .FirstOrDefault(project => project.Name == newName);
 
             Assert.NotNull(updatedItem);
-            Assert.NotEqual(item.Title, updatedItem.Title);
-            Assert.Equal(newItem.Id, updatedItem.Id);
+            Assert.NotEqual(project.Name, updatedItem.Name);
+            Assert.Equal(newProject.Id, updatedItem.Id);
         }
     }
 }

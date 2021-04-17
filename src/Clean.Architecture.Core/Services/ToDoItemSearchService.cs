@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ardalis.Result;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Core.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
 
 namespace Clean.Architecture.Core.Services
 {
     public class ToDoItemSearchService : IToDoItemSearchService
     {
-        private readonly IRepository<ToDoItem> _repository;
+        private readonly IRepository<Project> _repository;
 
-        public ToDoItemSearchService(IRepository<ToDoItem> repository)
+        public ToDoItemSearchService(IRepository<Project> repository)
         {
             _repository = repository;
         }
 
-        public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(string searchString)
+        public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(int projectId, string searchString)
         {
             if(string.IsNullOrEmpty(searchString))
             {
@@ -32,11 +32,15 @@ namespace Clean.Architecture.Core.Services
                 return Result<List<ToDoItem>>.Invalid(errors);
             }
 
-            var incompleteSpec = new IncompleteItemsSpecification();
+            var projectSpec = new ProjectByIdWithItemsSpec(projectId);
+            var project = await _repository.GetBySpecAsync(projectSpec);
+
+            var incompleteSpec = new IncompleteItemsSpec();
 
             try
             {
-                var items = await _repository.ListAsync(incompleteSpec);
+                //var items = await _repository.ListAsync(incompleteSpec);
+                var items = incompleteSpec.Evaluate(project.Items).ToList();
 
                 return new Result<List<ToDoItem>>(items);
             }
@@ -47,13 +51,16 @@ namespace Clean.Architecture.Core.Services
             }
         }
 
-        public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync()
+        public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(int projectId)
         {
-            var incompleteSpec = new IncompleteItemsSpecification();
+            var projectSpec = new ProjectByIdWithItemsSpec(projectId);
+            var project = await _repository.GetBySpecAsync(projectSpec);
 
-            var items = await _repository.ListAsync(incompleteSpec);
+            var incompleteSpec = new IncompleteItemsSpec();
 
-            if(!items.Any())
+            var items = incompleteSpec.Evaluate(project.Items).ToList();
+
+            if (!items.Any())
             {
                 return Result<ToDoItem>.NotFound();
             }

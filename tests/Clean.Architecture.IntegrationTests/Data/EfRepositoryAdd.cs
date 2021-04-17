@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Clean.Architecture.UnitTests;
+using Clean.Architecture.Core.ProjectAggregate;
 using Xunit;
 
 namespace Clean.Architecture.IntegrationTests.Data
@@ -8,18 +8,19 @@ namespace Clean.Architecture.IntegrationTests.Data
     public class EfRepositoryAdd : BaseEfRepoTestFixture
     {
         [Fact]
-        public async Task AddsItemAndSetsId()
+        public async Task AddsProjectAndSetsId()
         {
+            var testProjectName = "testProject";
             var repository = GetRepository();
-            var item = new ToDoItemBuilder().Build();
+            var project = new Project(testProjectName);
 
-            await repository.AddAsync(item);
+            await repository.AddAsync(project);
 
-            var newItem = (await repository.ListAsync())
+            var newProject = (await repository.ListAsync())
                             .FirstOrDefault();
 
-            Assert.Equal(item, newItem);
-            Assert.True(newItem?.Id > 0);
+            Assert.Equal(testProjectName, newProject.Name);
+            Assert.True(newProject?.Id > 0);
         }
     }
 }
