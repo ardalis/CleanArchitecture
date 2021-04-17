@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class Delete : BaseAsyncEndpoint
-        .WithRequest<int>
+        .WithRequest<DeleteProjectRequest>
         .WithoutResponse
     {
         private readonly IRepository<Project> _repository;
@@ -19,19 +19,19 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             _repository = repository;
         }
 
-        [HttpDelete("/Projects/{id:int}")]
+        [HttpDelete(DeleteProjectRequest.Route)]
         [SwaggerOperation(
             Summary = "Deletes a Project",
             Description = "Deletes a Project",
             OperationId = "Projects.Delete",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult> HandleAsync(int id, CancellationToken cancellationToken)
+        public override async Task<ActionResult> HandleAsync(DeleteProjectRequest request, CancellationToken cancellationToken)
         {
-            var itemToDelete = await _repository.GetByIdAsync(id);
-            if (itemToDelete == null) return NotFound();
+            var aggregateToDelete = await _repository.GetByIdAsync(request.ProjectId); // TODO: pass cancellation token
+            if (aggregateToDelete == null) return NotFound();
 
-            await _repository.DeleteAsync(itemToDelete);
+            await _repository.DeleteAsync(aggregateToDelete);
 
             return NoContent();
         }

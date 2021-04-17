@@ -9,8 +9,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class Create : BaseAsyncEndpoint
-        .WithRequest<NewProjectRequest>
-        .WithResponse<NewProjectResponse>
+        .WithRequest<CreateProjectRequest>
+        .WithResponse<CreateProjectResponse>
     {
         private readonly IRepository<Project> _repository;
 
@@ -26,13 +26,14 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             OperationId = "Project.Create",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult<NewProjectResponse>> HandleAsync(NewProjectRequest request, CancellationToken cancellationToken)
+        public override async Task<ActionResult<CreateProjectResponse>> HandleAsync(CreateProjectRequest request,
+            CancellationToken cancellationToken)
         {
             var newProject = new Project(request.Name);
 
-            var createdItem = await _repository.AddAsync(newProject);
+            var createdItem = await _repository.AddAsync(newProject); // TODO: pass cancellation token
 
-            var response = new NewProjectResponse
+            var response = new CreateProjectResponse
             {
                 Id = createdItem.Id,
                 Name = createdItem.Name

@@ -5,6 +5,7 @@ using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Web.ApiModels;
+using Clean.Architecture.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.Architecture.Web.Controllers
@@ -26,23 +27,15 @@ namespace Clean.Architecture.Web.Controllers
             var spec = new ProjectByIdWithItemsSpec(projectId);
             var project = await _projectRepository.GetBySpecAsync(spec);
 
-            var dto = new ProjectDTO
+            var dto = new ProjectViewModel
             {
                 Id = project.Id,
                 Name = project.Name,
                 Items = project.Items
-                            .Select(item => ToDoItemDTO.FromToDoItem(item))
+                            .Select(item => ToDoItemViewModel.FromToDoItem(item))
                             .ToList()
             };
             return View(dto);
-        }
-
-        // GET project/populate
-        [HttpGet("populate")]
-        public IActionResult Populate()
-        {
-            int recordsAdded = DatabasePopulator.PopulateDatabase(_projectRepository);
-            return Ok(recordsAdded);
         }
     }
 }

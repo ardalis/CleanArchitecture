@@ -19,20 +19,21 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             _repository = repository;
         }
 
-        [HttpPut("/Projects")]
+        [HttpPut(UpdateProjectRequest.Route)]
         [SwaggerOperation(
             Summary = "Updates a Project",
             Description = "Updates a Project with a longer description",
             OperationId = "Projects.Update",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(UpdateProjectRequest request, CancellationToken cancellationToken)
+        public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(UpdateProjectRequest request,
+            CancellationToken cancellationToken)
         {
-            var existingProject = await _repository.GetByIdAsync(request.Id);
+            var existingProject = await _repository.GetByIdAsync(request.Id); // TODO: pass cancellation token
 
             existingProject.UpdateName(request.Name);
 
-            await _repository.UpdateAsync(existingProject);
+            await _repository.UpdateAsync(existingProject); // TODO: pass cancellation token
 
             var response = new UpdateProjectResponse()
             {

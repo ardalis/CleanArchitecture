@@ -2,10 +2,10 @@
 
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
-    public class UpdateProjectRequest
+    public class CreateProjectRequest
     {
-        [Required]
-        public int Id { get; set; }
+        public const string Route = "/Projects";
+
         [Required]
         public string Name { get; set; }
     }

@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class GetById : BaseAsyncEndpoint
-        .WithRequest<int>
+        .WithRequest<GetProjectByIdRequest>
         .WithResponse<ProjectResponse>
     {
         private readonly IRepository<Project> _repository;
@@ -21,25 +21,23 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             _repository = repository;
         }
 
-        [HttpGet("/Projects/{id:int}")]
+        [HttpGet(GetProjectByIdRequest.Route)]
         [SwaggerOperation(
             Summary = "Gets a single Project",
             Description = "Gets a single Project by Id",
             OperationId = "Projects.GetById",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult<ProjectResponse>> HandleAsync(int id, CancellationToken cancellationToken)
+        public override async Task<ActionResult<ProjectResponse>> HandleAsync(GetProjectByIdRequest request, CancellationToken cancellationToken)
         {
-            var item = await _repository.GetByIdAsync(id);
-
-            var spec = new ProjectByIdWithItemsSpec(id);
-            var project = await _repository.GetBySpecAsync(spec);
+            var spec = new ProjectByIdWithItemsSpec(request.ProjectId);
+            var entity = await _repository.GetBySpecAsync(spec); // TODO: pass cancellation token
 
             var response = new ProjectResponse
             {
-                Id = project.Id,
-                Name = project.Name,
-                Items = project.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone)).ToList()
+                Id = entity.Id,
+                Name = entity.Name,
+                Items = entity.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone)).ToList()
             };
             return Ok(response);
         }

@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clean.Architecture.Web.Api
 {
+    /// <summary>
+    /// A sample API Controller. Consider using API Endpoints (see Endpoints folder) for a more SOLID approach to building APIs
+    /// https://github.com/ardalis/ApiEndpoints
+    /// </summary>
     public class ProjectsController : BaseApiController
     {
         private readonly IRepository<Project> _repository;
