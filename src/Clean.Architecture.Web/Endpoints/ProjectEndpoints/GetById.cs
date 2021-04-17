@@ -12,7 +12,7 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class GetById : BaseAsyncEndpoint
         .WithRequest<GetProjectByIdRequest>
-        .WithResponse<ProjectResponse>
+        .WithResponse<GetProjectByIdResponse>
     {
         private readonly IRepository<Project> _repository;
 
@@ -28,12 +28,14 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             OperationId = "Projects.GetById",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult<ProjectResponse>> HandleAsync(GetProjectByIdRequest request, CancellationToken cancellationToken)
+        public override async Task<ActionResult<GetProjectByIdResponse>> HandleAsync([FromRoute] GetProjectByIdRequest request,
+            CancellationToken cancellationToken)
         {
             var spec = new ProjectByIdWithItemsSpec(request.ProjectId);
             var entity = await _repository.GetBySpecAsync(spec); // TODO: pass cancellation token
+            if (entity == null) return NotFound();
 
-            var response = new ProjectResponse
+            var response = new GetProjectByIdResponse
             {
                 Id = entity.Id,
                 Name = entity.Name,

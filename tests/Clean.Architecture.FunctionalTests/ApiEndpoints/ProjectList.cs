@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Ardalis.HttpClientTestExtensions;
 using Clean.Architecture.Web;
-using Clean.Architecture.Web.ApiModels;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.ApiEndpoints
@@ -26,7 +22,7 @@ namespace Clean.Architecture.FunctionalTests.ApiEndpoints
         {
             var result = await _client.GetAndDeserialize<ProjectListResponse>("/Projects");
 
-            Assert.Equal(1, result.Projects.Count());
+            Assert.Single(result.Projects);
             Assert.Contains(result.Projects, i => i.Name == SeedData.TestProject1.Name);
         }
     }

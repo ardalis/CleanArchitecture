@@ -1,4 +1,6 @@
-﻿namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
 {
     public class GetProjectByIdRequest
     {
