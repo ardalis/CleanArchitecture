@@ -29,4 +29,4 @@ jobs:
         id: run_unit_tests
         shell: pwsh
         run: |
-          dotnet test ./Clean.Architecture.sln --configuration Release
+          Get-ChildItem *Tests*.csproj -recurse | ForEach-Object { dotnet test -c Release --no-build $PSItem.FullName }
