@@ -4,7 +4,7 @@ on:
     branches:
       - main # Your default release branch
     paths:
-      - 'CleanArchitecture.nuspec.nuspec'
+      - 'CleanArchitecture.nuspec'
 jobs:
   publish:
     name: list on nuget
