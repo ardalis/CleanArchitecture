@@ -6,7 +6,7 @@
     <version>5.0.0</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
-      ASP.NET Core template for solution using Steve @ardalis Smith's CleanArchitecture...
+      ASP.NET Core template for solution using Steve @ardalis Smith's CleanArchitecture.
     </description>
     <language>en-US</language>
     <license type="expression">MIT</license>
