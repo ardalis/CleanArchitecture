@@ -49,7 +49,7 @@ Note that the template is generally only updated with major updates to the proje
 
 ## Using the dotnet CLI template
 
-First, install the template from NuGet:
+First, install the template from [NuGet (https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/):
 
 ```powershell
 dotnet new -i Ardalis.CleanArchitecture.Template
