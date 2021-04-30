@@ -1,4 +1,7 @@
 [![.NET Core](https://github.com/ardalis/CleanArchitecture/workflows/.NET%20Core/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions)
+[![publish Ardalis.CleanArchitecture Template to nuget](https://github.com/ardalis/CleanArchitecture/actions/workflows/publish.yml/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions/workflows/publish.yml)
+
+[Nuget: Ardalis.CleanArchitecture.Template](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
 
 # Clean Architecture
 

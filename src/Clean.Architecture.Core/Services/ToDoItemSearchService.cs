@@ -7,6 +7,7 @@ using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
+using Ardalis.GuardClauses;
 
 namespace Clean.Architecture.Core.Services
 {
@@ -35,11 +36,13 @@ namespace Clean.Architecture.Core.Services
             var projectSpec = new ProjectByIdWithItemsSpec(projectId);
             var project = await _repository.GetBySpecAsync(projectSpec);
 
-            var incompleteSpec = new IncompleteItemsSpec();
+            // TODO: Optionally use Ardalis.GuardClauses Guard.Against.NotFound and catch
+            if (project == null) return Result<List<ToDoItem>>.NotFound();
+
+            var incompleteSpec = new IncompleteItemsSearchSpec(searchString);
 
             try
             {
-                //var items = await _repository.ListAsync(incompleteSpec);
                 var items = incompleteSpec.Evaluate(project.Items).ToList();
 
                 return new Result<List<ToDoItem>>(items);

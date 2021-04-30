@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ardalis.ListStartupServices;
 using Autofac;
+using Clean.Architecture.Core;
 using Clean.Architecture.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,6 @@ namespace Clean.Architecture.Web
 
 			string connectionString = Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
 
-
 			services.AddDbContext(connectionString);
 
 			services.AddControllersWithViews().AddNewtonsoftJson();
@@ -56,6 +56,7 @@ namespace Clean.Architecture.Web
 
 		public void ConfigureContainer(ContainerBuilder builder)
 		{
+			builder.RegisterModule(new DefaultCoreModule());
 			builder.RegisterModule(new DefaultInfrastructureModule(_env.EnvironmentName == "Development"));
 		}
 
