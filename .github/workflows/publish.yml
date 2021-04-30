@@ -25,7 +25,7 @@ jobs:
         with:
           PROJECT_FILE_PATH: CleanArchitecture.nuspec # Relative to repository root
           # VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
-          VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
+          VERSION_REGEX: <version>(.*)<\/version> # Regex pattern to extract version info in a capturing group
           TAG_COMMIT: true # Flag to enable / disable git tagging
           TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
           NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
