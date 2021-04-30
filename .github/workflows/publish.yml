@@ -17,15 +17,7 @@ jobs:
           nuget-version: '5.x'
           
       - name: Package the template
-        run: nuget pack CleanArchitecture.nuspec      
-      
-      # Publish
-      - name: publish on version change
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: CleanArchitecture.nuspec # Relative to repository root
-          # VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
-          VERSION_REGEX: <version>(.*)<\/version> # Regex pattern to extract version info in a capturing group
-          TAG_COMMIT: true # Flag to enable / disable git tagging
-          TAG_FORMAT: v* # Format of the git tag, [*] gets replaced with version
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
+        run: nuget pack CleanArchitecture.nuspec
+        
+      - name: Publish to nuget.org
+        run: nuget push Ardalis.CleanArchitecture.Template.*.nupkg -s https://api.nuget.org/v3/index.json ${{secrets.NUGET_API_KEY}}
