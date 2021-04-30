@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Result" Version="3.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
