@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
-using Clean.Architecture.Core;
 using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.SharedKernel.Interfaces;
 using MediatR;
@@ -19,7 +19,7 @@ namespace Clean.Architecture.Infrastructure
         public DefaultInfrastructureModule(bool isDevelopment, Assembly callingAssembly =  null)
         {
             _isDevelopment = isDevelopment;
-            var coreAssembly = Assembly.GetAssembly(typeof(DatabasePopulator));
+            var coreAssembly = Assembly.GetAssembly(typeof(Project)); // TODO: Replace "Project" with any type from your Core project
             var infrastructureAssembly = Assembly.GetAssembly(typeof(StartupSetup));
             _assemblies.Add(coreAssembly);
             _assemblies.Add(infrastructureAssembly);
@@ -46,6 +46,7 @@ namespace Clean.Architecture.Infrastructure
         {
             builder.RegisterGeneric(typeof(EfRepository<>))
                 .As(typeof(IRepository<>))
+                .As(typeof(IReadRepository<>))
                 .InstancePerLifetimeScope();
 
             builder

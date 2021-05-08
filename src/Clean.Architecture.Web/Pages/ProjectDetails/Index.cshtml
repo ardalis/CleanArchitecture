@@ -1,0 +1,33 @@
+﻿@page "{ProjectId}"
+@model Clean.Architecture.Web.Pages.ToDoRazorPage.IndexModel
+
+@if (!String.IsNullOrEmpty(Model.Message))
+{
+    <h2>@Model.Message</h2>
+}
+else
+{
+
+<h2>Project (Razor Page)</h2>
+
+<h3>Name: @Model.Project.Name</h3>
+
+<b>Items:</b>
+
+<ul>
+    @foreach (var item in Model.Project.Items)
+    {
+        <li>
+            @item.Title @if (item.IsDone)
+            {
+                <span>DONE!</span>
+            }
+            else
+            {
+                <span>NOT DONE</span>
+            }
+            <br />@item.Description
+        </li>
+    }
+</ul>
+}

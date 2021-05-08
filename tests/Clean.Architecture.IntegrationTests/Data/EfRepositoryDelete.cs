@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Clean.Architecture.UnitTests;
+using Clean.Architecture.Core.ProjectAggregate;
 using Xunit;
 
 namespace Clean.Architecture.IntegrationTests.Data
@@ -10,18 +10,18 @@ namespace Clean.Architecture.IntegrationTests.Data
         [Fact]
         public async Task DeletesItemAfterAddingIt()
         {
-            // add an item
+            // add a project
             var repository = GetRepository();
-            var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItemBuilder().Title(initialTitle).Build();
-            await repository.AddAsync(item);
+            var initialName = Guid.NewGuid().ToString();
+            var project = new Project(initialName);
+            await repository.AddAsync(project);
 
             // delete the item
-            await repository.DeleteAsync(item);
+            await repository.DeleteAsync(project);
 
             // verify it's no longer there
             Assert.DoesNotContain(await repository.ListAsync(),
-                i => i.Title == initialTitle);
+                project => project.Name == initialName);
         }
     }
 }

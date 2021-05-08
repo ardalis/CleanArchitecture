@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Clean.Architecture.Core.Entities;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +9,7 @@ namespace Clean.Architecture.Web
 {
     public static class SeedData
     {
+        public static readonly Project TestProject1 = new Project("Test Project");
         public static readonly ToDoItem ToDoItem1 = new ToDoItem
         {
             Title = "Get Sample Working",
@@ -48,9 +49,11 @@ namespace Clean.Architecture.Web
                 dbContext.Remove(item);
             }
             dbContext.SaveChanges();
-            dbContext.ToDoItems.Add(ToDoItem1);
-            dbContext.ToDoItems.Add(ToDoItem2);
-            dbContext.ToDoItems.Add(ToDoItem3);
+
+            TestProject1.AddItem(ToDoItem1);
+            TestProject1.AddItem(ToDoItem2);
+            TestProject1.AddItem(ToDoItem3);
+            dbContext.Projects.Add(TestProject1);
 
             dbContext.SaveChanges();
         }
