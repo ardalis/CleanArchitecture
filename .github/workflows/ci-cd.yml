@@ -1,23 +1,74 @@
 name: CI/CD Pipeline
 
-on: [push, pull_request, workflow_dispatch]
+on: [ push, pull_request, workflow_dispatch ]
 
 jobs:
   ci:
     name: Continuous Integration
     runs-on: ubuntu-latest
+    outputs:
+      latest_version: ${{ steps.tag_generator.outputs.new_version }}
     steps:
+      - name: Data gatherer
+        id: data_gatherer
+        shell: pwsh
+        run: |
+          # Get default branch
+          $repo = "${{ github.repository }}"
+          $defaultBranch = Invoke-RestMethod -Method GET -Uri https://api.github.com/repos/$repo | Select-Object -ExpandProperty default_branch
+          Write-Output "::set-output name=default_branch::$(echo $defaultBranch)"
+
+      - name: Conditionals handler
+        id: conditionals_handler
+        shell: pwsh
+        run: |
+          $defaultBranch = "${{ steps.data_gatherer.outputs.default_branch }}"
+          $githubRef = "${{ github.ref }}"
+          $githubEventName = "${{ github.event_name }}"
+          $isDefaultBranch = 'false'
+          $isPush = 'false'
+          $isPushToDefaultBranch = 'false'
+          if ( $githubRef -like "*$defaultBranch*" ) {
+            $isDefaultBranch = 'true'
+          }
+          if ( $githubEventName -eq 'push' ) {
+            $isPush = 'true'
+          }
+          if ( $githubRef -like "*$defaultBranch*" -and $githubEventName -eq 'push' ) {
+            $isPushToDefaultBranch = 'true'
+          }
+          Write-Output "::set-output name=is_default_branch::$(echo $isDefaultBranch)"
+          Write-Output "::set-output name=is_push::$(echo $isPush)"
+          Write-Output "::set-output name=is_push_to_default_branch::$(echo $isPushToDefaultBranch)"
+
       - name: Setup .NET Core
         id: setup_dotnet_core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.201
-          
+
       - name: Checkout repository
         id: checkout_repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Filter changes
+        id: filter_changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            is_change_in_project_source:
+              - 'CleanArchitecture.nuspec'
+
+      - if: steps.conditionals_handler.outputs.is_push_to_default_branch == 'true' && steps.filter_changes.outputs.is_change_in_project_source == 'true'
+        name: Bump GH tag
+        id: tag_generator
+        uses: mathieudutour/github-tag-action@v5.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
+          release_branches: ${{ steps.data_gatherer.outputs.default_branch }}
 
       - name: Build solution
         id: build_solution
@@ -30,3 +81,54 @@ jobs:
         shell: pwsh
         run: |
           dotnet test .\Clean.Architecture.sln --configuration Release --no-build
+
+  cd:
+    if: needs.ci.outputs.latest_version != ''
+    name: Continuous Deployment
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup dotnet
+        id: setup_dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.201
+
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Create NuGet Package
+        id: create_nuget_package
+        shell: pwsh
+        run: |
+          nuget pack CleanArchitecture.nuspec `
+          -OutputDirectory Artifacts `
+          -Version ${{ needs.ci.outputs.latest_version }}
+
+      - name: Upload artifacts
+        id: upload_artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}
+          path: Artifacts/
+
+      - name: Publish to NuGet
+        id: publish_to_nuget
+        shell: pwsh
+        run: |
+          nuget push Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg `
+          -Source https://api.nuget.org/v3/index.json `
+          -ApiKey ${{ secrets.NUGET_API_KEY }}
+
+      - name: Create and publish release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: CleanArchitecture ${{ needs.ci.outputs.latest_version }}
+          tag_name: ${{ needs.ci.outputs.latest_version }}
+          files: Artifacts/Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
