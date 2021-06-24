@@ -125,10 +125,12 @@ jobs:
 
       - name: Create and publish release
         id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: CleanArchitecture ${{ needs.ci.outputs.latest_version }}
-          tag_name: ${{ needs.ci.outputs.latest_version }}
-          files: Artifacts/Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg
+        shell: pwsh
+        run: |
+          $releaseTag = "${{ needs.ci.outputs.latest_version }}"
+          $releaseTitle = "CleanArchitecture ${{ needs.ci.outputs.latest_version }}"
+          $releaseAssets = 'Artifacts/Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg'
+
+          gh release create $releaseTag --title $releaseTitle $releaseAssets
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
