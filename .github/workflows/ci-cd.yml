@@ -74,13 +74,20 @@ jobs:
         id: build_solution
         shell: pwsh
         run: |
-          dotnet build .\Clean.Architecture.sln --configuration Release
+          dotnet build .\Clean.Architecture.sln --configuration Release --output Artifacts
 
       - name: Run unit tests
         id: run_unit_tests
         shell: pwsh
         run: |
-          dotnet test .\Clean.Architecture.sln --configuration Release --no-build
+          dotnet test .\Clean.Architecture.sln --configuration Release --no-build --output Artifacts
+
+      - name: Upload artifacts
+        id: upload_artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: Artifacts/
 
   cd:
     if: needs.ci.outputs.latest_version != ''
@@ -105,21 +112,21 @@ jobs:
         shell: pwsh
         run: |
           nuget pack CleanArchitecture.nuspec `
-          -OutputDirectory Artifacts `
+          -OutputDirectory NuGet `
           -Version ${{ needs.ci.outputs.latest_version }}
 
-      - name: Upload artifacts
-        id: upload_artifacts
-        uses: actions/upload-artifact@v1
+      - name: Upload NuGet packages
+        id: upload_packages
+        uses: actions/upload-artifact@v2
         with:
-          name: Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}
-          path: Artifacts/
+          name: NuGet packages
+          path: NuGet/
 
       - name: Publish to NuGet
         id: publish_to_nuget
         shell: pwsh
         run: |
-          nuget push Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg `
+          nuget push NuGet/Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg `
           -Source https://api.nuget.org/v3/index.json `
           -ApiKey ${{ secrets.NUGET_API_KEY }}
 
@@ -129,7 +136,7 @@ jobs:
         run: |
           $releaseTag = "${{ needs.ci.outputs.latest_version }}"
           $releaseTitle = "CleanArchitecture ${{ needs.ci.outputs.latest_version }}"
-          $releaseAssets = 'Artifacts/Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg'
+          $releaseAssets = 'NuGet/Ardalis.CleanArchitecture.Template.${{ needs.ci.outputs.latest_version }}.nupkg'
 
           gh release create $releaseTag --title $releaseTitle $releaseAssets
         env:
