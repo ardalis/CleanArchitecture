@@ -7,6 +7,30 @@
 
 A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is just the latest in a series of names for the same loosely-coupled, dependency-inverted architecture. You will also find it named [hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/).
 
+## Table Of Contents
+
+- [Clean Architecture](#clean-architecture)
+  * [Table Of Contents](#table-of-contents)
+  * [Give a Star! :star:](#give-a-star-star)
+  * [Now available as a project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture)
+  * [Versions](#versions)
+  * [Learn More](#learn-more)
+- [Getting Started](#getting-started)
+  * [Using the Visual Studio Item Template](#using-the-visual-studio-item-template)
+  * [Using the dotnet CLI template](#using-the-dotnet-cli-template)
+  * [Using the GitHub Repository](#using-the-github-repository)
+- [Goals](#goals)
+  * [History and Shameless Plug Section](#history-and-shameless-plug-section)
+- [Design Decisions and Dependencies](#design-decisions-and-dependencies)
+  * [The Core Project](#the-core-project)
+  * [The SharedKernel Project](#the-sharedkernel-project)
+  * [The Infrastructure Project](#the-infrastructure-project)
+  * [The Web Project](#the-web-project)
+  * [The Test Projects](#the-test-projects)
+- [Patterns Used](#patterns-used)
+  * [Domain Events](#domain-events)
+  * [Related Projects](#related-projects)
+
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
