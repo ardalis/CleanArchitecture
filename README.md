@@ -1,13 +1,12 @@
 [![.NET Core](https://github.com/ardalis/CleanArchitecture/workflows/.NET%20Core/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions)
 [![publish Ardalis.CleanArchitecture Template to nuget](https://github.com/ardalis/CleanArchitecture/actions/workflows/publish.yml/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions/workflows/publish.yml)
+[![Ardalis.CleanArchitecture.Template on NuGet](https://img.shields.io/nuget/v/Ardalis.CleanArchitecture.Template?label=Ardalis.CleanArchitecture.Template)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
 
 <a href="https://twitter.com/intent/follow?screen_name=ardalis">
     <img src="https://img.shields.io/twitter/follow/ardalis.svg?label=Follow%20@ardalis" alt="Follow @ardalis" />
 </a> &nbsp; <a href="https://twitter.com/intent/follow?screen_name=nimblepros">
     <img src="https://img.shields.io/twitter/follow/nimblepros.svg?label=Follow%20@nimblepros" alt="Follow @nimblepros" />
 </a>
-
-[Nuget: Ardalis.CleanArchitecture.Template](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
 
 # Clean Architecture
 
