@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>Ardalis.CleanArchitecture.Template</title>
-    <version>5.0.0</version>
+    <version>5.0.10</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
       ASP.NET Core template for solution using Steve @ardalis Smith's CleanArchitecture.
@@ -11,7 +11,7 @@
     <language>en-US</language>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
-    <releaseNotes>Refactored to use Aggregate design pattern and organization.</releaseNotes>
+    <releaseNotes>Updated to ASP.NET 5.0.10 dependencies</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
