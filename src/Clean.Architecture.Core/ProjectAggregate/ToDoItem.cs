@@ -11,9 +11,12 @@ namespace Clean.Architecture.Core.ProjectAggregate
 
         public void MarkComplete()
         {
-            IsDone = true;
+            if (!IsDone)
+            {
+                IsDone = true;
 
-            Events.Add(new ToDoItemCompletedEvent(this));
+                Events.Add(new ToDoItemCompletedEvent(this));
+            }
         }
 
         public override string ToString()
