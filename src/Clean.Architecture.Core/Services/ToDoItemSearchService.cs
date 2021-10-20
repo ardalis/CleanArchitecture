@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ardalis.Result;
-using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.SharedKernel.Interfaces;
-using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Ardalis.GuardClauses;
+using Ardalis.Result;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.ProjectAggregate;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
+using Clean.Architecture.SharedKernel.Interfaces;
 
 namespace Clean.Architecture.Core.Services
 {
@@ -22,7 +22,7 @@ namespace Clean.Architecture.Core.Services
 
         public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(int projectId, string searchString)
         {
-            if(string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(searchString))
             {
                 var errors = new List<ValidationError>();
                 errors.Add(new ValidationError()

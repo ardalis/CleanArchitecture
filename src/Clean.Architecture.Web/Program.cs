@@ -21,7 +21,7 @@ namespace Clean.Architecture.Web
                 try
                 {
                     var context = services.GetRequiredService<AppDbContext>();
-//                    context.Database.Migrate();
+                    //                    context.Database.Migrate();
                     context.Database.EnsureCreated();
                     SeedData.Initialize(services);
                 }

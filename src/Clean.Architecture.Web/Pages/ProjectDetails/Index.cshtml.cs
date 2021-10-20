@@ -29,7 +29,7 @@ namespace Clean.Architecture.Web.Pages.ToDoRazorPage
             var projectSpec = new ProjectByIdWithItemsSpec(ProjectId);
             var project = await _repository.GetBySpecAsync(projectSpec);
 
-            if(project == null)
+            if (project == null)
             {
                 Message = "No project found.";
                 return;

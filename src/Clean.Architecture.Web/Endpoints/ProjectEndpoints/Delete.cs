@@ -26,7 +26,7 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             OperationId = "Projects.Delete",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult> HandleAsync([FromRoute]DeleteProjectRequest request,
+        public override async Task<ActionResult> HandleAsync([FromRoute] DeleteProjectRequest request,
             CancellationToken cancellationToken)
         {
             var aggregateToDelete = await _repository.GetByIdAsync(request.ProjectId); // TODO: pass cancellation token

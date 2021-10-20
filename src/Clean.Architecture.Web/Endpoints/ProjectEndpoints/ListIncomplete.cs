@@ -28,12 +28,12 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             OperationId = "Project.ListIncomplete",
             Tags = new[] { "ProjectEndpoints" })
         ]
-        public override async Task<ActionResult<ListIncompleteResponse>> HandleAsync([FromQuery]ListIncompleteRequest request, CancellationToken cancellationToken)
+        public override async Task<ActionResult<ListIncompleteResponse>> HandleAsync([FromQuery] ListIncompleteRequest request, CancellationToken cancellationToken)
         {
             var response = new ListIncompleteResponse();
             var result = await _searchService.GetAllIncompleteItemsAsync(request.ProjectId, request.SearchString);
 
-            if(result.Status == Ardalis.Result.ResultStatus.Ok)
+            if (result.Status == Ardalis.Result.ResultStatus.Ok)
             {
                 response.ProjectId = request.ProjectId;
                 response.IncompleteItems = new List<ToDoItemRecord>(
@@ -46,7 +46,8 @@ namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
             else if (result.Status == Ardalis.Result.ResultStatus.Invalid)
             {
                 return BadRequest(result.ValidationErrors);
-            } else if (result.Status == Ardalis.Result.ResultStatus.NotFound)
+            }
+            else if (result.Status == Ardalis.Result.ResultStatus.NotFound)
             {
                 return NotFound();
             }

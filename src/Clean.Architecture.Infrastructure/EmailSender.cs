@@ -13,7 +13,7 @@ namespace Clean.Architecture.Infrastructure
         {
             _logger = logger;
         }
-        
+
         public async Task SendEmailAsync(string to, string from, string subject, string body)
         {
             var emailClient = new SmtpClient("localhost");
