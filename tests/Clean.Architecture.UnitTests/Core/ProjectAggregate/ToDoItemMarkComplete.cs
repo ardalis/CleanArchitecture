@@ -2,32 +2,31 @@
 using Clean.Architecture.Core.ProjectAggregate.Events;
 using Xunit;
 
-namespace Clean.Architecture.UnitTests.Core.ProjectAggregate
+namespace Clean.Architecture.UnitTests.Core.ProjectAggregate;
+
+public class ToDoItemMarkComplete
 {
-    public class ToDoItemMarkComplete
+    [Fact]
+    public void SetsIsDoneToTrue()
     {
-        [Fact]
-        public void SetsIsDoneToTrue()
-        {
-            var item = new ToDoItemBuilder()
-                .WithDefaultValues()
-                .Description("")
-                .Build();
+        var item = new ToDoItemBuilder()
+            .WithDefaultValues()
+            .Description("")
+            .Build();
 
-            item.MarkComplete();
+        item.MarkComplete();
 
-            Assert.True(item.IsDone);
-        }
+        Assert.True(item.IsDone);
+    }
 
-        [Fact]
-        public void RaisesToDoItemCompletedEvent()
-        {
-            var item = new ToDoItemBuilder().Build();
+    [Fact]
+    public void RaisesToDoItemCompletedEvent()
+    {
+        var item = new ToDoItemBuilder().Build();
 
-            item.MarkComplete();
+        item.MarkComplete();
 
-            Assert.Single(item.Events);
-            Assert.IsType<ToDoItemCompletedEvent>(item.Events.First());
-        }
+        Assert.Single(item.Events);
+        Assert.IsType<ToDoItemCompletedEvent>(item.Events.First());
     }
 }
