@@ -7,87 +7,86 @@ using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Clean.Architecture.Web.Api
+namespace Clean.Architecture.Web.Api;
+
+/// <summary>
+/// A sample API Controller. Consider using API Endpoints (see Endpoints folder) for a more SOLID approach to building APIs
+/// https://github.com/ardalis/ApiEndpoints
+/// </summary>
+public class ProjectsController : BaseApiController
 {
-    /// <summary>
-    /// A sample API Controller. Consider using API Endpoints (see Endpoints folder) for a more SOLID approach to building APIs
-    /// https://github.com/ardalis/ApiEndpoints
-    /// </summary>
-    public class ProjectsController : BaseApiController
+    private readonly IRepository<Project> _repository;
+
+    public ProjectsController(IRepository<Project> repository)
     {
-        private readonly IRepository<Project> _repository;
+        _repository = repository;
+    }
 
-        public ProjectsController(IRepository<Project> repository)
-        {
-            _repository = repository;
-        }
-
-        // GET: api/Projects
-        [HttpGet]
-        public async Task<IActionResult> List()
-        {
-            var projectDTOs = (await _repository.ListAsync())
-                .Select(project => new ProjectDTO
-                {
-                    Id = project.Id,
-                    Name = project.Name
-                })
-                .ToList();
-
-            return Ok(projectDTOs);
-        }
-
-        // GET: api/Projects
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var projectSpec = new ProjectByIdWithItemsSpec(id);
-            var project = await _repository.GetBySpecAsync(projectSpec);
-
-            var result = new ProjectDTO
+    // GET: api/Projects
+    [HttpGet]
+    public async Task<IActionResult> List()
+    {
+        var projectDTOs = (await _repository.ListAsync())
+            .Select(project => new ProjectDTO
             {
                 Id = project.Id,
-                Name = project.Name,
-                Items = new List<ToDoItemDTO>
-                (
-                    project.Items.Select(i => ToDoItemDTO.FromToDoItem(i)).ToList()
-                )
-            };
+                Name = project.Name
+            })
+            .ToList();
 
-            return Ok(result);
-        }
+        return Ok(projectDTOs);
+    }
 
-        // POST: api/Projects
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateProjectDTO request)
+    // GET: api/Projects
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var projectSpec = new ProjectByIdWithItemsSpec(id);
+        var project = await _repository.GetBySpecAsync(projectSpec);
+
+        var result = new ProjectDTO
         {
-            var newProject = new Project(request.Name);
+            Id = project.Id,
+            Name = project.Name,
+            Items = new List<ToDoItemDTO>
+            (
+                project.Items.Select(i => ToDoItemDTO.FromToDoItem(i)).ToList()
+            )
+        };
 
-            var createdProject = await _repository.AddAsync(newProject);
+        return Ok(result);
+    }
 
-            var result = new ProjectDTO
-            {
-                Id = createdProject.Id,
-                Name = createdProject.Name
-            };
-            return Ok(result);
-        }
+    // POST: api/Projects
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] CreateProjectDTO request)
+    {
+        var newProject = new Project(request.Name);
 
-        // PATCH: api/Projects/{projectId}/complete/{itemId}
-        [HttpPatch("{projectId:int}/complete/{itemId}")]
-        public async Task<IActionResult> Complete(int projectId, int itemId)
+        var createdProject = await _repository.AddAsync(newProject);
+
+        var result = new ProjectDTO
         {
-            var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-            var project = await _repository.GetBySpecAsync(projectSpec);
-            if (project == null) return NotFound("No such project");
+            Id = createdProject.Id,
+            Name = createdProject.Name
+        };
+        return Ok(result);
+    }
 
-            var toDoItem = project.Items.FirstOrDefault(item => item.Id == itemId);
-            if (toDoItem == null) return NotFound("No such item.");
+    // PATCH: api/Projects/{projectId}/complete/{itemId}
+    [HttpPatch("{projectId:int}/complete/{itemId}")]
+    public async Task<IActionResult> Complete(int projectId, int itemId)
+    {
+        var projectSpec = new ProjectByIdWithItemsSpec(projectId);
+        var project = await _repository.GetBySpecAsync(projectSpec);
+        if (project == null) return NotFound("No such project");
 
-            toDoItem.MarkComplete();
-            await _repository.UpdateAsync(project);
+        var toDoItem = project.Items.FirstOrDefault(item => item.Id == itemId);
+        if (toDoItem == null) return NotFound("No such item.");
 
-            return Ok();
-        }
+        toDoItem.MarkComplete();
+        await _repository.UpdateAsync(project);
+
+        return Ok();
     }
 }

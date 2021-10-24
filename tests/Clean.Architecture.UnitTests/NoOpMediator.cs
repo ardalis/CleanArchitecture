@@ -2,28 +2,27 @@
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Clean.Architecture.UnitTests
+namespace Clean.Architecture.UnitTests;
+
+public class NoOpMediator : IMediator
 {
-    public class NoOpMediator : IMediator
+    public Task Publish(object notification, CancellationToken cancellationToken = default)
     {
-        public Task Publish(object notification, CancellationToken cancellationToken = default)
-        {
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
+    }
 
-        public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
-        {
-            return Task.CompletedTask;
-        }
+    public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
+    {
+        return Task.CompletedTask;
+    }
 
-        public Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult<TResponse>(default);
-        }
+    public Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult<TResponse>(default);
+    }
 
-        public Task<object> Send(object request, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult<object>(default);
-        }
+    public Task<object> Send(object request, CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult<object>(default);
     }
 }
