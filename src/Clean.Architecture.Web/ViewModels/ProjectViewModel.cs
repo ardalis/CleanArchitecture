@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Clean.Architecture.Web.ViewModels
+namespace Clean.Architecture.Web.ViewModels;
+
+public class ProjectViewModel
 {
-    public class ProjectViewModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<ToDoItemViewModel> Items = new();
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public List<ToDoItemViewModel> Items = new();
 }
