@@ -104,6 +104,8 @@ Example:
 
 Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
 
+> **Known Issue**: Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
+
 ## Using the GitHub Repository
 
 To get started based on this repository, you need to get a copy locally. You have three options: fork, clone, or download. Most of the time, you probably just want to download.
