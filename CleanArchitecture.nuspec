@@ -2,11 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
-    <title>Ardalis.CleanArchitecture.Template</title>
-    <version>6.0.1</version>
+    <title>Ardalis Clean Architecture Solution Template</title>
+    <version>6.0.2</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
-      ASP.NET Core template for solution using Steve @ardalis Smith's CleanArchitecture.
+      The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 6 and C# 10.
+      Features zero tight coupling to database or data access technology.
     </description>
     <language>en-US</language>
     <license type="expression">MIT</license>
