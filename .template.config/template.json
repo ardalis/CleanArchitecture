@@ -2,13 +2,13 @@
 "$schema": "http://json.schemastore.org/template",
 "author": "Steve Smith, Erik Dahl",
 "classifications": [
-"cleanarch","clean architecture","solution","ddd","ardalis","solid","onion","hexagonal"
+"Web","ASP.NET","Clean Architecture"
 ],
 "tags": {
 "language": "C#"
 },
 "identity": "Clean.Architecture",
-"name": "Steve (@ardalis) Smith Clean Architecture",
+"name": "ASP.NET Clean Architecture by @ardalis",
 "shortName": "clean-arch",
 "sourceName": "Clean.Architecture",
 "preferNameDirectory": true
