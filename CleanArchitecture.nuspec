@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Arch Solution</title>
-    <version>6.0.3</version>
+    <version>6.0.4</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 6 and C# 10.
@@ -12,11 +12,11 @@
     <language>en-US</language>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
-    <releaseNotes>Updated to ASP.NET 6 RTM NuGet package dependencies</releaseNotes>
+    <releaseNotes>Updated template name</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
-    <tags>Web ASP.NET "Clean Architecture</tags>
+    <tags>Web ASP.NET "Clean Architecture" ddd</tags>
     <icon>./content/icon.png</icon>
   </metadata>
   <files>
