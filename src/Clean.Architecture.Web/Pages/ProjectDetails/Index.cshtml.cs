@@ -17,7 +17,7 @@ public class IndexModel : PageModel
     public int ProjectId { get; set; }
     public string Message { get; set; } = "";
 
-    public ProjectDTO Project { get; set; }
+    public ProjectDTO? Project { get; set; }
 
     public IndexModel(IRepository<Project> repository)
     {
@@ -36,12 +36,12 @@ public class IndexModel : PageModel
         }
 
         Project = new ProjectDTO
-        {
-            Id = project.Id,
-            Name = project.Name,
-            Items = project.Items
+        (
+            id: project.Id,
+            name: project.Name,
+            items: project.Items
             .Select(item => ToDoItemDTO.FromToDoItem(item))
             .ToList()
-        };
+        );
     }
 }

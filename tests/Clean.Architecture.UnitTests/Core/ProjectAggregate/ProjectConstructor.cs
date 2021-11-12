@@ -6,7 +6,7 @@ namespace Clean.Architecture.UnitTests.Core.ProjectAggregate;
 public class ProjectConstructor
 {
     private string _testName = "test name";
-    private Project _testProject = null;
+    private Project? _testProject;
 
     private Project CreateProject()
     {

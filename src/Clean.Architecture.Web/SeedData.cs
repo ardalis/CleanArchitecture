@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using Clean.Architecture.Core.ProjectAggregate;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Clean.Architecture.Web;
 
@@ -50,6 +47,7 @@ public static class SeedData
         }
         dbContext.SaveChanges();
 
+        TestProject1.Id = 1;
         TestProject1.AddItem(ToDoItem1);
         TestProject1.AddItem(ToDoItem2);
         TestProject1.AddItem(ToDoItem3);

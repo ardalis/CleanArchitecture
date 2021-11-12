@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.ApiEndpoints;
+﻿using Ardalis.ApiEndpoints;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
@@ -36,11 +33,11 @@ public class GetById : BaseAsyncEndpoint
         if (entity == null) return NotFound();
 
         var response = new GetProjectByIdResponse
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            Items = entity.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone)).ToList()
-        };
+        (
+            id: entity.Id,
+            name: entity.Name,
+            items: entity.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone)).ToList()
+        );
         return Ok(response);
     }
 }

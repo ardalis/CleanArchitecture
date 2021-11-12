@@ -1,16 +1,14 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Clean.Architecture.Web;
+﻿using Clean.Architecture.Web;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.ControllerApis;
 
 [Collection("Sequential")]
-public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Startup>>
+public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<WebMarker>>
 {
     private readonly HttpClient _client;
 
-    public MetaControllerInfo(CustomWebApplicationFactory<Startup> factory)
+    public MetaControllerInfo(CustomWebApplicationFactory<WebMarker> factory)
     {
         _client = factory.CreateClient();
     }

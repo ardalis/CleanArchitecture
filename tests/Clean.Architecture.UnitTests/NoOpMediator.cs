@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 
 namespace Clean.Architecture.UnitTests;
 
@@ -21,8 +19,8 @@ public class NoOpMediator : IMediator
         return Task.FromResult<TResponse>(default);
     }
 
-    public Task<object> Send(object request, CancellationToken cancellationToken = default)
+    public Task<object?> Send(object request, CancellationToken cancellationToken = default)
     {
-        return Task.FromResult<object>(default);
+        return Task.FromResult<object?>(default);
     }
 }

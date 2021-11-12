@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Clean.Architecture.Infrastructure.Data;
+﻿using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.UnitTests;
 using Clean.Architecture.Web;
 using MediatR;
@@ -14,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.FunctionalTests;
 
-public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
+public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
     /// <summary>
     /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
@@ -25,6 +23,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Start
     protected override IHost CreateHost(IHostBuilder builder)
     {
         var host = builder.Build();
+        builder.ConfigureWebHost(ConfigureWebHost);
 
         // Get service provider.
         var serviceProvider = host.Services;
@@ -61,7 +60,6 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Start
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder
-            .UseSolutionRelativeContentRoot("src/Clean.Architecture.Web")
             .ConfigureServices(services =>
             {
                 // Remove the app's ApplicationDbContext registration.

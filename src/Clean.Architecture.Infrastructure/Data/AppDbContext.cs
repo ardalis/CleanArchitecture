@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.EFCore.Extensions;
+﻿using Ardalis.EFCore.Extensions;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel;
 using MediatR;
@@ -11,20 +8,20 @@ namespace Clean.Architecture.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
-    private readonly IMediator _mediator;
+    private readonly IMediator? _mediator;
 
     //public AppDbContext(DbContextOptions options) : base(options)
     //{
     //}
 
-    public AppDbContext(DbContextOptions<AppDbContext> options, IMediator mediator)
+    public AppDbContext(DbContextOptions<AppDbContext> options, IMediator? mediator)
         : base(options)
     {
         _mediator = mediator;
     }
 
-    public DbSet<ToDoItem> ToDoItems { get; set; }
-    public DbSet<Project> Projects { get; set; }
+    public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
+    public DbSet<Project> Projects => Set<Project>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

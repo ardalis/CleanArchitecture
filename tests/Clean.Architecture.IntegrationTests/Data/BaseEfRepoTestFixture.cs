@@ -11,6 +11,14 @@ public abstract class BaseEfRepoTestFixture
 {
     protected AppDbContext _dbContext;
 
+    protected BaseEfRepoTestFixture()
+    {
+        var options = CreateNewContextOptions();
+        var mockMediator = new Mock<IMediator>();
+
+        _dbContext = new AppDbContext(options, mockMediator.Object);
+    }
+
     protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
     {
         // Create a fresh service provider, and therefore a fresh
@@ -30,10 +38,6 @@ public abstract class BaseEfRepoTestFixture
 
     protected EfRepository<Project> GetRepository()
     {
-        var options = CreateNewContextOptions();
-        var mockMediator = new Mock<IMediator>();
-
-        _dbContext = new AppDbContext(options, mockMediator.Object);
         return new EfRepository<Project>(_dbContext);
     }
 }

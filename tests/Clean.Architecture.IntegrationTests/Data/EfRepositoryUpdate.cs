@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.UnitTests;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -26,7 +22,11 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
         // fetch the item and update its title
         var newProject = (await repository.ListAsync())
             .FirstOrDefault(project => project.Name == initialName);
-        Assert.NotNull(newProject);
+        if (newProject == null)
+        { 
+            Assert.NotNull(newProject);
+            return;
+        }
         Assert.NotSame(project, newProject);
         var newName = Guid.NewGuid().ToString();
         newProject.UpdateName(newName);
@@ -39,7 +39,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
             .FirstOrDefault(project => project.Name == newName);
 
         Assert.NotNull(updatedItem);
-        Assert.NotEqual(project.Name, updatedItem.Name);
-        Assert.Equal(newProject.Id, updatedItem.Id);
+        Assert.NotEqual(project.Name, updatedItem?.Name);
+        Assert.Equal(newProject.Id, updatedItem?.Id);
     }
 }

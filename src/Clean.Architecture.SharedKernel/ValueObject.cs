@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Clean.Architecture.SharedKernel;
 
 // source: https://github.com/jhewlett/ValueObject
 public abstract class ValueObject : IEquatable<ValueObject>
 {
-    private List<PropertyInfo> properties;
-    private List<FieldInfo> fields;
+    private List<PropertyInfo>? properties;
+    private List<FieldInfo>? fields;
 
-    public static bool operator ==(ValueObject obj1, ValueObject obj2)
+    public static bool operator ==(ValueObject? obj1, ValueObject? obj2)
     {
         if (object.Equals(obj1, null))
         {
@@ -24,17 +21,17 @@ public abstract class ValueObject : IEquatable<ValueObject>
         return obj1.Equals(obj2);
     }
 
-    public static bool operator !=(ValueObject obj1, ValueObject obj2)
+    public static bool operator !=(ValueObject? obj1, ValueObject? obj2)
     {
         return !(obj1 == obj2);
     }
 
-    public bool Equals(ValueObject obj)
+    public bool Equals(ValueObject? obj)
     {
         return Equals(obj as object);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj == null || GetType() != obj.GetType()) return false;
 
@@ -101,7 +98,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
         }
     }
 
-    private int HashValue(int seed, object value)
+    private int HashValue(int seed, object? value)
     {
         var currentHash = value != null
             ? value.GetHashCode()
