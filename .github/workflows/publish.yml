@@ -17,7 +17,7 @@ jobs:
           nuget-version: '5.x'
           
       - name: Package the template
-        run: nuget pack CleanArchitecture.nuspec
+        run: nuget pack CleanArchitecture.nuspec -NoDefaultExcludes
         
       - name: Publish to nuget.org
         run: nuget push Ardalis.CleanArchitecture.Template.*.nupkg -src https://api.nuget.org/v3/index.json ${{secrets.NUGET_API_KEY}}
