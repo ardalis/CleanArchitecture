@@ -10,40 +10,40 @@ public class Update : BaseAsyncEndpoint
     .WithRequest<UpdateProjectRequest>
     .WithResponse<UpdateProjectResponse>
 {
-    private readonly IRepository<Project> _repository;
+  private readonly IRepository<Project> _repository;
 
-    public Update(IRepository<Project> repository)
+  public Update(IRepository<Project> repository)
+  {
+    _repository = repository;
+  }
+
+  [HttpPut(UpdateProjectRequest.Route)]
+  [SwaggerOperation(
+      Summary = "Updates a Project",
+      Description = "Updates a Project with a longer description",
+      OperationId = "Projects.Update",
+      Tags = new[] { "ProjectEndpoints" })
+  ]
+  public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(UpdateProjectRequest request,
+      CancellationToken cancellationToken)
+  {
+    if (request.Name == null)
     {
-        _repository = repository;
+      return BadRequest();
     }
+    var existingProject = await _repository.GetByIdAsync(request.Id); // TODO: pass cancellation token
 
-    [HttpPut(UpdateProjectRequest.Route)]
-    [SwaggerOperation(
-        Summary = "Updates a Project",
-        Description = "Updates a Project with a longer description",
-        OperationId = "Projects.Update",
-        Tags = new[] { "ProjectEndpoints" })
-    ]
-    public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(UpdateProjectRequest request,
-        CancellationToken cancellationToken)
+    if (existingProject == null)
     {
-        if (request.Name == null)
-        {
-            return BadRequest();
-        }
-        var existingProject = await _repository.GetByIdAsync(request.Id); // TODO: pass cancellation token
-
-        if (existingProject == null)
-        {
-            return NotFound();
-        }
-        existingProject.UpdateName(request.Name);
-
-        await _repository.UpdateAsync(existingProject); // TODO: pass cancellation token
-
-        var response = new UpdateProjectResponse(
-            project: new ProjectRecord(existingProject.Id, existingProject.Name)
-        );
-        return Ok(response);
+      return NotFound();
     }
+    existingProject.UpdateName(request.Name);
+
+    await _repository.UpdateAsync(existingProject); // TODO: pass cancellation token
+
+    var response = new UpdateProjectResponse(
+        project: new ProjectRecord(existingProject.Id, existingProject.Name)
+    );
+    return Ok(response);
+  }
 }

@@ -2,6 +2,6 @@
 
 public enum ProjectStatus
 {
-    InProgress,
-    Complete
+  InProgress,
+  Complete
 }
