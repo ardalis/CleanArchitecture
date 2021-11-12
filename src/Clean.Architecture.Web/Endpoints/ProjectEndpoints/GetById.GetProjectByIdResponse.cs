@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
 public class GetProjectByIdResponse

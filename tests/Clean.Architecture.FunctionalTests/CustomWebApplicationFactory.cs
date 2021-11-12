@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Clean.Architecture.Infrastructure.Data;
+﻿using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.UnitTests;
 using Clean.Architecture.Web;
 using MediatR;

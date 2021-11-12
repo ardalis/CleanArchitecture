@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using Clean.Architecture.Core.ProjectAggregate;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Clean.Architecture.Web;
 

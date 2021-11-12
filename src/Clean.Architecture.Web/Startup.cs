@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-using Ardalis.ListStartupServices;
+﻿using Ardalis.ListStartupServices;
 using Autofac;
 using Clean.Architecture.Core;
 using Clean.Architecture.Infrastructure;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace Clean.Architecture.Web;

@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Ardalis.HttpClientTestExtensions;
+﻿using Ardalis.HttpClientTestExtensions;
 using Clean.Architecture.Web;
 using Clean.Architecture.Web.ApiModels;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.ControllerApis;

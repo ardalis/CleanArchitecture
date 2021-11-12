@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Ardalis.HttpClientTestExtensions;
+﻿using Ardalis.HttpClientTestExtensions;
 using Clean.Architecture.Web;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Xunit;

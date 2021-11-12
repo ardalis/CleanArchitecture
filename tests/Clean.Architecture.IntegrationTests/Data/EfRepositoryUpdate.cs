@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.UnitTests;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 

@@ -1,11 +1,5 @@
-﻿using System;
-using Autofac.Extensions.DependencyInjection;
+﻿using Autofac.Extensions.DependencyInjection;
 using Clean.Architecture.Infrastructure.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
 namespace Clean.Architecture.Web;
 
 public class Program

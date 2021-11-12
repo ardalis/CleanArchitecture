@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Clean.Architecture.Web;
+﻿using Clean.Architecture.Web;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.ControllerViews;

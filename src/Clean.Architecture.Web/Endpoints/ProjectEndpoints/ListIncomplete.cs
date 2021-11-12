@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.ApiEndpoints;
-using Ardalis.Result.AspNetCore;
+﻿using Ardalis.ApiEndpoints;
 using Clean.Architecture.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
