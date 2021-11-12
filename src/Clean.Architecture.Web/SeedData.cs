@@ -47,6 +47,7 @@ public static class SeedData
         }
         dbContext.SaveChanges();
 
+        TestProject1.Id = 1;
         TestProject1.AddItem(ToDoItem1);
         TestProject1.AddItem(ToDoItem2);
         TestProject1.AddItem(ToDoItem3);
