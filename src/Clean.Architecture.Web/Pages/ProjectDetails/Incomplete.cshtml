@@ -3,18 +3,22 @@
 
 <h2>Incomplete To Do Items (Razor Page)</h2>
 <ul>
-    @foreach (var item in Model.ToDoItems)
+    @if (Model.ToDoItems != null)
     {
-        <li>
-            @item.Title @if (item.IsDone)
+        @foreach (var item in Model.ToDoItems)
         {
-            <span>DONE!</span>
+            <li>
+                @item.Title
+                @if (item.IsDone)
+                {
+                    <span>DONE!</span>
+                }
+                else
+                {
+                    <span>NOT DONE</span>
+                }
+                <br/>@item.Description
+            </li>
         }
-        else
-        {
-        <span>NOT DONE</span>
-        }
-            <br />@item.Description
-        </li>
     }
 </ul>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using Autofac;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
@@ -16,13 +15,19 @@ public class DefaultInfrastructureModule : Module
     private readonly bool _isDevelopment = false;
     private readonly List<Assembly> _assemblies = new List<Assembly>();
 
-    public DefaultInfrastructureModule(bool isDevelopment, Assembly callingAssembly = null)
+    public DefaultInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
     {
         _isDevelopment = isDevelopment;
         var coreAssembly = Assembly.GetAssembly(typeof(Project)); // TODO: Replace "Project" with any type from your Core project
         var infrastructureAssembly = Assembly.GetAssembly(typeof(StartupSetup));
-        _assemblies.Add(coreAssembly);
-        _assemblies.Add(infrastructureAssembly);
+        if (coreAssembly != null)
+        {
+            _assemblies.Add(coreAssembly);
+        }
+        if (infrastructureAssembly != null)
+        {
+            _assemblies.Add(infrastructureAssembly);
+        }
         if (callingAssembly != null)
         {
             _assemblies.Add(callingAssembly);

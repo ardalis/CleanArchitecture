@@ -1,53 +1,104 @@
-﻿using System;
+﻿using Ardalis.ListStartupServices;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Clean.Architecture.Core;
+using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Clean.Architecture.Web;
+using Microsoft.OpenApi.Models;
 
-namespace Clean.Architecture.Web;
 
-public class Program
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    public static void Main(string[] args)
-    {
-        var host = CreateHostBuilder(args).Build();
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
 
-        using (var scope = host.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
+string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
 
-            try
-            {
-                var context = services.GetRequiredService<AppDbContext>();
-                //                    context.Database.Migrate();
-                context.Database.EnsureCreated();
-                SeedData.Initialize(services);
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred seeding the DB.");
-            }
-        }
+builder.Services.AddDbContext(connectionString);
 
-        host.Run();
-    }
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
+builder.Services.AddRazorPages();
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-Host.CreateDefaultBuilder(args)
-    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-    .ConfigureWebHostDefaults(webBuilder =>
-    {
-        webBuilder
-            .UseStartup<Startup>()
-            .ConfigureLogging(logging =>
-        {
-            logging.ClearProviders();
-            logging.AddConsole();
-            // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
-        });
-    });
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    c.EnableAnnotations();
+});
 
+// add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
+builder.Services.Configure<ServiceConfig>(config =>
+{
+    config.Services = new List<ServiceDescriptor>(builder.Services);
+
+    // optional - default path to view services is /listallservices - recommended to choose your own path
+    config.Path = "/listservices";
+});
+
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule(new DefaultCoreModule());
+    containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
+});
+
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+//builder.Logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseShowAllServicesMiddleware();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+app.UseRouting();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCookiePolicy();
+
+// Enable middleware to serve generated Swagger as a JSON endpoint.
+app.UseSwagger();
+
+// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
+
+// Seed Database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        //                    context.Database.Migrate();
+        context.Database.EnsureCreated();
+        SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
+
+app.Run();

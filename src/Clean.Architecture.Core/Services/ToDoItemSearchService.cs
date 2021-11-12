@@ -58,6 +58,10 @@ public class ToDoItemSearchService : IToDoItemSearchService
     {
         var projectSpec = new ProjectByIdWithItemsSpec(projectId);
         var project = await _repository.GetBySpecAsync(projectSpec);
+        if (project == null)
+        {
+            return Result<ToDoItem>.NotFound();
+        }
 
         var incompleteSpec = new IncompleteItemsSpec();
 

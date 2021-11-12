@@ -1,21 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Ardalis.HttpClientTestExtensions;
+﻿using Ardalis.HttpClientTestExtensions;
 using Clean.Architecture.Web;
 using Clean.Architecture.Web.ApiModels;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.ControllerApis;
 
 [Collection("Sequential")]
-public class ProjectCreate : IClassFixture<CustomWebApplicationFactory<Startup>>
+public class ProjectCreate : IClassFixture<CustomWebApplicationFactory<WebMarker>>
 {
     private readonly HttpClient _client;
 
-    public ProjectCreate(CustomWebApplicationFactory<Startup> factory)
+    public ProjectCreate(CustomWebApplicationFactory<WebMarker> factory)
     {
         _client = factory.CreateClient();
     }

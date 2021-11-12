@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Clean.Architecture.Core.ProjectAggregate;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Xunit;
 
 namespace Clean.Architecture.IntegrationTests.Data;
