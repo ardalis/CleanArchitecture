@@ -23,6 +23,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
     protected override IHost CreateHost(IHostBuilder builder)
     {
         var host = builder.Build();
+        builder.ConfigureWebHost(ConfigureWebHost);
 
         // Get service provider.
         var serviceProvider = host.Services;
@@ -59,7 +60,6 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder
-            .UseSolutionRelativeContentRoot("src/Clean.Architecture.Web")
             .ConfigureServices(services =>
             {
                 // Remove the app's ApplicationDbContext registration.
