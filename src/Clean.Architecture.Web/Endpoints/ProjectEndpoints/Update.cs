@@ -27,16 +27,23 @@ public class Update : BaseAsyncEndpoint
     public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(UpdateProjectRequest request,
         CancellationToken cancellationToken)
     {
+        if (request.Name == null)
+        {
+            return BadRequest();
+        }
         var existingProject = await _repository.GetByIdAsync(request.Id); // TODO: pass cancellation token
 
+        if (existingProject == null)
+        {
+            return NotFound();
+        }
         existingProject.UpdateName(request.Name);
 
         await _repository.UpdateAsync(existingProject); // TODO: pass cancellation token
 
-        var response = new UpdateProjectResponse()
-        {
-            Project = new ProjectRecord(existingProject.Id, existingProject.Name)
-        };
+        var response = new UpdateProjectResponse(
+            project: new ProjectRecord(existingProject.Id, existingProject.Name)
+        );
         return Ok(response);
     }
 }

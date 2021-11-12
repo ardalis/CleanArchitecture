@@ -25,7 +25,11 @@ public class ListIncomplete : BaseAsyncEndpoint
     ]
     public override async Task<ActionResult<ListIncompleteResponse>> HandleAsync([FromQuery] ListIncompleteRequest request, CancellationToken cancellationToken)
     {
-        var response = new ListIncompleteResponse();
+        if (request.SearchString == null)
+        {
+            return BadRequest();
+        }
+        var response = new ListIncompleteResponse(0, new List<ToDoItemRecord>());
         var result = await _searchService.GetAllIncompleteItemsAsync(request.ProjectId, request.SearchString);
 
         if (result.Status == Ardalis.Result.ResultStatus.Ok)

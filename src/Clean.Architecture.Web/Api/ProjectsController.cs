@@ -25,10 +25,10 @@ public class ProjectsController : BaseApiController
     {
         var projectDTOs = (await _repository.ListAsync())
             .Select(project => new ProjectDTO
-            {
-                Id = project.Id,
-                Name = project.Name
-            })
+            (
+                id: project.Id,
+                name: project.Name
+            ))
             .ToList();
 
         return Ok(projectDTOs);
@@ -40,16 +40,20 @@ public class ProjectsController : BaseApiController
     {
         var projectSpec = new ProjectByIdWithItemsSpec(id);
         var project = await _repository.GetBySpecAsync(projectSpec);
+        if (project == null)
+        {
+            return NotFound();
+        }
 
         var result = new ProjectDTO
-        {
-            Id = project.Id,
-            Name = project.Name,
-            Items = new List<ToDoItemDTO>
+        (
+            id: project.Id,
+            name: project.Name,
+            items: new List<ToDoItemDTO>
             (
                 project.Items.Select(i => ToDoItemDTO.FromToDoItem(i)).ToList()
             )
-        };
+        );
 
         return Ok(result);
     }
@@ -63,10 +67,10 @@ public class ProjectsController : BaseApiController
         var createdProject = await _repository.AddAsync(newProject);
 
         var result = new ProjectDTO
-        {
-            Id = createdProject.Id,
-            Name = createdProject.Name
-        };
+        (
+            id: createdProject.Id,
+            name: createdProject.Name
+        );
         return Ok(result);
     }
 

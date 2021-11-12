@@ -27,15 +27,20 @@ public class Create : BaseAsyncEndpoint
     public override async Task<ActionResult<CreateProjectResponse>> HandleAsync(CreateProjectRequest request,
         CancellationToken cancellationToken)
     {
+        if (request.Name == null)
+        {
+            return BadRequest();
+        }
+
         var newProject = new Project(request.Name);
 
         var createdItem = await _repository.AddAsync(newProject); // TODO: pass cancellation token
 
         var response = new CreateProjectResponse
-        {
-            Id = createdItem.Id,
-            Name = createdItem.Name
-        };
+        (
+            id: createdItem.Id,
+            name: createdItem.Name
+        );
 
         return Ok(response);
     }

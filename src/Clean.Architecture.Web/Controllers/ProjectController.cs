@@ -22,6 +22,10 @@ public class ProjectController : Controller
     {
         var spec = new ProjectByIdWithItemsSpec(projectId);
         var project = await _projectRepository.GetBySpecAsync(spec);
+        if (project == null)
+        {
+            return NotFound();
+        }
 
         var dto = new ProjectViewModel
         {

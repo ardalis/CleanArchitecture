@@ -17,7 +17,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
         var newProject = (await repository.ListAsync())
                         .FirstOrDefault();
 
-        Assert.Equal(testProjectName, newProject.Name);
+        Assert.Equal(testProjectName, newProject?.Name);
         Assert.True(newProject?.Id > 0);
     }
 }

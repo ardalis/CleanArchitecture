@@ -21,7 +21,9 @@ public class ItemCompletedEmailNotificationHandlerHandle
     [Fact]
     public async Task ThrowsExceptionGivenNullEventArgument()
     {
+        #nullable disable
         Exception ex = await Assert.ThrowsAsync<ArgumentNullException>(() => _handler.Handle(null, CancellationToken.None));
+        #nullable enable
     }
 
     [Fact]

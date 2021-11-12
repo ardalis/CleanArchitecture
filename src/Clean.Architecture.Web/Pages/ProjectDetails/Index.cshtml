@@ -10,24 +10,28 @@ else
 
 <h2>Project (Razor Page)</h2>
 
-<h3>Name: @Model.Project.Name</h3>
+<h3>Name: @Model.Project?.Name</h3>
 
 <b>Items:</b>
 
-<ul>
-    @foreach (var item in Model.Project.Items)
-    {
-        <li>
-            @item.Title @if (item.IsDone)
+    <ul>
+        @if (Model.Project != null)
+        {
+            @foreach (var item in Model.Project.Items)
             {
-                <span>DONE!</span>
+                <li>
+                    @item.Title
+                    @if (item.IsDone)
+                    {
+                        <span>DONE!</span>
+                    }
+                    else
+                    {
+                        <span>NOT DONE</span>
+                    }
+                    <br/>@item.Description
+                </li>
             }
-            else
-            {
-                <span>NOT DONE</span>
-            }
-            <br />@item.Description
-        </li>
-    }
-</ul>
+        }
+    </ul>
 }
