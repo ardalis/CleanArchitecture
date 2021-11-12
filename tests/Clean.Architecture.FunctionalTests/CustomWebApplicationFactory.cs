@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.FunctionalTests;
 
-public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
+public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
     /// <summary>
     /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
