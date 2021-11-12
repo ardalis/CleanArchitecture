@@ -5,7 +5,8 @@
 "Web","ASP.NET","Clean Architecture"
 ],
 "tags": {
-"language": "C#"
+"language": "C#",
+"type":"project"
 },
 "identity": "Clean.Architecture",
 "name": "ASP.NET Clean Architecture by @ardalis",
