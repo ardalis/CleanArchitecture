@@ -23,7 +23,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
   protected override IHost CreateHost(IHostBuilder builder)
   {
     var host = builder.Build();
-    builder.ConfigureWebHost(ConfigureWebHost);
+    host.Start();
 
     // Get service provider.
     var serviceProvider = host.Services;
@@ -43,8 +43,12 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
 
       try
       {
+        // Can also skip creating the items
+        //if (!db.ToDoItems.Any())
+        //{
         // Seed the database with test data.
-        SeedData.PopulateTestData(db);
+          SeedData.PopulateTestData(db);
+        //}
       }
       catch (Exception ex)
       {
@@ -53,7 +57,6 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
       }
     }
 
-    host.Start();
     return host;
   }
 

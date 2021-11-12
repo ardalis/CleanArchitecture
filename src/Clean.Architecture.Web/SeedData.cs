@@ -41,13 +41,16 @@ public static class SeedData
   }
   public static void PopulateTestData(AppDbContext dbContext)
   {
+    foreach (var item in dbContext.Projects)
+    {
+      dbContext.Remove(item);
+    }
     foreach (var item in dbContext.ToDoItems)
     {
       dbContext.Remove(item);
     }
     dbContext.SaveChanges();
 
-    TestProject1.Id = 1;
     TestProject1.AddItem(ToDoItem1);
     TestProject1.AddItem(ToDoItem2);
     TestProject1.AddItem(ToDoItem3);
