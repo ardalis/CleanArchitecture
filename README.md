@@ -45,8 +45,9 @@ Or if you're feeling really generous, we now support GitHub sponsorships - see t
 
 ## Versions
 
-The master branch is now using .NET 5. If you need a previous version use one of these tagged commits:
+The master branch is now using .NET 6. If you need a previous version use one of these tagged commits:
 
+- [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
 - [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
@@ -61,9 +62,9 @@ The master branch is now using .NET 5. If you need a previous version use one of
 
 To use this template, there are a few options:
 
+- Install using `dotnet new` (preferred - see below)
 - [Install the Visual Studio Template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) and use it within Visual Studio
 - Download this Repository
-- Install using `dotnet new` (see below)
 
 These are all covered below.
 
