@@ -16,7 +16,7 @@ indent_size = 2
 
 # Code files
 [*.{cs,csx,vb,vbx}]
-indent_size = 4
+indent_size =2
 insert_final_newline = true
 charset = utf-8-bom
 ###############################
@@ -65,6 +65,7 @@ dotnet_naming_rule.constant_fields_should_be_pascal_case.style    = pascal_case_
 dotnet_naming_symbols.constant_fields.applicable_kinds            = field
 dotnet_naming_symbols.constant_fields.applicable_accessibilities  = *
 dotnet_naming_symbols.constant_fields.required_modifiers          = const
+tab_width=2
 ###############################
 # C# Coding Conventions       #
 ###############################

@@ -2,5 +2,9 @@
 
 public class UpdateProjectResponse
 {
-    public ProjectRecord Project { get; set; }
+  public UpdateProjectResponse(ProjectRecord project)
+  {
+    Project = project;
+  }
+  public ProjectRecord Project { get; set; }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
 namespace Clean.Architecture.SharedKernel;
 
 public abstract class BaseDomainEvent : INotification
 {
-    public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
+  public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
 }

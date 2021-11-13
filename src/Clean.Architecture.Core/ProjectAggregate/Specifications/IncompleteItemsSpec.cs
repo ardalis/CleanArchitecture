@@ -4,8 +4,8 @@ namespace Clean.Architecture.Core.ProjectAggregate.Specifications;
 
 public class IncompleteItemsSpec : Specification<ToDoItem>
 {
-    public IncompleteItemsSpec()
-    {
-        Query.Where(item => !item.IsDone);
-    }
+  public IncompleteItemsSpec()
+  {
+    Query.Where(item => !item.IsDone);
+  }
 }

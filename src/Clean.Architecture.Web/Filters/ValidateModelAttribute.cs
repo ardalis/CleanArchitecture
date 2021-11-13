@@ -10,11 +10,11 @@ namespace Clean.Architecture.Web.Filters;
 /// </summary>
 public class ValidateModelAttribute : ActionFilterAttribute
 {
-    public override void OnActionExecuting(ActionExecutingContext context)
+  public override void OnActionExecuting(ActionExecutingContext context)
+  {
+    if (!context.ModelState.IsValid)
     {
-        if (!context.ModelState.IsValid)
-        {
-            context.Result = new BadRequestObjectResult(context.ModelState);
-        }
+      context.Result = new BadRequestObjectResult(context.ModelState);
     }
+  }
 }
