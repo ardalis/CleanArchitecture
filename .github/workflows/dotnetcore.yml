@@ -20,4 +20,4 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Test with dotnet
-      run: dotnet test ./Clean.Architecture.sln --configuration Release
+      run: dotnet test ./Clean.Architecture.1.sln --configuration Release
