@@ -4,7 +4,7 @@ public class CreateProjectResponse
 {
   public CreateProjectResponse(int id, string name)
   {
-    Id = Id;
+    Id = id;
     Name = name;
   }
   public int Id { get; set; }
