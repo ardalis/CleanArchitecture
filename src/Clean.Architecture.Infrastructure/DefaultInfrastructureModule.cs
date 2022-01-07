@@ -3,7 +3,6 @@ using Autofac;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.Infrastructure.LiteDBData;
 using Clean.Architecture.SharedKernel.Interfaces;
 using MediatR;
 using MediatR.Pipeline;
@@ -50,17 +49,10 @@ public class DefaultInfrastructureModule : Module
 
   private void RegisterCommonDependencies(ContainerBuilder builder)
   {
-    builder.RegisterType<LiteDbContext>().SingleInstance();
-
-    builder.RegisterGeneric(typeof(LiteDBRepository<>))
+    builder.RegisterGeneric(typeof(EfRepository<>))
         .As(typeof(IRepository<>))
         .As(typeof(IReadRepository<>))
         .InstancePerLifetimeScope();
-
-    //builder.RegisterGeneric(typeof(EfRepository<>))
-    //    .As(typeof(IRepository<>))
-    //    .As(typeof(IReadRepository<>))
-    //    .InstancePerLifetimeScope();
 
     builder
         .RegisterType<Mediator>()
