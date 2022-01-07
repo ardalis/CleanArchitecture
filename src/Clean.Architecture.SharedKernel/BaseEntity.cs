@@ -1,7 +1,9 @@
-﻿namespace Clean.Architecture.SharedKernel;
+﻿using Ardalis.Specification;
+
+namespace Clean.Architecture.SharedKernel;
 
 // This can be modified to BaseEntity<TId> to support multiple key types (e.g. Guid)
-public abstract class BaseEntity
+public abstract class BaseEntity : IEntity<int>
 {
   public int Id { get; set; }
 
