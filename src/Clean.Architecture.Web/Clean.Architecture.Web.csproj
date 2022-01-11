@@ -15,7 +15,7 @@
     <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
     <PackageReference Include="Ardalis.Result" Version="3.1.2" />
     <PackageReference Include="Ardalis.Result.AspNetCore" Version="3.0.1" />
-    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="6.0.1" />
