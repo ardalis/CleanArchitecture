@@ -5,9 +5,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-public class ListIncomplete : BaseAsyncEndpoint
+public class ListIncomplete : EndpointBaseAsync
     .WithRequest<ListIncompleteRequest>
-    .WithResponse<ListIncompleteResponse>
+    .WithActionResult<ListIncompleteResponse>
 {
   private readonly IToDoItemSearchService _searchService;
 
