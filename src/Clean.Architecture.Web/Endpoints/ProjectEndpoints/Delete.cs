@@ -6,9 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-public class Delete : BaseAsyncEndpoint
+public class Delete : EndpointBaseAsync
     .WithRequest<DeleteProjectRequest>
-    .WithoutResponse
+    .WithoutResult
 {
   private readonly IRepository<Project> _repository;
 

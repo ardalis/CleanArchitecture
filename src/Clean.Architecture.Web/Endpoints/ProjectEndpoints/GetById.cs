@@ -7,9 +7,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-public class GetById : BaseAsyncEndpoint
+public class GetById : EndpointBaseAsync
     .WithRequest<GetProjectByIdRequest>
-    .WithResponse<GetProjectByIdResponse>
+    .WithActionResult<GetProjectByIdResponse>
 {
   private readonly IRepository<Project> _repository;
 

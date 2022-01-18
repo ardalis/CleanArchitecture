@@ -6,9 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-public class Update : BaseAsyncEndpoint
+public class Update : EndpointBaseAsync
     .WithRequest<UpdateProjectRequest>
-    .WithResponse<UpdateProjectResponse>
+    .WithActionResult<UpdateProjectResponse>
 {
   private readonly IRepository<Project> _repository;
 
