@@ -17,9 +17,8 @@ public class IncompleteItemsSpecificationConstructor
     var items = new List<ToDoItem>() { item1, item2, item3 };
 
     var spec = new IncompleteItemsSpec();
-    List<ToDoItem> filteredList = items
-        .Where(spec.WhereExpressions.First().Compile())
-        .ToList();
+
+    var filteredList = spec.Evaluate(items);
 
     Assert.Contains(item1, filteredList);
     Assert.Contains(item2, filteredList);
