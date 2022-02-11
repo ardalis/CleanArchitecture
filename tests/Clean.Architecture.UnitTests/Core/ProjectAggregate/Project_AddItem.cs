@@ -5,7 +5,7 @@ namespace Clean.Architecture.UnitTests.Core.ProjectAggregate;
 
 public class Project_AddItem
 {
-  private Project _testProject = new Project("some name");
+  private Project _testProject = new Project("some name", PriorityStatus.Backlog);
 
   [Fact]
   public void AddsItemToItems()

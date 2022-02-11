@@ -9,8 +9,9 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
   public async Task AddsProjectAndSetsId()
   {
     var testProjectName = "testProject";
+    var testProjectStatus = PriorityStatus.Backlog;
     var repository = GetRepository();
-    var project = new Project(testProjectName);
+    var project = new Project(testProjectName, testProjectStatus);
 
     await repository.AddAsync(project);
 
@@ -18,6 +19,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
                     .FirstOrDefault();
 
     Assert.Equal(testProjectName, newProject?.Name);
+    Assert.Equal(testProjectStatus, newProject?.Priority);
     Assert.True(newProject?.Id > 0);
   }
 }

@@ -32,7 +32,7 @@ public class Create : EndpointBaseAsync
       return BadRequest();
     }
 
-    var newProject = new Project(request.Name);
+    var newProject = new Project(request.Name, PriorityStatus.Backlog);
 
     var createdItem = await _repository.AddAsync(newProject); // TODO: pass cancellation token
 

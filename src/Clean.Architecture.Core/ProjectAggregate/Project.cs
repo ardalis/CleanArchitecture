@@ -13,9 +13,12 @@ public class Project : BaseEntity, IAggregateRoot
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
   public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
 
-  public Project(string name)
+  public PriorityStatus Priority { get; }
+
+  public Project(string name, PriorityStatus priority)
   {
     Name = Guard.Against.NullOrEmpty(name, nameof(name));
+    Priority = priority;
   }
 
   public void AddItem(ToDoItem newItem)
