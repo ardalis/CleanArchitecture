@@ -1,6 +1,7 @@
 ﻿using Ardalis.SmartEnum;
 
 namespace Clean.Architecture.Core.ProjectAggregate;
+
 public class PriorityStatus : SmartEnum<PriorityStatus>
 {
   public static readonly PriorityStatus Backlog = new(nameof(Backlog), 0);
