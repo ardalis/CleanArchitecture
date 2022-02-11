@@ -62,7 +62,7 @@ public class ProjectsController : BaseApiController
   [HttpPost]
   public async Task<IActionResult> Post([FromBody] CreateProjectDTO request)
   {
-    var newProject = new Project(request.Name);
+    var newProject = new Project(request.Name, PriorityStatus.Backlog);
 
     var createdProject = await _repository.AddAsync(newProject);
 

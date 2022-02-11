@@ -6,11 +6,12 @@ namespace Clean.Architecture.UnitTests.Core.ProjectAggregate;
 public class ProjectConstructor
 {
   private string _testName = "test name";
+  private PriorityStatus _testPriority = PriorityStatus.Backlog;
   private Project? _testProject;
 
   private Project CreateProject()
   {
-    return new Project(_testName);
+    return new Project(_testName, _testPriority);
   }
 
   [Fact]
@@ -19,6 +20,14 @@ public class ProjectConstructor
     _testProject = CreateProject();
 
     Assert.Equal(_testName, _testProject.Name);
+  }
+
+  [Fact]
+  public void InitializesPriority()
+  {
+    _testProject = CreateProject();
+
+    Assert.Equal(_testPriority, _testProject.Priority);
   }
 
   [Fact]
