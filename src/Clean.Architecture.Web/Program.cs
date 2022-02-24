@@ -6,11 +6,13 @@ using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web;
 using Microsoft.OpenApi.Models;
-
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -47,9 +49,6 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
   containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
 });
 
-
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 //builder.Logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
 
 var app = builder.Build();
@@ -97,7 +96,7 @@ using (var scope = app.Services.CreateScope())
   catch (Exception ex)
   {
     var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred seeding the DB.");
+    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
   }
 }
 
