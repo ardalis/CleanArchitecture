@@ -261,3 +261,6 @@ DeploymentSettings.props
 Directory.Build.props
 Directory.Build.targets
 Packages.props
+
+#Local Log Files
+log*.txt
