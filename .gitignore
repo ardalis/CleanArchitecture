@@ -255,6 +255,8 @@ paket-files/
 .idea/
 *.sln.iml
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal
 
 # Nuget files
 DeploymentSettings.props
