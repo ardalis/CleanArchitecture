@@ -27,6 +27,6 @@ public class EmailSender : IEmailSender
     };
     message.To.Add(new MailAddress(to));
     await emailClient.SendMailAsync(message);
-    _logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");
+    _logger.LogWarning("Sending email to {to} from {from} with subject {subject}.", to, from, subject);
   }
 }
