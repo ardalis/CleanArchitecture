@@ -1,1 +1,0 @@
-$.extend($.validator.methods,{date:function(t,n){return this.optional(n)||/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(t)},number:function(t,n){return this.optional(n)||/^-?(?:\d+)(?:,\d+)?$/.test(t)}});
