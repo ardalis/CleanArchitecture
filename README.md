@@ -1,11 +1,40 @@
 [![.NET Core](https://github.com/ardalis/CleanArchitecture/workflows/.NET%20Core/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions)
 [![publish Ardalis.CleanArchitecture Template to nuget](https://github.com/ardalis/CleanArchitecture/actions/workflows/publish.yml/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions/workflows/publish.yml)
+[![Ardalis.CleanArchitecture.Template on NuGet](https://img.shields.io/nuget/v/Ardalis.CleanArchitecture.Template?label=Ardalis.CleanArchitecture.Template)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
 
-[Nuget: Ardalis.CleanArchitecture.Template](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
+<a href="https://twitter.com/intent/follow?screen_name=ardalis">
+    <img src="https://img.shields.io/twitter/follow/ardalis.svg?label=Follow%20@ardalis" alt="Follow @ardalis" />
+</a> &nbsp; <a href="https://twitter.com/intent/follow?screen_name=nimblepros">
+    <img src="https://img.shields.io/twitter/follow/nimblepros.svg?label=Follow%20@nimblepros" alt="Follow @nimblepros" />
+</a>
 
 # Clean Architecture
 
 A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is just the latest in a series of names for the same loosely-coupled, dependency-inverted architecture. You will also find it named [hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/).
+
+## Table Of Contents
+
+- [Clean Architecture](#clean-architecture)
+  * [Table Of Contents](#table-of-contents)
+  * [Give a Star! :star:](#give-a-star-star)
+  * [Now available as a project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture)
+  * [Versions](#versions)
+  * [Learn More](#learn-more)
+- [Getting Started](#getting-started)
+  * [Using the Visual Studio Item Template](#using-the-visual-studio-item-template)
+  * [Using the dotnet CLI template](#using-the-dotnet-cli-template)
+  * [Using the GitHub Repository](#using-the-github-repository)
+- [Goals](#goals)
+  * [History and Shameless Plug Section](#history-and-shameless-plug-section)
+- [Design Decisions and Dependencies](#design-decisions-and-dependencies)
+  * [The Core Project](#the-core-project)
+  * [The SharedKernel Project](#the-sharedkernel-project)
+  * [The Infrastructure Project](#the-infrastructure-project)
+  * [The Web Project](#the-web-project)
+  * [The Test Projects](#the-test-projects)
+- [Patterns Used](#patterns-used)
+  * [Domain Events](#domain-events)
+  * [Related Projects](#related-projects)
 
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
@@ -16,8 +45,9 @@ Or if you're feeling really generous, we now support GitHub sponsorships - see t
 
 ## Versions
 
-The master branch is now using .NET 5. If you need a previous version use one of these tagged commits:
+The master branch is now using .NET 6. If you need a previous version use one of these tagged commits:
 
+- [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
 - [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
@@ -32,9 +62,9 @@ The master branch is now using .NET 5. If you need a previous version use one of
 
 To use this template, there are a few options:
 
+- Install using `dotnet new` (preferred - see below)
 - [Install the Visual Studio Template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) and use it within Visual Studio
 - Download this Repository
-- Install using `dotnet new` (see below)
 
 These are all covered below.
 
@@ -74,6 +104,8 @@ Example:
 ![powershell screenshot showing steps](https://user-images.githubusercontent.com/782127/101661723-9fd28e80-3a16-11eb-8be4-f9195d825ad6.png)
 
 Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
+
+> **Known Issue**: Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
 
 ## Using the GitHub Repository
 

@@ -1,7 +1,10 @@
-﻿namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints
+﻿namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+
+public class UpdateProjectResponse
 {
-    public class UpdateProjectResponse
-    {
-        public ProjectRecord Project { get; set; }
-    }
+  public UpdateProjectResponse(ProjectRecord project)
+  {
+    Project = project;
+  }
+  public ProjectRecord Project { get; set; }
 }

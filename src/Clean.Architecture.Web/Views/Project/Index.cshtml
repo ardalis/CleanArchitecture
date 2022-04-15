@@ -4,13 +4,16 @@
 @model Clean.Architecture.Web.ViewModels.ProjectViewModel
 <h2>Project (MVC View)</h2>
 
-<h3>Name: @Model.Name</h3>
+<h3>Name: @Model?.Name</h3>
 
 <b>Items:</b>
 
 <ul>
-    @foreach (var item in Model.Items)
+    @if (Model?.Items != null)
     {
-        <li>@item.Title<br />@item.Description</li>
+        @foreach (var item in Model.Items)
+        {
+            <li>@item.Title<br/>@item.Description</li>
+        }
     }
 </ul>
