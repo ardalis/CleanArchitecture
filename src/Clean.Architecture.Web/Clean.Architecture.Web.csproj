@@ -16,7 +16,7 @@
     <PackageReference Include="Ardalis.Result" Version="3.1.2" />
     <PackageReference Include="Ardalis.Result.AspNetCore" Version="3.1.2" />
     <PackageReference Include="MediatR" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="6.0.3" />
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
