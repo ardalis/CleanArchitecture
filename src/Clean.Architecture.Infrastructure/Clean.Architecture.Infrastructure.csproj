@@ -14,7 +14,7 @@
     <PackageReference Include="Ardalis.EFCore.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="SQLite" Version="3.13.0" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
