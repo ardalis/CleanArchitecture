@@ -1,6 +1,10 @@
 ﻿@page "{ProjectId}"
 @model Clean.Architecture.Web.Pages.ToDoRazorPage.IndexModel
 
+@{
+    ViewData["Title"] = "Project Details (Razor Page)";
+}
+
 @if (!String.IsNullOrEmpty(Model.Message))
 {
     <h2>@Model.Message</h2>
