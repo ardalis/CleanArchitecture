@@ -3,6 +3,10 @@ using Clean.Architecture.SharedKernel.Interfaces;
 
 namespace Clean.Architecture.Infrastructure.LiteDBData;
 
+// Resources
+// https://www.litedb.org/docs/getting-started/
+// https://blog.georgekosmidis.net/using-litedb-in-an-asp-net-core-api/
+// https://www.nuget.org/packages/LiteDB.Async/
 public class LiteDBRepository<T> : IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
 {
   private readonly LiteDbContext _dbContext;
@@ -10,7 +14,7 @@ public class LiteDBRepository<T> : IReadRepository<T>, IRepository<T> where T : 
   public LiteDBRepository(LiteDbContext dbContext)
   {
     _dbContext = dbContext;
-  } 
+  }
 
   public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
   {
