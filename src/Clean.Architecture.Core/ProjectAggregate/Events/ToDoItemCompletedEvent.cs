@@ -1,9 +1,8 @@
-﻿using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.SharedKernel;
+﻿using Clean.Architecture.SharedKernel;
 
 namespace Clean.Architecture.Core.ProjectAggregate.Events;
 
-public class ToDoItemCompletedEvent : BaseDomainEvent
+public class ToDoItemCompletedEvent : DomainEventBase
 {
   public ToDoItem CompletedItem { get; set; }
 

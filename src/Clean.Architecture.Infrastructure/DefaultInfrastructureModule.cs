@@ -3,6 +3,7 @@ using Autofac;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
+using Clean.Architecture.SharedKernel;
 using Clean.Architecture.SharedKernel.Interfaces;
 using MediatR;
 using MediatR.Pipeline;
@@ -58,6 +59,11 @@ public class DefaultInfrastructureModule : Module
         .RegisterType<Mediator>()
         .As<IMediator>()
         .InstancePerLifetimeScope();
+
+    builder
+      .RegisterType<DomainEventDispatcher>()
+      .As<IDomainEventDispatcher>()
+      .InstancePerLifetimeScope();
 
     builder.Register<ServiceFactory>(context =>
     {

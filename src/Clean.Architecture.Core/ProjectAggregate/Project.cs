@@ -5,7 +5,7 @@ using Clean.Architecture.SharedKernel.Interfaces;
 
 namespace Clean.Architecture.Core.ProjectAggregate;
 
-public class Project : BaseEntity, IAggregateRoot
+public class Project : EntityBase, IAggregateRoot
 {
   public string Name { get; private set; }
 
@@ -27,7 +27,7 @@ public class Project : BaseEntity, IAggregateRoot
     _items.Add(newItem);
 
     var newItemAddedEvent = new NewItemAddedEvent(this, newItem);
-    Events.Add(newItemAddedEvent);
+    base.RegisterDomainEvent(newItemAddedEvent);
   }
 
   public void UpdateName(string newName)
