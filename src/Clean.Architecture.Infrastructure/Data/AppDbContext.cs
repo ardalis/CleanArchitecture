@@ -1,23 +1,20 @@
-﻿using Ardalis.EFCore.Extensions;
+﻿using System.Reflection;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel;
-using MediatR;
+using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
-  private readonly IMediator? _mediator;
+  private readonly IDomainEventDispatcher _dispatcher;
 
-  //public AppDbContext(DbContextOptions options) : base(options)
-  //{
-  //}
-
-  public AppDbContext(DbContextOptions<AppDbContext> options, IMediator? mediator)
+  public AppDbContext(DbContextOptions<AppDbContext> options,
+    IDomainEventDispatcher dispatcher)
       : base(options)
   {
-    _mediator = mediator;
+    _dispatcher = dispatcher;
   }
 
   public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
@@ -26,11 +23,7 @@ public class AppDbContext : DbContext
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);
-
-    modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
-
-    // alternately this is built-in to EF Core 2.2
-    //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
   }
 
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -38,23 +31,15 @@ public class AppDbContext : DbContext
     int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     // ignore events if no dispatcher provided
-    if (_mediator == null) return result;
+    if (_dispatcher == null) return result;
 
     // dispatch events only if save was successful
-    var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
+    var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
         .Select(e => e.Entity)
-        .Where(e => e.Events.Any())
+        .Where(e => e.DomainEvents.Any())
         .ToArray();
 
-    foreach (var entity in entitiesWithEvents)
-    {
-      var events = entity.Events.ToArray();
-      entity.Events.Clear();
-      foreach (var domainEvent in events)
-      {
-        await _mediator.Publish(domainEvent).ConfigureAwait(false);
-      }
-    }
+    await _dispatcher.DispatchAndClearEvents(entitiesWithEvents);
 
     return result;
   }
