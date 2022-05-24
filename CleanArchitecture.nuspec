@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
-    <title>ASP.NET Core Clean Arch Solution</title>
+    <title>ASP.NET Core Clean Architecture Solution</title>
     <version>6.1.0</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
