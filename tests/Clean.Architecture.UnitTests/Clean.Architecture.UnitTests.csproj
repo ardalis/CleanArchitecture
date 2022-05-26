@@ -27,10 +27,6 @@
     <PackageReference Include="ReportGenerator" Version="5.1.8" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Clean.Architecture.Web\Clean.Architecture.Web.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Update="xunit.runner.json">
@@ -40,6 +36,10 @@
 
   <ItemGroup>
     <Folder Include="Core\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Clean.Architecture.Core\Clean.Architecture.Core.csproj" />
   </ItemGroup>
 
 </Project>
