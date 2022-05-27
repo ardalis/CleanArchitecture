@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
-    <title>ASP.NET Core Clean Arch Solution</title>
+    <title>ASP.NET Core Clean Architecture Solution</title>
     <version>6.2.0</version>
     <authors>Steve Smith, Erik Dahl</authors>
     <description>
@@ -18,8 +18,10 @@
     </packageTypes>
     <tags>Web ASP.NET "Clean Architecture" ddd</tags>
     <icon>./content/icon.png</icon>
+    <readme>README.md</readme>
   </metadata>
   <files>
     <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore" />
+    <file src="README.md" />
   </files>
 </package>
