@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification" Version="6.0.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Supernova.Enum.Generators" Version="1.0.11" />
   </ItemGroup>
 
 </Project>
