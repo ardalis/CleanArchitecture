@@ -24,12 +24,16 @@ public class List : EndpointBaseAsync
       OperationId = "Project.List",
       Tags = new[] { "ProjectEndpoints" })
   ]
-  public override async Task<ActionResult<ProjectListResponse>> HandleAsync(CancellationToken cancellationToken)
+  public override async Task<ActionResult<ProjectListResponse>> HandleAsync(
+    CancellationToken cancellationToken = new())
   {
-    var response = new ProjectListResponse();
-    response.Projects = (await _repository.ListAsync()) // TODO: pass cancellation token
+    var projects = await _repository.ListAsync(cancellationToken);
+    var response = new ProjectListResponse
+    {
+      Projects = projects
         .Select(project => new ProjectRecord(project.Id, project.Name))
-        .ToList();
+        .ToList()
+    };
 
     return Ok(response);
   }

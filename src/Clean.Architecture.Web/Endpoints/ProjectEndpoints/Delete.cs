@@ -24,13 +24,17 @@ public class Delete : EndpointBaseAsync
       OperationId = "Projects.Delete",
       Tags = new[] { "ProjectEndpoints" })
   ]
-  public override async Task<ActionResult> HandleAsync([FromRoute] DeleteProjectRequest request,
-      CancellationToken cancellationToken)
+  public override async Task<ActionResult> HandleAsync(
+    [FromRoute] DeleteProjectRequest request,
+      CancellationToken cancellationToken = new())
   {
-    var aggregateToDelete = await _repository.GetByIdAsync(request.ProjectId); // TODO: pass cancellation token
-    if (aggregateToDelete == null) return NotFound();
+    var aggregateToDelete = await _repository.GetByIdAsync(request.ProjectId, cancellationToken);
+    if (aggregateToDelete == null)
+    {
+      return NotFound();
+    }
 
-    await _repository.DeleteAsync(aggregateToDelete);
+    await _repository.DeleteAsync(aggregateToDelete, cancellationToken);
 
     return NoContent();
   }
