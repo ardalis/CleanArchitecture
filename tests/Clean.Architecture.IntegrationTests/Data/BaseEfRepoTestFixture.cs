@@ -1,6 +1,6 @@
 ﻿using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
-using MediatR;
+using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -14,9 +14,9 @@ public abstract class BaseEfRepoTestFixture
   protected BaseEfRepoTestFixture()
   {
     var options = CreateNewContextOptions();
-    var mockMediator = new Mock<IMediator>();
+    var mockEventDispatcher = new Mock<IDomainEventDispatcher>();
 
-    _dbContext = new AppDbContext(options, mockMediator.Object);
+    _dbContext = new AppDbContext(options, mockEventDispatcher.Object);
   }
 
   protected static DbContextOptions<AppDbContext> CreateNewContextOptions()

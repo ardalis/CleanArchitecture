@@ -2,7 +2,7 @@
 
 namespace Clean.Architecture.Core.ProjectAggregate.Events;
 
-public class NewItemAddedEvent : BaseDomainEvent
+public class NewItemAddedEvent : DomainEventBase
 {
   public ToDoItem NewItem { get; set; }
   public Project Project { get; set; }
