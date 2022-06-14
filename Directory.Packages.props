@@ -13,7 +13,6 @@
     <PackageVersion Include="Ardalis.Specification" Version="6.0.1" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="6.0.1" />
     <PackageVersion Include="Autofac" Version="6.4.0" />
-    <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageVersion Include="coverlet.collector" Version="3.1.2" />
     <PackageVersion Include="MediatR" Version="10.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
