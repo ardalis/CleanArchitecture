@@ -12,7 +12,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     // add a project
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName);
+    var project = new Project(initialName, PriorityStatus.Backlog);
 
     await repository.AddAsync(project);
 
@@ -40,6 +40,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
 
     Assert.NotNull(updatedItem);
     Assert.NotEqual(project.Name, updatedItem?.Name);
+    Assert.Equal(project.Priority, updatedItem?.Priority);
     Assert.Equal(newProject.Id, updatedItem?.Id);
   }
 }

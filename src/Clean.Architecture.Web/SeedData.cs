@@ -6,7 +6,7 @@ namespace Clean.Architecture.Web;
 
 public static class SeedData
 {
-  public static readonly Project TestProject1 = new Project("Test Project");
+  public static readonly Project TestProject1 = new Project("Test Project", PriorityStatus.Backlog);
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {
     Title = "Get Sample Working",

@@ -255,9 +255,14 @@ paket-files/
 .idea/
 *.sln.iml
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal
 
 # Nuget files
 DeploymentSettings.props
 Directory.Build.props
 Directory.Build.targets
 Packages.props
+
+#Local Log Files
+log*.txt

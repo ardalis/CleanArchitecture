@@ -12,6 +12,8 @@
 
 A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is just the latest in a series of names for the same loosely-coupled, dependency-inverted architecture. You will also find it named [hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/).
 
+This architecture is used in the [DDD Fundamentals course](https://www.pluralsight.com/courses/fundamentals-domain-driven-design) by [Steve Smith](https://ardalis.com) and [Julie Lerman](https://thedatafarm.com/). Contact Steve's company, [NimblePros](https://nimblepros.com/), for Clean Architecture or DDD training and/or implementation assistance for your team.
+
 ## Table Of Contents
 
 - [Clean Architecture](#clean-architecture)
@@ -24,6 +26,7 @@ A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](
   * [Using the Visual Studio Item Template](#using-the-visual-studio-item-template)
   * [Using the dotnet CLI template](#using-the-dotnet-cli-template)
   * [Using the GitHub Repository](#using-the-github-repository)
+  * [Running Migrations](#running-migrations)
 - [Goals](#goals)
   * [History and Shameless Plug Section](#history-and-shameless-plug-section)
 - [Design Decisions and Dependencies](#design-decisions-and-dependencies)
@@ -116,6 +119,12 @@ You should **download the repository**, unblock the zip file, and extract it to 
 You should **fork this repository** only if you plan on submitting a pull request. Or if you'd like to keep a copy of a snapshot of the repository in your own GitHub account.
 
 You should **clone this repository** if you're one of the contributors and you have commit access to it. Otherwise you probably want one of the other options.
+
+## Running Migrations
+
+In Visual Studio, open the Package Manager Console, and run `Add-Migration InitialMigrationName -StartupProject Your.ProjectName.Web -Context AppDbContext -Project Your.ProjectName.Infrastructure`.
+
+To use SqlServer, change `options.UseSqlite(connectionString));` to `options.UseSqlServer(connectionString));` in the `Your.ProjectName.Infrastructure.StartupSetup` file. Also remember to replace the `SqliteConnection` with `DefaultConnection` in the `Your.ProjectName.Web.Program` file, which points to your Database Server.
 
 # Goals
 

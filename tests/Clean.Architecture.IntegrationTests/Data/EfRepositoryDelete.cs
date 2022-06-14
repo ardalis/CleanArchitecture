@@ -11,7 +11,7 @@ public class EfRepositoryDelete : BaseEfRepoTestFixture
     // add a project
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName);
+    var project = new Project(initialName, PriorityStatus.Backlog);
     await repository.AddAsync(project);
 
     // delete the item

@@ -11,5 +11,10 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     builder.Property(p => p.Name)
         .HasMaxLength(100)
         .IsRequired();
+
+    builder.Property(p => p.Priority)
+      .HasConversion(
+          p => p.Value,
+          p => PriorityStatus.FromValue(p));
   }
 }
