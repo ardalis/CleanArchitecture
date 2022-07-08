@@ -21,7 +21,7 @@ public class ProjectController : Controller
   public async Task<IActionResult> Index(int projectId = 1)
   {
     var spec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _projectRepository.GetBySpecAsync(spec);
+    var project = await _projectRepository.FirstOrDefaultAsync(spec);
     if (project == null)
     {
       return NotFound();
