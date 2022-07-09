@@ -19,23 +19,24 @@ public class ToDoItemSearchService : IToDoItemSearchService
   {
     if (string.IsNullOrEmpty(searchString))
     {
-      var errors = new List<ValidationError>();
-      errors.Add(new ValidationError()
+      var errors = new List<ValidationError>
       {
-        Identifier = nameof(searchString),
-        ErrorMessage = $"{nameof(searchString)} is required."
-      });
+        new() { Identifier = nameof(searchString), ErrorMessage = $"{nameof(searchString)} is required." }
+      };
+
       return Result<List<ToDoItem>>.Invalid(errors);
     }
 
     var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
+    var project = await _repository.FirstOrDefaultAsync(projectSpec);
 
     // TODO: Optionally use Ardalis.GuardClauses Guard.Against.NotFound and catch
-    if (project == null) return Result<List<ToDoItem>>.NotFound();
+    if (project == null)
+    {
+      return Result<List<ToDoItem>>.NotFound();
+    }
 
     var incompleteSpec = new IncompleteItemsSearchSpec(searchString);
-
     try
     {
       var items = incompleteSpec.Evaluate(project.Items).ToList();
@@ -52,16 +53,14 @@ public class ToDoItemSearchService : IToDoItemSearchService
   public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(int projectId)
   {
     var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
+    var project = await _repository.FirstOrDefaultAsync(projectSpec);
     if (project == null)
     {
       return Result<ToDoItem>.NotFound();
     }
 
     var incompleteSpec = new IncompleteItemsSpec();
-
     var items = incompleteSpec.Evaluate(project.Items).ToList();
-
     if (!items.Any())
     {
       return Result<ToDoItem>.NotFound();

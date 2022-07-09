@@ -1,13 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Clean.Architecture.Core.ProjectAggregate;
+﻿using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
 using Clean.Architecture.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Clean.Architecture.Web.Pages.ToDoRazorPage;
+namespace Clean.Architecture.Web.Pages.ProjectDetails;
 
 public class IndexModel : PageModel
 {
@@ -15,6 +13,7 @@ public class IndexModel : PageModel
 
   [BindProperty(SupportsGet = true)]
   public int ProjectId { get; set; }
+
   public string Message { get; set; } = "";
 
   public ProjectDTO? Project { get; set; }
@@ -27,11 +26,11 @@ public class IndexModel : PageModel
   public async Task OnGetAsync()
   {
     var projectSpec = new ProjectByIdWithItemsSpec(ProjectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
-
+    var project = await _repository.FirstOrDefaultAsync(projectSpec);
     if (project == null)
     {
       Message = "No project found.";
+
       return;
     }
 

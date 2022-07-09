@@ -8,10 +8,10 @@ namespace Clean.Architecture.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
-  private readonly IDomainEventDispatcher _dispatcher;
+  private readonly IDomainEventDispatcher? _dispatcher;
 
   public AppDbContext(DbContextOptions<AppDbContext> options,
-    IDomainEventDispatcher dispatcher)
+    IDomainEventDispatcher? dispatcher)
       : base(options)
   {
     _dispatcher = dispatcher;

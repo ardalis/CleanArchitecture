@@ -1,0 +1,38 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.0.1" />
+    <PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
+    <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="1.0.0" />
+    <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
+    <PackageVersion Include="Ardalis.Result" Version="4.0.0" />
+    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="4.0.0" />
+    <PackageVersion Include="Ardalis.SmartEnum" Version="2.1.0" />
+    <PackageVersion Include="Ardalis.Specification" Version="6.1.0" />
+    <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="6.1.0" />
+    <PackageVersion Include="Autofac" Version="6.4.0" />
+    <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageVersion Include="coverlet.collector" Version="3.1.2" />
+    <PackageVersion Include="MediatR" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
+    <PackageVersion Include="Moq" Version="4.18.1" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="ReportGenerator" Version="5.1.9" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+    <PackageVersion Include="SQLite" Version="3.13.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
+    <PackageVersion Include="xunit" Version="2.4.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+  </ItemGroup>
+</Project>
