@@ -87,18 +87,22 @@ public class DefaultInfrastructureModule : Module
       .AsImplementedInterfaces();
     }
 
-    builder.RegisterType<EmailSender>().As<IEmailSender>()
-        .InstancePerLifetimeScope();
   }
 
   private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
   {
     // TODO: Add development only services
+    builder.RegisterType<FakeEmailSender>()
+      .As<IEmailSender>()
+      .InstancePerLifetimeScope();
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
   {
     // TODO: Add production only services
+    builder.RegisterType<SmtpEmailSender>()
+      .As<IEmailSender>()
+      .InstancePerLifetimeScope();
   }
 
 }
