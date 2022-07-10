@@ -91,18 +91,19 @@ public class DefaultInfrastructureModule : Module
         .AsClosedTypesOf(mediatrOpenType)
         .AsImplementedInterfaces();
     }
-
-    builder.RegisterType<EmailSender>().As<IEmailSender>()
-      .InstancePerLifetimeScope();
   }
 
   private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any development only services here
+    builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
+      .InstancePerLifetimeScope();
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any production only services here
+    builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
+      .InstancePerLifetimeScope();
   }
 }
