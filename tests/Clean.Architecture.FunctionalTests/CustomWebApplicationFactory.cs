@@ -1,4 +1,6 @@
-﻿using Clean.Architecture.Infrastructure.Data;
+﻿using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Infrastructure;
+using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.UnitTests;
 using Clean.Architecture.Web;
 using MediatR;
@@ -22,6 +24,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
   /// <returns></returns>
   protected override IHost CreateHost(IHostBuilder builder)
   {
+    builder.UseEnvironment("Development"); // will not send real emails
     var host = builder.Build();
     host.Start();
 
@@ -47,7 +50,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
         //if (!db.ToDoItems.Any())
         //{
         // Seed the database with test data.
-          SeedData.PopulateTestData(db);
+        SeedData.PopulateTestData(db);
         //}
       }
       catch (Exception ex)
@@ -65,26 +68,24 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
     builder
         .ConfigureServices(services =>
         {
-              // Remove the app's ApplicationDbContext registration.
-              var descriptor = services.SingleOrDefault(
-              d => d.ServiceType ==
-                  typeof(DbContextOptions<AppDbContext>));
+          // Remove the app's ApplicationDbContext registration.
+          var descriptor = services.SingleOrDefault(
+          d => d.ServiceType ==
+              typeof(DbContextOptions<AppDbContext>));
 
           if (descriptor != null)
           {
             services.Remove(descriptor);
           }
 
-              // This should be set for each individual test run
-              string inMemoryCollectionName = Guid.NewGuid().ToString();
+          // This should be set for each individual test run
+          string inMemoryCollectionName = Guid.NewGuid().ToString();
 
-              // Add ApplicationDbContext using an in-memory database for testing.
-              services.AddDbContext<AppDbContext>(options =>
+          // Add ApplicationDbContext using an in-memory database for testing.
+          services.AddDbContext<AppDbContext>(options =>
           {
-          options.UseInMemoryDatabase(inMemoryCollectionName);
-        });
-
-          services.AddScoped<IMediator, NoOpMediator>();
+            options.UseInMemoryDatabase(inMemoryCollectionName);
+          });
         });
   }
 }
