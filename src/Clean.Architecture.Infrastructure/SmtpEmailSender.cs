@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.Infrastructure;
 
-public class EmailSender : IEmailSender
+public class SmtpEmailSender : IEmailSender
 {
-  private readonly ILogger<EmailSender> _logger;
+  private readonly ILogger<SmtpEmailSender> _logger;
 
-  public EmailSender(ILogger<EmailSender> logger)
+  public SmtpEmailSender(ILogger<SmtpEmailSender> logger)
   {
     _logger = logger;
   }
