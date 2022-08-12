@@ -18,7 +18,7 @@ public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<WebMarke
   [Fact]
   public async Task ReturnsSeedProjectGivenId1()
   {
-    var result = await _client.GetAndDeserialize<GetProjectByIdResponse>(GetProjectByIdRequest.BuildRoute(1));
+    var result = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(GetProjectByIdRequest.BuildRoute(1));
 
     Assert.Equal(1, result.Id);
     Assert.Equal(SeedData.TestProject1.Name, result.Name);
@@ -29,6 +29,6 @@ public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<WebMarke
   public async Task ReturnsNotFoundGivenId0()
   {
     string route = GetProjectByIdRequest.BuildRoute(0);
-    _ = await _client.GetAndEnsureNotFound(route);
+    _ = await _client.GetAndEnsureNotFoundAsync(route);
   }
 }
