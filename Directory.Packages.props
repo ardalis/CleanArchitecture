@@ -7,7 +7,7 @@
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="3.0.0" />
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
-    <PackageVersion Include="Ardalis.Result" Version="4.0.0" />
+    <PackageVersion Include="Ardalis.Result" Version="4.1.0" />
     <PackageVersion Include="Ardalis.Result.AspNetCore" Version="4.0.0" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="2.1.0" />
     <PackageVersion Include="Ardalis.Specification" Version="6.1.0" />
