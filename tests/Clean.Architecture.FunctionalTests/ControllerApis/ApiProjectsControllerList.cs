@@ -18,7 +18,7 @@ public class ProjectCreate : IClassFixture<CustomWebApplicationFactory<WebMarker
   [Fact]
   public async Task ReturnsOneProject()
   {
-    var result = await _client.GetAndDeserialize<IEnumerable<ProjectDTO>>("/api/projects");
+    var result = await _client.GetAndDeserializeAsync<IEnumerable<ProjectDTO>>("/api/projects");
 
     Assert.Single(result);
     Assert.Contains(result, i => i.Name == SeedData.TestProject1.Name);
