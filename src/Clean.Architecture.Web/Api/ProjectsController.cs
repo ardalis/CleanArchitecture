@@ -39,7 +39,7 @@ public class ProjectsController : BaseApiController
   public async Task<IActionResult> GetById(int id)
   {
     var projectSpec = new ProjectByIdWithItemsSpec(id);
-    var project = await _repository.GetBySpecAsync(projectSpec);
+    var project = await _repository.FirstOrDefaultAsync(projectSpec);
     if (project == null)
     {
       return NotFound();
@@ -79,7 +79,7 @@ public class ProjectsController : BaseApiController
   public async Task<IActionResult> Complete(int projectId, int itemId)
   {
     var projectSpec = new ProjectByIdWithItemsSpec(projectId);
-    var project = await _repository.GetBySpecAsync(projectSpec);
+    var project = await _repository.FirstOrDefaultAsync(projectSpec);
     if (project == null) return NotFound("No such project");
 
     var toDoItem = project.Items.FirstOrDefault(item => item.Id == itemId);
