@@ -15,15 +15,15 @@
     <PackageVersion Include="Autofac" Version="6.4.0" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="coverlet.collector" Version="3.1.2" />
-    <PackageVersion Include="MediatR" Version="10.0.1" />
+    <PackageVersion Include="MediatR" Version="11.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
     <PackageVersion Include="Moq" Version="4.18.2" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="ReportGenerator" Version="5.1.10" />
