@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-namespace Clean.Architecture.SharedKernel;
+﻿namespace Clean.Architecture.SharedKernel;
 
 /// <summary>
 /// See: https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
@@ -12,7 +10,7 @@ public abstract class ValueObject : IComparable, IComparable<ValueObject>
 
   protected abstract IEnumerable<object> GetEqualityComponents();
 
-  public override bool Equals(object obj)
+  public override bool Equals(object? obj)
   {
     if (obj == null)
       return false;
@@ -42,8 +40,11 @@ public abstract class ValueObject : IComparable, IComparable<ValueObject>
     return _cachedHashCode.Value;
   }
 
-  public int CompareTo(object obj)
+  public int CompareTo(object? obj)
   {
+    if (obj == null)
+      return 1;
+
     var thisType = GetUnproxiedType(this);
     var otherType = GetUnproxiedType(obj);
 
@@ -65,7 +66,7 @@ public abstract class ValueObject : IComparable, IComparable<ValueObject>
     return 0;
   }
 
-  private int CompareComponents(object object1, object object2)
+  private static int CompareComponents(object? object1, object? object2)
   {
     if (object1 is null && object2 is null)
       return 0;
@@ -82,7 +83,7 @@ public abstract class ValueObject : IComparable, IComparable<ValueObject>
     return object1.Equals(object2) ? 0 : -1;
   }
 
-  public int CompareTo(ValueObject other)
+  public int CompareTo(ValueObject? other)
   {
     return CompareTo(other as object);
   }
@@ -105,6 +106,8 @@ public abstract class ValueObject : IComparable, IComparable<ValueObject>
 
   internal static Type GetUnproxiedType(object obj)
   {
+    ArgumentNullException.ThrowIfNull(obj);
+
     const string EFCoreProxyPrefix = "Castle.Proxies.";
     const string NHibernateProxyPostfix = "Proxy";
 
@@ -112,7 +115,7 @@ public abstract class ValueObject : IComparable, IComparable<ValueObject>
     var typeString = type.ToString();
 
     if (typeString.Contains(EFCoreProxyPrefix) || typeString.EndsWith(NHibernateProxyPostfix))
-      return type.BaseType;
+      return type.BaseType!;
 
     return type;
   }
