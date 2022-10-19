@@ -20,9 +20,9 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-string connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
+string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext(connectionString);
+builder.Services.AddDbContext(connectionString!);
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddRazorPages();
@@ -75,11 +75,8 @@ app.UseSwagger();
 // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
-app.UseEndpoints(endpoints =>
-{
-  endpoints.MapDefaultControllerRoute();
-  endpoints.MapRazorPages();
-});
+app.MapDefaultControllerRoute();
+app.MapRazorPages();
 
 // Seed Database
 using (var scope = app.Services.CreateScope())
