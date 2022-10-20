@@ -16,6 +16,10 @@
     <PackageVersion Include="Autofac" Version="6.4.0" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="coverlet.collector" Version="3.1.2" />
+    <PackageVersion Include="FastEndpoints" Version="5.2.1" />
+    <PackageVersion Include="FastEndpoints.ApiExplorer" Version="1.2.1" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.2.1" />
+    <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="1.2.1" />
     <PackageVersion Include="MediatR" Version="11.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0-rc.2.22476.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0-rc.2.22476.2" />

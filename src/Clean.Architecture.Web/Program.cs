@@ -5,6 +5,9 @@ using Clean.Architecture.Core;
 using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web;
+using FastEndpoints;
+using FastEndpoints.Swagger.Swashbuckle;
+using FastEndpoints.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -26,11 +29,13 @@ builder.Services.AddDbContext(connectionString!);
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddRazorPages();
-
+builder.Services.AddFastEndpoints();
+builder.Services.AddFastEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
   c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
   c.EnableAnnotations();
+  c.OperationFilter<FastEndpointsOperationFilter>();
 });
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
@@ -64,6 +69,7 @@ else
   app.UseHsts();
 }
 app.UseRouting();
+app.UseFastEndpoints();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
