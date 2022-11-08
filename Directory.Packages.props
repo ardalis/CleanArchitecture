@@ -24,7 +24,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.10" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
     <PackageVersion Include="Moq" Version="4.18.2" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="ReportGenerator" Version="5.1.10" />
