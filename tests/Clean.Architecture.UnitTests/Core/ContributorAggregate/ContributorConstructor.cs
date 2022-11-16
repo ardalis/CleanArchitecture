@@ -5,7 +5,7 @@ namespace Clean.Architecture.UnitTests.Core.ContributorAggregate;
 
 public class ContributorConstructor
 {
-  private string _testName = "test name";
+  private readonly string _testName = "test name";
   private Contributor? _testContributor;
 
   private Contributor CreateContributor()
