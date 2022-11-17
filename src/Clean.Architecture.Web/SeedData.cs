@@ -1,4 +1,5 @@
-﻿using Clean.Architecture.Core.ProjectAggregate;
+﻿using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,8 @@ namespace Clean.Architecture.Web;
 
 public static class SeedData
 {
+  public static readonly Contributor Contributor1 = new ("Ardalis");
+  public static readonly Contributor Contributor2 = new ("Snowfrog");
   public static readonly Project TestProject1 = new Project("Test Project", PriorityStatus.Backlog);
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {
@@ -49,7 +52,20 @@ public static class SeedData
     {
       dbContext.Remove(item);
     }
+    foreach (var item in dbContext.Contributors)
+    {
+      dbContext.Remove(item);
+    }
     dbContext.SaveChanges();
+
+    dbContext.Contributors.Add(Contributor1);
+    dbContext.Contributors.Add(Contributor2);
+
+    dbContext.SaveChanges();
+
+    ToDoItem1.AddContributor(Contributor1.Id);
+    ToDoItem2.AddContributor(Contributor2.Id);
+    ToDoItem3.AddContributor(Contributor1.Id);
 
     TestProject1.AddItem(ToDoItem1);
     TestProject1.AddItem(ToDoItem2);
