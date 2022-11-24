@@ -30,7 +30,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0-preview-20221003-04" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
     <PackageVersion Include="Moq" Version="4.18.2" />
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.2-beta2" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageVersion Include="ReportGenerator" Version="5.1.12" />
     <PackageVersion Include="Serilog.AspNetCore" Version="6.1.0-dev-00285" />
     <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00040" />
