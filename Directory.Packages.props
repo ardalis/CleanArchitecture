@@ -32,7 +32,7 @@
     <PackageVersion Include="Moq" Version="4.18.2" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.2-beta2" />
     <PackageVersion Include="ReportGenerator" Version="5.1.12" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="6.1.0-dev-00285" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="6.1.0-dev-00289" />
     <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00040" />
     <PackageVersion Include="SQLite" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
