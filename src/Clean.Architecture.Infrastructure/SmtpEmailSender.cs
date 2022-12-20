@@ -18,12 +18,9 @@ public class SmtpEmailSender : IEmailSender
     var emailClient = new SmtpClient("localhost");
     var message = new MailMessage
     {
-
       From = new MailAddress(from),
       Subject = subject,
       Body = body
-
-
     };
     message.To.Add(new MailAddress(to));
     await emailClient.SendMailAsync(message);

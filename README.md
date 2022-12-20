@@ -48,8 +48,9 @@ Or if you're feeling really generous, we now support GitHub sponsorships - see t
 
 ## Versions
 
-The master branch is now using .NET 6. If you need a previous version use one of these tagged commits:
+The master branch is now using .NET 7. If you need a previous version use one of these tagged commits:
 
+- [6.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-6)
 - [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
@@ -205,4 +206,3 @@ Domain events are a great pattern for decoupling a trigger for an operation from
 - [GuardClauses](https://github.com/ardalis/guardclauses)
 - [Result](https://github.com/ardalis/result)
 - [Specification](https://github.com/ardalis/specification)
-
