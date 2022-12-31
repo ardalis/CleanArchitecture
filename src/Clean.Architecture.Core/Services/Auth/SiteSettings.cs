@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clean.Architecture.SharedKernel.Auth;
+namespace Clean.Architecture.Core.Services.Auth;
 public class SiteSettings
 {
   public JwtSettings JwtSettings { get; set; } = default!;

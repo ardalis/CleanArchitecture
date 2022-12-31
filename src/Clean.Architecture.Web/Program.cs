@@ -10,8 +10,6 @@ using FastEndpoints.Swagger.Swashbuckle;
 using FastEndpoints.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Clean.Architecture.Core.RoleAggregate;
-using Clean.Architecture.SharedKernel.Auth;
 using Microsoft.AspNetCore.Identity;
 using Clean.Architecture.Core.UserAggregate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Clean.Architecture.Core.Interfaces;
 using System.Security.Claims;
 using Clean.Architecture.SharedKernel.Utilities;
-using System.Configuration;
+using Clean.Architecture.Core.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +46,8 @@ builder.Services.AddSwaggerGen(c =>
   c.EnableAnnotations();
   c.OperationFilter<FastEndpointsOperationFilter>();
 });
+builder.Services.Configure<SiteSettings>(builder.Configuration.GetSection(nameof(SiteSettings)));
+
 var sitSettings = builder.Configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
 builder.Services.AddCustomIdentity(sitSettings!.IdentitySettings);
 builder.Services.AddCustomJwtAuthentication(sitSettings!.JwtSettings);
