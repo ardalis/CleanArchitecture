@@ -69,6 +69,11 @@ public class DefaultInfrastructureModule : Module
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
 
+    builder
+      .RegisterType<UserRepository>()
+      .As<IUserRepository>()
+      .InstancePerLifetimeScope();
+
     builder.Register<ServiceFactory>(context =>
     {
       var c = context.Resolve<IComponentContext>();

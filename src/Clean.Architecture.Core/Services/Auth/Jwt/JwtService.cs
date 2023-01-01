@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Clean.Architecture.Core.Services.Auth;
 using Clean.Architecture.Core.UserAggregate;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -30,7 +24,7 @@ public class JwtService : IJwtService
     var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey); // longer that 16 character
     var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature);
 
-    //We can use EncryptingCredentials options in SecurityTokenDescriptor and our JWT token will not be parsed by jwt.io site and it will be decrypted only by our code.
+    //We can use EncryptingCredentials options in SecurityTokenDescriptor and hence our JWT token will not be parsed by jwt.io site and it will only be decrypted only by our code.
     //Hence you can secure your token and who can see it
     var encryptionKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.EncryptKey); //must be 16 character
     var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encryptionKey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
@@ -59,7 +53,9 @@ public class JwtService : IJwtService
   public int? ValidateJwtAccessTokenAsync(string token)
   {
     var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey); // longer that 16 character
-    var encryptionKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.EncryptKey); //must be 16 character
+
+    //if you are giving a value to EncryptingCredentials while generating a token then uncomment the encryptionKey and TokenDecryptionKey option so token can be parsed while validating. 
+    //var encryptionKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.EncryptKey); //must be 16 character
 
     var tokenHandler = new JwtSecurityTokenHandler();
     try
@@ -68,7 +64,7 @@ public class JwtService : IJwtService
       {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(secretKey),
-        TokenDecryptionKey = new SymmetricSecurityKey(encryptionKey),
+        //TokenDecryptionKey = new SymmetricSecurityKey(encryptionKey),
         ValidateIssuer = false,
         ValidateAudience = false,
         // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)

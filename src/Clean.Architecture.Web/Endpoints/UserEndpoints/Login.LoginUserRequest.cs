@@ -10,7 +10,4 @@ public class LoginUserRequest
 
   [Required]
   public string Password { get; set; } = default!;
-
-  [Required] 
-  public string RefreshToken { get; set; } = default!;
 }
