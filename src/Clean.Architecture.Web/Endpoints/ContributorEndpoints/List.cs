@@ -30,6 +30,6 @@ public class List : EndpointWithoutRequest<ContributorListResponse>
         .ToList()
     };
 
-    await SendAsync(response);
+    await SendAsync(response, cancellation: cancellationToken);
   }
 }
