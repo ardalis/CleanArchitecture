@@ -10,5 +10,7 @@ public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
   {
     builder.Property(t => t.Title)
         .IsRequired();
+    builder.Property(t => t.ContributorId)
+        .IsRequired(false);
   }
 }
