@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Ardalis.Specification;
-using Clean.Architecture.Core.ContributorAggregate;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.Services;
 using Clean.Architecture.SharedKernel.Interfaces;
 using MediatR;

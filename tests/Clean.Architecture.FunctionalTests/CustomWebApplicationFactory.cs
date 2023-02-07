@@ -1,12 +1,7 @@
-﻿using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Infrastructure;
-using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.UnitTests;
+﻿using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web;
-using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

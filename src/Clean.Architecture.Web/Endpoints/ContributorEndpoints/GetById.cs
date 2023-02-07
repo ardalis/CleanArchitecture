@@ -1,5 +1,5 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
-using Clean.Architecture.Core.ContributorAggregate.Specifications;
+using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.SharedKernel.Interfaces;
 using FastEndpoints;
 
@@ -28,12 +28,12 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
     var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
     if (entity == null)
     {
-      await SendNotFoundAsync();
+      await SendNotFoundAsync(cancellationToken);
       return;
     }
 
     var response = new ContributorRecord(entity.Id, entity.Name);
 
-    await SendAsync(response);
+    await SendAsync(response, cancellation: cancellationToken);
   }
 }
