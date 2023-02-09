@@ -37,7 +37,7 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
   * [The Test Projects](#the-test-projects)
 - [Patterns Used](#patterns-used)
   * [Domain Events](#domain-events)
-  * [Related Projects](#related-projects)
+- [Related Projects](#related-projects)
 
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
