@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.FunctionalTests;
 
-public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
+public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
   /// <summary>
   /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
@@ -34,7 +34,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
       var db = scopedServices.GetRequiredService<AppDbContext>();
 
       var logger = scopedServices
-          .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+          .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
 
       // Ensure the database is created.
       db.Database.EnsureCreated();

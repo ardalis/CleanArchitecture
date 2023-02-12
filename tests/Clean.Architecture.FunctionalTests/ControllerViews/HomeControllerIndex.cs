@@ -4,11 +4,11 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ControllerViews;
 
 [Collection("Sequential")]
-public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<WebMarker>>
+public class HomeControllerIndex : IClassFixture<CustomWebApplicationFactory<Program>>
 {
   private readonly HttpClient _client;
 
-  public HomeControllerIndex(CustomWebApplicationFactory<WebMarker> factory)
+  public HomeControllerIndex(CustomWebApplicationFactory<Program> factory)
   {
     _client = factory.CreateClient();
   }
