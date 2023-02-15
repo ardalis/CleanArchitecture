@@ -6,11 +6,11 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
-public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<WebMarker>>
+public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<Program>>
 {
   private readonly HttpClient _client;
 
-  public ProjectGetById(CustomWebApplicationFactory<WebMarker> factory)
+  public ProjectGetById(CustomWebApplicationFactory<Program> factory)
   {
     _client = factory.CreateClient();
   }
