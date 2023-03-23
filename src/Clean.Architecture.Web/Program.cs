@@ -13,6 +13,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
@@ -58,6 +59,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
   app.UseDeveloperExceptionPage();
@@ -65,7 +67,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-  app.UseExceptionHandler("/Home/Error");
+  app.UseExceptionHandler("/Error");
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
   app.UseHsts();
 }
 app.UseRouting();
@@ -74,6 +77,8 @@ app.UseFastEndpoints();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCookiePolicy();
+
+app.UseAuthorization();
 
 // Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();
