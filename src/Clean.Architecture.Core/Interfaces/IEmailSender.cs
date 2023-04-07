@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Clean.Architecture.Core.Interfaces;
+﻿namespace Clean.Architecture.Core.Interfaces;
 
 public interface IEmailSender
 {

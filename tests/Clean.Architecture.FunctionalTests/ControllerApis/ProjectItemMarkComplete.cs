@@ -6,11 +6,11 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ControllerApis;
 
 [Collection("Sequential")]
-public class ProjectItemMarkComplete : IClassFixture<CustomWebApplicationFactory<WebMarker>>
+public class ProjectItemMarkComplete : IClassFixture<CustomWebApplicationFactory<Program>>
 {
   private readonly HttpClient _client;
 
-  public ProjectItemMarkComplete(CustomWebApplicationFactory<WebMarker> factory)
+  public ProjectItemMarkComplete(CustomWebApplicationFactory<Program> factory)
   {
     _client = factory.CreateClient();
   }
