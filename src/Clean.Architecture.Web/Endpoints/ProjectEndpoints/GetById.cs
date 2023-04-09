@@ -40,7 +40,12 @@ public class GetById : EndpointBaseAsync
     (
       id: entity.Id,
       name: entity.Name,
-      items: entity.Items.Select(item => new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsDone))
+      items: entity.Items.Select(
+        item => new ToDoItemRecord(item.Id, 
+          item.Title,
+          item.Description,
+          item.IsDone,
+          item.ContributorId))
         .ToList()
     );
 

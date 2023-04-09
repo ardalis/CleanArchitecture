@@ -1,4 +1,5 @@
 ﻿using Ardalis.HttpClientTestExtensions;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Web;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Xunit;
