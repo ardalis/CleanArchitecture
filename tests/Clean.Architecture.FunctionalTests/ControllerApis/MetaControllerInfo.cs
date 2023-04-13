@@ -4,11 +4,11 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ControllerApis;
 
 [Collection("Sequential")]
-public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<WebMarker>>
+public class MetaControllerInfo : IClassFixture<CustomWebApplicationFactory<Program>>
 {
   private readonly HttpClient _client;
 
-  public MetaControllerInfo(CustomWebApplicationFactory<WebMarker> factory)
+  public MetaControllerInfo(CustomWebApplicationFactory<Program> factory)
   {
     _client = factory.CreateClient();
   }

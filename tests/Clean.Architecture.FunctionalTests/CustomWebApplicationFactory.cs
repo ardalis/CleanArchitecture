@@ -1,12 +1,7 @@
-﻿using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Infrastructure;
-using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.UnitTests;
+﻿using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web;
-using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.FunctionalTests;
 
-public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
+public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
   /// <summary>
   /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
@@ -39,7 +34,7 @@ public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStar
       var db = scopedServices.GetRequiredService<AppDbContext>();
 
       var logger = scopedServices
-          .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+          .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
 
       // Ensure the database is created.
       db.Database.EnsureCreated();

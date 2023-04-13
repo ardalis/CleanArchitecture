@@ -74,12 +74,11 @@ public class DefaultInfrastructureModule : Module
       .As<IUserRepository>()
       .InstancePerLifetimeScope();
 
-    builder.Register<ServiceFactory>(context =>
-    {
-      var c = context.Resolve<IComponentContext>();
-
-      return t => c.Resolve(t);
-    });
+    //builder.Register<ServiceFactory>(context =>
+    //{
+    //  var c = context.Resolve<IComponentContext>();
+    //  return t => c.Resolve(t);
+    //});
 
     var mediatrOpenTypes = new[]
     {

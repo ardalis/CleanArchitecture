@@ -29,10 +29,10 @@ public class Delete : Endpoint<DeleteContributorRequest>
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendNotFoundAsync();
+      await SendNotFoundAsync(cancellationToken);
       return;
     }
 
-    await SendNoContentAsync();
+    await SendNoContentAsync(cancellationToken);
   }
 }

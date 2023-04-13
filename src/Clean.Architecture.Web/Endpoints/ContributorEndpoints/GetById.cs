@@ -28,12 +28,12 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
     var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
     if (entity == null)
     {
-      await SendNotFoundAsync();
+      await SendNotFoundAsync(cancellationToken);
       return;
     }
 
     var response = new ContributorRecord(entity.Id, entity.Name);
 
-    await SendAsync(response);
+    await SendAsync(response, cancellation: cancellationToken);
   }
 }

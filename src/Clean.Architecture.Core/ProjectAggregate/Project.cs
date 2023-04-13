@@ -9,7 +9,7 @@ public class Project : EntityBase, IAggregateRoot
 {
   public string Name { get; private set; }
 
-  private List<ToDoItem> _items = new List<ToDoItem>();
+  private readonly List<ToDoItem> _items = new();
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
   public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
 

@@ -1,4 +1,5 @@
 ﻿using Ardalis.HttpClientTestExtensions;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Web;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Xunit;
@@ -6,11 +7,11 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
-public class ProjectList : IClassFixture<CustomWebApplicationFactory<WebMarker>>
+public class ProjectList : IClassFixture<CustomWebApplicationFactory<Program>>
 {
   private readonly HttpClient _client;
 
-  public ProjectList(CustomWebApplicationFactory<WebMarker> factory)
+  public ProjectList(CustomWebApplicationFactory<Program> factory)
   {
     _client = factory.CreateClient();
   }

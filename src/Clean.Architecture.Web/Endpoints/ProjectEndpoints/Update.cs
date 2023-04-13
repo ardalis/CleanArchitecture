@@ -20,7 +20,7 @@ public class Update : EndpointBaseAsync
   [HttpPut(UpdateProjectRequest.Route)]
   [SwaggerOperation(
       Summary = "Updates a Project",
-      Description = "Updates a Project with a longer description",
+      Description = "Updates a Project. Only supports changing the name.",
       OperationId = "Projects.Update",
       Tags = new[] { "ProjectEndpoints" })
   ]
