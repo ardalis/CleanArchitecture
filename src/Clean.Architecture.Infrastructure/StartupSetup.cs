@@ -113,6 +113,10 @@ internal class JwtJwtBearerHelperEvents
       var signInManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
 
       var claimsIdentity = context.Principal!.Identity as ClaimsIdentity;
+
+      if (claimsIdentity==null)
+        context.Fail("This token has no claims identity.");
+
       if (claimsIdentity!.Claims?.Any() != true)
         context.Fail("This token has no claims.");
 

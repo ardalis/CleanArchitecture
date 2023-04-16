@@ -25,8 +25,8 @@ public class JwtService : IJwtService
 
     //We can use EncryptingCredentials options in SecurityTokenDescriptor and hence our JWT token will not be parsed by jwt.io site and it will only be decrypted only by our code.
     //Hence you can secure your token and who can see it
-    var encryptionKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.EncryptKey); //must be 16 character
-    var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encryptionKey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
+    //var encryptionKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.EncryptKey); //must be 16 character
+    //var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encryptionKey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
 
     var claims = await GetClaimsAsync(user);
 
@@ -76,7 +76,7 @@ public class JwtService : IJwtService
     }
     catch
     {
-      return null;
+      throw;
     }
   }
 
