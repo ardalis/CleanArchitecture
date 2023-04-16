@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Clean.Architecture.Core.UserAggregate;
+using Clean.Architecture.Infrastructure.Identity;
 
 namespace Clean.Architecture.Web.Endpoints.UserEndpoints;
 

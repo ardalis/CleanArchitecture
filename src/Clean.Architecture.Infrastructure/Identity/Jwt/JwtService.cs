@@ -1,12 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Clean.Architecture.Core.UserAggregate;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Clean.Architecture.Core.Services.Auth.Jwt;
+namespace Clean.Architecture.Infrastructure.Identity.Jwt;
 public class JwtService : IJwtService
 {
   private readonly SiteSettings _siteSetting;

@@ -1,5 +1,4 @@
-﻿using Clean.Architecture.Core.UserAggregate;
-using Clean.Architecture.SharedKernel.Interfaces;
+﻿using Clean.Architecture.Infrastructure.Identity;
 using FastEndpoints;
 using Microsoft.AspNetCore.Identity;
 

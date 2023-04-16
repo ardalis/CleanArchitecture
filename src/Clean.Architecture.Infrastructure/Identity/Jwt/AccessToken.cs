@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
 
-namespace Clean.Architecture.Core.Services.Auth.Jwt;
+namespace Clean.Architecture.Infrastructure.Identity.Jwt;
 public class AccessToken
 {
   public string Access_Token { get; set; }

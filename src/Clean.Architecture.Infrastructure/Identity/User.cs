@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Clean.Architecture.SharedKernel.Interfaces;
+﻿using Clean.Architecture.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
-namespace Clean.Architecture.Core.UserAggregate;
+namespace Clean.Architecture.Infrastructure.Identity;
 public class User : IdentityUser<int>, IAggregateRoot
 {
   public User()

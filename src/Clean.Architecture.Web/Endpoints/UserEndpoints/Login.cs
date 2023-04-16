@@ -1,5 +1,5 @@
-﻿using Clean.Architecture.Core.Services.Auth.Jwt;
-using Clean.Architecture.Core.UserAggregate;
+﻿using Clean.Architecture.Infrastructure.Identity;
+using Clean.Architecture.Infrastructure.Identity.Jwt;
 using FastEndpoints;
 using Microsoft.AspNetCore.Identity;
 

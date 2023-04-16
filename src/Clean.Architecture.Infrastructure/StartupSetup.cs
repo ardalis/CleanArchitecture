@@ -1,8 +1,5 @@
 ﻿using System.Security.Claims;
 using System.Text;
-using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Core.Services.Auth;
-using Clean.Architecture.Core.UserAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.SharedKernel.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
+using Clean.Architecture.Infrastructure.Identity;
 
 namespace Clean.Architecture.Infrastructure;
 
@@ -63,8 +61,10 @@ public static class StartupSetup
       });
   }
 
-  public static void AddCustomIdentity(this IServiceCollection services, IdentitySettings settings)
+  public static void AddCustomIdentity(this IServiceCollection services, IdentitySettings settings, string connectionString)
   {
+    services.AddDbContext<AppIdentityDbContext>(options =>
+        options.UseSqlServer(connectionString));
     services.AddIdentity<User, Role>(identityOptions =>
     {
       //Password Settings
@@ -77,7 +77,7 @@ public static class StartupSetup
       //UserName Settings
       identityOptions.User.RequireUniqueEmail = settings.RequireUniqueEmail;
     })
-  .AddEntityFrameworkStores<AppDbContext>()
+  .AddEntityFrameworkStores<AppIdentityDbContext>()
   .AddDefaultTokenProviders();
   }
 }
@@ -110,35 +110,25 @@ internal class JwtJwtBearerHelperEvents
   {
     return async context =>
     {
-      var signInManager = context.HttpContext.RequestServices.GetRequiredService<SignInManager<User>>();
-      var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+      var signInManager = context.HttpContext.RequestServices.GetRequiredService<UserManager<User>>();
 
       var claimsIdentity = context.Principal!.Identity as ClaimsIdentity;
       if (claimsIdentity!.Claims?.Any() != true)
         context.Fail("This token has no claims.");
 
-      //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
-      //if (!securityStamp.HasValue())
-      //    context.Fail("This token has no security stamp");
-
       //Get UserId and check if user exists in db
       var userId = claimsIdentity.GetUserId<int>();
       if (userId == 0)
         context.Fail("UserId has no value in claims.");
-      var user = await userRepository.GetByIdAsync(userId, context.HttpContext.RequestAborted);
+      var user = await signInManager.FindByIdAsync(userId.ToString());
       if (user == null)
         context.Fail("User not found.");
-      //if (user.SecurityStamp != Guid.Parse(securityStamp))
-      //    context.Fail("Token security stamp is not valid.");
-
-      //var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
-      //if (validatedUser == null)
-      //    context.Fail("Token security stamp is not valid.");
 
       if (!user!.IsActive)
         context.Fail("User is not active.");
 
-      await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
+      user.LastLoginDate = DateTime.Now;
+      await signInManager.UpdateAsync(user);
     };
   }
   private Func<JwtBearerChallengeContext, Task> OnOnChallengeJwtBearerEvent()

@@ -13,7 +13,6 @@
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="Autofac" />
     <PackageReference Include="MediatR" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" />
   </ItemGroup>
 
   <ItemGroup>

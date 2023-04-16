@@ -3,6 +3,7 @@ using Autofac;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
+using Clean.Architecture.Infrastructure.Identity.Jwt;
 using Clean.Architecture.SharedKernel;
 using Clean.Architecture.SharedKernel.Interfaces;
 using MediatR;
@@ -54,6 +55,9 @@ public class DefaultInfrastructureModule : Module
 
   private void RegisterCommonDependencies(ContainerBuilder builder)
   {
+    builder.RegisterType<JwtService>()
+     .As<IJwtService>().InstancePerLifetimeScope();
+
     builder.RegisterGeneric(typeof(EfRepository<>))
       .As(typeof(IRepository<>))
       .As(typeof(IReadRepository<>))
@@ -69,11 +73,7 @@ public class DefaultInfrastructureModule : Module
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
 
-    builder
-      .RegisterType<UserRepository>()
-      .As<IUserRepository>()
-      .InstancePerLifetimeScope();
-
+  
     //builder.Register<ServiceFactory>(context =>
     //{
     //  var c = context.Resolve<IComponentContext>();
