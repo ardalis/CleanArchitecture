@@ -1,6 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.SharedKernel.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -24,6 +25,7 @@ public class Create : EndpointBaseAsync
     OperationId = "Project.Create",
     Tags = new[] { "ProjectEndpoints" })
   ]
+  [Authorize]
   public override async Task<ActionResult<CreateProjectResponse>> HandleAsync(
     CreateProjectRequest request,
     CancellationToken cancellationToken = new())

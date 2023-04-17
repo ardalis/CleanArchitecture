@@ -10,6 +10,7 @@ using FastEndpoints.Swagger.Swashbuckle;
 using FastEndpoints.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Clean.Architecture.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,11 @@ builder.Services.AddSwaggerGen(c =>
   c.EnableAnnotations();
   c.OperationFilter<FastEndpointsOperationFilter>();
 });
+builder.Services.Configure<SiteSettings>(builder.Configuration.GetSection(nameof(SiteSettings)));
+
+var sitSettings = builder.Configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
+builder.Services.AddCustomIdentity(sitSettings!.IdentitySettings, connectionString!);
+builder.Services.AddCustomJwtAuthentication(sitSettings!.JwtSettings);
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
 builder.Services.Configure<ServiceConfig>(config =>
@@ -70,6 +76,8 @@ else
 }
 app.UseRouting();
 app.UseFastEndpoints();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
