@@ -1,4 +1,5 @@
-﻿using Clean.Architecture.Infrastructure.Data;
+﻿using Autofac;
+using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -19,7 +20,13 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
   /// <returns></returns>
   protected override IHost CreateHost(IHostBuilder builder)
   {
-    builder.UseEnvironment("Development"); // will not send real emails
+    builder.UseEnvironment("Development");
+    
+    builder.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    {
+      containerBuilder.RegisterModule(new FunctionalTestInfrastructureModule()); // will not send real emails
+    });
+
     var host = builder.Build();
     host.Start();
 
