@@ -54,6 +54,9 @@ public class DefaultInfrastructureModule : Module
 
   private void RegisterCommonDependencies(ContainerBuilder builder)
   {
+    builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
+     .InstancePerLifetimeScope();
+
     builder.RegisterGeneric(typeof(EfRepository<>))
       .As(typeof(IRepository<>))
       .As(typeof(IReadRepository<>))
@@ -96,14 +99,10 @@ public class DefaultInfrastructureModule : Module
   private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any development only services here
-    builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
-      .InstancePerLifetimeScope();
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any production only services here
-    builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
-      .InstancePerLifetimeScope();
   }
 }

@@ -27,6 +27,10 @@ string? connectionString = builder.Configuration.GetConnectionString("SqliteConn
 
 builder.Services.AddDbContext(connectionString!);
 
+// configure email sending
+var mailserverConfig = builder.Configuration.GetSection("Mailserver");
+builder.Services.Configure<MailserverConfiguration>(mailserverConfig);
+
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddRazorPages();
 builder.Services.AddFastEndpoints();
