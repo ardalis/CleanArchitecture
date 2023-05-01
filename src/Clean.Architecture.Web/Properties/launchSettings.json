@@ -7,21 +7,27 @@
       "sslPort": 0
     }
   },
-  "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "Clean.Architecture.Web": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+    "profiles": {
+      "IIS Express": {
+        "commandName": "IISExpress",
+        "launchBrowser": true,
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       },
-      "applicationUrl": "http://localhost:57679/"
+      "Clean.Architecture.Web": {
+        "commandName": "Project",
+        "launchBrowser": true,
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "applicationUrl": "http://localhost:57679/"
+      },
+      "Docker": {
+        "commandName": "Docker",
+        "launchBrowser": true,
+        "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+        "publishAllPorts": true
+      }
     }
   }
-}

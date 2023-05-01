@@ -7,6 +7,9 @@
     <WebProjectMode>true</WebProjectMode>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   
   <ItemGroup>
@@ -20,6 +23,7 @@
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" />
     <PackageReference Include="Swashbuckle.AspNetCore" />

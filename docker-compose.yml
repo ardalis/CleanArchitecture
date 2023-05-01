@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  mailserver:
+    container_name: mailserver
+    image: jijiechen/papercut:latest
+    ports: # exposes port 25 internally
+      - 37409:37408
+
+  clean.architecture.web:
+    image: ${DOCKER_REGISTRY-}cleanarchitectureweb
+    build:
+      context: .
+      dockerfile: src/Clean.Architecture.Web/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+    depends_on:
+       - mailserver
