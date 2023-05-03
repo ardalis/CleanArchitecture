@@ -24,7 +24,7 @@ public class ProjectController : Controller
     var project = await _projectRepository.FirstOrDefaultAsync(spec);
     if (project == null)
     {
-      return NotFound();
+      return NotFound("Project");
     }
 
     var dto = new ProjectViewModel
