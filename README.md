@@ -89,7 +89,7 @@ Note that the template is generally only updated with major updates to the proje
 First, install the template from [NuGet (https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/):
 
 ```powershell
-dotnet new -i Ardalis.CleanArchitecture.Template
+dotnet new install Ardalis.CleanArchitecture.Template
 ```
 
 You should see the template in the list of templates from `dotnet new` after this install successfully. Look for "Steve Smith Clean Architecture" with Short Name of "clean-arch".
