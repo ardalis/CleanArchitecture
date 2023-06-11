@@ -43,7 +43,8 @@ public class ListIncomplete : EndpointBaseAsync
           item => new ToDoItemRecord(item.Id,
             item.Title,
             item.Description,
-            item.IsDone)));
+            item.IsDone,
+            item.ContributorId)));
     }
     else if (result.Status == Ardalis.Result.ResultStatus.Invalid)
     {

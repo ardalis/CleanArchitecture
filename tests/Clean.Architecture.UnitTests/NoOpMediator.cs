@@ -38,4 +38,9 @@ public class NoOpMediator : IMediator
     await Task.CompletedTask;
     yield break;
   }
+
+  public Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default) where TRequest : IRequest
+  {
+    return Task.CompletedTask;
+  }
 }
