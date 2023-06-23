@@ -22,7 +22,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
