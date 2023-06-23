@@ -23,8 +23,8 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
   * [Versions](#versions)
   * [Learn More](#learn-more)
 - [Getting Started](#getting-started)
-  * [Using the Visual Studio Item Template](#using-the-visual-studio-item-template)
   * [Using the dotnet CLI template](#using-the-dotnet-cli-template)
+  * [Using the Visual Studio Item Template (deprecated)](#using-the-visual-studio-item-template)
   * [Using the GitHub Repository](#using-the-github-repository)
   * [Running Migrations](#running-migrations)
 - [Goals](#goals)
@@ -72,18 +72,6 @@ To use this template, there are a few options:
 
 These are all covered below.
 
-## Using the Visual Studio Item Template
-
-After installing the template, you should be able to create a new project in Visual Studio and search for Clean Architecture. You should see the template appear in your list of project templates:
-
-![Clean Architecture Project Template](https://user-images.githubusercontent.com/782127/80412393-cd116880-889b-11ea-886f-9b91fffbc767.png)
-
-After choosing this template, provide a project name and finish the project creation wizard. You should be all set.
-
-![Clean Architecture Project Template step 2](https://user-images.githubusercontent.com/782127/80412455-e5818300-889b-11ea-8219-379581583a92.png)
-
-Note that the template is generally only updated with major updates to the project. The GitHub repository will always have the latest bug fixes and enhancements.
-
 ## Using the dotnet CLI template
 
 First, install the template from [NuGet (https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/):
@@ -110,6 +98,20 @@ Example:
 Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
 
 > **Known Issue**: Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
+
+## Using the Visual Studio Item Template (deprecated)
+
+**This template hasn't been updated since VS2019 and an earlier version of .NET Core. It doesn't appear to work with VS2022/.NET 7**
+
+After installing the template, you should be able to create a new project in Visual Studio and search for Clean Architecture. You should see the template appear in your list of project templates:
+
+![Clean Architecture Project Template](https://user-images.githubusercontent.com/782127/80412393-cd116880-889b-11ea-886f-9b91fffbc767.png)
+
+After choosing this template, provide a project name and finish the project creation wizard. You should be all set.
+
+![Clean Architecture Project Template step 2](https://user-images.githubusercontent.com/782127/80412455-e5818300-889b-11ea-8219-379581583a92.png)
+
+Note that the template is generally only updated with major updates to the project. The GitHub repository will always have the latest bug fixes and enhancements.
 
 ## Using the GitHub Repository
 
