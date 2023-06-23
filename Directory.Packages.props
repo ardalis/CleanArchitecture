@@ -1,6 +1,6 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.0.1" />
+    <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.1.0" />
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="4.0.0" />
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
