@@ -36,5 +36,6 @@
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageVersion Include="xunit" Version="2.4.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="Supernova.Enum.Generators" Version="1.0.11" />
   </ItemGroup>
 </Project>
