@@ -16,7 +16,7 @@
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
-    <tags>Web ASP.NET "Clean Architecture" ddd</tags>
+    <tags>Web ASP.NET "Clean Architecture" ddd domain-driven-design clean-architecture clean architecture ardalis SOLID</tags>
     <icon>./content/icon.png</icon>
     <readme>README.md</readme>
   </metadata>
