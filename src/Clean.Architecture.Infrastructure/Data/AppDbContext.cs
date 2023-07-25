@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.SharedKernel;
-using Clean.Architecture.SharedKernel.Interfaces;
+using Ardalis.SharedKernel;
+using Ardalis.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data;

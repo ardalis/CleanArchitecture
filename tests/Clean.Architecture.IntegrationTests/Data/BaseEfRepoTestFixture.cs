@@ -1,6 +1,6 @@
 ﻿using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.SharedKernel.Interfaces;
+using Ardalis.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;

@@ -1,5 +1,5 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
-using Clean.Architecture.SharedKernel.Interfaces;
+using Ardalis.SharedKernel.Interfaces;
 using FastEndpoints;
 
 namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;

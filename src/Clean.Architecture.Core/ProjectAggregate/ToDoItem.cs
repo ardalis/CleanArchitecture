@@ -1,6 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using Clean.Architecture.Core.ProjectAggregate.Events;
-using Clean.Architecture.SharedKernel;
+using Ardalis.SharedKernel;
 
 namespace Clean.Architecture.Core.ProjectAggregate;
 

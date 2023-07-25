@@ -1,5 +1,5 @@
-﻿using Clean.Architecture.Core.ContributorAggregate.Events;
-using Clean.Architecture.SharedKernel.Interfaces;
+﻿using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ContributorAggregate.Events;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using MediatR;
 

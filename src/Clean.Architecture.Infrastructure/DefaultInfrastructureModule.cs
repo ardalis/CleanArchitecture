@@ -3,8 +3,8 @@ using Autofac;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.SharedKernel;
-using Clean.Architecture.SharedKernel.Interfaces;
+using Ardalis.SharedKernel;
+using Ardalis.SharedKernel;
 using MediatR;
 using MediatR.Pipeline;
 using Module = Autofac.Module;
@@ -65,7 +65,7 @@ public class DefaultInfrastructureModule : Module
       .InstancePerLifetimeScope();
 
     builder
-      .RegisterType<DomainEventDispatcher>()
+      .RegisterType<MediatRDomainEventDispatcher>()
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
 

@@ -2,7 +2,7 @@
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
-using Clean.Architecture.SharedKernel.Interfaces;
+using Ardalis.SharedKernel;
 
 namespace Clean.Architecture.Core.Services;
 

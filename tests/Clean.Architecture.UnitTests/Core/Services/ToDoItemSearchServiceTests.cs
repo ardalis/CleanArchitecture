@@ -3,7 +3,7 @@ using Ardalis.Specification;
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.Services;
-using Clean.Architecture.SharedKernel.Interfaces;
+using Ardalis.SharedKernel;
 using Moq;
 using Xunit;
 

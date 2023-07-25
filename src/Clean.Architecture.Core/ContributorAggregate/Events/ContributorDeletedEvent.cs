@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.SharedKernel;
+﻿using Ardalis.SharedKernel;
 
 namespace Clean.Architecture.Core.ContributorAggregate.Events;
 
