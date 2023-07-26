@@ -1,7 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
+using Ardalis.SharedKernel;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
-using Ardalis.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -42,8 +42,8 @@ public class CreateToDoItem : EndpointBaseAsync
       Description = request.Description!
     };
 
-    if(request.ContributorId.HasValue) 
-    { 
+    if (request.ContributorId.HasValue)
+    {
       newItem.AddContributor(request.ContributorId.Value);
     }
     entity.AddItem(newItem);

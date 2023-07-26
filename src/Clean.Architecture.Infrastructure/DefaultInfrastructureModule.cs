@@ -4,7 +4,6 @@ using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Infrastructure.Data;
 using Ardalis.SharedKernel;
-using Ardalis.SharedKernel;
 using MediatR;
 using MediatR.Pipeline;
 using Module = Autofac.Module;
