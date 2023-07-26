@@ -190,22 +190,37 @@ I've used this starter kit to teach the basics of ASP.NET Core using Domain-Driv
 
 The goal of this sample is to provide a fairly bare-bones starter kit for new projects. It does not include every possible framework, tool, or feature that a particular enterprise application might benefit from. Its choices of technology for things like data access are rooted in what is the most common, accessible technology for most business software developers using Microsoft's technology stack. It doesn't (currently) include extensive support for things like logging, monitoring, or analytics, though these can all be added easily. Below is a list of the technology dependencies it includes, and why they were chosen. Most of these can easily be swapped out for your technology of choice, since the nature of this architecture is to support modularity and encapsulation.
 
+## Where To Validate
+
+Validation of user input is a requirement of all software applications. The question is, where does it make sense to implement it in a concise and elegant manner? This solution template includes 4 separate projects, each of which might be responsible for performing validation as well as enforcing business invariants (which, given validation should already have occurred, are usually modeled as exceptions).
+
+The domain model itself should generally rely on object-oriented design to ensure it is always in a consistent state. It leverages encapsulation and limits public state mutation access to achieve this, and it assumes that any arguments passed to it have already been validated, so null or other improper values yield exceptions, not validation results, in most cases.
+
+The use cases / application project includes the set of all commands and queries the system supports. It's frequently responsible for validating its own command and query objects.
+
+The Web project includes all API endpoints, which include their own request and response types, following the [REPR pattern](https://deviq.com/design-patterns/repr-design-pattern). The FastEndpoints library includes built-in support for validation using FluentValidation on the request types. This is a natural place to perform input validation as well.
+
+Having validation occur both within the API endpoints and then again at the use case level is redundant, so in this template the choice has been made to validate at the edge of the application, in the API endpoints. This means some future consumer of the Use Cases project will also need to be responsible for its own validation as well, but in the vast majority of cases there won't be any other consumers of the use cases outside of the API endpoints.
+
 ## The Core Project
 
-The Core project is the center of the Clean Architecture design, and all other project dependencies should point toward it. As such, it has very few external dependencies. The one exception in this case is the `System.Reflection.TypeExtensions` package, which is used by `ValueObject` to help implement its `IEquatable<>` interface. The Core project should include things like:
+The Core project is the center of the Clean Architecture design, and all other project dependencies should point toward it. As such, it has very few external dependencies. The Core project should include the Domain Model including things like:
 
 - Entities
 - Aggregates
+- Value Objects
 - Domain Events
-- DTOs
-- Interfaces
-- Event Handlers
+- Domain Event Handlers
 - Domain Services
 - Specifications
+- Interfaces
+- DTOs (sometimes)
 
-## The SharedKernel Project
+## The Use Cases Project
 
-Many solutions will also reference a separate **Shared Kernel** project/package. I recommend creating a separate SharedKernel project and solution if you will require sharing code between multiple [bounded contexts](https://ardalis.com/encapsulation-boundaries-large-and-small/) (see [DDD Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)). I further recommend this be published as a NuGet package (most likely privately within your organization) and referenced as a NuGet dependency by those projects that require it. For this sample, in the interest of simplicity, I've added a SharedKernel project to the solution. It contains types that would likely be shared between multiple bounded contexts (VS solutions, typically), in my experience. If you want to see an [example of a SharedKernel package, the one I use in my updated Pluralsight DDD course is on NuGet here](https://www.nuget.org/packages/PluralsightDdd.SharedKernel/).
+An optional project, I've included it because many folks were demanding it and it's easier to remove than to add later. This is also often referred to as the *Application* or *Application Services* layer. The Use Cases project is organized following CQRS into Commands and Queries. Commands mutate the domain model and thus should always use Repository abstractions for their data access. Queries are readonly, and thus do not need to use the repository pattern, but instead can use whatever query service or approach is most convenient. However, since the Use Cases project is set up to depend on Core and not directly on Infrastructure, there will still need to be abstractions defined for its data access. And it *can* use things like specifications, which can sometimes help encapsulate query logic as well as result type mapping. But it doesn't *have* to use repository/specification - it can just issue a SQL query or call a stored procedure if that's the most efficient way to get the data.
+
+Although this is an option project to include (without it, your API endpoints would just work directly with the domain model or query services), it does provide a nice UI-ignorant place to add automated tests.
 
 ## The Infrastructure Project
 
@@ -216,6 +231,15 @@ The Infrastructure project depends on `Microsoft.EntityFrameworkCore.SqlServer` 
 ## The Web Project
 
 The entry point of the application is the ASP.NET Core web project. This is actually a console application, with a `public static void Main` method in `Program.cs`. It currently uses the default MVC organization (Controllers and Views folders) as well as most of the default ASP.NET Core project template code. This includes its configuration system, which uses the default `appsettings.json` file plus environment variables, and is configured in `Startup.cs`. The project delegates to the `Infrastructure` project to wire up its services using Autofac.
+
+## The SharedKernel Project
+
+Many solutions will also reference a separate **Shared Kernel** project/package. I recommend creating a separate SharedKernel project and solution if you will require sharing code between multiple [bounded contexts](https://ardalis.com/encapsulation-boundaries-large-and-small/) (see [DDD Fundamentals](https://www.pluralsight.com/courses/domain-driven-design-fundamentals)). I further recommend this be published as a NuGet package (most likely privately within your organization) and referenced as a NuGet dependency by those projects that require it.
+
+Previously a project for SharedKernel was included in this project. However, for the above reasons I've made it a separate package, [Ardalis.SharedKernel](https://github.com/ardalis/Ardalis.SharedKernel), which you should replace with your own when you use this template.
+
+If you want to see another [example of a SharedKernel package, the one I use in my updated Pluralsight DDD course is on NuGet here](https://www.nuget.org/packages/PluralsightDdd.SharedKernel/).
+
 
 ## The Test Projects
 
@@ -241,5 +265,8 @@ Domain events are a great pattern for decoupling a trigger for an operation from
 
 - [ApiEndpoints](https://github.com/ardalis/apiendpoints)
 - [GuardClauses](https://github.com/ardalis/guardclauses)
+- [HttpClientTestExtensions](https://github.com/ardalis/HttpClientTestExtensions)
 - [Result](https://github.com/ardalis/result)
+- [SharedKernel](https://github.com/ardalis/Ardalis.SharedKernel)
+- [SmartEnum](https://github.com/ardalis/SmartEnum)
 - [Specification](https://github.com/ardalis/specification)

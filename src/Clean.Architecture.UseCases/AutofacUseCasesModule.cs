@@ -67,6 +67,11 @@ public class AutofacUseCasesModule : Module
       .As(typeof(IReadRepository<>))
       .InstancePerLifetimeScope();
 
+    ConfigureMediatR(builder);
+  }
+
+  private void ConfigureMediatR(ContainerBuilder builder)
+  {
     builder
       .RegisterType<Mediator>()
       .As<IMediator>()
@@ -76,13 +81,6 @@ public class AutofacUseCasesModule : Module
       .RegisterType<MediatRDomainEventDispatcher>()
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
-
-    //builder.Register<ServiceFactory>(context =>
-    //{
-    //  var c = context.Resolve<IComponentContext>();
-
-    //  return t => c.Resolve(t);
-    //});
 
     var mediatrOpenTypes = new[]
     {
