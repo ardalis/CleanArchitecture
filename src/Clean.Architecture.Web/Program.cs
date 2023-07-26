@@ -28,8 +28,6 @@ string? connectionString = builder.Configuration.GetConnectionString("SqliteConn
 
 builder.Services.AddDbContext(connectionString!);
 
-builder.Services.AddControllersWithViews().AddNewtonsoftJson();
-builder.Services.AddRazorPages();
 builder.Services.AddFastEndpoints();
 builder.Services.AddFastEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -63,28 +61,25 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
   app.UseDeveloperExceptionPage();
-  app.UseShowAllServicesMiddleware();
+  app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
 }
 else
 {
-  app.UseExceptionHandler("/Home/Error");
+  app.UseDefaultExceptionHandler(); // from FastEndpoints
   app.UseHsts();
 }
-app.UseRouting();
+//app.UseRouting();
 app.UseFastEndpoints();
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseCookiePolicy();
+//app.UseStaticFiles();
+//app.UseCookiePolicy();
 
 // Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();
 
 // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
-
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
 
 // Seed Database
 using (var scope = app.Services.CreateScope())

@@ -24,7 +24,7 @@ public class DeleteContributorHandler : IRequestHandler<DeleteContributorCommand
 
   public async Task<Result> Handle(DeleteContributorCommand request, CancellationToken cancellationToken)
   {
-    // OPTION 1: Do the real work here including dispatching domain events
+    // OPTION 1: Do the real work here including dispatching domain events - change the event from internal to public
     //var aggregateToDelete = await _repository.GetByIdAsync(request.ContributorId);
     //if (aggregateToDelete == null) return Result.NotFound();
 

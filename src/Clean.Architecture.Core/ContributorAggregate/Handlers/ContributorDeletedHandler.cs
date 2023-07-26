@@ -1,21 +1,31 @@
 ﻿using Ardalis.SharedKernel;
 using Clean.Architecture.Core.ContributorAggregate.Events;
+using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
-namespace Clean.Architecture.Core.ProjectAggregate.Handlers;
+namespace Clean.Architecture.Core.ContributorAggregate.Handlers;
 
-public class ContributorDeletedHandler : INotificationHandler<ContributorDeletedEvent>
+/// <summary>
+/// NOTE: Internal because ContributorDeleted is also marked as internal.
+/// </summary>
+internal class ContributorDeletedHandler : INotificationHandler<ContributorDeletedEvent>
 {
   private readonly IRepository<Project> _repository;
+  private readonly ILogger<ContributorDeletedHandler> _logger;
 
-  public ContributorDeletedHandler(IRepository<Project> repository)
+  public ContributorDeletedHandler(IRepository<Project> repository,
+    ILogger<ContributorDeletedHandler> logger)
   {
     _repository = repository;
+    _logger = logger;
   }
 
   public async Task Handle(ContributorDeletedEvent domainEvent, CancellationToken cancellationToken)
   {
+    _logger.LogInformation("Removing deleted contributor {contributorId} from all projects...", domainEvent.ContributorId);
+    // Perform eventual consistency removal of contributors from projects when one is deleted
     var projectSpec = new ProjectsWithItemsByContributorIdSpec(domainEvent.ContributorId);
     var projects = await _repository.ListAsync(projectSpec, cancellationToken);
     foreach (var project in projects)
