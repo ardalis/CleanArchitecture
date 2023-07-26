@@ -10,6 +10,7 @@ using FastEndpoints.Swagger.Swashbuckle;
 using FastEndpoints.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Clean.Architecture.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +52,8 @@ builder.Services.Configure<ServiceConfig>(config =>
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
   containerBuilder.RegisterModule(new DefaultCoreModule());
-  containerBuilder.RegisterModule(new DefaultInfrastructureModule(builder.Environment.EnvironmentName == "Development"));
+  containerBuilder.RegisterModule(new AutofacUseCasesModule(builder.Environment.EnvironmentName == "Development"));
+  //containerBuilder.RegisterModule(new AutofacInfrastructureModule());
 });
 
 //builder.Logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure

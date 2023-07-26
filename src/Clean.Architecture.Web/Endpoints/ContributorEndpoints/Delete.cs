@@ -1,6 +1,8 @@
 ﻿using FastEndpoints;
 using Ardalis.Result;
 using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.UseCases.Commands.DeleteContributor;
+using MediatR;
 
 namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
@@ -8,10 +10,12 @@ public class Delete : Endpoint<DeleteContributorRequest>
 {
 
   private readonly IDeleteContributorService _deleteContributorService;
+  private readonly IMediator _mediator;
 
-  public Delete(IDeleteContributorService service)
+  public Delete(IDeleteContributorService service, IMediator mediator)
   {
     _deleteContributorService = service;
+    _mediator = mediator;
   }
 
   public override void Configure()
@@ -25,7 +29,9 @@ public class Delete : Endpoint<DeleteContributorRequest>
     DeleteContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var result = await _deleteContributorService.DeleteContributor(request.ContributorId);
+    var command = new DeleteContributorCommand(request.ContributorId);
+
+    var result = await _mediator.Send(command);
 
     if (result.Status == ResultStatus.NotFound)
     {
@@ -33,6 +39,12 @@ public class Delete : Endpoint<DeleteContributorRequest>
       return;
     }
 
-    await SendNoContentAsync(cancellationToken);
+    // TODO: Handle other issues
+
+    if (result.IsSuccess)
+    {
+      await SendNoContentAsync(cancellationToken);
+    };
+
   }
 }

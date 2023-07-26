@@ -10,17 +10,18 @@ using Module = Autofac.Module;
 
 namespace Clean.Architecture.Infrastructure;
 
-public class DefaultInfrastructureModule : Module
+public class AutofacInfrastructureModule : Module
 {
   private readonly bool _isDevelopment = false;
   private readonly List<Assembly> _assemblies = new List<Assembly>();
 
-  public DefaultInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
+  public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
     _isDevelopment = isDevelopment;
     var coreAssembly =
       Assembly.GetAssembly(typeof(Project)); // TODO: Replace "Project" with any type from your Core project
-    var infrastructureAssembly = Assembly.GetAssembly(typeof(StartupSetup));
+    var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
+    var useCasesAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName!.EndsWith("UseCases"));
     if (coreAssembly != null)
     {
       _assemblies.Add(coreAssembly);
@@ -29,6 +30,12 @@ public class DefaultInfrastructureModule : Module
     if (infrastructureAssembly != null)
     {
       _assemblies.Add(infrastructureAssembly);
+    }
+
+    if (useCasesAssembly != null)
+    {
+      // needed to wire up MediatR commands and queries in the Use Cases assembly
+      _assemblies.Add(useCasesAssembly);
     }
 
     if (callingAssembly != null)
