@@ -4,6 +4,9 @@ using FluentValidation;
 
 namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
+/// <summary>
+/// See: https://fast-endpoints.com/docs/validation
+/// </summary>
 public class CreateContributorValidator : Validator<CreateContributorRequest>
 {
   public CreateContributorValidator()

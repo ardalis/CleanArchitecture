@@ -2,16 +2,19 @@
 using Clean.Architecture.Core.ContributorAggregate.Specifications;
 using Ardalis.SharedKernel;
 using FastEndpoints;
+using Clean.Architecture.UseCases.Queries.GetContributor;
+using MediatR;
+using Ardalis.Result;
 
 namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
 public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
 {
-  private readonly IRepository<Contributor> _repository;
+  private readonly IMediator _mediator;
 
-  public GetById(IRepository<Contributor> repository)
+  public GetById(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
   public override void Configure()
@@ -24,16 +27,16 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
   public override async Task HandleAsync(GetContributorByIdRequest request, 
     CancellationToken cancellationToken)
   {
-    var spec = new ContributorByIdSpec(request.ContributorId);
-    var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
-    if (entity == null)
+    var command = new GetContributorCommand(request.ContributorId);
+
+    var result = await _mediator.Send(command);
+
+    if(result.Status == ResultStatus.NotFound)
     {
       await SendNotFoundAsync(cancellationToken);
       return;
     }
 
-    var response = new ContributorRecord(entity.Id, entity.Name);
-
-    await SendAsync(response, cancellation: cancellationToken);
+    Response = new ContributorRecord(result.Value.Id, result.Value.Name);
   }
 }

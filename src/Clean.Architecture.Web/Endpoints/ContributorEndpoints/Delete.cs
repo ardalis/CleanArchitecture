@@ -1,6 +1,5 @@
 ﻿using FastEndpoints;
 using Ardalis.Result;
-using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.UseCases.Commands.DeleteContributor;
 using MediatR;
 
@@ -8,13 +7,10 @@ namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
 public class Delete : Endpoint<DeleteContributorRequest>
 {
-
-  private readonly IDeleteContributorService _deleteContributorService;
   private readonly IMediator _mediator;
 
-  public Delete(IDeleteContributorService service, IMediator mediator)
+  public Delete(IMediator mediator)
   {
-    _deleteContributorService = service;
     _mediator = mediator;
   }
 

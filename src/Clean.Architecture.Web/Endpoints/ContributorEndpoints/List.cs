@@ -1,16 +1,16 @@
-﻿using Clean.Architecture.Core.ContributorAggregate;
-using Ardalis.SharedKernel;
-using FastEndpoints;
+﻿using FastEndpoints;
+using MediatR;
+using Clean.Architecture.UseCases.Queries.GetContributor;
 
 namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
 public class List : EndpointWithoutRequest<ContributorListResponse>
 {
-  private readonly IRepository<Contributor> _repository;
+  private readonly IMediator _mediator;
 
-  public List(IRepository<Contributor> repository)
+  public List(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
   public override void Configure()
@@ -22,14 +22,10 @@ public class List : EndpointWithoutRequest<ContributorListResponse>
   }
   public override async Task HandleAsync(CancellationToken cancellationToken)
   {
-    var contributors = await _repository.ListAsync(cancellationToken);
-    var response = new ContributorListResponse()
-    {
-      Contributors = contributors
-        .Select(project => new ContributorRecord(project.Id, project.Name))
-        .ToList()
-    };
+    var result = await _mediator.Send(new ListContributorsCommand(null, null));
 
-    await SendAsync(response, cancellation: cancellationToken);
+    Response = new ContributorListResponse { 
+      Contributors = result.Value.Select(c => new ContributorRecord(c.Id, c.Name)).ToList()
+    };
   }
 }
