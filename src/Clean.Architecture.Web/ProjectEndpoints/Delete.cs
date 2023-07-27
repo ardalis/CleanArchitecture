@@ -3,8 +3,9 @@ using Clean.Architecture.Core.ProjectAggregate;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+namespace Clean.Architecture.Web.ProjectEndpoints;
 
 public class Delete : EndpointBaseAsync
     .WithRequest<DeleteProjectRequest>

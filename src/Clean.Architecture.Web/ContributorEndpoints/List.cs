@@ -1,8 +1,9 @@
 ﻿using FastEndpoints;
 using MediatR;
 using Clean.Architecture.UseCases.Queries.GetContributor;
+using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+namespace Clean.Architecture.Web.ContributorEndpoints;
 
 public class List : EndpointWithoutRequest<ContributorListResponse>
 {
@@ -24,7 +25,8 @@ public class List : EndpointWithoutRequest<ContributorListResponse>
   {
     var result = await _mediator.Send(new ListContributorsCommand(null, null));
 
-    Response = new ContributorListResponse { 
+    Response = new ContributorListResponse
+    {
       Contributors = result.Value.Select(c => new ContributorRecord(c.Id, c.Name)).ToList()
     };
   }

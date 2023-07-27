@@ -1,8 +1,9 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
 using Ardalis.SharedKernel;
 using FastEndpoints;
+using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+namespace Clean.Architecture.Web.ContributorEndpoints;
 
 public class Create : Endpoint<CreateContributorRequest, CreateContributorResponse>
 {

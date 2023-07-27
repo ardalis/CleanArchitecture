@@ -4,8 +4,9 @@ using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+namespace Clean.Architecture.Web.ProjectEndpoints;
 
 public class GetById : EndpointBaseAsync
   .WithRequest<GetProjectByIdRequest>
@@ -41,7 +42,7 @@ public class GetById : EndpointBaseAsync
       id: entity.Id,
       name: entity.Name,
       items: entity.Items.Select(
-        item => new ToDoItemRecord(item.Id, 
+        item => new ToDoItemRecord(item.Id,
           item.Title,
           item.Description,
           item.IsDone,

@@ -3,8 +3,9 @@ using Clean.Architecture.Core.ProjectAggregate;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+namespace Clean.Architecture.Web.ProjectEndpoints;
 
 public class Update : EndpointBaseAsync
     .WithRequest<UpdateProjectRequest>
@@ -26,7 +27,7 @@ public class Update : EndpointBaseAsync
   ]
   public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(
     UpdateProjectRequest request,
-      CancellationToken cancellationToken = new ())
+      CancellationToken cancellationToken = new())
   {
     if (request.Name == null)
     {

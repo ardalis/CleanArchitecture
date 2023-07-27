@@ -1,9 +1,10 @@
 ﻿using Ardalis.ApiEndpoints;
 using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+namespace Clean.Architecture.Web.ProjectEndpoints;
 
 public class ListIncomplete : EndpointBaseAsync
   .WithRequest<ListIncompleteRequest>

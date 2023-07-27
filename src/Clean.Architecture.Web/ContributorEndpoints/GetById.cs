@@ -5,8 +5,9 @@ using FastEndpoints;
 using Clean.Architecture.UseCases.Queries.GetContributor;
 using MediatR;
 using Ardalis.Result;
+using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+namespace Clean.Architecture.Web.ContributorEndpoints;
 
 public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
 {
@@ -24,14 +25,14 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
     Options(x => x
       .WithTags("ContributorEndpoints"));
   }
-  public override async Task HandleAsync(GetContributorByIdRequest request, 
+  public override async Task HandleAsync(GetContributorByIdRequest request,
     CancellationToken cancellationToken)
   {
     var command = new GetContributorCommand(request.ContributorId);
 
     var result = await _mediator.Send(command);
 
-    if(result.Status == ResultStatus.NotFound)
+    if (result.Status == ResultStatus.NotFound)
     {
       await SendNotFoundAsync(cancellationToken);
       return;

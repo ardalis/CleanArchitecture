@@ -1,4 +1,6 @@
-﻿namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+﻿using Clean.Architecture.Web.ProjectEndpoints;
+
+namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
 public class UpdateProjectResponse
 {

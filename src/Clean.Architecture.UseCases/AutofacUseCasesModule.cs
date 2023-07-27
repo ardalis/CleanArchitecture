@@ -8,6 +8,7 @@ using MediatR;
 using Module = Autofac.Module;
 using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
+using Clean.Architecture.UseCases.Behaviors;
 
 namespace Clean.Architecture.UseCases;
 
@@ -78,6 +79,11 @@ public class AutofacUseCasesModule : Module
       .InstancePerLifetimeScope();
 
     builder
+      .RegisterGeneric(typeof(LoggingBehavior<,>))
+      .As(typeof(IPipelineBehavior<,>))
+      .InstancePerLifetimeScope();
+
+    builder
       .RegisterType<MediatRDomainEventDispatcher>()
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
@@ -88,6 +94,7 @@ public class AutofacUseCasesModule : Module
       typeof(IRequestExceptionHandler<,,>),
       typeof(IRequestExceptionAction<,>),
       typeof(INotificationHandler<>),
+      //typeof(IPipelineBehavior<,>), // does this work?
     };
 
     foreach (var mediatrOpenType in mediatrOpenTypes)

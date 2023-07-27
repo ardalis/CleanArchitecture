@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -32,11 +33,14 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
       _logger.LogInformation("{Property} : {@Value}", prop?.Name, propValue);
     }
 
+    var sw = Stopwatch.StartNew();
+
     var response = await next();
 
     //var responseTypeString = new TypeResolver().EvaluateType(typeof(TResponse));
 
-    _logger.LogInformation("Handled {RequestName} with {Response}", typeof(TRequest).Name, response);
+    _logger.LogInformation("Handled {RequestName} with {Response} in {ms} ms", typeof(TRequest).Name, response, sw.ElapsedMilliseconds);
+    sw.Stop();
 
     return response;
   }

@@ -2,8 +2,9 @@
 using Ardalis.Result;
 using Clean.Architecture.UseCases.Commands.DeleteContributor;
 using MediatR;
+using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
-namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+namespace Clean.Architecture.Web.ContributorEndpoints;
 
 public class Delete : Endpoint<DeleteContributorRequest>
 {

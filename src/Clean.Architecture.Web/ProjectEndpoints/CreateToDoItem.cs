@@ -2,10 +2,11 @@
 using Ardalis.SharedKernel;
 using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
+using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Clean.Architecture.Web.Endpoints.ProjectEndpoints;
+namespace Clean.Architecture.Web.ProjectEndpoints;
 
 public class CreateToDoItem : EndpointBaseAsync
   .WithRequest<CreateToDoItemRequest>
