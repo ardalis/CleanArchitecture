@@ -24,24 +24,26 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
   public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
   {
     Guard.Against.Null(request, nameof(request));
-    _logger.LogInformation("Handling {RequestName}", typeof(TRequest).Name);
-    Type myType = request.GetType();
-    IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-    foreach (PropertyInfo prop in props)
+    if (_logger.IsEnabled(LogLevel.Information))
     {
-      object? propValue = prop?.GetValue(request, null);
-      _logger.LogInformation("{Property} : {@Value}", prop?.Name, propValue);
+      _logger.LogInformation("Handling {RequestName}", typeof(TRequest).Name);
+
+      // Reflection! Could be a performance concern
+      Type myType = request.GetType();
+      IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+      foreach (PropertyInfo prop in props)
+      {
+        object? propValue = prop?.GetValue(request, null);
+        _logger.LogInformation("Property {Property} : {@Value}", prop?.Name, propValue);
+      }
     }
 
     var sw = Stopwatch.StartNew();
 
     var response = await next();
 
-    //var responseTypeString = new TypeResolver().EvaluateType(typeof(TResponse));
-
     _logger.LogInformation("Handled {RequestName} with {Response} in {ms} ms", typeof(TRequest).Name, response, sw.ElapsedMilliseconds);
     sw.Stop();
-
     return response;
   }
 }
