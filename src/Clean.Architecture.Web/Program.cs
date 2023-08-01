@@ -10,7 +10,7 @@ using FastEndpoints.Swagger.Swashbuckle;
 using FastEndpoints.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Clean.Architecture.UseCases;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext(connectionString!);
+builder.Services.AddDbContext<AppDbContext>(options =>
+          options.UseSqlite(connectionString));
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddFastEndpointsApiExplorer();
@@ -50,11 +51,8 @@ builder.Services.Configure<ServiceConfig>(config =>
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
   containerBuilder.RegisterModule(new DefaultCoreModule());
-  containerBuilder.RegisterModule(new AutofacUseCasesModule(builder.Environment.EnvironmentName == "Development"));
-  //containerBuilder.RegisterModule(new AutofacInfrastructureModule());
+  containerBuilder.RegisterModule(new AutofacInfrastructureModule(builder.Environment.IsDevelopment()));
 });
-
-//builder.Logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
 
 var app = builder.Build();
 
@@ -68,12 +66,9 @@ else
   app.UseDefaultExceptionHandler(); // from FastEndpoints
   app.UseHsts();
 }
-//app.UseRouting();
 app.UseFastEndpoints();
 
 app.UseHttpsRedirection();
-//app.UseStaticFiles();
-//app.UseCookiePolicy();
 
 // Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();

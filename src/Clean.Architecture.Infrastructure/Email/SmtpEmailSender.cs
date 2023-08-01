@@ -2,7 +2,7 @@
 using Clean.Architecture.Core.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace Clean.Architecture.Infrastructure;
+namespace Clean.Architecture.Infrastructure.Email;
 
 public class SmtpEmailSender : IEmailSender
 {

@@ -7,6 +7,10 @@ using Ardalis.SharedKernel;
 using MediatR;
 using MediatR.Pipeline;
 using Module = Autofac.Module;
+using Clean.Architecture.UseCases.Commands.CreateContributor;
+using Clean.Architecture.Infrastructure.Data.Queries;
+using Clean.Architecture.UseCases.Queries.GetContributor;
+using Clean.Architecture.Infrastructure.Email;
 
 namespace Clean.Architecture.Infrastructure;
 
@@ -18,10 +22,19 @@ public class AutofacInfrastructureModule : Module
   public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
     _isDevelopment = isDevelopment;
-    var coreAssembly =
-      Assembly.GetAssembly(typeof(Project)); // TODO: Replace "Project" with any type from your Core project
+    if (callingAssembly != null)
+    {
+      _assemblies.Add(callingAssembly);
+    }
+  }
+
+  private void LoadAssemblies()
+  {
+    // TODO: Replace these types with any type in the appropriate assembly/project
+    var coreAssembly = Assembly.GetAssembly(typeof(Project)); 
     var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
-    var useCasesAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName!.EndsWith("UseCases"));
+    var useCasesAssembly = Assembly.GetAssembly(typeof(CreateContributorCommand));
+
     if (coreAssembly != null)
     {
       _assemblies.Add(coreAssembly);
@@ -34,18 +47,13 @@ public class AutofacInfrastructureModule : Module
 
     if (useCasesAssembly != null)
     {
-      // needed to wire up MediatR commands and queries in the Use Cases assembly
       _assemblies.Add(useCasesAssembly);
-    }
-
-    if (callingAssembly != null)
-    {
-      _assemblies.Add(callingAssembly);
     }
   }
 
   protected override void Load(ContainerBuilder builder)
   {
+    LoadAssemblies();
     if (_isDevelopment)
     {
       RegisterDevelopmentOnlyDependencies(builder);
@@ -54,20 +62,36 @@ public class AutofacInfrastructureModule : Module
     {
       RegisterProductionOnlyDependencies(builder);
     }
-
-    RegisterCommonDependencies(builder);
+    RegisterEF(builder);
+    RegisterQueries(builder);
+    RegisterMediatR(builder);
   }
 
-  private void RegisterCommonDependencies(ContainerBuilder builder)
+  private void RegisterEF(ContainerBuilder builder)
   {
     builder.RegisterGeneric(typeof(EfRepository<>))
       .As(typeof(IRepository<>))
       .As(typeof(IReadRepository<>))
       .InstancePerLifetimeScope();
+  }
 
+  private void RegisterQueries(ContainerBuilder builder)
+  {
+    builder.RegisterType<ListContributors>()
+      .As<IListContributorsQuery>()
+      .InstancePerLifetimeScope();
+  }
+
+  private void RegisterMediatR(ContainerBuilder builder)
+  {
     builder
       .RegisterType<Mediator>()
       .As<IMediator>()
+      .InstancePerLifetimeScope();
+
+    builder
+      .RegisterGeneric(typeof(LoggingBehavior<,>))
+      .As(typeof(IPipelineBehavior<,>))
       .InstancePerLifetimeScope();
 
     builder
@@ -84,8 +108,8 @@ public class AutofacInfrastructureModule : Module
 
     var mediatrOpenTypes = new[]
     {
-      typeof(IRequestHandler<,>), 
-      typeof(IRequestExceptionHandler<,,>), 
+      typeof(IRequestHandler<,>),
+      typeof(IRequestExceptionHandler<,,>),
       typeof(IRequestExceptionAction<,>),
       typeof(INotificationHandler<>),
     };
