@@ -5,7 +5,7 @@ using Clean.Architecture.Core.ContributorAggregate.Events;
 using Clean.Architecture.Core.Interfaces;
 using MediatR;
 
-namespace Clean.Architecture.UseCases.Commands.DeleteContributor;
+namespace Clean.Architecture.UseCases.Contributors.Delete;
 
 public class DeleteContributorHandler : IRequestHandler<DeleteContributorCommand, Result>
 {

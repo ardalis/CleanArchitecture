@@ -7,10 +7,10 @@ using Ardalis.SharedKernel;
 using MediatR;
 using MediatR.Pipeline;
 using Module = Autofac.Module;
-using Clean.Architecture.UseCases.Commands.CreateContributor;
 using Clean.Architecture.Infrastructure.Data.Queries;
-using Clean.Architecture.UseCases.Queries.GetContributor;
 using Clean.Architecture.Infrastructure.Email;
+using Clean.Architecture.UseCases.Contributors.Create;
+using Clean.Architecture.UseCases.Contributors.List;
 
 namespace Clean.Architecture.Infrastructure;
 

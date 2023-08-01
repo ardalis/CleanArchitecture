@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using MediatR;
 
-namespace Clean.Architecture.UseCases.Queries.GetContributor;
+namespace Clean.Architecture.UseCases.Contributors.List;
 
 public interface IListContributorsQuery
 {

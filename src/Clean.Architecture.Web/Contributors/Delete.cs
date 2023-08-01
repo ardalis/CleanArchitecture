@@ -1,8 +1,8 @@
 ﻿using FastEndpoints;
 using Ardalis.Result;
-using Clean.Architecture.UseCases.Commands.DeleteContributor;
 using MediatR;
 using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+using Clean.Architecture.UseCases.Contributors.Delete;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 

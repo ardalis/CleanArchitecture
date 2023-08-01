@@ -3,7 +3,7 @@ using Ardalis.SharedKernel;
 using Clean.Architecture.Core.ContributorAggregate;
 using MediatR;
 
-namespace Clean.Architecture.UseCases.Commands.CreateContributor;
+namespace Clean.Architecture.UseCases.Contributors.Create;
 
 public class CreateContributorHandler : IRequestHandler<CreateContributorCommand, Result<int>>
 {

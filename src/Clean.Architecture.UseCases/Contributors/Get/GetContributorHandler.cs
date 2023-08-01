@@ -4,7 +4,7 @@ using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.ContributorAggregate.Specifications;
 using MediatR;
 
-namespace Clean.Architecture.UseCases.Queries.GetContributor;
+namespace Clean.Architecture.UseCases.Contributors.Get;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
@@ -24,6 +24,6 @@ public class GetContributorHandler : IRequestHandler<GetContributorCommand, Resu
     var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
     if (entity == null) return Result.NotFound();
 
-    return new ContributorDTO(entity.Id,entity.Name);
+    return new ContributorDTO(entity.Id, entity.Name);
   }
 }

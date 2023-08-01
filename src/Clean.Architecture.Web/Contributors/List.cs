@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using MediatR;
-using Clean.Architecture.UseCases.Queries.GetContributor;
 using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+using Clean.Architecture.UseCases.Contributors.List;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 

@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using MediatR;
 
-namespace Clean.Architecture.UseCases.Queries.GetContributor;
+namespace Clean.Architecture.UseCases.Contributors.Get;
 
 public record GetContributorCommand(int ContributorId) : IRequest<Result<ContributorDTO>>;

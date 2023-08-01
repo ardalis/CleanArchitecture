@@ -1,11 +1,8 @@
-﻿using Clean.Architecture.Core.ContributorAggregate;
-using Clean.Architecture.Core.ContributorAggregate.Specifications;
-using Ardalis.SharedKernel;
-using FastEndpoints;
-using Clean.Architecture.UseCases.Queries.GetContributor;
+﻿using FastEndpoints;
 using MediatR;
 using Ardalis.Result;
 using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+using Clean.Architecture.UseCases.Contributors.Get;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
