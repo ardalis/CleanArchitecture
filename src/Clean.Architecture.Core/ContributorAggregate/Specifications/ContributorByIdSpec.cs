@@ -2,7 +2,7 @@
 
 namespace Clean.Architecture.Core.ContributorAggregate.Specifications;
 
-public class ContributorByIdSpec : Specification<Contributor>, ISingleResultSpecification
+public class ContributorByIdSpec : Specification<Contributor>
 {
   public ContributorByIdSpec(int contributorId)
   {

@@ -2,7 +2,7 @@
 
 namespace Clean.Architecture.Core.ProjectAggregate.Specifications;
 
-public class ProjectByIdWithItemsSpec : Specification<Project>, ISingleResultSpecification
+public class ProjectByIdWithItemsSpec : Specification<Project>
 {
   public ProjectByIdWithItemsSpec(int projectId)
   {
