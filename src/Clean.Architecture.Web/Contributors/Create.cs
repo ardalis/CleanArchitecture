@@ -48,6 +48,7 @@ public class Create : Endpoint<CreateContributorRequest, CreateContributorRespon
     if(result.IsSuccess)
     {
       Response = new CreateContributorResponse(result.Value, request.Name!);
+      return;
     }
     // TODO: Handle other cases as necessary
   }

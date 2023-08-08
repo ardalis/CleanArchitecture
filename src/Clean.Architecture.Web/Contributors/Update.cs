@@ -2,6 +2,10 @@
 using Ardalis.SharedKernel;
 using FastEndpoints;
 using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+using Clean.Architecture.UseCases.Contributors.Create;
+using Clean.Architecture.UseCases.Contributors.Update;
+using MediatR;
+using Ardalis.Result;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
@@ -15,10 +19,12 @@ namespace Clean.Architecture.Web.ContributorEndpoints;
 public class Update : Endpoint<UpdateContributorRequest, UpdateContributorResponse>
 {
   private readonly IRepository<Contributor> _repository;
+  private readonly IMediator _mediator;
 
-  public Update(IRepository<Contributor> repository)
+  public Update(IRepository<Contributor> repository, IMediator mediator)
   {
     _repository = repository;
+    _mediator = mediator;
   }
 
   public override void Configure()
@@ -31,6 +37,14 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
     UpdateContributorRequest request,
     CancellationToken cancellationToken)
   {
+    var result = await _mediator.Send(new UpdateContributorCommand(request.Id, request.Name!));
+
+    if (result.Status == ResultStatus.NotFound)
+    {
+      await SendNotFoundAsync(cancellationToken);
+      return;
+    }
+
     // TODO: Use Mediator
     var existingContributor = await _repository.GetByIdAsync(request.Id, cancellationToken);
     if (existingContributor == null)
@@ -39,14 +53,12 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
       return;
     }
 
-    existingContributor.UpdateName(request.Name!);
+    if (result.IsSuccess)
+    {
+      var dto = result.Value;
+      Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name));
+      return;
+    }
 
-    await _repository.UpdateAsync(existingContributor, cancellationToken);
-
-    var response = new UpdateContributorResponse(
-        contributor: new ContributorRecord(existingContributor.Id, existingContributor.Name)
-    );
-
-    await SendAsync(response, cancellation: cancellationToken);
   }
 }
