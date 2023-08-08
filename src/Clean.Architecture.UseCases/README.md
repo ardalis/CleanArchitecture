@@ -11,3 +11,12 @@ Use Cases are often grouped into Commands and Queries, following CQRS.
 Having Use Cases as a separate project can reduce the amount of logic in UI and Infrastructure projects.
 
 For simpler projects, the Use Cases project can be omitted, and its behavior moved into the UI project, either as using separate services or MediatR handlers, or by simply putting the logic into the API endpoints.
+
+For ideas on organizing your Use Case project's folder structure, see this thread:
+https://twitter.com/ardalis/status/1686406393018945536
+
+Need help? Check out the sample here:
+https://github.com/ardalis/CleanArchitecture/sample
+
+Still need help?
+Contact us at https://nimblepros.com

@@ -1,11 +1,13 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ProjectAggregate;
 
 namespace Clean.Architecture.Core.ContributorAggregate;
 
 public class Contributor : EntityBase, IAggregateRoot
 {
   public string Name { get; private set; }
+  public ContributorStatus Status { get; private set; } = ContributorStatus.NotSet;
 
   public Contributor(string name)
   {

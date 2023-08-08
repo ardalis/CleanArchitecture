@@ -1,16 +1,16 @@
 ﻿using System.Reflection;
-using Autofac;
-using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Infrastructure.Data;
 using Ardalis.SharedKernel;
-using MediatR;
-using MediatR.Pipeline;
-using Module = Autofac.Module;
+using Autofac;
+using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Infrastructure.Data.Queries;
 using Clean.Architecture.Infrastructure.Email;
 using Clean.Architecture.UseCases.Contributors.Create;
 using Clean.Architecture.UseCases.Contributors.List;
+using MediatR;
+using MediatR.Pipeline;
+using Module = Autofac.Module;
 
 namespace Clean.Architecture.Infrastructure;
 
@@ -40,7 +40,7 @@ public class AutofacInfrastructureModule : Module
   private void LoadAssemblies()
   {
     // TODO: Replace these types with any type in the appropriate assembly/project
-    var coreAssembly = Assembly.GetAssembly(typeof(Project)); 
+    var coreAssembly = Assembly.GetAssembly(typeof(Contributor)); 
     var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
     var useCasesAssembly = Assembly.GetAssembly(typeof(CreateContributorCommand));
 
