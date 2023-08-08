@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
-using MediatR;
+using Ardalis.SharedKernel;
 
 namespace Clean.Architecture.UseCases.Contributors.Delete;
 
-public record DeleteContributorCommand(int ContributorId) : IRequest<Result>;
+public record DeleteContributorCommand(int ContributorId) : ICommand<Result>;

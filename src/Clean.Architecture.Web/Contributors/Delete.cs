@@ -6,6 +6,12 @@ using Clean.Architecture.UseCases.Contributors.Delete;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
+/// <summary>
+/// Delete a Contributor.
+/// </summary>
+/// <remarks>
+/// Delete a Contributor by providing a valid integer id.
+/// </remarks>
 public class Delete : Endpoint<DeleteContributorRequest>
 {
   private readonly IMediator _mediator;
@@ -19,9 +25,8 @@ public class Delete : Endpoint<DeleteContributorRequest>
   {
     Delete(DeleteContributorRequest.Route);
     AllowAnonymous();
-    Options(x => x
-      .WithTags("ContributorEndpoints"));
   }
+
   public override async Task HandleAsync(
     DeleteContributorRequest request,
     CancellationToken cancellationToken)
@@ -36,12 +41,10 @@ public class Delete : Endpoint<DeleteContributorRequest>
       return;
     }
 
-    // TODO: Handle other issues
-
     if (result.IsSuccess)
     {
       await SendNoContentAsync(cancellationToken);
     };
-
+    // TODO: Handle other issues as needed
   }
 }

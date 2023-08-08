@@ -6,6 +6,12 @@ using Clean.Architecture.UseCases.Contributors.Get;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
+/// <summary>
+/// Get a Contributor by integer ID.
+/// </summary>
+/// <remarks>
+/// Takes a positive integer ID and returns a matching Contributor record.
+/// </remarks>
 public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
 {
   private readonly IMediator _mediator;
@@ -19,13 +25,12 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
   {
     Get(GetContributorByIdRequest.Route);
     AllowAnonymous();
-    Options(x => x
-      .WithTags("ContributorEndpoints"));
   }
+
   public override async Task HandleAsync(GetContributorByIdRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new GetContributorCommand(request.ContributorId);
+    var command = new GetContributorQuery(request.ContributorId);
 
     var result = await _mediator.Send(command);
 
@@ -35,6 +40,9 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
       return;
     }
 
-    Response = new ContributorRecord(result.Value.Id, result.Value.Name);
+    if (result.IsSuccess)
+    {
+      Response = new ContributorRecord(result.Value.Id, result.Value.Name);
+    }
   }
 }

@@ -1,6 +1,9 @@
 ﻿using Ardalis.Result;
-using MediatR;
 
 namespace Clean.Architecture.UseCases.Contributors.Create;
 
-public record CreateContributorCommand(string Name) : IRequest<Result<int>>;
+/// <summary>
+/// Create a new Contributor.
+/// </summary>
+/// <param name="Name"></param>
+public record CreateContributorCommand(string Name) : Ardalis.SharedKernel.ICommand<Result<int>>;

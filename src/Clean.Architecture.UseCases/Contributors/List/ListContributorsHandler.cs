@@ -1,23 +1,18 @@
 ﻿using Ardalis.Result;
-using MediatR;
+using Ardalis.SharedKernel;
 
 namespace Clean.Architecture.UseCases.Contributors.List;
 
-public interface IListContributorsQuery
+public class ListContributorsHandler : IQueryHandler<ListContributorsQuery, Result<IEnumerable<ContributorDTO>>>
 {
-  Task<IEnumerable<ContributorDTO>> ListAsync();
-}
+  private readonly IListContributorsQueryService _query;
 
-public class ListContributorsHandler : IRequestHandler<ListContributorsCommand, Result<IEnumerable<ContributorDTO>>>
-{
-  private readonly IListContributorsQuery _query;
-
-  public ListContributorsHandler(IListContributorsQuery query)
+  public ListContributorsHandler(IListContributorsQueryService query)
   {
     _query = query;
   }
 
-  public async Task<Result<IEnumerable<ContributorDTO>>> Handle(ListContributorsCommand request, CancellationToken cancellationToken)
+  public async Task<Result<IEnumerable<ContributorDTO>>> Handle(ListContributorsQuery request, CancellationToken cancellationToken)
   {
     var result = await _query.ListAsync();
 

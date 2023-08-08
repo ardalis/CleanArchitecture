@@ -2,7 +2,7 @@
 using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+//using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.ProjectEndpoints;
 
@@ -18,12 +18,12 @@ public class ListIncomplete : EndpointBaseAsync
   }
 
   [HttpGet("/Projects/{ProjectId}/IncompleteItems")]
-  [SwaggerOperation(
-    Summary = "Gets a list of a project's incomplete items",
-    Description = "Gets a list of a project's incomplete items",
-    OperationId = "Project.ListIncomplete",
-    Tags = new[] { "ProjectEndpoints" })
-  ]
+  //[SwaggerOperation(
+  //  Summary = "Gets a list of a project's incomplete items",
+  //  Description = "Gets a list of a project's incomplete items",
+  //  OperationId = "Project.ListIncomplete",
+  //  Tags = new[] { "ProjectEndpoints" })
+  //]
   public override async Task<ActionResult<ListIncompleteResponse>> HandleAsync(
     [FromQuery] ListIncompleteRequest request,
     CancellationToken cancellationToken = new())

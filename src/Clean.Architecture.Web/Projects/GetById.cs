@@ -3,7 +3,7 @@ using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+//using Swashbuckle.AspNetCore.Annotations;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
 namespace Clean.Architecture.Web.ProjectEndpoints;
@@ -20,12 +20,12 @@ public class GetById : EndpointBaseAsync
   }
 
   [HttpGet(GetProjectByIdRequest.Route)]
-  [SwaggerOperation(
-    Summary = "Gets a single Project",
-    Description = "Gets a single Project by Id",
-    OperationId = "Projects.GetById",
-    Tags = new[] { "ProjectEndpoints" })
-  ]
+  //[SwaggerOperation(
+  //  Summary = "Gets a single Project",
+  //  Description = "Gets a single Project by Id",
+  //  OperationId = "Projects.GetById",
+  //  Tags = new[] { "ProjectEndpoints" })
+  //]
   public override async Task<ActionResult<GetProjectByIdResponse>> HandleAsync(
     [FromRoute] GetProjectByIdRequest request,
     CancellationToken cancellationToken = new())

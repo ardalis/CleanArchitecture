@@ -5,6 +5,12 @@ using Clean.Architecture.UseCases.Contributors.List;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
+/// <summary>
+/// List all Contributors
+/// </summary>
+/// <remarks>
+/// List all contributors - returns a ContributorListResponse containing the Contributors.
+/// </remarks>
 public class List : EndpointWithoutRequest<ContributorListResponse>
 {
   private readonly IMediator _mediator;
@@ -18,16 +24,17 @@ public class List : EndpointWithoutRequest<ContributorListResponse>
   {
     Get("/Contributors");
     AllowAnonymous();
-    Options(x => x
-      .WithTags("ContributorEndpoints"));
   }
   public override async Task HandleAsync(CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new ListContributorsCommand(null, null));
+    var result = await _mediator.Send(new ListContributorsQuery(null, null));
 
-    Response = new ContributorListResponse
+    if (result.IsSuccess)
     {
-      Contributors = result.Value.Select(c => new ContributorRecord(c.Id, c.Name)).ToList()
-    };
+      Response = new ContributorListResponse
+      {
+        Contributors = result.Value.Select(c => new ContributorRecord(c.Id, c.Name)).ToList()
+      };
+    }
   }
 }

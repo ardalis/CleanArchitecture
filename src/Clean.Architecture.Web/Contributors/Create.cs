@@ -2,42 +2,53 @@
 using Ardalis.SharedKernel;
 using FastEndpoints;
 using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+using Clean.Architecture.UseCases.Contributors.List;
+using Clean.Architecture.UseCases.Contributors.Create;
+using MediatR;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
+/// <summary>
+/// Create a new Contributor
+/// </summary>
+/// <remarks>
+/// Creates a new Contributor given a name.
+/// </remarks>
 public class Create : Endpoint<CreateContributorRequest, CreateContributorResponse>
 {
   private readonly IRepository<Contributor> _repository;
+  private readonly IMediator _mediator;
 
-  public Create(IRepository<Contributor> repository)
+  public Create(IRepository<Contributor> repository,
+    IMediator mediator)
   {
     _repository = repository;
+    _mediator = mediator;
   }
 
   public override void Configure()
   {
     Post(CreateContributorRequest.Route);
     AllowAnonymous();
-    Options(x => x
-      .WithTags("ContributorEndpoints"));
+    Summary(s =>
+    {
+      // XML Docs are used by default but are overridden by these properties:
+      //s.Summary = "Create a new Contributor.";
+      //s.Description = "Create a new Contributor. A valid name is required.";
+      s.ExampleRequest = new CreateContributorRequest { Name = "Contributor Name" };
+    });
   }
+
   public override async Task HandleAsync(
     CreateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    if (request.Name == null)
+    var result = await _mediator.Send(new CreateContributorCommand(request.Name!));
+
+    if(result.IsSuccess)
     {
-      ThrowError("Name is required");
+      Response = new CreateContributorResponse(result.Value, request.Name!);
     }
-
-    var newContributor = new Contributor(request.Name);
-    var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
-    var response = new CreateContributorResponse
-    (
-      id: createdItem.Id,
-      name: createdItem.Name
-    );
-
-    await SendAsync(response, cancellation: cancellationToken);
+    // TODO: Handle other cases as necessary
   }
 }

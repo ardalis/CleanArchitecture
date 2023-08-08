@@ -6,9 +6,8 @@ using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web;
 using FastEndpoints;
-using FastEndpoints.Swagger.Swashbuckle;
+using FastEndpoints.Swagger;
 using FastEndpoints.ApiExplorer;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,19 +23,25 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");  //Configuration.GetConnectionString("DefaultConnection");
-
+string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
           options.UseSqlite(connectionString));
 
 builder.Services.AddFastEndpoints();
-builder.Services.AddFastEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+//builder.Services.AddFastEndpointsApiExplorer();
+builder.Services.SwaggerDocument(o =>
 {
-  c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-  c.EnableAnnotations();
-  c.OperationFilter<FastEndpointsOperationFilter>();
+  o.ShortSchemaNames = true;
 });
+
+//builder.Services.AddSwaggerGen(c =>
+//{
+//  c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+//  c.EnableAnnotations();
+//  string xmlCommentFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "swagger-docs.xml");
+//  c.IncludeXmlComments(xmlCommentFilePath);
+//  c.OperationFilter<FastEndpointsOperationFilter>();
+//});
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
 builder.Services.Configure<ServiceConfig>(config =>
@@ -67,14 +72,12 @@ else
   app.UseHsts();
 }
 app.UseFastEndpoints();
+app.UseSwaggerGen(); // FastEndpoints middleware
 
 app.UseHttpsRedirection();
 
-// Enable middleware to serve generated Swagger as a JSON endpoint.
-app.UseSwagger();
-
 // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
 // Seed Database
 using (var scope = app.Services.CreateScope())

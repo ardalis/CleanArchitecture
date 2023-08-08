@@ -5,6 +5,13 @@ using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
+/// <summary>
+/// Update an existing Contributor.
+/// </summary>
+/// <remarks>
+/// Update an existing Contributor by providing a fully defined replacement set of values.
+/// See: https://stackoverflow.com/questions/60761955/rest-update-best-practice-put-collection-id-without-id-in-body-vs-put-collecti
+/// </remarks>
 public class Update : Endpoint<UpdateContributorRequest, UpdateContributorResponse>
 {
   private readonly IRepository<Contributor> _repository;
@@ -16,20 +23,15 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
 
   public override void Configure()
   {
-    Put(CreateContributorRequest.Route);
+    Put(UpdateContributorRequest.Route);
     AllowAnonymous();
-    Options(x => x
-      .WithTags("ContributorEndpoints"));
   }
+
   public override async Task HandleAsync(
     UpdateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    if (request.Name == null)
-    {
-      ThrowError("Name is required");
-    }
-
+    // TODO: Use Mediator
     var existingContributor = await _repository.GetByIdAsync(request.Id, cancellationToken);
     if (existingContributor == null)
     {
@@ -37,7 +39,7 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
       return;
     }
 
-    existingContributor.UpdateName(request.Name);
+    existingContributor.UpdateName(request.Name!);
 
     await _repository.UpdateAsync(existingContributor, cancellationToken);
 

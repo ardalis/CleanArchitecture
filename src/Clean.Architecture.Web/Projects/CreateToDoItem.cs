@@ -4,7 +4,7 @@ using Clean.Architecture.Core.ProjectAggregate;
 using Clean.Architecture.Core.ProjectAggregate.Specifications;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+//using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clean.Architecture.Web.ProjectEndpoints;
 
@@ -20,12 +20,12 @@ public class CreateToDoItem : EndpointBaseAsync
   }
 
   [HttpPost(CreateToDoItemRequest.Route)]
-  [SwaggerOperation(
-    Summary = "Creates a new ToDo Item for a Project",
-    Description = "Creates a new ToDo Item for a Project",
-    OperationId = "Project.CreateToDoItem",
-    Tags = new[] { "ProjectEndpoints" })
-  ]
+  //[SwaggerOperation(
+  //  Summary = "Creates a new ToDo Item for a Project",
+  //  Description = "Creates a new ToDo Item for a Project",
+  //  OperationId = "Project.CreateToDoItem",
+  //  Tags = new[] { "ProjectEndpoints" })
+  //]
   public override async Task<ActionResult> HandleAsync(
     CreateToDoItemRequest request,
     CancellationToken cancellationToken = new())

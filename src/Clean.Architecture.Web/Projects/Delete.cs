@@ -2,11 +2,14 @@
 using Clean.Architecture.Core.ProjectAggregate;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+//using Swashbuckle.AspNetCore.Annotations;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
 namespace Clean.Architecture.Web.ProjectEndpoints;
 
+/// <summary>
+/// Deletes a project
+/// </summary>
 public class Delete : EndpointBaseAsync
     .WithRequest<DeleteProjectRequest>
     .WithoutResult
@@ -19,12 +22,12 @@ public class Delete : EndpointBaseAsync
   }
 
   [HttpDelete(DeleteProjectRequest.Route)]
-  [SwaggerOperation(
-      Summary = "Deletes a Project",
-      Description = "Deletes a Project",
-      OperationId = "Projects.Delete",
-      Tags = new[] { "ProjectEndpoints" })
-  ]
+  //[SwaggerOperation(
+  //    Summary = "Deletes a Project",
+  //    Description = "Deletes a Project",
+  //    OperationId = "Projects.Delete",
+  //    Tags = new[] { "ProjectEndpoints" })
+  //]
   public override async Task<ActionResult> HandleAsync(
     [FromRoute] DeleteProjectRequest request,
       CancellationToken cancellationToken = new())

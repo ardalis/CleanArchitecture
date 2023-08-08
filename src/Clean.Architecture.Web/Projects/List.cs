@@ -2,7 +2,7 @@
 using Clean.Architecture.Core.ProjectAggregate;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+//using Swashbuckle.AspNetCore.Annotations;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
 namespace Clean.Architecture.Web.ProjectEndpoints;
@@ -19,12 +19,12 @@ public class List : EndpointBaseAsync
   }
 
   [HttpGet("/Projects")]
-  [SwaggerOperation(
-      Summary = "Gets a list of all Projects",
-      Description = "Gets a list of all Projects",
-      OperationId = "Project.List",
-      Tags = new[] { "ProjectEndpoints" })
-  ]
+  //[SwaggerOperation(
+  //    Summary = "Gets a list of all Projects",
+  //    Description = "Gets a list of all Projects",
+  //    OperationId = "Project.List",
+  //    Tags = new[] { "ProjectEndpoints" })
+  //]
   public override async Task<ActionResult<ProjectListResponse>> HandleAsync(
     CancellationToken cancellationToken = new())
   {

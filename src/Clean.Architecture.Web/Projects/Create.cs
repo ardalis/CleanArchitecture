@@ -2,7 +2,7 @@
 using Clean.Architecture.Core.ProjectAggregate;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+//using Swashbuckle.AspNetCore.Annotations;
 using Clean.Architecture.Web.Endpoints.ProjectEndpoints;
 
 namespace Clean.Architecture.Web.ProjectEndpoints;
@@ -19,12 +19,12 @@ public class Create : EndpointBaseAsync
   }
 
   [HttpPost("/Projects")]
-  [SwaggerOperation(
-    Summary = "Creates a new Project",
-    Description = "Creates a new Project",
-    OperationId = "Project.Create",
-    Tags = new[] { "ProjectEndpoints" })
-  ]
+  //[SwaggerOperation(
+  //  Summary = "Creates a new Project",
+  //  Description = "Creates a new Project",
+  //  OperationId = "Project.Create",
+  //  Tags = new[] { "ProjectEndpoints" })
+  //]
   public override async Task<ActionResult<CreateProjectResponse>> HandleAsync(
     CreateProjectRequest request,
     CancellationToken cancellationToken = new())

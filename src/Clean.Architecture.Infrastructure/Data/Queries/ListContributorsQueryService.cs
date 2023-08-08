@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data.Queries;
 
-public class ListContributors : IListContributorsQuery
+public class ListContributorsQueryService : IListContributorsQueryService
 {
   // You can use EF, Dapper, SqlClient, etc. for queries
   private readonly AppDbContext _db;
 
-  public ListContributors(AppDbContext db)
+  public ListContributorsQueryService(AppDbContext db)
   {
     _db = db;
   }
+
   public async Task<IEnumerable<ContributorDTO>> ListAsync()
   {
     var result = await _db.Contributors.FromSqlRaw("SELECT Id, Name FROM Contributors") // don't fetch other big columns

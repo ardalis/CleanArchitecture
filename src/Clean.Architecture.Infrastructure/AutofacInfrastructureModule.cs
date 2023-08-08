@@ -77,8 +77,8 @@ public class AutofacInfrastructureModule : Module
 
   private void RegisterQueries(ContainerBuilder builder)
   {
-    builder.RegisterType<ListContributors>()
-      .As<IListContributorsQuery>()
+    builder.RegisterType<ListContributorsQueryService>()
+      .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
   }
 
