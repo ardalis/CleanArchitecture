@@ -16,6 +16,7 @@ public class ListContributorsQueryService : IListContributorsQueryService
 
   public async Task<IEnumerable<ContributorDTO>> ListAsync()
   {
+    // NOTE: This will fail if testing with EF InMemory provider
     var result = await _db.Contributors.FromSqlRaw("SELECT Id, Name FROM Contributors") // don't fetch other big columns
       .Select(c => new ContributorDTO(c.Id, c.Name))
       .ToListAsync();

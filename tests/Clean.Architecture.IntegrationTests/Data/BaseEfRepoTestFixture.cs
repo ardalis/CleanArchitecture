@@ -1,9 +1,9 @@
-﻿using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Infrastructure.Data;
+﻿using Clean.Architecture.Infrastructure.Data;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using Clean.Architecture.Core.ContributorAggregate;
 
 namespace Clean.Architecture.IntegrationTests.Data;
 
@@ -36,8 +36,8 @@ public abstract class BaseEfRepoTestFixture
     return builder.Options;
   }
 
-  protected EfRepository<Project> GetRepository()
+  protected EfRepository<Contributor> GetRepository()
   {
-    return new EfRepository<Project>(_dbContext);
+    return new EfRepository<Contributor>(_dbContext);
   }
 }

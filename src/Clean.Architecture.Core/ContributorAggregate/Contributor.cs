@@ -1,6 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using Clean.Architecture.Core.ProjectAggregate;
 
 namespace Clean.Architecture.Core.ContributorAggregate;
 

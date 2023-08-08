@@ -31,7 +31,7 @@ public class AutofacInfrastructureModule : Module
 
   private void AddToAssembliesIfNotNull(Assembly? assembly)
   {
-    if(assembly != null)
+    if (assembly != null)
     {
       _assemblies.Add(assembly);
     }
@@ -40,7 +40,7 @@ public class AutofacInfrastructureModule : Module
   private void LoadAssemblies()
   {
     // TODO: Replace these types with any type in the appropriate assembly/project
-    var coreAssembly = Assembly.GetAssembly(typeof(Contributor)); 
+    var coreAssembly = Assembly.GetAssembly(typeof(Contributor));
     var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
     var useCasesAssembly = Assembly.GetAssembly(typeof(CreateContributorCommand));
 
@@ -75,9 +75,6 @@ public class AutofacInfrastructureModule : Module
 
   private void RegisterQueries(ContainerBuilder builder)
   {
-    builder.RegisterType<ListContributorsQueryService>()
-      .As<IListContributorsQueryService>()
-      .InstancePerLifetimeScope();
   }
 
   private void RegisterMediatR(ContainerBuilder builder)
@@ -119,6 +116,11 @@ public class AutofacInfrastructureModule : Module
     // NOTE: Add any development only services here
     builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
+
+    builder.RegisterType<FakeListContributorsQueryService>()
+      .As<IListContributorsQueryService>()
+      .InstancePerLifetimeScope();
+
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
@@ -126,5 +128,10 @@ public class AutofacInfrastructureModule : Module
     // NOTE: Add any production only (real) services here
     builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
+
+    builder.RegisterType<ListContributorsQueryService>()
+      .As<IListContributorsQueryService>()
+      .InstancePerLifetimeScope();
+
   }
 }
