@@ -14,6 +14,10 @@ using Clean.Architecture.UseCases.Contributors.List;
 
 namespace Clean.Architecture.Infrastructure;
 
+/// <summary>
+/// An Autofac module responsible for wiring up services defined in Infrastructure.
+/// Mainly responsible for setting up EF and MediatR, as well as other one-off services.
+/// </summary>
 public class AutofacInfrastructureModule : Module
 {
   private readonly bool _isDevelopment = false;
@@ -22,9 +26,14 @@ public class AutofacInfrastructureModule : Module
   public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
     _isDevelopment = isDevelopment;
-    if (callingAssembly != null)
+    AddToAssembliesIfNotNull(callingAssembly);
+  }
+
+  private void AddToAssembliesIfNotNull(Assembly? assembly)
+  {
+    if(assembly != null)
     {
-      _assemblies.Add(callingAssembly);
+      _assemblies.Add(assembly);
     }
   }
 
@@ -35,20 +44,9 @@ public class AutofacInfrastructureModule : Module
     var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
     var useCasesAssembly = Assembly.GetAssembly(typeof(CreateContributorCommand));
 
-    if (coreAssembly != null)
-    {
-      _assemblies.Add(coreAssembly);
-    }
-
-    if (infrastructureAssembly != null)
-    {
-      _assemblies.Add(infrastructureAssembly);
-    }
-
-    if (useCasesAssembly != null)
-    {
-      _assemblies.Add(useCasesAssembly);
-    }
+    AddToAssembliesIfNotNull(coreAssembly);
+    AddToAssembliesIfNotNull(infrastructureAssembly);
+    AddToAssembliesIfNotNull(useCasesAssembly);
   }
 
   protected override void Load(ContainerBuilder builder)
@@ -99,13 +97,6 @@ public class AutofacInfrastructureModule : Module
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
 
-    //builder.Register<ServiceFactory>(context =>
-    //{
-    //  var c = context.Resolve<IComponentContext>();
-
-    //  return t => c.Resolve(t);
-    //});
-
     var mediatrOpenTypes = new[]
     {
       typeof(IRequestHandler<,>),
@@ -132,7 +123,7 @@ public class AutofacInfrastructureModule : Module
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
   {
-    // NOTE: Add any production only services here
+    // NOTE: Add any production only (real) services here
     builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
   }
