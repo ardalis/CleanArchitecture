@@ -1,6 +1,4 @@
-﻿using NimblePros.SampleToDo.Web.ProjectEndpoints;
-
-namespace NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+﻿namespace NimblePros.SampleToDo.Web.Projects;
 
 public class UpdateProjectResponse
 {

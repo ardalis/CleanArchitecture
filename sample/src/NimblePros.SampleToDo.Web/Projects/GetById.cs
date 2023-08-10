@@ -1,10 +1,7 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
-using NimblePros.SampleToDo.UseCases.Contributors.Get;
-using NimblePros.SampleToDo.Web.Contributors;
+using NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
 namespace NimblePros.SampleToDo.Web.Projects;
@@ -20,14 +17,14 @@ public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
 
   public override void Configure()
   {
-    Get(GetContributorByIdRequest.Route);
+    Get(GetProjectByIdRequest.Route);
     AllowAnonymous();
   }
 
   public override async Task HandleAsync(GetProjectByIdRequest request,
   CancellationToken cancellationToken)
   {
-    var command = new GetContributorQuery(request.ContributorId);
+    var command = new GetProjectWithAllItemsQuery(request.ProjectId);
 
     var result = await _mediator.Send(command);
 
@@ -39,36 +36,19 @@ public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
 
     if (result.IsSuccess)
     {
-      Response = new GetProjectByIdResponse(result.Value.Id, result.Value.Name);
+      Response = new GetProjectByIdResponse(result.Value.Id,
+        result.Value.Name, 
+        items:
+        result.Value.Items
+          .Select(item => new ToDoItemRecord(
+            item.Id,
+            item.Title,
+            item.Description,
+            item.IsComplete,
+            item.ContributorId
+            ))
+          .ToList()
+          );
     }
-  }
-
-
-
-  public override async Task<ActionResult<GetProjectByIdResponse>> HandleAsync(
-    [FromRoute] GetProjectByIdRequest request,
-    CancellationToken cancellationToken = new())
-  {
-    var spec = new ProjectByIdWithItemsSpec(request.ProjectId);
-    var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
-    if (entity == null)
-    {
-      return NotFound();
-    }
-
-    var response = new GetProjectByIdResponse
-    (
-      id: entity.Id,
-      name: entity.Name,
-      items: entity.Items.Select(
-        item => new ToDoItemRecord(item.Id,
-          item.Title,
-          item.Description,
-          item.IsDone,
-          item.ContributorId))
-        .ToList()
-    );
-
-    return Ok(response);
   }
 }

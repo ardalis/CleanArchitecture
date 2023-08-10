@@ -1,7 +1,4 @@
-﻿
-using NimblePros.SampleToDo.Web.ProjectEndpoints;
-
-namespace NimblePros.SampleToDo.Web.Endpoints.Projects;
+﻿namespace NimblePros.SampleToDo.Web.Projects;
 
 public class GetProjectByIdResponse
 {

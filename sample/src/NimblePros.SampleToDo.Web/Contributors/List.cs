@@ -1,6 +1,5 @@
 ﻿using FastEndpoints;
 using MediatR;
-using NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
 using NimblePros.SampleToDo.UseCases.Contributors.List;
 
 namespace NimblePros.SampleToDo.Web.Contributors;

@@ -1,53 +1,50 @@
-﻿using Ardalis.ApiEndpoints;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Mvc;
 //using Swashbuckle.AspNetCore.Annotations;
 using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+using FastEndpoints;
+using NimblePros.SampleToDo.Web.Contributors;
+using MediatR;
+using Ardalis.Result;
+using NimblePros.SampleToDo.UseCases.Contributors.Update;
+using NimblePros.SampleToDo.UseCases.Projects.Update;
 
-namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
-public class Update : EndpointBaseAsync
-    .WithRequest<UpdateProjectRequest>
-    .WithActionResult<UpdateProjectResponse>
+public class Update : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IMediator _mediator;
 
-  public Update(IRepository<Project> repository)
+  public Update(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
-  [HttpPut(UpdateProjectRequest.Route)]
-  //[SwaggerOperation(
-  //    Summary = "Updates a Project",
-  //    Description = "Updates a Project. Only supports changing the name.",
-  //    OperationId = "Projects.Update",
-  //    Tags = new[] { "ProjectEndpoints" })
-  //]
-  public override async Task<ActionResult<UpdateProjectResponse>> HandleAsync(
-    UpdateProjectRequest request,
-      CancellationToken cancellationToken = new())
+  public override void Configure()
   {
-    if (request.Name == null)
+    Put(UpdateProjectRequest.Route);
+    AllowAnonymous();
+  }
+
+
+  public override async Task HandleAsync(
+  UpdateProjectRequest request,
+  CancellationToken cancellationToken)
+  {
+    var result = await _mediator.Send(new UpdateProjectCommand(request.Id, request.Name!));
+
+    if (result.Status == ResultStatus.NotFound)
     {
-      return BadRequest();
+      await SendNotFoundAsync(cancellationToken);
+      return;
     }
 
-    var existingProject = await _repository.GetByIdAsync(request.Id, cancellationToken);
-    if (existingProject == null)
+    if (result.IsSuccess)
     {
-      return NotFound();
+      var dto = result.Value;
+      Response = new UpdateProjectResponse(new ProjectRecord(dto.Id, dto.Name));
+      return;
     }
-
-    existingProject.UpdateName(request.Name);
-
-    await _repository.UpdateAsync(existingProject, cancellationToken);
-
-    var response = new UpdateProjectResponse(
-        project: new ProjectRecord(existingProject.Id, existingProject.Name)
-    );
-
-    return Ok(response);
   }
 }

@@ -1,5 +1,4 @@
 ﻿using FastEndpoints;
-using NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
 using NimblePros.SampleToDo.UseCases.Contributors.Create;
 using MediatR;
 

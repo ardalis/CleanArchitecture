@@ -1,41 +1,37 @@
-﻿using Ardalis.ApiEndpoints;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Ardalis.SharedKernel;
+﻿using FastEndpoints;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-//using Swashbuckle.AspNetCore.Annotations;
-using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
-namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
-public class List : EndpointBaseAsync
-    .WithoutRequest
-    .WithActionResult<ProjectListResponse>
+public class List : EndpointWithoutRequest<ProjectListResponse>
 {
-  private readonly IReadRepository<Project> _repository;
+  private readonly IMediator _mediator;
 
-  public List(IReadRepository<Project> repository)
+  public List(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
-  [HttpGet("/Projects")]
-  //[SwaggerOperation(
-  //    Summary = "Gets a list of all Projects",
-  //    Description = "Gets a list of all Projects",
-  //    OperationId = "Project.List",
-  //    Tags = new[] { "ProjectEndpoints" })
-  //]
-  public override async Task<ActionResult<ProjectListResponse>> HandleAsync(
-    CancellationToken cancellationToken = new())
+  public override void Configure()
   {
-    var projects = await _repository.ListAsync(cancellationToken);
-    var response = new ProjectListResponse
-    {
-      Projects = projects
-        .Select(project => new ProjectRecord(project.Id, project.Name))
-        .ToList()
-    };
+    Get($"/{nameof(Project)}s");
+    AllowAnonymous();
+  }
 
-    return Ok(response);
+  public override async Task HandleAsync(CancellationToken cancellationToken)
+  {
+    var result = await _mediator.Send(new ListProjectsShallowQuery(null, null));
+
+    if (result.IsSuccess)
+    {
+      Response = new ProjectListResponse
+      {
+        Projects = result.Value.Select(c => new ProjectRecord(c.Id, c.Name)).ToList()
+      };
+    }
   }
 }

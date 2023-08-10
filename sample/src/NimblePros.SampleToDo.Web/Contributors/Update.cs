@@ -1,11 +1,9 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using FastEndpoints;
-using NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
-using NimblePros.SampleToDo.UseCases.Contributors.Create;
-using NimblePros.SampleToDo.UseCases.Contributors.Update;
 using MediatR;
-using Ardalis.Result;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.UseCases.Contributors.Update;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 
