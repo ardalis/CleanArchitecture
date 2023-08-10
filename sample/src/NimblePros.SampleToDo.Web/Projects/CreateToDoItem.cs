@@ -20,7 +20,8 @@ public class Create : Endpoint<CreateToDoItemRequest>
     AllowAnonymous();
     Summary(s =>
     {
-      s.ExampleRequest = new CreateToDoItemRequest { ContributorId=1, ProjectId=1, Title="Title", Description="Description"};
+      s.ExampleRequest = new CreateToDoItemRequest { ContributorId=1, ProjectId=1, Title="Title",
+        Description="Description"};
     });
   }
 
@@ -28,7 +29,8 @@ public class Create : Endpoint<CreateToDoItemRequest>
 CreateToDoItemRequest request,
 CancellationToken cancellationToken)
   {
-    var command = new AddToDoItemCommand(request.ProjectId, request.ContributorId, request.Title, request.Description);
+    var command = new AddToDoItemCommand(request.ProjectId, request.ContributorId,
+      request.Title, request.Description);
     var result = await _mediator.Send(command);
 
     if (result.Status == Ardalis.Result.ResultStatus.NotFound)
@@ -39,7 +41,8 @@ CancellationToken cancellationToken)
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      // send route to project
+      await SendCreatedAtAsync<GetById>(new { id = request.ProjectId }, "");
     };
     // TODO: Handle other cases as necessary
   }

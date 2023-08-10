@@ -13,8 +13,6 @@ public class CreateToDoItemValidator : Validator<CreateToDoItemRequest>
   {
     RuleFor(x => x.ProjectId)
       .GreaterThan(0);
-    RuleFor(x => x.ContributorId)
-      .GreaterThan(0);
     RuleFor(x => x.Title)
       .NotEmpty()
       .MinimumLength(2)

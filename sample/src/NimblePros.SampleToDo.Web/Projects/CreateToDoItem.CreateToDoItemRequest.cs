@@ -16,6 +16,6 @@ public class CreateToDoItemRequest
   public string Title { get; set; } = string.Empty;
   [Required]
   public string Description { get; set; } = string.Empty;
-  [Required]
-  public int ContributorId { get; set; } = 0;
+
+  public int? ContributorId { get; set; }
 }

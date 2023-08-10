@@ -32,7 +32,7 @@ public class ProjectAddToDoItem : IClassFixture<CustomWebApplicationFactory<Prog
     var result = await _client.PostAsync(CreateToDoItemRequest.BuildRoute(testProjectId), content);
     
     // useful for debugging error responses:
-    // var stringContent = await result.Content.ReadAsStringAsync();
+    var stringContent = await result.Content.ReadAsStringAsync();
 
     string expectedRoute = GetProjectByIdRequest.BuildRoute(testProjectId);
     result.Headers.Location!.ToString().Should().Be(expectedRoute);

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\NimblePros.SampleToDo.Core\NimblePros.SampleToDo.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Projects\AddContributorToItem\" />
+  </ItemGroup>
+
 </Project>

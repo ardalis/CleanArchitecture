@@ -11,6 +11,8 @@ using NimblePros.SampleToDo.Infrastructure.Data.Queries;
 using NimblePros.SampleToDo.Infrastructure.Email;
 using NimblePros.SampleToDo.UseCases.Contributors.Create;
 using NimblePros.SampleToDo.UseCases.Contributors.List;
+using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
+using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
 
 namespace NimblePros.SampleToDo.Infrastructure;
 
@@ -116,6 +118,13 @@ public class AutofacInfrastructureModule : Module
       .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
 
+    builder.RegisterType<FakeListIncompleteItemsQueryService>()
+      .As<IListIncompleteItemsQueryService>()
+      .InstancePerLifetimeScope();
+
+    builder.RegisterType<FakeListProjectsShallowQueryService>()
+      .As<IListProjectsShallowQueryService>()
+      .InstancePerLifetimeScope();
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
@@ -128,5 +137,12 @@ public class AutofacInfrastructureModule : Module
       .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
 
+    builder.RegisterType<ListIncompleteItemsQueryService>()
+      .As<IListIncompleteItemsQueryService>()
+      .InstancePerLifetimeScope();
+
+    builder.RegisterType<ListProjectsShallowQueryService>()
+      .As<IListProjectsShallowQueryService>()
+      .InstancePerLifetimeScope();
   }
 }

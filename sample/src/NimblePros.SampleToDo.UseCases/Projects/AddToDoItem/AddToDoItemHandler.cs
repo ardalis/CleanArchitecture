@@ -30,7 +30,10 @@ public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<int
       Description = request.Description!
     };
 
-    newItem.AddContributor(request.ContributorId);
+    if(request.ContributorId.HasValue)
+    {
+      newItem.AddContributor(request.ContributorId.Value);
+    }
     entity.AddItem(newItem);
     await _repository.UpdateAsync(entity);
 
