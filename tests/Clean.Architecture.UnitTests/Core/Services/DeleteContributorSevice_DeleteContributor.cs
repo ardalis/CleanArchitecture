@@ -1,23 +1,24 @@
-﻿using Clean.Architecture.Core.ContributorAggregate;
+﻿using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.Services;
-using Ardalis.SharedKernel;
 using MediatR;
-using Moq;
-using Xunit;
 using Microsoft.Extensions.Logging;
+using NSubstitute;
+using Xunit;
 
 namespace Clean.Architecture.UnitTests.Core.Services;
 
 public class DeleteContributorService_DeleteContributor
 {
-  private readonly Mock<IRepository<Contributor>> _mockRepo = new Mock<IRepository<Contributor>>();
-  private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
-  private readonly Mock<ILogger<DeleteContributorService>> _mockLogger = new Mock<ILogger<DeleteContributorService>>();
+  private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
+  private readonly IMediator _mediator = Substitute.For<IMediator>();
+  private readonly ILogger<DeleteContributorService> _logger = Substitute.For<ILogger<DeleteContributorService>>();
+
   private readonly DeleteContributorService _service;
 
   public DeleteContributorService_DeleteContributor()
   {
-    _service = new DeleteContributorService(_mockRepo.Object, _mockMediator.Object, _mockLogger.Object);
+    _service = new DeleteContributorService(_repository, _mediator, _logger);
   }
 
   [Fact]
