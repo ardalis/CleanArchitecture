@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
 public class CreateProjectRequest
 {

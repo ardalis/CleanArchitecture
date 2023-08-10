@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+﻿namespace NimblePros.SampleToDo.Web.Projects;
 
 public class CreateProjectResponse
 {
@@ -7,6 +7,7 @@ public class CreateProjectResponse
     Id = id;
     Name = name;
   }
+
   public int Id { get; set; }
   public string Name { get; set; }
 }

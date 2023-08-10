@@ -2,20 +2,19 @@
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Handlers;
-using Moq;
 using Xunit;
+using NSubstitute;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Handlers;
 
 public class ItemCompletedEmailNotificationHandlerHandle
 {
   private ItemCompletedEmailNotificationHandler _handler;
-  private Mock<IEmailSender> _emailSenderMock;
+  private IEmailSender _emailSender = Substitute.For<IEmailSender>();
 
   public ItemCompletedEmailNotificationHandlerHandle()
   {
-    _emailSenderMock = new Mock<IEmailSender>();
-    _handler = new ItemCompletedEmailNotificationHandler(_emailSenderMock.Object);
+    _handler = new ItemCompletedEmailNotificationHandler(_emailSender);
   }
 
   [Fact]
@@ -31,6 +30,6 @@ public class ItemCompletedEmailNotificationHandlerHandle
   {
     await _handler.Handle(new ToDoItemCompletedEvent(new ToDoItem()), CancellationToken.None);
 
-    _emailSenderMock.Verify(sender => sender.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+    await _emailSender.Received().SendEmailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
   }
 }

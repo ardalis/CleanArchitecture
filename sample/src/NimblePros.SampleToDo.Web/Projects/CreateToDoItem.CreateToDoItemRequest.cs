@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
 public class CreateToDoItemRequest
 {
@@ -10,10 +10,12 @@ public class CreateToDoItemRequest
 
   [Required]
   [FromRoute]
-  public int ProjectId { get; set; }
+  public int ProjectId { get; set; } = 0;
 
   [Required]
-  public string? Title { get; set; }
-  public string? Description { get; set; }
-  public int? ContributorId { get; set; }
+  public string Title { get; set; } = string.Empty;
+  [Required]
+  public string Description { get; set; } = string.Empty;
+  [Required]
+  public int ContributorId { get; set; } = 0;
 }

@@ -10,7 +10,6 @@ namespace Clean.Architecture.UnitTests.UseCases.Contributors;
 public class CreateContributorHandlerHandle
 {
   private readonly string _testName = "test name";
-  //private Contributor? _testContributor;
   private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
   private CreateContributorHandler _handler;
 

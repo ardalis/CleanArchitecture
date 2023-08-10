@@ -1,47 +1,39 @@
-﻿using Ardalis.ApiEndpoints;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Ardalis.SharedKernel;
-using Microsoft.AspNetCore.Mvc;
-//using Swashbuckle.AspNetCore.Annotations;
-using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+﻿using FastEndpoints;
+using MediatR;
+using NimblePros.SampleToDo.UseCases.Projects.Create;
 
-namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
-public class Create : EndpointBaseAsync
-  .WithRequest<CreateProjectRequest>
-  .WithActionResult<CreateProjectResponse>
+public class Create : Endpoint<CreateProjectRequest, CreateProjectResponse>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IMediator _mediator;
 
-  public Create(IRepository<Project> repository)
+  public Create(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
-  [HttpPost("/Projects")]
-  //[SwaggerOperation(
-  //  Summary = "Creates a new Project",
-  //  Description = "Creates a new Project",
-  //  OperationId = "Project.Create",
-  //  Tags = new[] { "ProjectEndpoints" })
-  //]
-  public override async Task<ActionResult<CreateProjectResponse>> HandleAsync(
-    CreateProjectRequest request,
-    CancellationToken cancellationToken = new())
+  public override void Configure()
   {
-    if (request.Name == null)
+    Post(CreateProjectRequest.Route);
+    AllowAnonymous();
+    Summary(s =>
     {
-      return BadRequest();
+      s.ExampleRequest = new CreateProjectRequest { Name = "Project Name" };
+    });
+  }
+
+  public override async Task HandleAsync(
+  CreateProjectRequest request,
+  CancellationToken cancellationToken)
+  {
+    var result = await _mediator.Send(new CreateProjectCommand(request.Name!));
+
+    if (result.IsSuccess)
+    {
+      Response = new CreateProjectResponse(result.Value, request.Name!);
+      return;
     }
-
-    var newProject = new Project(request.Name, PriorityStatus.Backlog);
-    var createdItem = await _repository.AddAsync(newProject, cancellationToken);
-    var response = new CreateProjectResponse
-    (
-      id: createdItem.Id,
-      name: createdItem.Name
-    );
-
-    return Ok(response);
+    // TODO: Handle other cases as necessary
   }
 }

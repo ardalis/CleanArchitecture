@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
+﻿namespace NimblePros.SampleToDo.Web.Contributors;
 
 public record DeleteContributorRequest
 {

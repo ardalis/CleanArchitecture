@@ -1,6 +1,6 @@
-using NimblePros.SampleToDo.Web.ContributorEndpoints;
+﻿using NimblePros.SampleToDo.Web.Contributors;
 
-namespace NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 public class ContributorListResponse
 {

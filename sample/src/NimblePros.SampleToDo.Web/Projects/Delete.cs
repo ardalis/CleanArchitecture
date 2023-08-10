@@ -1,45 +1,46 @@
-﻿using Ardalis.ApiEndpoints;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Ardalis.SharedKernel;
-using Microsoft.AspNetCore.Mvc;
-//using Swashbuckle.AspNetCore.Annotations;
-using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+﻿using Ardalis.Result;
+using FastEndpoints;
+using MediatR;
+using NimblePros.SampleToDo.UseCases.Projects.Delete;
 
-namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
 /// <summary>
 /// Deletes a project
 /// </summary>
-public class Delete : EndpointBaseAsync
-    .WithRequest<DeleteProjectRequest>
-    .WithoutResult
+public class Delete : Endpoint<DeleteProjectRequest>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IMediator _mediator;
 
-  public Delete(IRepository<Project> repository)
+  public Delete(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
-  [HttpDelete(DeleteProjectRequest.Route)]
-  //[SwaggerOperation(
-  //    Summary = "Deletes a Project",
-  //    Description = "Deletes a Project",
-  //    OperationId = "Projects.Delete",
-  //    Tags = new[] { "ProjectEndpoints" })
-  //]
-  public override async Task<ActionResult> HandleAsync(
-    [FromRoute] DeleteProjectRequest request,
-      CancellationToken cancellationToken = new())
+  public override void Configure()
   {
-    var aggregateToDelete = await _repository.GetByIdAsync(request.ProjectId, cancellationToken);
-    if (aggregateToDelete == null)
+    Delete(DeleteProjectRequest.Route);
+    AllowAnonymous();
+  }
+
+  public override async Task HandleAsync(
+  DeleteProjectRequest request,
+  CancellationToken cancellationToken)
+  {
+    var command = new DeleteProjectCommand(request.ProjectId);
+
+    var result = await _mediator.Send(command);
+
+    if (result.Status == ResultStatus.NotFound)
     {
-      return NotFound();
+      await SendNotFoundAsync(cancellationToken);
+      return;
     }
 
-    await _repository.DeleteAsync(aggregateToDelete, cancellationToken);
-
-    return NoContent();
+    if (result.IsSuccess)
+    {
+      await SendNoContentAsync(cancellationToken);
+    };
+    // TODO: Handle other issues as needed
   }
 }

@@ -1,31 +1,50 @@
-﻿using Ardalis.ApiEndpoints;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
-using Ardalis.SharedKernel;
+﻿using Ardalis.Result;
+using FastEndpoints;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-//using Swashbuckle.AspNetCore.Annotations;
-using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
+using NimblePros.SampleToDo.UseCases.Contributors.Get;
+using NimblePros.SampleToDo.Web.Contributors;
+using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
-namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Projects;
 
-public class GetById : EndpointBaseAsync
-  .WithRequest<GetProjectByIdRequest>
-  .WithActionResult<GetProjectByIdResponse>
+public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IMediator _mediator;
 
-  public GetById(IRepository<Project> repository)
+  public GetById(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
-  [HttpGet(GetProjectByIdRequest.Route)]
-  //[SwaggerOperation(
-  //  Summary = "Gets a single Project",
-  //  Description = "Gets a single Project by Id",
-  //  OperationId = "Projects.GetById",
-  //  Tags = new[] { "ProjectEndpoints" })
-  //]
+  public override void Configure()
+  {
+    Get(GetContributorByIdRequest.Route);
+    AllowAnonymous();
+  }
+
+  public override async Task HandleAsync(GetProjectByIdRequest request,
+  CancellationToken cancellationToken)
+  {
+    var command = new GetContributorQuery(request.ContributorId);
+
+    var result = await _mediator.Send(command);
+
+    if (result.Status == ResultStatus.NotFound)
+    {
+      await SendNotFoundAsync(cancellationToken);
+      return;
+    }
+
+    if (result.IsSuccess)
+    {
+      Response = new GetProjectByIdResponse(result.Value.Id, result.Value.Name);
+    }
+  }
+
+
+
   public override async Task<ActionResult<GetProjectByIdResponse>> HandleAsync(
     [FromRoute] GetProjectByIdRequest request,
     CancellationToken cancellationToken = new())

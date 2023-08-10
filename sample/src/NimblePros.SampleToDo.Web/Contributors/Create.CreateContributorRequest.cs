@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 public class CreateContributorRequest
 {

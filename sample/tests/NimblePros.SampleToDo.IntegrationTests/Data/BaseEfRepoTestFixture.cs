@@ -3,7 +3,7 @@ using NimblePros.SampleToDo.Infrastructure.Data;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
+using NSubstitute;
 
 namespace NimblePros.SampleToDo.IntegrationTests.Data;
 
@@ -14,9 +14,9 @@ public abstract class BaseEfRepoTestFixture
   protected BaseEfRepoTestFixture()
   {
     var options = CreateNewContextOptions();
-    var mockEventDispatcher = new Mock<IDomainEventDispatcher>();
+    var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
 
-    _dbContext = new AppDbContext(options, mockEventDispatcher.Object);
+    _dbContext = new AppDbContext(options, _fakeEventDispatcher);
   }
 
   protected static DbContextOptions<AppDbContext> CreateNewContextOptions()

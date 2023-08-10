@@ -1,12 +1,9 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
-using Ardalis.SharedKernel;
-using FastEndpoints;
+﻿using FastEndpoints;
 using NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
-using NimblePros.SampleToDo.UseCases.Contributors.List;
 using NimblePros.SampleToDo.UseCases.Contributors.Create;
 using MediatR;
 
-namespace NimblePros.SampleToDo.Web.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 /// <summary>
 /// Create a new Contributor
@@ -16,13 +13,10 @@ namespace NimblePros.SampleToDo.Web.ContributorEndpoints;
 /// </remarks>
 public class Create : Endpoint<CreateContributorRequest, CreateContributorResponse>
 {
-  private readonly IRepository<Contributor> _repository;
   private readonly IMediator _mediator;
 
-  public Create(IRepository<Contributor> repository,
-    IMediator mediator)
+  public Create(IMediator mediator)
   {
-    _repository = repository;
     _mediator = mediator;
   }
 
@@ -45,7 +39,7 @@ public class Create : Endpoint<CreateContributorRequest, CreateContributorRespon
   {
     var result = await _mediator.Send(new CreateContributorCommand(request.Name!));
 
-    if(result.IsSuccess)
+    if (result.IsSuccess)
     {
       Response = new CreateContributorResponse(result.Value, request.Name!);
       return;

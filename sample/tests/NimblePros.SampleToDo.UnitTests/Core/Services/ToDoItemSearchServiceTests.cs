@@ -4,19 +4,19 @@ using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.Services;
 using Ardalis.SharedKernel;
-using Moq;
 using Xunit;
+using NSubstitute;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Services;
 
 public class ToDoItemSearchServiceTests
 {
   private readonly IToDoItemSearchService _service;
-  private readonly Mock<IRepository<Project>> _mockRepo = new();
+  private readonly IRepository<Project> _repo = Substitute.For<IRepository<Project>>();
   
   public ToDoItemSearchServiceTests()
   {
-    _service = new ToDoItemSearchService(_mockRepo.Object);
+    _service = new ToDoItemSearchService(_repo);
     
   }
 
@@ -40,16 +40,16 @@ public class ToDoItemSearchServiceTests
   public async Task ReturnsAllIncompleteItems()
   {
     var title = "Some Title";
-    var project = new Project("Cool Project", PriorityStatus.Backlog);
+    Project project = new Project("Cool Project", PriorityStatus.Backlog);
     
     project.AddItem(new ToDoItem
     {
       Title = title,
       Description = "Some Description"
     });
-    
-    _mockRepo.Setup(x => x.FirstOrDefaultAsync(It.IsAny<ISpecification<Project>>(), It.IsAny<CancellationToken>()))
-      .ReturnsAsync(project);
+
+    _repo.FirstOrDefaultAsync(Arg.Any<ISpecification<Project>>(), Arg.Any<CancellationToken>())
+      .Returns(project);
 
     var projects = await _service.GetAllIncompleteItemsAsync(1, title);
 

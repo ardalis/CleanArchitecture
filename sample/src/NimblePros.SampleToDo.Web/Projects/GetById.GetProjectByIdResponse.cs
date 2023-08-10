@@ -1,7 +1,7 @@
 ﻿
 using NimblePros.SampleToDo.Web.ProjectEndpoints;
 
-namespace NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+namespace NimblePros.SampleToDo.Web.Endpoints.Projects;
 
 public class GetProjectByIdResponse
 {

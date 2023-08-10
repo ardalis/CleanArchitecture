@@ -7,7 +7,7 @@ using NimblePros.SampleToDo.UseCases.Contributors.Update;
 using MediatR;
 using Ardalis.Result;
 
-namespace NimblePros.SampleToDo.Web.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 /// <summary>
 /// Update an existing Contributor.

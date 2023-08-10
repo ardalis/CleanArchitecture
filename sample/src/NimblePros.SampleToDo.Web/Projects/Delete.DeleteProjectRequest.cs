@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+﻿namespace NimblePros.SampleToDo.Web.Projects;
 
 public class DeleteProjectRequest
 {

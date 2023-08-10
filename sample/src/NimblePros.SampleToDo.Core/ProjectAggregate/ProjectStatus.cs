@@ -2,6 +2,6 @@
 
 public enum ProjectStatus
 {
-  InProgress,
+  InProgress, // NOTE: Better to use a SmartEnum if you want spaces in your strings e.g. "In Progress"
   Complete
 }

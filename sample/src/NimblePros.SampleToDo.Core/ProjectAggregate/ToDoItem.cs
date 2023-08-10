@@ -10,6 +10,7 @@ public class ToDoItem : EntityBase
   public string Description { get; set; } = string.Empty;
   public int? ContributorId { get; private set; }
   public bool IsDone { get; private set; }
+  // TODO: Move Priority to ToDoItem from Project
 
   public void MarkComplete()
   {

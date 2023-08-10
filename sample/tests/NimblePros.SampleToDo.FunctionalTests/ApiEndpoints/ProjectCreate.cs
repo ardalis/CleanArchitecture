@@ -3,6 +3,7 @@ using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
 using Xunit;
 using FluentAssertions;
 using NimblePros.SampleToDo.Web;
+using NimblePros.SampleToDo.Web.Projects;
 
 namespace NimblePros.SampleToDo.FunctionalTests.ApiEndpoints;
 

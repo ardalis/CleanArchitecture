@@ -1,55 +1,46 @@
-﻿using Ardalis.ApiEndpoints;
-using Ardalis.SharedKernel;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
-using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
-using Microsoft.AspNetCore.Mvc;
-//using Swashbuckle.AspNetCore.Annotations;
+﻿using FastEndpoints;
+using MediatR;
+using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+using NimblePros.SampleToDo.Web.Projects;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
 
-public class CreateToDoItem : EndpointBaseAsync
-  .WithRequest<CreateToDoItemRequest>
-  .WithActionResult
+public class Create : Endpoint<CreateToDoItemRequest>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly IMediator _mediator;
 
-  public CreateToDoItem(IRepository<Project> repository)
+  public Create(IMediator mediator)
   {
-    _repository = repository;
+    _mediator = mediator;
   }
 
-  [HttpPost(CreateToDoItemRequest.Route)]
-  //[SwaggerOperation(
-  //  Summary = "Creates a new ToDo Item for a Project",
-  //  Description = "Creates a new ToDo Item for a Project",
-  //  OperationId = "Project.CreateToDoItem",
-  //  Tags = new[] { "ProjectEndpoints" })
-  //]
-  public override async Task<ActionResult> HandleAsync(
-    CreateToDoItemRequest request,
-    CancellationToken cancellationToken = new())
+  public override void Configure()
   {
-    var spec = new ProjectByIdWithItemsSpec(request.ProjectId);
-    var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
-    if (entity == null)
+    Post(CreateToDoItemRequest.Route);
+    AllowAnonymous();
+    Summary(s =>
     {
-      return NotFound();
+      s.ExampleRequest = new CreateToDoItemRequest { ContributorId=1, ProjectId=1, Title="Title", Description="Description"};
+    });
+  }
+
+  public override async Task HandleAsync(
+CreateToDoItemRequest request,
+CancellationToken cancellationToken)
+  {
+    var command = new AddToDoItemCommand(request.ProjectId, request.ContributorId, request.Title, request.Description);
+    var result = await _mediator.Send(command);
+
+    if (result.Status == Ardalis.Result.ResultStatus.NotFound)
+    {
+      await SendNotFoundAsync(cancellationToken);
+      return;
     }
 
-    var newItem = new ToDoItem()
+    if (result.IsSuccess)
     {
-      Title = request.Title!,
-      Description = request.Description!
+      await SendNoContentAsync(cancellationToken);
     };
-
-    if (request.ContributorId.HasValue)
-    {
-      newItem.AddContributor(request.ContributorId.Value);
-    }
-    entity.AddItem(newItem);
-    await _repository.UpdateAsync(entity);
-
-    return Created(GetProjectByIdRequest.BuildRoute(request.ProjectId), null);
+    // TODO: Handle other cases as necessary
   }
 }

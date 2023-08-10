@@ -1,10 +1,9 @@
-﻿using FastEndpoints;
+﻿using Ardalis.Result;
+using FastEndpoints;
 using MediatR;
-using Ardalis.Result;
-using NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
 using NimblePros.SampleToDo.UseCases.Contributors.Get;
 
-namespace NimblePros.SampleToDo.Web.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 /// <summary>
 /// Get a Contributor by integer ID.

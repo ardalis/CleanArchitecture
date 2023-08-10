@@ -25,6 +25,7 @@ public class List : EndpointWithoutRequest<ContributorListResponse>
     Get("/Contributors");
     AllowAnonymous();
   }
+
   public override async Task HandleAsync(CancellationToken cancellationToken)
   {
     var result = await _mediator.Send(new ListContributorsQuery(null, null));

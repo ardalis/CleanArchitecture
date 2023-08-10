@@ -1,10 +1,9 @@
 ﻿using FastEndpoints;
 using Ardalis.Result;
 using MediatR;
-using NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
 using NimblePros.SampleToDo.UseCases.Contributors.Delete;
 
-namespace NimblePros.SampleToDo.Web.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 /// <summary>
 /// Delete a Contributor.

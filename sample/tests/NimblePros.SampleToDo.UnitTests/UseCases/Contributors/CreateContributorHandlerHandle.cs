@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
+using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Create;
-using FluentAssertions;
-using Moq;
+using NSubstitute;
 using Xunit;
 
 namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
@@ -10,13 +10,12 @@ namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
 public class CreateContributorHandlerHandle
 {
   private readonly string _testName = "test name";
-  //private Contributor? _testContributor;
-  private Mock<IRepository<Contributor>> _mockRepository = new Mock<IRepository<Contributor>>();
+  private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
   private CreateContributorHandler _handler;
 
   public CreateContributorHandlerHandle()
   {
-      _handler = new CreateContributorHandler(_mockRepository.Object);
+    _handler = new CreateContributorHandler(_repository);
   }
 
   private Contributor CreateContributor()
@@ -27,10 +26,10 @@ public class CreateContributorHandlerHandle
   [Fact]
   public async Task ReturnsSuccessGivenValidName()
   {
-    _mockRepository.Setup(r => r.AddAsync(It.IsAny<Contributor>(), It.IsAny<CancellationToken>()))
-      .ReturnsAsync(CreateContributor());
+    _repository.AddAsync(Arg.Any<Contributor>(), Arg.Any<CancellationToken>())
+      .Returns(Task.FromResult(CreateContributor()));
     var result = await _handler.Handle(new CreateContributorCommand(_testName), CancellationToken.None);
 
-    result.IsSuccess.Should().BeTrue();    
+    result.IsSuccess.Should().BeTrue();
   }
 }

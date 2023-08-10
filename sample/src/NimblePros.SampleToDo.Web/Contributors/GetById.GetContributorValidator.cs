@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using FluentValidation;
 
-namespace NimblePros.SampleToDo.Web.Endpoints.ContributorEndpoints;
+namespace NimblePros.SampleToDo.Web.Contributors;
 
 /// <summary>
 /// See: https://fast-endpoints.com/docs/validation
