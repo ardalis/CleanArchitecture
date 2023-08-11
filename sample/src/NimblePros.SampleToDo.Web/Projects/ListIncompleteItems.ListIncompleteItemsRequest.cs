@@ -10,6 +10,6 @@ public class ListIncompleteItemsRequest
 
   [FromRoute]
   public int ProjectId { get; set; }
-  [FromQuery]
-  public string? SearchString { get; set; }
+  //[FromQuery]
+  //public string? SearchString { get; set; }
 }

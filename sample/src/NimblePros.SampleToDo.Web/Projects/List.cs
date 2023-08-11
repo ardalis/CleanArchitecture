@@ -1,12 +1,17 @@
 ﻿using FastEndpoints;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
-using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
+/// <summary>
+/// Lists all projects without their sub-properties.
+/// </summary>
+/// <remarks>
+/// Lists all projects without their sub-properties.
+/// NOTE: In DEV will always show a FAKE ID 1000 project, not real data
+/// </remarks>
 public class List : EndpointWithoutRequest<ProjectListResponse>
 {
   private readonly IMediator _mediator;

@@ -4,6 +4,12 @@ using NimblePros.SampleToDo.UseCases.Projects.Create;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
+/// <summary>
+/// Creates a new Project
+/// </summary>
+/// <remarks>
+/// Creates a new project given a name.
+/// </remarks>
 public class Create : Endpoint<CreateProjectRequest, CreateProjectResponse>
 {
   private readonly IMediator _mediator;

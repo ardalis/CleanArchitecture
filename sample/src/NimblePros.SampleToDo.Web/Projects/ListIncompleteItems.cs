@@ -1,15 +1,18 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using NimblePros.SampleToDo.Core.Interfaces;
-using NimblePros.SampleToDo.UseCases.Contributors.List;
 using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
-using NimblePros.SampleToDo.Web.Contributors;
 using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
+/// <summary>
+/// Lists all incomplete items in a project.
+/// </summary>
+/// <remarks>
+/// Lists all incomplete items in a project.
+/// Returns FAKE data in DEV. Run in production to use real database-driven data.
+/// </remarks>
 public class ListIncompleteItems : Endpoint<ListIncompleteItemsRequest, ListIncompleteItemsResponse>
 {
   private readonly IMediator _mediator;
