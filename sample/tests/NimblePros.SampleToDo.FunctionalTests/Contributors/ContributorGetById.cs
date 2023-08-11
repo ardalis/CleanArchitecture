@@ -3,7 +3,7 @@ using NimblePros.SampleToDo.Web;
 using NimblePros.SampleToDo.Web.Contributors;
 using Xunit;
 
-namespace NimblePros.SampleToDo.FunctionalTests.ApiEndpoints;
+namespace NimblePros.SampleToDo.FunctionalTests.Contributors;
 
 [Collection("Sequential")]
 public class ContributorGetById : IClassFixture<CustomWebApplicationFactory<Program>>

@@ -1,9 +1,13 @@
 ﻿using System.Text;
-using NimblePros.SampleToDo.Web;
 using Newtonsoft.Json;
 using Xunit;
+using NimblePros.SampleToDo.Web.ProjectEndpoints;
+using Ardalis.HttpClientTestExtensions;
+using NimblePros.SampleToDo.Web.Endpoints.Projects;
+using NimblePros.SampleToDo.Web.Projects;
+using FluentAssertions;
 
-namespace NimblePros.SampleToDo.FunctionalTests.ControllerApis;
+namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
 [Collection("Sequential")]
 public class ProjectItemMarkComplete : IClassFixture<CustomWebApplicationFactory<Program>>
@@ -18,15 +22,20 @@ public class ProjectItemMarkComplete : IClassFixture<CustomWebApplicationFactory
   [Fact]
   public async Task MarksIncompleteItemComplete()
   {
-    int projectId = 1;
-    int itemId = 1;
+    var projectId = 1;
+    var itemId = 1;
 
     var jsonContent = new StringContent(JsonConvert.SerializeObject(null), Encoding.UTF8, "application/json");
 
-    var response = await _client.PatchAsync($"api/projects/{projectId}/complete/{itemId}", jsonContent);
+    var route = MarkItemCompleteRequest.BuildRoute(projectId, itemId);
+    var response = await _client.PostAsync(route, jsonContent);
     response.EnsureSuccessStatusCode();
 
     var stringResponse = await response.Content.ReadAsStringAsync();
     Assert.Equal("", stringResponse);
+
+    // confirm item is complete
+    var project = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(GetProjectByIdRequest.BuildRoute(projectId));
+    project.Items.First(i => i.Id == itemId).IsDone.Should().BeTrue();
   }
 }

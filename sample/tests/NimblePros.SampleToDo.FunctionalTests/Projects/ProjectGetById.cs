@@ -4,7 +4,7 @@ using NimblePros.SampleToDo.Web.Endpoints.Projects;
 using NimblePros.SampleToDo.Web.Projects;
 using Xunit;
 
-namespace NimblePros.SampleToDo.FunctionalTests.ApiEndpoints;
+namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
 [Collection("Sequential")]
 public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<Program>>
@@ -29,7 +29,7 @@ public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<Program>
   [Fact]
   public async Task ReturnsNotFoundGivenId0()
   {
-    string route = GetProjectByIdRequest.BuildRoute(0);
+    var route = GetProjectByIdRequest.BuildRoute(0);
     _ = await _client.GetAndEnsureNotFoundAsync(route);
   }
 }

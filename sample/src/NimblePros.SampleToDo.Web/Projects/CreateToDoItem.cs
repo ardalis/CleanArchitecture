@@ -20,14 +20,19 @@ public class Create : Endpoint<CreateToDoItemRequest>
     AllowAnonymous();
     Summary(s =>
     {
-      s.ExampleRequest = new CreateToDoItemRequest { ContributorId=1, ProjectId=1, Title="Title",
-        Description="Description"};
+      s.ExampleRequest = new CreateToDoItemRequest
+      {
+        ContributorId = 1,
+        ProjectId = 1,
+        Title = "Title",
+        Description = "Description"
+      };
     });
   }
 
   public override async Task HandleAsync(
-CreateToDoItemRequest request,
-CancellationToken cancellationToken)
+    CreateToDoItemRequest request,
+    CancellationToken cancellationToken)
   {
     var command = new AddToDoItemCommand(request.ProjectId, request.ContributorId,
       request.Title, request.Description);

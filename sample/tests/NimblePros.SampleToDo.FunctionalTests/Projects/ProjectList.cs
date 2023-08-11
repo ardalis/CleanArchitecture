@@ -3,7 +3,7 @@ using NimblePros.SampleToDo.Web;
 using NimblePros.SampleToDo.Web.Projects;
 using Xunit;
 
-namespace NimblePros.SampleToDo.FunctionalTests.ApiEndpoints;
+namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
 [Collection("Sequential")]
 public class ProjectList : IClassFixture<CustomWebApplicationFactory<Program>>

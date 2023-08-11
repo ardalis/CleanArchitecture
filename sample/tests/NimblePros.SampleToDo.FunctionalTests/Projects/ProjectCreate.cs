@@ -3,7 +3,7 @@ using FluentAssertions;
 using NimblePros.SampleToDo.Web.Projects;
 using Xunit;
 
-namespace NimblePros.SampleToDo.FunctionalTests.ApiEndpoints;
+namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
 [Collection("Sequential")]
 public class ProjectCreate : IClassFixture<CustomWebApplicationFactory<Program>>
@@ -18,7 +18,7 @@ public class ProjectCreate : IClassFixture<CustomWebApplicationFactory<Program>>
   [Fact]
   public async Task ReturnsOneProject()
   {
-    string testName = Guid.NewGuid().ToString();
+    var testName = Guid.NewGuid().ToString();
     var request = new CreateProjectRequest() { Name = testName };
     var content = StringContentHelpers.FromModelAsJson(request);
 
