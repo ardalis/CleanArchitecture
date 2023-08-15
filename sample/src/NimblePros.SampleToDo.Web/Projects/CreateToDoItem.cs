@@ -47,7 +47,7 @@ public class Create : Endpoint<CreateToDoItemRequest>
     if (result.IsSuccess)
     {
       // send route to project
-      await SendCreatedAtAsync<GetById>(new { id = request.ProjectId }, "");
+      await SendCreatedAtAsync<GetById>(new { projectId = request.ProjectId }, "");
     };
     // TODO: Handle other cases as necessary
   }
