@@ -27,7 +27,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="NSubstitute" Version="5.0.0" />
