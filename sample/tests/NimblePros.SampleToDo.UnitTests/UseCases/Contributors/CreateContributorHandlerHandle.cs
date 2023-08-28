@@ -6,7 +6,6 @@ using NSubstitute;
 using Xunit;
 
 namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
-
 public class CreateContributorHandlerHandle
 {
   private readonly string _testName = "test name";
