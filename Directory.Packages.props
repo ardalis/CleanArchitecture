@@ -18,7 +18,7 @@
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.11.0" />
     <PackageVersion Include="MediatR" Version="12.1.1" />
-    <PackageVersion Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.1.0" />
+    <PackageVersion Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.10" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
