@@ -57,6 +57,5 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
       Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name));
       return;
     }
-
   }
 }
