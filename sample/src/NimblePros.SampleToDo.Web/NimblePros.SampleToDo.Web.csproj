@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
+  
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <OutputType>Exe</OutputType>
+    <WebProjectMode>true</WebProjectMode>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <!--<DocumentationFile>bin\swagger-docs.xml</DocumentationFile>-->
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Ardalis.ListStartupServices" />
+    <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="Ardalis.Result.AspNetCore" />
+    <PackageReference Include="FastEndpoints" />
+    <PackageReference Include="FastEndpoints.ApiExplorer" />
+    <PackageReference Include="FastEndpoints.Swagger" />
+    <PackageReference Include="FastEndpoints.Swagger.Swashbuckle" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <!--<PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />-->
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\NimblePros.SampleToDo.Infrastructure\NimblePros.SampleToDo.Infrastructure.csproj" />
+    <ProjectReference Include="..\NimblePros.SampleToDo.UseCases\NimblePros.SampleToDo.UseCases.csproj" />
+  </ItemGroup>
+  
+</Project>

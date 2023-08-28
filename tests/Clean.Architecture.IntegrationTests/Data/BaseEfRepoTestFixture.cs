@@ -1,9 +1,9 @@
-﻿using Clean.Architecture.Core.ProjectAggregate;
-using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.SharedKernel.Interfaces;
+﻿using Clean.Architecture.Infrastructure.Data;
+using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
+using Clean.Architecture.Core.ContributorAggregate;
+using NSubstitute;
 
 namespace Clean.Architecture.IntegrationTests.Data;
 
@@ -14,9 +14,9 @@ public abstract class BaseEfRepoTestFixture
   protected BaseEfRepoTestFixture()
   {
     var options = CreateNewContextOptions();
-    var mockEventDispatcher = new Mock<IDomainEventDispatcher>();
+    var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
 
-    _dbContext = new AppDbContext(options, mockEventDispatcher.Object);
+    _dbContext = new AppDbContext(options, _fakeEventDispatcher);
   }
 
   protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
@@ -36,8 +36,8 @@ public abstract class BaseEfRepoTestFixture
     return builder.Options;
   }
 
-  protected EfRepository<Project> GetRepository()
+  protected EfRepository<Contributor> GetRepository()
   {
-    return new EfRepository<Project>(_dbContext);
+    return new EfRepository<Contributor>(_dbContext);
   }
 }

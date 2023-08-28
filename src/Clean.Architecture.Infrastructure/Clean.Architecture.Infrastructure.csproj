@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="Autofac" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
@@ -18,6 +20,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Clean.Architecture.Core\Clean.Architecture.Core.csproj" />
-    <ProjectReference Include="..\Clean.Architecture.SharedKernel\Clean.Architecture.SharedKernel.csproj" />
+    <ProjectReference Include="..\Clean.Architecture.UseCases\Clean.Architecture.UseCases.csproj" />
   </ItemGroup>
 </Project>

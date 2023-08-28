@@ -1,29 +1,31 @@
-﻿using Clean.Architecture.Core.ContributorAggregate;
+﻿using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.Services;
-using Clean.Architecture.SharedKernel.Interfaces;
 using MediatR;
-using Moq;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using Xunit;
 
-namespace Clean.Architecture.UnitTests.Core.Services
+namespace Clean.Architecture.UnitTests.Core.Services;
+
+public class DeleteContributorService_DeleteContributor
 {
-    public class DeleteContributorService_DeleteContributor
-    {
-        private readonly Mock<IRepository<Contributor>> _mockRepo = new Mock<IRepository<Contributor>>();
-        private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();
-        private readonly DeleteContributorService _service;
+  private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
+  private readonly IMediator _mediator = Substitute.For<IMediator>();
+  private readonly ILogger<DeleteContributorService> _logger = Substitute.For<ILogger<DeleteContributorService>>();
 
-        public DeleteContributorService_DeleteContributor()
-        {
-            _service = new DeleteContributorService(_mockRepo.Object, _mockMediator.Object);
-        }
+  private readonly DeleteContributorService _service;
 
-        [Fact]
-        public async Task ReturnsNotFoundGivenCantFindContributor()
-        {
-            var result = await _service.DeleteContributor(0);
+  public DeleteContributorService_DeleteContributor()
+  {
+    _service = new DeleteContributorService(_repository, _mediator, _logger);
+  }
 
-            Assert.Equal(Ardalis.Result.ResultStatus.NotFound, result.Status);
-        }
-    }
+  [Fact]
+  public async Task ReturnsNotFoundGivenCantFindContributor()
+  {
+    var result = await _service.DeleteContributor(0);
+
+    Assert.Equal(Ardalis.Result.ResultStatus.NotFound, result.Status);
+  }
 }

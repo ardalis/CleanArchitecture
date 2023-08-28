@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NSubstitute" />
     <PackageReference Include="xunit.runner.visualstudio">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,7 +25,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Moq" />
     <PackageReference Include="ReportGenerator" />
     <PackageReference Include="xunit" />
   </ItemGroup>
@@ -40,6 +41,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Clean.Architecture.Core\Clean.Architecture.Core.csproj" />
+    <ProjectReference Include="..\..\src\Clean.Architecture.UseCases\Clean.Architecture.UseCases.csproj" />
   </ItemGroup>
 
 </Project>
