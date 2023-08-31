@@ -1,5 +1,6 @@
 ﻿using Ardalis.HttpClientTestExtensions;
 using Clean.Architecture.Web;
+using Clean.Architecture.Web.ContributorEndpoints;
 using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 using Xunit;
 
@@ -25,9 +26,9 @@ public class ContributorGetById : IClassFixture<CustomWebApplicationFactory<Prog
   }
 
   [Fact]
-  public async Task ReturnsNotFoundGivenId0()
+  public async Task ReturnsNotFoundGivenId1000()
   {
-    string route = GetContributorByIdRequest.BuildRoute(0);
+    string route = GetContributorByIdRequest.BuildRoute(1000);
     _ = await _client.GetAndEnsureNotFoundAsync(route);
   }
 }

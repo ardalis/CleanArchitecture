@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.Core.ProjectAggregate;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -9,38 +9,38 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
   [Fact]
   public async Task UpdatesItemAfterAddingIt()
   {
-    // add a project
+    // add a Contributor
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName, PriorityStatus.Backlog);
+    var Contributor = new Contributor(initialName);
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(Contributor);
 
     // detach the item so we get a different instance
-    _dbContext.Entry(project).State = EntityState.Detached;
+    _dbContext.Entry(Contributor).State = EntityState.Detached;
 
     // fetch the item and update its title
-    var newProject = (await repository.ListAsync())
-        .FirstOrDefault(project => project.Name == initialName);
-    if (newProject == null)
+    var newContributor = (await repository.ListAsync())
+        .FirstOrDefault(Contributor => Contributor.Name == initialName);
+    if (newContributor == null)
     {
-      Assert.NotNull(newProject);
+      Assert.NotNull(newContributor);
       return;
     }
-    Assert.NotSame(project, newProject);
+    Assert.NotSame(Contributor, newContributor);
     var newName = Guid.NewGuid().ToString();
-    newProject.UpdateName(newName);
+    newContributor.UpdateName(newName);
 
     // Update the item
-    await repository.UpdateAsync(newProject);
+    await repository.UpdateAsync(newContributor);
 
     // Fetch the updated item
     var updatedItem = (await repository.ListAsync())
-        .FirstOrDefault(project => project.Name == newName);
+        .FirstOrDefault(Contributor => Contributor.Name == newName);
 
     Assert.NotNull(updatedItem);
-    Assert.NotEqual(project.Name, updatedItem?.Name);
-    Assert.Equal(project.Priority, updatedItem?.Priority);
-    Assert.Equal(newProject.Id, updatedItem?.Id);
+    Assert.NotEqual(Contributor.Name, updatedItem?.Name);
+    Assert.Equal(Contributor.Status, updatedItem?.Status);
+    Assert.Equal(newContributor.Id, updatedItem?.Id);
   }
 }

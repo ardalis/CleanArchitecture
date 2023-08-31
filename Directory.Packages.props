@@ -1,33 +1,36 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="Ardalis.ApiEndpoints" Version="4.1.0" />
-    <PackageVersion Include="Ardalis.GuardClauses" Version="4.0.1" />
+    <PackageVersion Include="Ardalis.GuardClauses" Version="4.1.1" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="4.1.0" />
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
     <PackageVersion Include="Ardalis.Result" Version="7.1.0" />
     <PackageVersion Include="Ardalis.Result.AspNetCore" Version="7.1.0" />
+    <PackageVersion Include="Ardalis.SharedKernel" Version="1.3.0" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="7.0.0" />
     <PackageVersion Include="Ardalis.Specification" Version="7.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="7.0.0" />
     <PackageVersion Include="Autofac" Version="7.0.1" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-    <PackageVersion Include="FastEndpoints" Version="5.14.0" />
-    <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.1.0" />
-    <PackageVersion Include="FastEndpoints.Swagger" Version="5.10.0" />
-    <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.1.0" />
-    <PackageVersion Include="FluentAssertions" Version="6.11.0" />
+    <PackageVersion Include="FastEndpoints" Version="5.15.0" />
+    <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.15.0" />
+    <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="MediatR" Version="12.1.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
-    <PackageVersion Include="Moq" Version="4.18.4" />
+    <PackageVersion Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.1.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="NSubstitute" Version="5.0.0" />
     <PackageVersion Include="ReportGenerator" Version="5.1.23" />
     <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00040" />
