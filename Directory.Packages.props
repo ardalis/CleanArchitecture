@@ -31,7 +31,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="NSubstitute" Version="5.0.0" />
-    <PackageVersion Include="ReportGenerator" Version="5.1.23" />
+    <PackageVersion Include="ReportGenerator" Version="5.1.25" />
     <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00040" />
     <PackageVersion Include="SQLite" Version="3.13.0" />
