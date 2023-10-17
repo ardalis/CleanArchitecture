@@ -11,7 +11,7 @@ Infrastructure classes implement interfaces found in the Core (Use Cases) projec
 These implementations are wired up at startup using DI. In this case using Autofac and the Module classes defined in each project.
 
 Need help? Check out the sample here:
-https://github.com/ardalis/CleanArchitecture/sample
+https://github.com/ardalis/CleanArchitecture/tree/main/sample
 
 Still need help?
 Contact us at https://nimblepros.com

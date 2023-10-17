@@ -16,7 +16,7 @@ For ideas on organizing your Use Case project's folder structure, see this threa
 https://twitter.com/ardalis/status/1686406393018945536
 
 Need help? Check out the sample here:
-https://github.com/ardalis/CleanArchitecture/sample
+https://github.com/ardalis/CleanArchitecture/tree/main/sample
 
 Still need help?
 Contact us at https://nimblepros.com
