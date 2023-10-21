@@ -19,16 +19,16 @@
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="MediatR" Version="12.1.1" />
     <PackageVersion Include="MediatR.Extensions.Autofac.DependencyInjection" Version="11.1.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0-rc.2.23480.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0-rc.2.23480.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0-rc.2.23480.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-rc.2.23480.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-rc.2.23480.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-rc.2.23480.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-rc.2.23480.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-rc.2.23479.6" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0-rc.2.23509.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="NSubstitute" Version="5.0.0" />
     <PackageVersion Include="ReportGenerator" Version="5.1.23" />
