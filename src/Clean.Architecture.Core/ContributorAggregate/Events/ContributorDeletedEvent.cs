@@ -6,12 +6,7 @@ namespace Clean.Architecture.Core.ContributorAggregate.Events;
 /// A domain event that is dispatched whenever a contributor is deleted.
 /// The DeleteContributorService is used to dispatch this event.
 /// </summary>
-internal class ContributorDeletedEvent : DomainEventBase
+internal sealed class ContributorDeletedEvent(int contributorId) : DomainEventBase
 {
-  public int ContributorId { get; set; }
-
-  public ContributorDeletedEvent(int contributorId)
-  {
-    ContributorId = contributorId;
-  }
+  public int ContributorId { get; init; } = contributorId;
 }

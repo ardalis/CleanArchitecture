@@ -120,7 +120,6 @@ public class AutofacInfrastructureModule : Module
     builder.RegisterType<FakeListContributorsQueryService>()
       .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
-
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
@@ -132,6 +131,5 @@ public class AutofacInfrastructureModule : Module
     builder.RegisterType<ListContributorsQueryService>()
       .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
-
   }
 }

@@ -8,21 +8,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.Core.Services;
 
-public class DeleteContributorService : IDeleteContributorService
+public class DeleteContributorService(IRepository<Contributor> _repository,
+  IMediator _mediator,
+  ILogger<DeleteContributorService> _logger) : IDeleteContributorService
 {
-  private readonly IRepository<Contributor> _repository;
-  private readonly IMediator _mediator;
-  private readonly ILogger<DeleteContributorService> _logger;
-
-  public DeleteContributorService(IRepository<Contributor> repository,
-    IMediator mediator,
-    ILogger<DeleteContributorService> logger)
-  {
-    _repository = repository;
-    _mediator = mediator;
-    _logger = logger;
-  }
-
   public async Task<Result> DeleteContributor(int contributorId)
   {
     _logger.LogInformation("Deleting Contributor {contributorId}", contributorId);

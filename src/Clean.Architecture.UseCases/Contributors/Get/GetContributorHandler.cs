@@ -8,15 +8,9 @@ namespace Clean.Architecture.UseCases.Contributors.Get;
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
 /// </summary>
-public class GetContributorHandler : IQueryHandler<GetContributorQuery, Result<ContributorDTO>>
+public class GetContributorHandler(IReadRepository<Contributor> _repository)
+  : IQueryHandler<GetContributorQuery, Result<ContributorDTO>>
 {
-  private readonly IReadRepository<Contributor> _repository;
-
-  public GetContributorHandler(IReadRepository<Contributor> repository)
-  {
-    _repository = repository;
-  }
-
   public async Task<Result<ContributorDTO>> Handle(GetContributorQuery request, CancellationToken cancellationToken)
   {
     var spec = new ContributorByIdSpec(request.ContributorId);

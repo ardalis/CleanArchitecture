@@ -4,15 +4,9 @@ using Clean.Architecture.Core.ContributorAggregate;
 
 namespace Clean.Architecture.UseCases.Contributors.Update;
 
-public class UpdateContributorHandler : ICommandHandler<UpdateContributorCommand, Result<ContributorDTO>>
+public class UpdateContributorHandler(IRepository<Contributor> _repository)
+  : ICommandHandler<UpdateContributorCommand, Result<ContributorDTO>>
 {
-  private readonly IRepository<Contributor> _repository;
-
-  public UpdateContributorHandler(IRepository<Contributor> repository)
-  {
-    _repository = repository;
-  }
-
   public async Task<Result<ContributorDTO>> Handle(UpdateContributorCommand request, CancellationToken cancellationToken)
   {
     var existingContributor = await _repository.GetByIdAsync(request.ContributorId, cancellationToken);

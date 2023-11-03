@@ -4,18 +4,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
-public class SmtpEmailSender : IEmailSender
+public class SmtpEmailSender(ILogger<SmtpEmailSender> _logger) : IEmailSender
 {
-  private readonly ILogger<SmtpEmailSender> _logger;
-
-  public SmtpEmailSender(ILogger<SmtpEmailSender> logger)
-  {
-    _logger = logger;
-  }
-
   public async Task SendEmailAsync(string to, string from, string subject, string body)
   {
-    var emailClient = new SmtpClient("localhost");
+    var emailClient = new SmtpClient("localhost"); // TODO: pull settings from config
     var message = new MailMessage
     {
       From = new MailAddress(from),

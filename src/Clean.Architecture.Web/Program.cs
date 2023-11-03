@@ -1,4 +1,5 @@
-﻿using Ardalis.ListStartupServices;
+﻿using Ardalis.GuardClauses;
+using Ardalis.ListStartupServices;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Clean.Architecture.Core;
@@ -7,7 +8,6 @@ using Clean.Architecture.Infrastructure.Data;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Serilog;
-using Ardalis.GuardClauses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,26 +64,31 @@ app.UseSwaggerGen(); // FastEndpoints middleware
 
 app.UseHttpsRedirection();
 
-// Seed Database
-using (var scope = app.Services.CreateScope())
-{
-  var services = scope.ServiceProvider;
-
-  try
-  {
-    var context = services.GetRequiredService<AppDbContext>();
-    //                    context.Database.Migrate();
-    context.Database.EnsureCreated();
-    SeedData.Initialize(services);
-  }
-  catch (Exception ex)
-  {
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-  }
-}
+SeedDatabase(app);
 
 app.Run();
+
+static void SeedDatabase(WebApplication app)
+{
+  // Seed Database
+  using (var scope = app.Services.CreateScope())
+  {
+    var services = scope.ServiceProvider;
+
+    try
+    {
+      var context = services.GetRequiredService<AppDbContext>();
+      //                    context.Database.Migrate();
+      context.Database.EnsureCreated();
+      SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+      var logger = services.GetRequiredService<ILogger<Program>>();
+      logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+    }
+  }
+}
 
 // Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building
 public partial class Program

@@ -12,15 +12,9 @@ namespace Clean.Architecture.Web.ContributorEndpoints;
 /// <remarks>
 /// Takes a positive integer ID and returns a matching Contributor record.
 /// </remarks>
-public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
+public class GetById(IMediator _mediator)
+  : Endpoint<GetContributorByIdRequest, ContributorRecord>
 {
-  private readonly IMediator _mediator;
-
-  public GetById(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
-
   public override void Configure()
   {
     Get(GetContributorByIdRequest.Route);

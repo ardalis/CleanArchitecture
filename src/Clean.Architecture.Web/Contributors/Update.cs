@@ -6,6 +6,7 @@ using Clean.Architecture.UseCases.Contributors.Create;
 using Clean.Architecture.UseCases.Contributors.Update;
 using MediatR;
 using Ardalis.Result;
+using Clean.Architecture.UseCases.Contributors.Get;
 
 namespace Clean.Architecture.Web.ContributorEndpoints;
 
@@ -16,17 +17,9 @@ namespace Clean.Architecture.Web.ContributorEndpoints;
 /// Update an existing Contributor by providing a fully defined replacement set of values.
 /// See: https://stackoverflow.com/questions/60761955/rest-update-best-practice-put-collection-id-without-id-in-body-vs-put-collecti
 /// </remarks>
-public class Update : Endpoint<UpdateContributorRequest, UpdateContributorResponse>
+public class Update(IMediator _mediator)
+  : Endpoint<UpdateContributorRequest, UpdateContributorResponse>
 {
-  private readonly IRepository<Contributor> _repository;
-  private readonly IMediator _mediator;
-
-  public Update(IRepository<Contributor> repository, IMediator mediator)
-  {
-    _repository = repository;
-    _mediator = mediator;
-  }
-
   public override void Configure()
   {
     Put(UpdateContributorRequest.Route);
@@ -45,20 +38,21 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
       return;
     }
 
-    // TODO: Use Mediator
-    var existingContributor = await _repository.GetByIdAsync(request.Id, cancellationToken);
-    if (existingContributor == null)
+    var query = new GetContributorQuery(request.ContributorId);
+
+    var queryResult = await _mediator.Send(query);
+
+    if (queryResult.Status == ResultStatus.NotFound)
     {
       await SendNotFoundAsync(cancellationToken);
       return;
     }
 
-    if (result.IsSuccess)
+    if (queryResult.IsSuccess)
     {
-      var dto = result.Value;
+      var dto = queryResult.Value;
       Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name));
       return;
     }
-
   }
 }

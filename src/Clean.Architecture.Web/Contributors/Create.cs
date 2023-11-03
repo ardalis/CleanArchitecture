@@ -14,18 +14,9 @@ namespace Clean.Architecture.Web.ContributorEndpoints;
 /// <remarks>
 /// Creates a new Contributor given a name.
 /// </remarks>
-public class Create : Endpoint<CreateContributorRequest, CreateContributorResponse>
+public class Create(IMediator _mediator)
+  : Endpoint<CreateContributorRequest, CreateContributorResponse>
 {
-  private readonly IRepository<Contributor> _repository;
-  private readonly IMediator _mediator;
-
-  public Create(IRepository<Contributor> repository,
-    IMediator mediator)
-  {
-    _repository = repository;
-    _mediator = mediator;
-  }
-
   public override void Configure()
   {
     Post(CreateContributorRequest.Route);
