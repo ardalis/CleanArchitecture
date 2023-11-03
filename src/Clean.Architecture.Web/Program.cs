@@ -4,12 +4,10 @@ using Autofac.Extensions.DependencyInjection;
 using Clean.Architecture.Core;
 using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.Web;
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using FastEndpoints.ApiExplorer;
 using Serilog;
-using Microsoft.EntityFrameworkCore;
+using Ardalis.GuardClauses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,24 +22,14 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-          options.UseSqlite(connectionString));
+Guard.Against.Null(connectionString);
+builder.Services.AddApplicationDbContext(connectionString);
 
 builder.Services.AddFastEndpoints();
-//builder.Services.AddFastEndpointsApiExplorer();
 builder.Services.SwaggerDocument(o =>
 {
   o.ShortSchemaNames = true;
 });
-
-//builder.Services.AddSwaggerGen(c =>
-//{
-//  c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-//  c.EnableAnnotations();
-//  string xmlCommentFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "swagger-docs.xml");
-//  c.IncludeXmlComments(xmlCommentFilePath);
-//  c.OperationFilter<FastEndpointsOperationFilter>();
-//});
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
 builder.Services.Configure<ServiceConfig>(config =>
@@ -75,9 +63,6 @@ app.UseFastEndpoints();
 app.UseSwaggerGen(); // FastEndpoints middleware
 
 app.UseHttpsRedirection();
-
-// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
 // Seed Database
 using (var scope = app.Services.CreateScope())

@@ -1,13 +1,13 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
-using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Clean.Architecture.Web;
+namespace Clean.Architecture.Infrastructure.Data;
 
 public static class SeedData
 {
-  public static readonly Contributor Contributor1 = new ("Ardalis");
-  public static readonly Contributor Contributor2 = new ("Snowfrog");
+  public static readonly Contributor Contributor1 = new("Ardalis");
+  public static readonly Contributor Contributor2 = new("Snowfrog");
 
   public static void Initialize(IServiceProvider serviceProvider)
   {

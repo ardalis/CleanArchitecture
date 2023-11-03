@@ -1,7 +1,6 @@
 ﻿using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Infrastructure.Data.Queries;
 using Clean.Architecture.UseCases.Contributors.List;
-using Clean.Architecture.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
