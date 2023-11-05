@@ -50,7 +50,7 @@ Or if you're feeling really generous, we now support GitHub sponsorships - see t
 
 ## Versions
 
-The main branch is now using .NET 7. If you need a previous version use one of these tagged commits:
+The main branch is now using .NET 8. If you need a previous version use one of these tagged commits:
 
 - [6.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-6)
 - [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
