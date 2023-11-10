@@ -1,9 +1,14 @@
-﻿using Ardalis.GuardClauses;
+﻿using System.Security.Cryptography.X509Certificates;
+using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
+using StronglyTypedIds;
 
 namespace Clean.Architecture.Core.ContributorAggregate;
 
-public class Contributor(string name) : EntityBase, IAggregateRoot
+[StronglyTypedId(backingType:StronglyTypedIdBackingType.Int)]
+public partial struct ContributorId  {}
+
+public class Contributor(string name) : EntityBase<ContributorId>, IAggregateRoot
 {
   // Example of validating primary constructor inputs
   // See: https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/primary-constructors#initialize-base-class

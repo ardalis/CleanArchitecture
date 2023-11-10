@@ -13,6 +13,6 @@ public class CreateContributorHandler(IRepository<Contributor> _repository)
     var newContributor = new Contributor(request.Name);
     var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
 
-    return createdItem.Id;
+    return createdItem.Id.Value;
   }
 }

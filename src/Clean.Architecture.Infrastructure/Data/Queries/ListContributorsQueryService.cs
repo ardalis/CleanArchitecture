@@ -12,9 +12,9 @@ public class ListContributorsQueryService(AppDbContext _db) : IListContributorsQ
   {
     // NOTE: This will fail if testing with EF InMemory provider
     var result = await _db.Contributors.FromSqlRaw("SELECT Id, Name FROM Contributors") // don't fetch other big columns
-      .Select(c => new ContributorDTO(c.Id, c.Name))
+      .Select(c => new ContributorDTO(c.Id.Value, c.Name))
       .ToListAsync();
 
-    return result;
+    return result!;
   }
 }

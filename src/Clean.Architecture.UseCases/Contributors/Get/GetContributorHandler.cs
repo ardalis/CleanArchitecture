@@ -13,10 +13,10 @@ public class GetContributorHandler(IReadRepository<Contributor> _repository)
 {
   public async Task<Result<ContributorDTO>> Handle(GetContributorQuery request, CancellationToken cancellationToken)
   {
-    var spec = new ContributorByIdSpec(request.ContributorId);
+    var spec = new ContributorByIdSpec(new ContributorId(request!.ContributorId));
     var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
     if (entity == null) return Result.NotFound();
 
-    return new ContributorDTO(entity.Id, entity.Name);
+    return new ContributorDTO(entity.Id.Value, entity.Name);
   }
 }

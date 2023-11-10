@@ -16,5 +16,10 @@ public class ContributorConfiguration : IEntityTypeConfiguration<Contributor>
       .HasConversion(
           x => x.Value,
           x => ContributorStatus.FromValue(x));
+
+    builder.Property(x => x.Id)
+      .HasConversion(
+          x => x.Value,
+          x => new ContributorId(x));
   }
 }
