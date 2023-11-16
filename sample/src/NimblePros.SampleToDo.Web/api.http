@@ -59,3 +59,14 @@ Content-Type: application/json
 {
   "name": "New Project"
 }
+
+###
+
+// Mark an item as complete
+@project_id=1
+@item_id=2
+POST http://{{hostname}}:{{port}}/Projects/{{project_id}}/ToDoItems/{{item_id}}
+Content-Type: application/json
+
+{
+}

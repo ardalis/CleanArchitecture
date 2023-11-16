@@ -111,8 +111,13 @@ public class AutofacInfrastructureModule : Module
   private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any development only services here
-    builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
+    //builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
+    //  .InstancePerLifetimeScope();
+
+    // NOTE: Add any production only (real) services here
+    builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
+
 
     builder.RegisterType<FakeListContributorsQueryService>()
       .As<IListContributorsQueryService>()
