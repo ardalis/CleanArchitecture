@@ -23,7 +23,7 @@ namespace NimblePros.SampleToDo.Infrastructure;
 public class AutofacInfrastructureModule : Module
 {
   private readonly bool _isDevelopment = false;
-  private readonly List<Assembly> _assemblies = new List<Assembly>();
+  private readonly List<Assembly> _assemblies = [];
 
   public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
@@ -102,7 +102,7 @@ public class AutofacInfrastructureModule : Module
     foreach (var mediatrOpenType in mediatrOpenTypes)
     {
       builder
-        .RegisterAssemblyTypes(_assemblies.ToArray())
+        .RegisterAssemblyTypes([.. _assemblies])
         .AsClosedTypesOf(mediatrOpenType)
         .AsImplementedInterfaces();
     }

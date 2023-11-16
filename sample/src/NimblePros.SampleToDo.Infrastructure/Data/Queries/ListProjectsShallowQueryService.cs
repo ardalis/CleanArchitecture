@@ -4,14 +4,10 @@ using NimblePros.SampleToDo.UseCases.Projects;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;
 
-public class ListProjectsShallowQueryService : IListProjectsShallowQueryService
+public class ListProjectsShallowQueryService(AppDbContext db) : 
+  IListProjectsShallowQueryService
 {
-  private readonly AppDbContext _db;
-
-  public ListProjectsShallowQueryService(AppDbContext db)
-  {
-    _db = db;
-  }
+  private readonly AppDbContext _db = db;
 
   public async Task<IEnumerable<ProjectDTO>> ListAsync()
   {
