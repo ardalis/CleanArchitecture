@@ -75,6 +75,9 @@ public class AutofacInfrastructureModule : Module
 
   private void RegisterQueries(ContainerBuilder builder)
   {
+    builder.RegisterType<ListContributorsQueryService>()
+      .As<IListContributorsQueryService>()
+      .InstancePerLifetimeScope();
   }
 
   private void RegisterMediatR(ContainerBuilder builder)
@@ -117,19 +120,15 @@ public class AutofacInfrastructureModule : Module
     builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
 
-    builder.RegisterType<FakeListContributorsQueryService>()
-      .As<IListContributorsQueryService>()
-      .InstancePerLifetimeScope();
+    //builder.RegisterType<FakeListContributorsQueryService>()
+    //  .As<IListContributorsQueryService>()
+    //  .InstancePerLifetimeScope();
   }
 
   private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any production only (real) services here
     builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
-      .InstancePerLifetimeScope();
-
-    builder.RegisterType<ListContributorsQueryService>()
-      .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
   }
 }
