@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.100-rc.2.23502.2'
+        dotnet-version: '8.0.100'
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Test with dotnet
