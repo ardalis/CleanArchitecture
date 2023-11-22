@@ -24,7 +24,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0-rc.2.23480.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0-rc.2.23480.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-rc.2.23480.1" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-rc.2.23480.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-rc.2.23480.1" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-rc.2.23479.6" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
