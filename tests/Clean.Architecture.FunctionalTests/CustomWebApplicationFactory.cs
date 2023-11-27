@@ -1,9 +1,6 @@
 ﻿using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.Infrastructure.Data.Queries;
-using Clean.Architecture.UseCases.Contributors.List;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
