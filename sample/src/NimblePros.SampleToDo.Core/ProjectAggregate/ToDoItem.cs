@@ -10,7 +10,6 @@ public class ToDoItem : EntityBase
   public string Description { get; set; } = string.Empty;
   public int? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
   public bool IsDone { get; private set; }
-  // TODO: Move Priority to ToDoItem from Project
 
   public void MarkComplete()
   {

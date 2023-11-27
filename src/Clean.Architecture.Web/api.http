@@ -1,0 +1,42 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@hostname=localhost
+@port=57679
+
+// List all contributors
+GET http://{{hostname}}:{{port}}/Contributors
+
+###
+
+// Get a specific contributor
+@id_to_get=1
+GET http://{{hostname}}:{{port}}/Contributors/{{id_to_get}}
+
+###
+
+// Add a new contributor
+POST http://{{hostname}}:{{port}}/Contributors
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "test@test.com"
+}
+
+###
+
+// Update a contributor
+@id_to_update=1
+PUT http://{{hostname}}:{{port}}/Contributors/{{id_to_update}}
+Content-Type: application/json
+
+{
+  "id": {{id_to_update}},
+  "name": "ardalis2"
+}
+
+###
+
+// Delete a contributor
+@id_to_delete=1
+DELETE http://{{hostname}}:{{port}}/Contributors/{{id_to_delete}}
+

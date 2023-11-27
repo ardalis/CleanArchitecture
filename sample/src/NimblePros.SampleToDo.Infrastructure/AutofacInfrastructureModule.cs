@@ -23,7 +23,7 @@ namespace NimblePros.SampleToDo.Infrastructure;
 public class AutofacInfrastructureModule : Module
 {
   private readonly bool _isDevelopment = false;
-  private readonly List<Assembly> _assemblies = new List<Assembly>();
+  private readonly List<Assembly> _assemblies = [];
 
   public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
@@ -102,7 +102,7 @@ public class AutofacInfrastructureModule : Module
     foreach (var mediatrOpenType in mediatrOpenTypes)
     {
       builder
-        .RegisterAssemblyTypes(_assemblies.ToArray())
+        .RegisterAssemblyTypes([.. _assemblies])
         .AsClosedTypesOf(mediatrOpenType)
         .AsImplementedInterfaces();
     }
@@ -111,8 +111,13 @@ public class AutofacInfrastructureModule : Module
   private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any development only services here
-    builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
+    //builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
+    //  .InstancePerLifetimeScope();
+
+    // NOTE: Add any production only (real) services here
+    builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
+
 
     builder.RegisterType<FakeListContributorsQueryService>()
       .As<IListContributorsQueryService>()
