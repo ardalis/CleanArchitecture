@@ -37,6 +37,10 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
       var logger = scopedServices
           .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
 
+      // Reset Sqlite database for each test run
+      // If using a real database, you'll likely want to remove this step.
+      db.Database.EnsureDeleted();
+
       // Ensure the database is created.
       db.Database.EnsureCreated();
 
@@ -64,24 +68,26 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     builder
         .ConfigureServices(services =>
         {
-          // Remove the app's ApplicationDbContext registration.
-          var descriptor = services.SingleOrDefault(
-          d => d.ServiceType ==
-              typeof(DbContextOptions<AppDbContext>));
+          // Configure test dependencies here
 
-          if (descriptor != null)
-          {
-            services.Remove(descriptor);
-          }
+          //// Remove the app's ApplicationDbContext registration.
+          //var descriptor = services.SingleOrDefault(
+          //d => d.ServiceType ==
+          //    typeof(DbContextOptions<AppDbContext>));
 
-          // This should be set for each individual test run
-          string inMemoryCollectionName = Guid.NewGuid().ToString();
+          //if (descriptor != null)
+          //{
+          //  services.Remove(descriptor);
+          //}
 
-          // Add ApplicationDbContext using an in-memory database for testing.
-          services.AddDbContext<AppDbContext>(options =>
-          {
-            options.UseInMemoryDatabase(inMemoryCollectionName);
-          });
+          //// This should be set for each individual test run
+          //string inMemoryCollectionName = Guid.NewGuid().ToString();
+
+          //// Add ApplicationDbContext using an in-memory database for testing.
+          //services.AddDbContext<AppDbContext>(options =>
+          //{
+          //  options.UseInMemoryDatabase(inMemoryCollectionName);
+          //});
         });
   }
 }
