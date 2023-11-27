@@ -6,14 +6,9 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
-public class ContributorList : IClassFixture<CustomWebApplicationFactory<Program>>
+public class ContributorList(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-  private readonly HttpClient _client;
-
-  public ContributorList(CustomWebApplicationFactory<Program> factory)
-  {
-    _client = factory.CreateClient();
-  }
+  private readonly HttpClient _client = factory.CreateClient();
 
   [Fact]
   public async Task ReturnsTwoContributors()
