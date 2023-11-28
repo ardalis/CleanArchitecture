@@ -13,9 +13,7 @@
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.Result.AspNetCore" />
     <PackageReference Include="FastEndpoints" />
-    <!--<PackageReference Include="FastEndpoints.ApiExplorer" />-->
     <PackageReference Include="FastEndpoints.Swagger" />
-<!--    <PackageReference Include="FastEndpoints.Swagger.Swashbuckle" />-->
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
     <PackageReference Include="Serilog.AspNetCore" />
