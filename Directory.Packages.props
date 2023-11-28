@@ -12,9 +12,9 @@
     <PackageVersion Include="Autofac" Version="7.1.0" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
-    <PackageVersion Include="FastEndpoints" Version="5.20.0-rc2" />
+    <PackageVersion Include="FastEndpoints" Version="5.20.0" />
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
-    <PackageVersion Include="FastEndpoints.Swagger" Version="5.20.0-rc2" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.20.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="MailKit" Version="4.3.0" />

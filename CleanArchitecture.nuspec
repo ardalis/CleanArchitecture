@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>9.0.0</version>
+    <version>9.0.1</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 8 and C# 12.
@@ -13,8 +13,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-    Major changes included in this release!
-    * Packages updated to net8 versions
+      Minor updates to dependencies.
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
