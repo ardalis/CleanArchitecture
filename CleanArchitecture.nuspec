@@ -13,7 +13,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-      Minor updates to dependencies.
+      Minor updates to dependencies. Fixed Releases on GitHub.
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
