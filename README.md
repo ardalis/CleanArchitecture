@@ -137,7 +137,10 @@ Example:
 
 Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
 
-> **Known Issue**: Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
+**Known Issues**: 
+
+- Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
+- Don't use 'Ardalis' as your namespace (conflicts with dependencies).
 
 ## Using the GitHub Repository
 
