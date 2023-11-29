@@ -21,7 +21,7 @@ namespace Clean.Architecture.Infrastructure;
 public class AutofacInfrastructureModule : Module
 {
   private readonly bool _isDevelopment = false;
-  private readonly List<Assembly> _assemblies = new List<Assembly>();
+  private readonly List<Assembly> _assemblies = [];
 
   public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
