@@ -1,10 +1,9 @@
-﻿using FastEndpoints;
-using Ardalis.Result;
-using MediatR;
-using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+﻿using Ardalis.Result;
 using Clean.Architecture.UseCases.Contributors.Delete;
+using FastEndpoints;
+using MediatR;
 
-namespace Clean.Architecture.Web.ContributorEndpoints;
+namespace Clean.Architecture.Web.Contributors;
 
 /// <summary>
 /// Delete a Contributor.
@@ -27,7 +26,7 @@ public class Delete(IMediator _mediator)
   {
     var command = new DeleteContributorCommand(request.ContributorId);
 
-    var result = await _mediator.Send(command);
+    Result result = await _mediator.Send(command, cancellationToken);
 
     if (result.Status == ResultStatus.NotFound)
     {
@@ -38,7 +37,7 @@ public class Delete(IMediator _mediator)
     if (result.IsSuccess)
     {
       await SendNoContentAsync(cancellationToken);
-    };
+    }
     // TODO: Handle other issues as needed
   }
 }

@@ -1,9 +1,8 @@
-﻿using FastEndpoints;
-using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
-using Clean.Architecture.UseCases.Contributors.Create;
+﻿using Clean.Architecture.UseCases.Contributors.Create;
+using FastEndpoints;
 using MediatR;
 
-namespace Clean.Architecture.Web.ContributorEndpoints;
+namespace Clean.Architecture.Web.Contributors;
 
 /// <summary>
 /// Create a new Contributor
@@ -18,22 +17,21 @@ public class Create(IMediator _mediator)
   {
     Post(CreateContributorRequest.Route);
     AllowAnonymous();
+
+    // XML Docs are used by default but are overridden by these properties:
+    //s.Summary = "Create a new Contributor.";
+    //s.Description = "Create a new Contributor. A valid name is required.";
     Summary(s =>
-    {
-      // XML Docs are used by default but are overridden by these properties:
-      //s.Summary = "Create a new Contributor.";
-      //s.Description = "Create a new Contributor. A valid name is required.";
-      s.ExampleRequest = new CreateContributorRequest { Name = "Contributor Name" };
-    });
+      s.ExampleRequest = new CreateContributorRequest { Name = "Contributor Name" });
   }
 
   public override async Task HandleAsync(
     CreateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new CreateContributorCommand(request.Name!));
+    Ardalis.Result.Result<int> result = await _mediator.Send(new CreateContributorCommand(request.Name!), cancellationToken);
 
-    if(result.IsSuccess)
+    if (result.IsSuccess)
     {
       Response = new CreateContributorResponse(result.Value, request.Name!);
       return;

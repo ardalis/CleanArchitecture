@@ -9,16 +9,16 @@ namespace Clean.Architecture.UnitTests.UseCases.Contributors;
 
 public class CreateContributorHandlerHandle
 {
-  private readonly string _testName = "test name";
-  private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
-  private CreateContributorHandler _handler;
+  readonly string _testName = "test name";
+  readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
+  readonly CreateContributorHandler _handler;
 
   public CreateContributorHandlerHandle()
   {
-      _handler = new CreateContributorHandler(_repository);
+    _handler = new CreateContributorHandler(_repository);
   }
 
-  private Contributor CreateContributor()
+  Contributor CreateContributor()
   {
     return new Contributor(_testName);
   }
@@ -28,8 +28,8 @@ public class CreateContributorHandlerHandle
   {
     _repository.AddAsync(Arg.Any<Contributor>(), Arg.Any<CancellationToken>())
       .Returns(Task.FromResult(CreateContributor()));
-    var result = await _handler.Handle(new CreateContributorCommand(_testName), CancellationToken.None);
+    Ardalis.Result.Result<int> result = await _handler.Handle(new CreateContributorCommand(_testName), CancellationToken.None);
 
-    result.IsSuccess.Should().BeTrue();    
+    result.IsSuccess.Should().BeTrue();
   }
 }

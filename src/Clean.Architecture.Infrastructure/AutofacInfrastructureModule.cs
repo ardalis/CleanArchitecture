@@ -20,8 +20,8 @@ namespace Clean.Architecture.Infrastructure;
 /// </summary>
 public class AutofacInfrastructureModule : Module
 {
-  private readonly bool _isDevelopment = false;
-  private readonly List<Assembly> _assemblies = [];
+  readonly bool _isDevelopment = false;
+  readonly List<Assembly> _assemblies = [];
 
   public AutofacInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
   {
@@ -29,7 +29,7 @@ public class AutofacInfrastructureModule : Module
     AddToAssembliesIfNotNull(callingAssembly);
   }
 
-  private void AddToAssembliesIfNotNull(Assembly? assembly)
+  void AddToAssembliesIfNotNull(Assembly? assembly)
   {
     if (assembly != null)
     {
@@ -37,7 +37,7 @@ public class AutofacInfrastructureModule : Module
     }
   }
 
-  private void LoadAssemblies()
+  void LoadAssemblies()
   {
     // TODO: Replace these types with any type in the appropriate assembly/project
     var coreAssembly = Assembly.GetAssembly(typeof(Contributor));
@@ -65,7 +65,7 @@ public class AutofacInfrastructureModule : Module
     RegisterMediatR(builder);
   }
 
-  private void RegisterEF(ContainerBuilder builder)
+  static void RegisterEF(ContainerBuilder builder)
   {
     builder.RegisterGeneric(typeof(EfRepository<>))
       .As(typeof(IRepository<>))
@@ -73,14 +73,14 @@ public class AutofacInfrastructureModule : Module
       .InstancePerLifetimeScope();
   }
 
-  private void RegisterQueries(ContainerBuilder builder)
+  static void RegisterQueries(ContainerBuilder builder)
   {
     builder.RegisterType<ListContributorsQueryService>()
       .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
   }
 
-  private void RegisterMediatR(ContainerBuilder builder)
+  void RegisterMediatR(ContainerBuilder builder)
   {
     builder
       .RegisterType<Mediator>()
@@ -97,24 +97,24 @@ public class AutofacInfrastructureModule : Module
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
 
-    var mediatrOpenTypes = new[]
-    {
+    Type[] mediatrOpenTypes =
+    [
       typeof(IRequestHandler<,>),
       typeof(IRequestExceptionHandler<,,>),
       typeof(IRequestExceptionAction<,>),
       typeof(INotificationHandler<>),
-    };
+    ];
 
-    foreach (var mediatrOpenType in mediatrOpenTypes)
+    foreach (Type? mediatrOpenType in mediatrOpenTypes)
     {
       builder
-        .RegisterAssemblyTypes(_assemblies.ToArray())
-        .AsClosedTypesOf(mediatrOpenType)
-        .AsImplementedInterfaces();
+          .RegisterAssemblyTypes([.. _assemblies])
+          .AsClosedTypesOf(mediatrOpenType)
+          .AsImplementedInterfaces();
     }
   }
 
-  private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
+  static void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any development only services here
     builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
@@ -125,7 +125,7 @@ public class AutofacInfrastructureModule : Module
     //  .InstancePerLifetimeScope();
   }
 
-  private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
+  static void RegisterProductionOnlyDependencies(ContainerBuilder builder)
   {
     // NOTE: Add any production only (real) services here
     builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()

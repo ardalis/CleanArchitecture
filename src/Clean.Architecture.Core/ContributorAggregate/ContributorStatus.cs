@@ -10,4 +10,3 @@ public class ContributorStatus : SmartEnum<ContributorStatus>
 
   protected ContributorStatus(string name, int value) : base(name, value) { }
 }
-

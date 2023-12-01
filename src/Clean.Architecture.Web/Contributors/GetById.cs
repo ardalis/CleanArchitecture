@@ -1,10 +1,9 @@
-﻿using FastEndpoints;
-using MediatR;
-using Ardalis.Result;
-using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+﻿using Ardalis.Result;
 using Clean.Architecture.UseCases.Contributors.Get;
+using FastEndpoints;
+using MediatR;
 
-namespace Clean.Architecture.Web.ContributorEndpoints;
+namespace Clean.Architecture.Web.Contributors;
 
 /// <summary>
 /// Get a Contributor by integer ID.
@@ -26,7 +25,7 @@ public class GetById(IMediator _mediator)
   {
     var command = new GetContributorQuery(request.ContributorId);
 
-    var result = await _mediator.Send(command);
+    Result<UseCases.Contributors.ContributorDTO> result = await _mediator.Send(command, cancellationToken);
 
     if (result.Status == ResultStatus.NotFound)
     {

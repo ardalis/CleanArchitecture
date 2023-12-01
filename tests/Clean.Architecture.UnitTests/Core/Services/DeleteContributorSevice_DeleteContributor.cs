@@ -10,11 +10,11 @@ namespace Clean.Architecture.UnitTests.Core.Services;
 
 public class DeleteContributorService_DeleteContributor
 {
-  private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
-  private readonly IMediator _mediator = Substitute.For<IMediator>();
-  private readonly ILogger<DeleteContributorService> _logger = Substitute.For<ILogger<DeleteContributorService>>();
+  readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
+  readonly IMediator _mediator = Substitute.For<IMediator>();
+  readonly ILogger<DeleteContributorService> _logger = Substitute.For<ILogger<DeleteContributorService>>();
 
-  private readonly DeleteContributorService _service;
+  readonly DeleteContributorService _service;
 
   public DeleteContributorService_DeleteContributor()
   {
@@ -24,7 +24,7 @@ public class DeleteContributorService_DeleteContributor
   [Fact]
   public async Task ReturnsNotFoundGivenCantFindContributor()
   {
-    var result = await _service.DeleteContributor(0);
+    Ardalis.Result.Result result = await _service.DeleteContributor(0);
 
     Assert.Equal(Ardalis.Result.ResultStatus.NotFound, result.Status);
   }

@@ -1,8 +1,8 @@
-﻿using Clean.Architecture.Infrastructure.Data;
-using Ardalis.SharedKernel;
+﻿using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Clean.Architecture.Core.ContributorAggregate;
 using NSubstitute;
 
 namespace Clean.Architecture.IntegrationTests.Data;
@@ -13,8 +13,8 @@ public abstract class BaseEfRepoTestFixture
 
   protected BaseEfRepoTestFixture()
   {
-    var options = CreateNewContextOptions();
-    var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
+    DbContextOptions<AppDbContext> options = CreateNewContextOptions();
+    IDomainEventDispatcher _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
 
     _dbContext = new AppDbContext(options, _fakeEventDispatcher);
   }
@@ -23,7 +23,7 @@ public abstract class BaseEfRepoTestFixture
   {
     // Create a fresh service provider, and therefore a fresh
     // InMemory database instance.
-    var serviceProvider = new ServiceCollection()
+    ServiceProvider serviceProvider = new ServiceCollection()
         .AddEntityFrameworkInMemoryDatabase()
         .BuildServiceProvider();
 

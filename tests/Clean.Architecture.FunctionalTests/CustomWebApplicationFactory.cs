@@ -18,20 +18,20 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
   protected override IHost CreateHost(IHostBuilder builder)
   {
     builder.UseEnvironment("Development"); // will not send real emails
-    var host = builder.Build();
+    IHost host = builder.Build();
     host.Start();
 
     // Get service provider.
-    var serviceProvider = host.Services;
+    IServiceProvider serviceProvider = host.Services;
 
     // Create a scope to obtain a reference to the database
     // context (AppDbContext).
-    using (var scope = serviceProvider.CreateScope())
+    using (IServiceScope scope = serviceProvider.CreateScope())
     {
-      var scopedServices = scope.ServiceProvider;
-      var db = scopedServices.GetRequiredService<AppDbContext>();
+      IServiceProvider scopedServices = scope.ServiceProvider;
+      AppDbContext db = scopedServices.GetRequiredService<AppDbContext>();
 
-      var logger = scopedServices
+      ILogger<CustomWebApplicationFactory<TProgram>> logger = scopedServices
           .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
 
       // Reset Sqlite database for each test run

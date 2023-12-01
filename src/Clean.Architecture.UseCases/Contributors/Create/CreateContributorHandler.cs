@@ -11,7 +11,7 @@ public class CreateContributorHandler(IRepository<Contributor> _repository)
     CancellationToken cancellationToken)
   {
     var newContributor = new Contributor(request.Name);
-    var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
+    Contributor createdItem = await _repository.AddAsync(newContributor, cancellationToken);
 
     return createdItem.Id;
   }

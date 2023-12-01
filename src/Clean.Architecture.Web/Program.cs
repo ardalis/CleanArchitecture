@@ -9,7 +9,7 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
@@ -21,15 +21,12 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
+var connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
 Guard.Against.Null(connectionString);
 builder.Services.AddApplicationDbContext(connectionString);
 
 builder.Services.AddFastEndpoints();
-builder.Services.SwaggerDocument(o =>
-{
-  o.ShortSchemaNames = true;
-});
+builder.Services.SwaggerDocument(o => o.ShortSchemaNames = true);
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
 builder.Services.Configure<ServiceConfig>(config =>
@@ -40,14 +37,13 @@ builder.Services.Configure<ServiceConfig>(config =>
   config.Path = "/listservices";
 });
 
-
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
   containerBuilder.RegisterModule(new DefaultCoreModule());
   containerBuilder.RegisterModule(new AutofacInfrastructureModule(builder.Environment.IsDevelopment()));
 });
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -70,19 +66,19 @@ app.Run();
 
 static void SeedDatabase(WebApplication app)
 {
-  using var scope = app.Services.CreateScope();
-  var services = scope.ServiceProvider;
+  using IServiceScope scope = app.Services.CreateScope();
+  IServiceProvider services = scope.ServiceProvider;
 
   try
   {
-    var context = services.GetRequiredService<AppDbContext>();
+    AppDbContext context = services.GetRequiredService<AppDbContext>();
     //                    context.Database.Migrate();
     context.Database.EnsureCreated();
     SeedData.Initialize(services);
   }
   catch (Exception ex)
   {
-    var logger = services.GetRequiredService<ILogger<Program>>();
+    ILogger<Program> logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
   }
 }

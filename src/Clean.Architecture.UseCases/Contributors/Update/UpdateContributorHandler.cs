@@ -9,7 +9,7 @@ public class UpdateContributorHandler(IRepository<Contributor> _repository)
 {
   public async Task<Result<ContributorDTO>> Handle(UpdateContributorCommand request, CancellationToken cancellationToken)
   {
-    var existingContributor = await _repository.GetByIdAsync(request.ContributorId, cancellationToken);
+    Contributor? existingContributor = await _repository.GetByIdAsync(request.ContributorId, cancellationToken);
     if (existingContributor == null)
     {
       return Result.NotFound();

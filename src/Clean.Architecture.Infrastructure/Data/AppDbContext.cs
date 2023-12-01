@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Clean.Architecture.Infrastructure.Data;
 public class AppDbContext : DbContext
 {
-  private readonly IDomainEventDispatcher? _dispatcher;
+  readonly IDomainEventDispatcher? _dispatcher;
 
   public AppDbContext(DbContextOptions<AppDbContext> options,
     IDomainEventDispatcher? dispatcher)
@@ -25,13 +25,16 @@ public class AppDbContext : DbContext
 
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
   {
-    int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     // ignore events if no dispatcher provided
-    if (_dispatcher == null) return result;
+    if (_dispatcher == null)
+    {
+      return result;
+    }
 
     // dispatch events only if save was successful
-    var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
+    EntityBase[] entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
         .Select(e => e.Entity)
         .Where(e => e.DomainEvents.Any())
         .ToArray();

@@ -1,5 +1,5 @@
-﻿using Ardalis.Specification.EntityFrameworkCore;
-using Ardalis.SharedKernel;
+﻿using Ardalis.SharedKernel;
+using Ardalis.Specification.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data;
 

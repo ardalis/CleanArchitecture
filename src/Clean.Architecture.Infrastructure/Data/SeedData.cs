@@ -11,21 +11,19 @@ public static class SeedData
 
   public static void Initialize(IServiceProvider serviceProvider)
   {
-    using (var dbContext = new AppDbContext(
-        serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+    using var dbContext = new AppDbContext(
+        serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null);
+    // Look for any Contributors.
+    if (dbContext.Contributors.Any())
     {
-      // Look for any Contributors.
-      if (dbContext.Contributors.Any())
-      {
-        return;   // DB has been seeded
-      }
-
-      PopulateTestData(dbContext);
+      return;   // DB has been seeded
     }
+
+    PopulateTestData(dbContext);
   }
   public static void PopulateTestData(AppDbContext dbContext)
   {
-    foreach (var item in dbContext.Contributors)
+    foreach (Contributor item in dbContext.Contributors)
     {
       dbContext.Remove(item);
     }

@@ -10,7 +10,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
   public async Task UpdatesItemAfterAddingIt()
   {
     // add a Contributor
-    var repository = GetRepository();
+    Infrastructure.Data.EfRepository<Contributor> repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
     var Contributor = new Contributor(initialName);
 
@@ -20,8 +20,8 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     _dbContext.Entry(Contributor).State = EntityState.Detached;
 
     // fetch the item and update its title
-    var newContributor = (await repository.ListAsync())
-        .FirstOrDefault(Contributor => Contributor.Name == initialName);
+    Contributor? newContributor = (await repository.ListAsync())
+        .Find(Contributor => Contributor.Name == initialName);
     if (newContributor == null)
     {
       Assert.NotNull(newContributor);
@@ -35,8 +35,8 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     await repository.UpdateAsync(newContributor);
 
     // Fetch the updated item
-    var updatedItem = (await repository.ListAsync())
-        .FirstOrDefault(Contributor => Contributor.Name == newName);
+    Contributor? updatedItem = (await repository.ListAsync())
+        .Find(Contributor => Contributor.Name == newName);
 
     Assert.NotNull(updatedItem);
     Assert.NotEqual(Contributor.Name, updatedItem?.Name);
