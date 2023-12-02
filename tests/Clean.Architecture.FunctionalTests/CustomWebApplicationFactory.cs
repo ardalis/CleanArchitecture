@@ -60,9 +60,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     return host;
   }
 
-  protected override void ConfigureWebHost(IWebHostBuilder builder)
-  {
-    builder
+  protected override void ConfigureWebHost(IWebHostBuilder builder) => builder
         .ConfigureServices(services =>
         {
           // Configure test dependencies here
@@ -86,5 +84,4 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
           //  options.UseInMemoryDatabase(inMemoryCollectionName);
           //});
         });
-  }
 }

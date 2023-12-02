@@ -65,20 +65,16 @@ public class AutofacInfrastructureModule : Module
     RegisterMediatR(builder);
   }
 
-  static void RegisterEF(ContainerBuilder builder)
-  {
+  static void RegisterEF(ContainerBuilder builder) =>
     builder.RegisterGeneric(typeof(EfRepository<>))
       .As(typeof(IRepository<>))
       .As(typeof(IReadRepository<>))
       .InstancePerLifetimeScope();
-  }
 
-  static void RegisterQueries(ContainerBuilder builder)
-  {
+  static void RegisterQueries(ContainerBuilder builder) =>
     builder.RegisterType<ListContributorsQueryService>()
       .As<IListContributorsQueryService>()
       .InstancePerLifetimeScope();
-  }
 
   void RegisterMediatR(ContainerBuilder builder)
   {
@@ -105,7 +101,7 @@ public class AutofacInfrastructureModule : Module
       typeof(INotificationHandler<>),
     ];
 
-    foreach (Type? mediatrOpenType in mediatrOpenTypes)
+    foreach (Type mediatrOpenType in mediatrOpenTypes)
     {
       builder
           .RegisterAssemblyTypes([.. _assemblies])
@@ -124,11 +120,8 @@ public class AutofacInfrastructureModule : Module
     //  .As<IListContributorsQueryService>()
     //  .InstancePerLifetimeScope();
   }
-
-  static void RegisterProductionOnlyDependencies(ContainerBuilder builder)
-  {
+  static void RegisterProductionOnlyDependencies(ContainerBuilder builder) =>
     // NOTE: Add any production only (real) services here
     builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
-  }
 }

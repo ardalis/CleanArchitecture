@@ -9,9 +9,7 @@ namespace Clean.Architecture.Core;
 /// </summary>
 public class DefaultCoreModule : Module
 {
-  protected override void Load(ContainerBuilder builder)
-  {
+  protected override void Load(ContainerBuilder builder) =>
     builder.RegisterType<DeleteContributorService>()
         .As<IDeleteContributorService>().InstancePerLifetimeScope();
-  }
 }

@@ -14,12 +14,10 @@ public static class SeedData
     using var dbContext = new AppDbContext(
         serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null);
     // Look for any Contributors.
-    if (dbContext.Contributors.Any())
+    if (!dbContext.Contributors.Any())
     {
-      return;   // DB has been seeded
+      PopulateTestData(dbContext);
     }
-
-    PopulateTestData(dbContext);
   }
   public static void PopulateTestData(AppDbContext dbContext)
   {

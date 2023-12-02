@@ -18,10 +18,7 @@ public class CreateContributorHandlerHandle
     _handler = new CreateContributorHandler(_repository);
   }
 
-  Contributor CreateContributor()
-  {
-    return new Contributor(_testName);
-  }
+  Contributor CreateContributor() => new Contributor(_testName);
 
   [Fact]
   public async Task ReturnsSuccessGivenValidName()

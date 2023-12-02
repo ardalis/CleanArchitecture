@@ -10,8 +10,6 @@ public class Contributor(string name) : EntityBase, IAggregateRoot
   public string Name { get; private set; } = Guard.Against.NullOrEmpty(name, nameof(name));
   public ContributorStatus Status { get; } = ContributorStatus.NotSet;
 
-  public void UpdateName(string newName)
-  {
+  public void UpdateName(string newName) =>
     Name = Guard.Against.NullOrEmpty(newName, nameof(newName));
-  }
 }

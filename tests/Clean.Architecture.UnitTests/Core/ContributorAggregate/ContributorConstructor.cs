@@ -8,10 +8,7 @@ public class ContributorConstructor
   readonly string _testName = "test name";
   Contributor? _testContributor;
 
-  Contributor CreateContributor()
-  {
-    return new Contributor(_testName);
-  }
+  Contributor CreateContributor() => new Contributor(_testName);
 
   [Fact]
   public void InitializesName()
