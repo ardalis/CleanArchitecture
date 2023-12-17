@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/Clean.Architecture.Web/bin/Debug/net7.0/Clean.Architecture.Web.dll",
+            "program": "${workspaceFolder}/src/Clean.Architecture.Web/bin/Debug/net8.0/Clean.Architecture.Web.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/Clean.Architecture.Web",
             "stopAtEntry": false,
