@@ -8,7 +8,7 @@ GET http://{{hostname}}:{{port}}/Contributors
 ###
 
 // Get a specific contributor
-@id_to_get=1
+@id_to_get=8
 GET http://{{hostname}}:{{port}}/Contributors/{{id_to_get}}
 
 ###
@@ -18,8 +18,9 @@ POST http://{{hostname}}:{{port}}/Contributors
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "test@test.com"
+  "name": "John Doe 2",
+  "email": "test@test.com",
+  "phoneNumber": "1234567890"
 }
 
 ###

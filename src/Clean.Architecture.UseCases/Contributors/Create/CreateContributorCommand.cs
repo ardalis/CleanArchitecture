@@ -6,4 +6,4 @@ namespace Clean.Architecture.UseCases.Contributors.Create;
 /// Create a new Contributor.
 /// </summary>
 /// <param name="Name"></param>
-public record CreateContributorCommand(string Name) : Ardalis.SharedKernel.ICommand<Result<int>>;
+public record CreateContributorCommand(string Name, string? PhoneNumber) : Ardalis.SharedKernel.ICommand<Result<int>>;

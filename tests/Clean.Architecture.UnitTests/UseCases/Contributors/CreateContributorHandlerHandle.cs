@@ -28,7 +28,7 @@ public class CreateContributorHandlerHandle
   {
     _repository.AddAsync(Arg.Any<Contributor>(), Arg.Any<CancellationToken>())
       .Returns(Task.FromResult(CreateContributor()));
-    var result = await _handler.Handle(new CreateContributorCommand(_testName), CancellationToken.None);
+    var result = await _handler.Handle(new CreateContributorCommand(_testName, null), CancellationToken.None);
 
     result.IsSuccess.Should().BeTrue();    
   }

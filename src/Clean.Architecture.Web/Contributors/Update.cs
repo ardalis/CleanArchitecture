@@ -48,7 +48,7 @@ public class Update(IMediator _mediator)
     if (queryResult.IsSuccess)
     {
       var dto = queryResult.Value;
-      Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name));
+      Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name, dto.PhoneNumber));
       return;
     }
   }

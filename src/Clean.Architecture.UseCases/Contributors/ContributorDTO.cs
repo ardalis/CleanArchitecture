@@ -1,2 +1,2 @@
 ﻿namespace Clean.Architecture.UseCases.Contributors;
-public record ContributorDTO(int Id, string Name);
+public record ContributorDTO(int Id, string Name, string PhoneNumber);
