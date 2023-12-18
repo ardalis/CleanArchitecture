@@ -9,6 +9,13 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using Serilog;
 
+var logger = Serilog.Log.Logger = new LoggerConfiguration()
+  .Enrich.FromLogContext()
+  .WriteTo.Console()
+  .CreateLogger();
+
+logger.Information("Starting web host");
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
