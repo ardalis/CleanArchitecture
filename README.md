@@ -50,8 +50,9 @@ Or if you're feeling really generous, we now support GitHub sponsorships - see t
 
 ## Versions
 
-The main branch is now using .NET 7. If you need a previous version use one of these tagged commits:
+The main branch is now using .NET 8. If you need a previous version use one of these tagged commits:
 
+- [7.0](https://github.com/ardalis/CleanArchitecture/releases/tag/v8)
 - [6.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-6)
 - [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
@@ -136,7 +137,10 @@ Example:
 
 Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
 
-> **Known Issue**: Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
+**Known Issues**: 
+
+- Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
+- Don't use 'Ardalis' as your namespace (conflicts with dependencies).
 
 ## Using the GitHub Repository
 

@@ -77,23 +77,20 @@ app.Run();
 
 static void SeedDatabase(WebApplication app)
 {
-  // Seed Database
-  using (var scope = app.Services.CreateScope())
-  {
-    var services = scope.ServiceProvider;
+  using var scope = app.Services.CreateScope();
+  var services = scope.ServiceProvider;
 
-    try
-    {
-      var context = services.GetRequiredService<AppDbContext>();
-      //                    context.Database.Migrate();
-      context.Database.EnsureCreated();
-      SeedData.Initialize(services);
-    }
-    catch (Exception ex)
-    {
-      var logger = services.GetRequiredService<ILogger<Program>>();
-      logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-    }
+  try
+  {
+    var context = services.GetRequiredService<AppDbContext>();
+    //                    context.Database.Migrate();
+    context.Database.EnsureCreated();
+    SeedData.Initialize(services);
+  }
+  catch (Exception ex)
+  {
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
   }
 }
 

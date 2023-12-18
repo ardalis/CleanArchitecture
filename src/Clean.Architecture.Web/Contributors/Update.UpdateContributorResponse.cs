@@ -2,11 +2,7 @@
 
 namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
-public class UpdateContributorResponse
+public class UpdateContributorResponse(ContributorRecord contributor)
 {
-  public UpdateContributorResponse(ContributorRecord contributor)
-  {
-    Contributor = contributor;
-  }
-  public ContributorRecord Contributor { get; set; }
+  public ContributorRecord Contributor { get; set; } = contributor;
 }

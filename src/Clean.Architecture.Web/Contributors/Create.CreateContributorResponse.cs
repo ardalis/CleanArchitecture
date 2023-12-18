@@ -1,12 +1,7 @@
-namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+﻿namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
 
-public class CreateContributorResponse
+public class CreateContributorResponse(int id, string name)
 {
-  public CreateContributorResponse(int id, string name)
-  {
-    Id = id;
-    Name = name;
-  }
-  public int Id { get; set; }
-  public string Name { get; set; }
+  public int Id { get; set; } = id;
+  public string Name { get; set; } = name;
 }

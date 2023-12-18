@@ -7,14 +7,9 @@ using Xunit;
 namespace Clean.Architecture.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
-public class ContributorGetById : IClassFixture<CustomWebApplicationFactory<Program>>
+public class ContributorGetById(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-  private readonly HttpClient _client;
-
-  public ContributorGetById(CustomWebApplicationFactory<Program> factory)
-  {
-    _client = factory.CreateClient();
-  }
+  private readonly HttpClient _client = factory.CreateClient();
 
   [Fact]
   public async Task ReturnsSeedContributorGivenId1()

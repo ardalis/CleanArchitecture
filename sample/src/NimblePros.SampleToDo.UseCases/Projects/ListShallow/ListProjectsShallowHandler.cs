@@ -3,14 +3,10 @@ using Ardalis.SharedKernel;
 
 namespace NimblePros.SampleToDo.UseCases.Projects.ListShallow;
 
-public class ListProjectsShallowHandler : IQueryHandler<ListProjectsShallowQuery, Result<IEnumerable<ProjectDTO>>>
+public class ListProjectsShallowHandler(IListProjectsShallowQueryService query)
+  : IQueryHandler<ListProjectsShallowQuery, Result<IEnumerable<ProjectDTO>>>
 {
-  private readonly IListProjectsShallowQueryService _query;
-
-  public ListProjectsShallowHandler(IListProjectsShallowQueryService query)
-  {
-    _query = query;
-  }
+  private readonly IListProjectsShallowQueryService _query = query;
 
   public async Task<Result<IEnumerable<ProjectDTO>>> Handle(ListProjectsShallowQuery request, CancellationToken cancellationToken)
   {
