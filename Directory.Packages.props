@@ -21,7 +21,7 @@
     <PackageVersion Include="MediatR" Version="12.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
