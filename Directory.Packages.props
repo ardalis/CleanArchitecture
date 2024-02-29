@@ -9,7 +9,7 @@
     <PackageVersion Include="Ardalis.SmartEnum" Version="7.0.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
-    <PackageVersion Include="Autofac" Version="7.1.0" />
+    <PackageVersion Include="Autofac" Version="8.0.0" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="FastEndpoints" Version="5.22.0" />
