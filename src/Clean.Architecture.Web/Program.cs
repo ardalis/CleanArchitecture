@@ -30,8 +30,8 @@ builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Con
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    options.CheckConsentNeeded = context => true;
-    options.MinimumSameSitePolicy = SameSiteMode.None;
+  options.CheckConsentNeeded = context => true;
+  options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
 string? connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
@@ -41,48 +41,48 @@ builder.Services.AddApplicationDbContext(connectionString);
 builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(o =>
 {
-    o.ShortSchemaNames = true;
+  o.ShortSchemaNames = true;
 });
 
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
 builder.Services.Configure<ServiceConfig>(config =>
 {
-    config.Services = new List<ServiceDescriptor>(builder.Services);
+  config.Services = new List<ServiceDescriptor>(builder.Services);
 
-    // optional - default path to view services is /listallservices - recommended to choose your own path
-    config.Path = "/listservices";
+  // optional - default path to view services is /listallservices - recommended to choose your own path
+  config.Path = "/listservices";
 });
 
 var assemblies = new[]
 {
-    Assembly.GetAssembly(typeof(Contributor)),
-    Assembly.GetAssembly(typeof(CreateContributorCommand))
+  Assembly.GetAssembly(typeof(Contributor)),
+  Assembly.GetAssembly(typeof(CreateContributorCommand))
 };
 
 var mediatrOpenTypes = new[]
 {
-    typeof(IRequestHandler<,>),
-    typeof(IRequestExceptionHandler<,,>),
-    typeof(IRequestExceptionAction<,>),
-    typeof(INotificationHandler<>),
+  typeof(IRequestHandler<,>),
+  typeof(IRequestExceptionHandler<,,>),
+  typeof(IRequestExceptionAction<,>),
+  typeof(INotificationHandler<>),
 };
 
 foreach (var assembly in assemblies)
 {
-    foreach (var openInterfaceType in mediatrOpenTypes)
+  foreach (var openInterfaceType in mediatrOpenTypes)
+  {
+    if (assembly != null)
     {
-        if (assembly != null)
+      assembly.GetTypes()
+        .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == openInterfaceType))
+        .ToList()
+        .ForEach(implementationType =>
         {
-          assembly.GetTypes()
-              .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == openInterfaceType))
-              .ToList()
-              .ForEach(implementationType =>
-              {
-                  var serviceType = implementationType.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == openInterfaceType);
-                  builder.Services.AddScoped(serviceType, implementationType);
-              });
-        }
+          var serviceType = implementationType.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == openInterfaceType);
+          builder.Services.AddScoped(serviceType, implementationType);
+        });
     }
+  }
 }
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -96,24 +96,24 @@ builder.Services.AddScoped<IDeleteContributorService, DeleteContributorService>(
 
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddScoped<IEmailSender, FakeEmailSender>();  
+  builder.Services.AddScoped<IEmailSender, FakeEmailSender>();  
 }
 else
 {
-    builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+  builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 }
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+  app.UseDeveloperExceptionPage();
+  app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
 }
 else
 {
-    app.UseDefaultExceptionHandler(); // from FastEndpoints
-    app.UseHsts();
+  app.UseDefaultExceptionHandler(); // from FastEndpoints
+  app.UseHsts();
 }
 app.UseFastEndpoints();
 app.UseSwaggerGen(); // FastEndpoints middleware
@@ -126,21 +126,21 @@ app.Run();
 
 static void SeedDatabase(WebApplication app)
 {
-    using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
+  using var scope = app.Services.CreateScope();
+  var services = scope.ServiceProvider;
 
-    try
-    {
-        var context = services.GetRequiredService<AppDbContext>();
-        //                    context.Database.Migrate();
-        context.Database.EnsureCreated();
-        SeedData.Initialize(services);
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-    }
+  try
+  {
+    var context = services.GetRequiredService<AppDbContext>();
+    //          context.Database.Migrate();
+    context.Database.EnsureCreated();
+    SeedData.Initialize(services);
+  }
+  catch (Exception ex)
+  {
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+  }
 }
 
 // Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building
