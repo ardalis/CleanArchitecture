@@ -1,12 +1,15 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.ListStartupServices;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Clean.Architecture.Core;
-using Clean.Architecture.Infrastructure;
+using Ardalis.SharedKernel;
+using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Infrastructure.Data;
+using Clean.Architecture.Infrastructure.Data.Queries;
+using Clean.Architecture.Infrastructure.Email;
+using Clean.Architecture.UseCases.Contributors.List;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using MediatR;
+using MediatR.Pipeline;
 using Serilog;
 
 var logger = Serilog.Log.Logger = new LoggerConfiguration()
@@ -17,8 +20,6 @@ var logger = Serilog.Log.Logger = new LoggerConfiguration()
 logger.Information("Starting web host");
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
@@ -48,11 +49,37 @@ builder.Services.Configure<ServiceConfig>(config =>
 });
 
 
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+var mediatrOpenTypes = new[]
 {
-  containerBuilder.RegisterModule(new DefaultCoreModule());
-  containerBuilder.RegisterModule(new AutofacInfrastructureModule(builder.Environment.IsDevelopment()));
-});
+    typeof(IRequestHandler<,>),
+    typeof(IRequestExceptionHandler<,,>),
+    typeof(IRequestExceptionAction<,>),
+    typeof(INotificationHandler<>),
+};
+
+// Assuming _assemblies is an IEnumerable<Assembly> containing your targeted assemblies.
+foreach (var assembly in mediatrOpenTypes)
+{
+  foreach (var openInterfaceType in mediatrOpenTypes)
+  {
+    var interfaceTypes = assembly.GetInterfaces().Where(i => i.IsGenericType && openInterfaceType.IsAssignableFrom(i.GetGenericTypeDefinition()) || openInterfaceType.IsAssignableFrom(i));
+
+    foreach (var interfaceType in interfaceTypes)
+    {
+      builder.Services.AddScoped(interfaceType, assembly);
+    }
+  }
+}
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
+builder.Services.AddScoped<IMediator, Mediator>();
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
+builder.Services.AddScoped<IListContributorsQueryService, FakeListContributorsQueryService>();
+builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 
 var app = builder.Build();
 
