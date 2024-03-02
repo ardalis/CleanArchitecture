@@ -4,6 +4,7 @@ using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
 using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.Services;
 using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Infrastructure.Data.Queries;
@@ -90,15 +91,16 @@ builder.Services.AddScoped<IListContributorsQueryService, ListContributorsQueryS
 builder.Services.AddScoped<IMediator, Mediator>();
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
-builder.Services.AddScoped<IListContributorsQueryService, FakeListContributorsQueryService>();
+builder.Services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
+builder.Services.AddScoped<IDeleteContributorService, DeleteContributorService>();
 
 if (builder.Environment.IsDevelopment())
 {
-  builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
+    builder.Services.AddScoped<IEmailSender, FakeEmailSender>();  
 }
 else
 {
-  builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+    builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 }
 
 var app = builder.Build();
