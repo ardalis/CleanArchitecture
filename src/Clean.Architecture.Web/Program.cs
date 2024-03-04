@@ -1,12 +1,20 @@
-﻿using Ardalis.GuardClauses;
+﻿using System.Reflection;
+using Ardalis.GuardClauses;
 using Ardalis.ListStartupServices;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Clean.Architecture.Core;
+using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.Services;
 using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Data;
+using Clean.Architecture.Infrastructure.Data.Queries;
+using Clean.Architecture.Infrastructure.Email;
+using Clean.Architecture.UseCases.Contributors.Create;
+using Clean.Architecture.UseCases.Contributors.List;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using MediatR;
+using MediatR.Pipeline;
 using Serilog;
 
 var logger = Serilog.Log.Logger = new LoggerConfiguration()
@@ -17,8 +25,6 @@ var logger = Serilog.Log.Logger = new LoggerConfiguration()
 logger.Information("Starting web host");
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
@@ -47,12 +53,55 @@ builder.Services.Configure<ServiceConfig>(config =>
   config.Path = "/listservices";
 });
 
-
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+var assemblies = new[]
 {
-  containerBuilder.RegisterModule(new DefaultCoreModule());
-  containerBuilder.RegisterModule(new AutofacInfrastructureModule(builder.Environment.IsDevelopment()));
-});
+  Assembly.GetAssembly(typeof(Contributor)),
+  Assembly.GetAssembly(typeof(CreateContributorCommand))
+};
+
+var mediatrOpenTypes = new[]
+{
+  typeof(IRequestHandler<,>),
+  typeof(IRequestExceptionHandler<,,>),
+  typeof(IRequestExceptionAction<,>),
+  typeof(INotificationHandler<>),
+};
+
+foreach (var assembly in assemblies)
+{
+  foreach (var openInterfaceType in mediatrOpenTypes)
+  {
+    if (assembly != null)
+    {
+      assembly.GetTypes()
+        .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == openInterfaceType))
+        .ToList()
+        .ForEach(implementationType =>
+        {
+          var serviceType = implementationType.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == openInterfaceType);
+          builder.Services.AddScoped(serviceType, implementationType);
+        });
+    }
+  }
+}
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
+builder.Services.AddScoped<IMediator, Mediator>();
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+builder.Services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
+builder.Services.AddScoped<IDeleteContributorService, DeleteContributorService>();
+
+if (builder.Environment.IsDevelopment())
+{
+  builder.Services.AddScoped<IEmailSender, FakeEmailSender>();  
+}
+else
+{
+  builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+}
 
 var app = builder.Build();
 
@@ -83,7 +132,7 @@ static void SeedDatabase(WebApplication app)
   try
   {
     var context = services.GetRequiredService<AppDbContext>();
-    //                    context.Database.Migrate();
+    //          context.Database.Migrate();
     context.Database.EnsureCreated();
     SeedData.Initialize(services);
   }
