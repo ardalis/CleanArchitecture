@@ -1,4 +1,4 @@
-﻿namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+﻿namespace Clean.Architecture.Web.Contributors;
 
 public record DeleteContributorRequest
 {

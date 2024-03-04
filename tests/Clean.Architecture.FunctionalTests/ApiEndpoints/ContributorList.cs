@@ -1,6 +1,6 @@
 ﻿using Ardalis.HttpClientTestExtensions;
 using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+using Clean.Architecture.Web.Contributors;
 using Xunit;
 
 namespace Clean.Architecture.FunctionalTests.ApiEndpoints;

@@ -1,8 +1,8 @@
-﻿using Clean.Architecture.Infrastructure.Data;
-using Ardalis.SharedKernel;
+﻿using Ardalis.SharedKernel;
+using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Clean.Architecture.Core.ContributorAggregate;
 using NSubstitute;
 
 namespace Clean.Architecture.IntegrationTests.Data;

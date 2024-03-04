@@ -11,19 +11,17 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> _logger) : IEmailSen
   {
     _logger.LogInformation("Attempting to send email to {to} from {from} with subject {subject}...", to, from, subject);
 
-    using (SmtpClient client = new SmtpClient()) // use localhost and a test server
-    {
-      client.Connect("localhost", 25, false); // TODO: pull settings from config
-      var message = new MimeMessage();
-      message.From.Add(new MailboxAddress(from, from));
-      message.To.Add(new MailboxAddress(to, to));
-      message.Subject = subject;
-      message.Body = new TextPart("plain") { Text = body };
+    using var client = new SmtpClient(); // use localhost and a test server
+    client.Connect("localhost", 25, false); // TODO: pull settings from config
+    var message = new MimeMessage();
+    message.From.Add(new MailboxAddress(from, from));
+    message.To.Add(new MailboxAddress(to, to));
+    message.Subject = subject;
+    message.Body = new TextPart("plain") { Text = body };
 
-      await client.SendAsync(message);
-      _logger.LogInformation("Email sent!");
+    await client.SendAsync(message);
+    _logger.LogInformation("Email sent!");
 
-      client.Disconnect(true);
-    }
+    client.Disconnect(true);
   }
 }

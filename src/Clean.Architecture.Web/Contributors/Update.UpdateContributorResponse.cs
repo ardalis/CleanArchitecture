@@ -1,6 +1,4 @@
-﻿using Clean.Architecture.Web.ContributorEndpoints;
-
-namespace Clean.Architecture.Web.Endpoints.ContributorEndpoints;
+﻿namespace Clean.Architecture.Web.Contributors;
 
 public class UpdateContributorResponse(ContributorRecord contributor)
 {

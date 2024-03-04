@@ -1,9 +1,8 @@
-﻿using FastEndpoints;
-using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
-using Clean.Architecture.UseCases.Contributors.Create;
+﻿using Clean.Architecture.UseCases.Contributors.Create;
+using FastEndpoints;
 using MediatR;
 
-namespace Clean.Architecture.Web.ContributorEndpoints;
+namespace Clean.Architecture.Web.Contributors;
 
 /// <summary>
 /// Create a new Contributor
@@ -31,10 +30,10 @@ public class Create(IMediator _mediator)
     CreateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new CreateContributorCommand(request.Name!, 
+    var result = await _mediator.Send(new CreateContributorCommand(request.Name!,
       request.PhoneNumber));
 
-    if(result.IsSuccess)
+    if (result.IsSuccess)
     {
       Response = new CreateContributorResponse(result.Value, request.Name!);
       return;

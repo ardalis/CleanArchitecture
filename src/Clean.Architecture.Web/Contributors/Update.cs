@@ -1,11 +1,10 @@
-﻿using FastEndpoints;
-using Clean.Architecture.Web.Endpoints.ContributorEndpoints;
-using Clean.Architecture.UseCases.Contributors.Update;
-using MediatR;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Clean.Architecture.UseCases.Contributors.Get;
+using Clean.Architecture.UseCases.Contributors.Update;
+using FastEndpoints;
+using MediatR;
 
-namespace Clean.Architecture.Web.ContributorEndpoints;
+namespace Clean.Architecture.Web.Contributors;
 
 /// <summary>
 /// Update an existing Contributor.
