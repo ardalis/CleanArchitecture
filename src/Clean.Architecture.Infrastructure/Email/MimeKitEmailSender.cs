@@ -1,18 +1,31 @@
 ﻿using Clean.Architecture.Core.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MimeKit;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
-public class MimeKitEmailSender(ILogger<MimeKitEmailSender> _logger) : IEmailSender
+public class MimeKitEmailSender : IEmailSender
 {
+  private readonly ILogger<MimeKitEmailSender> _logger;
+  private readonly MailserverConfiguration _mailserverConfiguration;
+
+  public MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
+    IOptions<MailserverConfiguration> mailserverOptions)
+  {
+    _logger = logger;
+    _mailserverConfiguration = mailserverOptions.Value!;
+
+  }
+
+
   public async Task SendEmailAsync(string to, string from, string subject, string body)
   {
-    _logger.LogInformation("Attempting to send email to {to} from {from} with subject {subject}...", to, from, subject);
+    _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
-    using var client = new SmtpClient(); // use localhost and a test server
-    client.Connect("localhost", 25, false); // TODO: pull settings from config
+    using var client = new SmtpClient(); 
+    client.Connect(_mailserverConfiguration.Hostname, _mailserverConfiguration.Port, false);
     var message = new MimeMessage();
     message.From.Add(new MailboxAddress(from, from));
     message.To.Add(new MailboxAddress(to, to));
@@ -20,7 +33,6 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> _logger) : IEmailSen
     message.Body = new TextPart("plain") { Text = body };
 
     await client.SendAsync(message);
-    _logger.LogInformation("Email sent!");
 
     client.Disconnect(true);
   }

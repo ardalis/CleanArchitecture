@@ -45,12 +45,17 @@ builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogge
 
 if (builder.Environment.IsDevelopment())
 {
-  builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
+  // Use a local test email server
+  // See: https://ardalis.com/configuring-a-local-test-email-server/
+  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
+
+  // Otherwise use this:
+  //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
   AddShowAllServicesSupport();
 }
 else
 {
-  builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
 }
 
 var app = builder.Build();

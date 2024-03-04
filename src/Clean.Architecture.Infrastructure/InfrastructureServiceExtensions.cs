@@ -4,6 +4,7 @@ using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Core.Services;
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Infrastructure.Data.Queries;
+using Clean.Architecture.Infrastructure.Email;
 using Clean.Architecture.UseCases.Contributors.List;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,8 @@ public static class InfrastructureServiceExtensions
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IDeleteContributorService, DeleteContributorService>();
+
+    services.Configure<MailserverConfiguration>(config.GetSection("Mailserver"));
 
     logger.LogInformation("{Project} services registered", "Infrastructure");
 
