@@ -16,9 +16,14 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
 
 :school: Contact Steve's company, [NimblePros](https://nimblepros.com/), for Clean Architecture or DDD training and/or implementation assistance for your team.
 
+## Troubleshooting Chrome Errors
+
+By default the site uses HTTPS and expects you to have a self-signed developer certificate for localhost use. If you get an error with Chrome [see this answer](https://stackoverflow.com/a/31900210/13729) for mitigation instructions.
+
 ## Table Of Contents
 
 - [Clean Architecture](#clean-architecture)
+  - [Troubleshooting Chrome Errors](#troubleshooting-chrome-errors)
   - [Table Of Contents](#table-of-contents)
   - [Give a Star! :star:](#give-a-star-star)
   - [Versions](#versions)
@@ -34,10 +39,12 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
 - [Goals](#goals)
   - [History and Shameless Plug Section](#history-and-shameless-plug-section)
 - [Design Decisions and Dependencies](#design-decisions-and-dependencies)
+  - [Where To Validate](#where-to-validate)
   - [The Core Project](#the-core-project)
-  - [The SharedKernel Project](#the-sharedkernel-project)
+  - [The Use Cases Project](#the-use-cases-project)
   - [The Infrastructure Project](#the-infrastructure-project)
   - [The Web Project](#the-web-project)
+  - [The SharedKernel Project](#the-sharedkernel-project)
   - [The Test Projects](#the-test-projects)
 - [Patterns Used](#patterns-used)
   - [Domain Events](#domain-events)
@@ -165,6 +172,12 @@ dotnet ef migrations add MIGRATIONNAME -c AppDbContext -p ../Your.ProjectName.In
 ```
 
 To use SqlServer, change `options.UseSqlite(connectionString));` to `options.UseSqlServer(connectionString));` in the `Your.ProjectName.Infrastructure.StartupSetup` file. Also remember to replace the `SqliteConnection` with `DefaultConnection` in the `Your.ProjectName.Web.Program` file, which points to your Database Server.
+
+To update the database use this command from the Web project folder (replace `Clean.Architecture` with your project's name):
+
+```powershell
+dotnet ef database update -c AppDbContext -p ../Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj -s Clean.Architecture.Web.csproj
+```
 
 # Goals
 

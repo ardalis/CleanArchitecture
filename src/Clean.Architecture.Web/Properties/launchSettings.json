@@ -16,14 +16,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Clean.Architecture.Web": {
+    "https": {
       "commandName": "Project",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:57679/"
+      "applicationUrl": "https://localhost:57679/"
     }
   }
 }
