@@ -64,47 +64,7 @@ The main branch is now using .NET 8. If you need a previous version use one of t
 - [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
-- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
-
-## Controllers and Razor Pages
-
-As of the latest version, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, version 7.1. Alternately, they're easily added to this template after installation.
-
-### Add Ardalis.ApiEndpoints
-
-To use [Ardalis.ApiEndpoints](https://www.nuget.org/packages/Ardalis.ApiEndpoints) instead of (or in addition to) [FastEndpoints](https://fast-endpoints.com/), just add the reference and use the base classes from the documentation.
-
-```powershell
-dotnet add package Ardalis.ApiEndpoints
-```
-
-### Add Controllers
-
-You'll need to add support for controllers to the Program.cs file. You need:
-
-```csharp
-builder.Services.AddControllers(); // ControllersWithView if you need Views
-
-// and
-
-app.MapControllers();
-```
-
-Once these are in place, you should be able to create a Controllers folder and (optionally) a Views folder and everything should work as expected. Personally I find Razor Pages to be much better than Controllers and Views so if you haven't fully investigated Razor Pages you might want to do so right about now before you choose Views.
-
-### Add Razor Pages
-
-You'll need to add support for Razor Pages to the Program.cs file. You need:
-
-```csharp
-builder.Services.AddRazorPages();
-
-// and
-
-app.MapRazorPages();
-```
-
-Then you just add a Pages folder in the root of the project and go from there.
+- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)\
 
 ## Learn More
 
@@ -148,6 +108,46 @@ Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help gettin
 
 - Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
 - Don't use 'Ardalis' as your namespace (conflicts with dependencies).
+
+## What about Controllers and Razor Pages?
+
+As of version 9, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, version 7.1. Alternately, they're easily added to this template after installation.
+
+### Add Ardalis.ApiEndpoints
+
+To use [Ardalis.ApiEndpoints](https://www.nuget.org/packages/Ardalis.ApiEndpoints) instead of (or in addition to) [FastEndpoints](https://fast-endpoints.com/), just add the reference and use the base classes from the documentation.
+
+```powershell
+dotnet add package Ardalis.ApiEndpoints
+```
+
+### Add Controllers
+
+You'll need to add support for controllers to the Program.cs file. You need:
+
+```csharp
+builder.Services.AddControllers(); // ControllersWithView if you need Views
+
+// and
+
+app.MapControllers();
+```
+
+Once these are in place, you should be able to create a Controllers folder and (optionally) a Views folder and everything should work as expected. Personally I find Razor Pages to be much better than Controllers and Views so if you haven't fully investigated Razor Pages you might want to do so right about now before you choose Views.
+
+### Add Razor Pages
+
+You'll need to add support for Razor Pages to the Program.cs file. You need:
+
+```csharp
+builder.Services.AddRazorPages();
+
+// and
+
+app.MapRazorPages();
+```
+
+Then you just add a Pages folder in the root of the project and go from there.
 
 ## Using the GitHub Repository
 
