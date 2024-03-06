@@ -38,6 +38,6 @@ Content-Type: application/json
 ###
 
 // Delete a contributor
-@id_to_delete=4
+@id_to_delete=1
 DELETE {{host}}:{{port}}/Contributors/{{id_to_delete}}
 

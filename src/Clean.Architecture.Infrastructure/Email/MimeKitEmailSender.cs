@@ -16,7 +16,6 @@ public class MimeKitEmailSender : IEmailSender
   {
     _logger = logger;
     _mailserverConfiguration = mailserverOptions.Value!;
-
   }
 
 
@@ -25,7 +24,8 @@ public class MimeKitEmailSender : IEmailSender
     _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
     using var client = new SmtpClient(); 
-    client.Connect(_mailserverConfiguration.Hostname, _mailserverConfiguration.Port, false);
+    client.Connect(_mailserverConfiguration.Hostname, 
+      _mailserverConfiguration.Port, false);
     var message = new MimeMessage();
     message.From.Add(new MailboxAddress(from, from));
     message.To.Add(new MailboxAddress(to, to));
@@ -34,6 +34,7 @@ public class MimeKitEmailSender : IEmailSender
 
     await client.SendAsync(message);
 
-    client.Disconnect(true);
+    await client.DisconnectAsync(true, 
+      new CancellationToken(canceled: true));
   }
 }
