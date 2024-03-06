@@ -25,7 +25,7 @@ public class GetById(IMediator _mediator)
   {
     var command = new GetContributorQuery(request.ContributorId);
 
-    var result = await _mediator.Send(command);
+    var result = await _mediator.Send(command, cancellationToken);
 
     if (result.Status == ResultStatus.NotFound)
     {

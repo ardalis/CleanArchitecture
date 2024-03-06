@@ -26,7 +26,7 @@ public class Update(IMediator _mediator)
     UpdateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new UpdateContributorCommand(request.Id, request.Name!));
+    var result = await _mediator.Send(new UpdateContributorCommand(request.Id, request.Name!), cancellationToken);
 
     if (result.Status == ResultStatus.NotFound)
     {
@@ -36,7 +36,7 @@ public class Update(IMediator _mediator)
 
     var query = new GetContributorQuery(request.ContributorId);
 
-    var queryResult = await _mediator.Send(query);
+    var queryResult = await _mediator.Send(query, cancellationToken);
 
     if (queryResult.Status == ResultStatus.NotFound)
     {
