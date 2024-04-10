@@ -1,6 +1,6 @@
-﻿using Ardalis.ListStartupServices;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using Ardalis.ListStartupServices;
+using Ardalis.SharedKernel;
 using NimblePros.SampleToDo.Core;
 using NimblePros.SampleToDo.Infrastructure;
 using NimblePros.SampleToDo.Infrastructure.Data;
@@ -8,14 +8,25 @@ using NimblePros.SampleToDo.Web;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using FastEndpoints.ApiExplorer;
+using MediatR;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Contributors.Create;
+using Serilog.Extensions.Logging;
+
+var logger = Log.Logger = new LoggerConfiguration()
+  .Enrich.FromLogContext()
+  .WriteTo.Console()
+  .CreateLogger();
+
+logger.Information("Starting web host");
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
+var microsoftLogger = new SerilogLoggerFactory(logger)
+  .CreateLogger<Program>();
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -43,6 +54,11 @@ builder.Services.SwaggerDocument(o =>
 //  c.OperationFilter<FastEndpointsOperationFilter>();
 //});
 
+builder.Services.AddCoreServices(microsoftLogger);
+builder.Services.AddInfrastructureServices(microsoftLogger, builder.Environment.IsDevelopment());
+
+ConfigureMediatR();
+
 // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
 builder.Services.Configure<ServiceConfig>(config =>
 {
@@ -52,12 +68,6 @@ builder.Services.Configure<ServiceConfig>(config =>
   config.Path = "/listservices";
 });
 
-
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
-{
-  containerBuilder.RegisterModule(new DefaultCoreModule());
-  containerBuilder.RegisterModule(new AutofacInfrastructureModule(builder.Environment.IsDevelopment()));
-});
 
 var app = builder.Build();
 
@@ -80,25 +90,45 @@ app.UseHttpsRedirection();
 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
 // Seed Database
-using (var scope = app.Services.CreateScope())
-{
-  var services = scope.ServiceProvider;
-
-  try
-  {
-    var context = services.GetRequiredService<AppDbContext>();
-    //                    context.Database.Migrate();
-    context.Database.EnsureCreated();
-    SeedData.Initialize(services);
-  }
-  catch (Exception ex)
-  {
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-  }
-}
+SeedDatabase(app);
 
 app.Run();
+
+
+void ConfigureMediatR()
+{
+  var mediatRAssemblies = new[]
+  {
+    Assembly.GetAssembly(typeof(Project)), // Core
+    Assembly.GetAssembly(typeof(CreateContributorCommand)), // UseCases
+    Assembly.GetAssembly(typeof(InfrastructureServiceExtensions)) // Infrastructure
+  };
+  
+  builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
+  builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+  builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+}
+
+void SeedDatabase(WebApplication app)
+{
+  using (var scope = app.Services.CreateScope())
+  {
+    var services = scope.ServiceProvider;
+
+    try
+    {
+      var context = services.GetRequiredService<AppDbContext>();
+      //                    context.Database.Migrate();
+      context.Database.EnsureCreated();
+      SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+      var logger = services.GetRequiredService<ILogger<Program>>();
+      logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+    }
+  }
+}
 
 // Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building
 public partial class Program
