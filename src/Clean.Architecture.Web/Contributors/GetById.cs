@@ -23,9 +23,9 @@ public class GetById(IMediator _mediator)
   public override async Task HandleAsync(GetContributorByIdRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new GetContributorQuery(request.ContributorId);
+    var query = new GetContributorQuery(request.ContributorId);
 
-    var result = await _mediator.Send(command, cancellationToken);
+    var result = await _mediator.Send(query, cancellationToken);
 
     if (result.Status == ResultStatus.NotFound)
     {
