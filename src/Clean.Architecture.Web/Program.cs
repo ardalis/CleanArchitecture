@@ -76,11 +76,11 @@ app.UseFastEndpoints()
 
 app.UseHttpsRedirection();
 
-SeedDatabase(app);
+await SeedDatabase(app);
 
 app.Run();
 
-static void SeedDatabase(WebApplication app)
+static async Task SeedDatabase(WebApplication app)
 {
   using var scope = app.Services.CreateScope();
   var services = scope.ServiceProvider;
@@ -90,7 +90,7 @@ static void SeedDatabase(WebApplication app)
     var context = services.GetRequiredService<AppDbContext>();
     //          context.Database.Migrate();
     context.Database.EnsureCreated();
-    SeedData.Initialize(services);
+    await SeedData.InitializeAsync(context);
   }
   catch (Exception ex)
   {
