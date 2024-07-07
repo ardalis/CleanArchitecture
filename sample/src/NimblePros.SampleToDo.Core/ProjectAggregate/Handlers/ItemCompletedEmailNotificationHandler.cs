@@ -1,7 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using NimblePros.SampleToDo.Core.Interfaces;
+﻿using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
-using MediatR;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate.Handlers;
 

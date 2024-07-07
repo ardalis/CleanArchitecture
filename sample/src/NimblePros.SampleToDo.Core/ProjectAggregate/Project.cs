@@ -1,6 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
-using Ardalis.SharedKernel;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 

@@ -1,7 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using Ardalis.SharedKernel;
-
-namespace NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿namespace NimblePros.SampleToDo.Core.ContributorAggregate;
 
 public class Contributor : EntityBase, IAggregateRoot
 {
