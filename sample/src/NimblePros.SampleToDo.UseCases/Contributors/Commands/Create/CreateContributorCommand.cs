@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace NimblePros.SampleToDo.UseCases.Contributors.Create;
+namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 /// <summary>
 /// Create a new Contributor.

@@ -2,7 +2,7 @@
 using Ardalis.SharedKernel;
 using NimblePros.SampleToDo.Core.Interfaces;
 
-namespace NimblePros.SampleToDo.UseCases.Contributors.Delete;
+namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
 
 public class DeleteContributorHandler : ICommandHandler<DeleteContributorCommand, Result>
 {

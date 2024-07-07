@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
-using NimblePros.SampleToDo.UseCases.Contributors.Create;
+using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 using NSubstitute;
 using Xunit;
 

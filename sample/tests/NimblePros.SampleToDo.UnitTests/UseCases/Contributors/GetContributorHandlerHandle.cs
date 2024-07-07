@@ -5,6 +5,7 @@ using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
 using NimblePros.SampleToDo.UseCases.Contributors.Get;
+using NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Xunit;
