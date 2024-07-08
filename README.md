@@ -27,13 +27,13 @@ By default the site uses HTTPS and expects you to have a self-signed developer c
   - [Table Of Contents](#table-of-contents)
   - [Give a Star! :star:](#give-a-star-star)
   - [Versions](#versions)
-  - [Controllers and Razor Pages](#controllers-and-razor-pages)
-    - [Add Ardalis.ApiEndpoints](#add-ardalisapiendpoints)
-    - [Add Controllers](#add-controllers)
-    - [Add Razor Pages](#add-razor-pages)
   - [Learn More](#learn-more)
 - [Getting Started](#getting-started)
   - [Using the dotnet CLI template](#using-the-dotnet-cli-template)
+  - [What about Controllers and Razor Pages?](#what-about-controllers-and-razor-pages)
+    - [Add Ardalis.ApiEndpoints](#add-ardalisapiendpoints)
+    - [Add Controllers](#add-controllers)
+    - [Add Razor Pages](#add-razor-pages)
   - [Using the GitHub Repository](#using-the-github-repository)
   - [Running Migrations](#running-migrations)
 - [Goals](#goals)
@@ -64,7 +64,7 @@ The main branch is now using .NET 8. If you need a previous version use one of t
 - [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
-- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)\
+- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
 
 ## Learn More
 
@@ -111,7 +111,7 @@ Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help gettin
 
 ## What about Controllers and Razor Pages?
 
-As of version 9, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, version 7.1. Alternately, they're easily added to this template after installation.
+As of version 9, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, [version 7.1](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/7.1.0). Alternately, they're easily added to this template after installation.
 
 ### Add Ardalis.ApiEndpoints
 
@@ -237,7 +237,7 @@ The Core project is the center of the Clean Architecture design, and all other p
 
 An optional project, I've included it because many folks were demanding it and it's easier to remove than to add later. This is also often referred to as the *Application* or *Application Services* layer. The Use Cases project is organized following CQRS into Commands and Queries. Commands mutate the domain model and thus should always use Repository abstractions for their data access. Queries are readonly, and thus do not need to use the repository pattern, but instead can use whatever query service or approach is most convenient. However, since the Use Cases project is set up to depend on Core and not directly on Infrastructure, there will still need to be abstractions defined for its data access. And it *can* use things like specifications, which can sometimes help encapsulate query logic as well as result type mapping. But it doesn't *have* to use repository/specification - it can just issue a SQL query or call a stored procedure if that's the most efficient way to get the data.
 
-Although this is an option project to include (without it, your API endpoints would just work directly with the domain model or query services), it does provide a nice UI-ignorant place to add automated tests.
+Although this is an optional project to include (without it, your API endpoints would just work directly with the domain model or query services), it does provide a nice UI-ignorant place to add automated tests.
 
 ## The Infrastructure Project
 
