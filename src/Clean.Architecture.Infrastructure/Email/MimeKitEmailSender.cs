@@ -6,14 +6,14 @@ using MimeKit;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
-public class MimeKitEmailSender(ILogger<MimeKitEmailSender> _logger,
-  IOptions<MailserverConfiguration> _mailserverOptions) : IEmailSender
+public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
+  IOptions<MailserverConfiguration> mailserverOptions) : IEmailSender
 {
-  private readonly MailserverConfiguration _mailserverConfiguration = _mailserverOptions.Value!;
+  private readonly MailserverConfiguration _mailserverConfiguration = mailserverOptions.Value!;
 
   public async Task SendEmailAsync(string to, string from, string subject, string body)
   {
-    _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
+    logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
     using var client = new SmtpClient(); 
     client.Connect(_mailserverConfiguration.Hostname, 

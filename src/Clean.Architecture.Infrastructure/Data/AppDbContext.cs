@@ -4,10 +4,10 @@ using Clean.Architecture.Core.ContributorAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data;
-public class AppDbContext(DbContextOptions<AppDbContext> _options,
-  IDomainEventDispatcher? _dispatcher) : DbContext(_options)
+public class AppDbContext(DbContextOptions<AppDbContext> options,
+  IDomainEventDispatcher? dispatcher) : DbContext(options)
 {
-  private readonly IDomainEventDispatcher? _dispatcher = _dispatcher;
+  private readonly IDomainEventDispatcher? _dispatcher = dispatcher;
 
   public DbSet<Contributor> Contributors => Set<Contributor>();
 
