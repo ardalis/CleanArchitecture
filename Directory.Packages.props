@@ -5,7 +5,7 @@
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
     <PackageVersion Include="Ardalis.Result" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Result.AspNetCore" Version="8.0.0" />
-    <PackageVersion Include="Ardalis.SharedKernel" Version="1.4.0" />
+    <PackageVersion Include="Ardalis.SharedKernel" Version="1.5.0" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
