@@ -15,7 +15,7 @@
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.24.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
-    <PackageVersion Include="MailKit" Version="4.7.0" />
+    <PackageVersion Include="MailKit" Version="4.7.1.1" />
     <PackageVersion Include="MediatR" Version="12.3.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.7" />
@@ -31,7 +31,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
-    <PackageVersion Include="ReportGenerator" Version="5.3.7" />
+    <PackageVersion Include="ReportGenerator" Version="5.3.8" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageVersion Include="SQLite" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
