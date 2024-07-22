@@ -13,7 +13,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-      Fixes MimeKit disonnect issue.
+      Fixes MimeKit disconnect issue.
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
