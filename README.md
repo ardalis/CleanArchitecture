@@ -27,13 +27,13 @@ By default the site uses HTTPS and expects you to have a self-signed developer c
   - [Table Of Contents](#table-of-contents)
   - [Give a Star! :star:](#give-a-star-star)
   - [Versions](#versions)
-  - [Controllers and Razor Pages](#controllers-and-razor-pages)
-    - [Add Ardalis.ApiEndpoints](#add-ardalisapiendpoints)
-    - [Add Controllers](#add-controllers)
-    - [Add Razor Pages](#add-razor-pages)
   - [Learn More](#learn-more)
 - [Getting Started](#getting-started)
   - [Using the dotnet CLI template](#using-the-dotnet-cli-template)
+  - [What about Controllers and Razor Pages?](#what-about-controllers-and-razor-pages)
+    - [Add Ardalis.ApiEndpoints](#add-ardalisapiendpoints)
+    - [Add Controllers](#add-controllers)
+    - [Add Razor Pages](#add-razor-pages)
   - [Using the GitHub Repository](#using-the-github-repository)
   - [Running Migrations](#running-migrations)
 - [Goals](#goals)
@@ -64,7 +64,7 @@ The main branch is now using .NET 8. If you need a previous version use one of t
 - [5.0](https://github.com/ardalis/CleanArchitecture/releases/tag/dotnet-core-5)
 - [3.1](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-3.1)
 - [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
-- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)\
+- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
 
 ## Learn More
 
@@ -111,7 +111,7 @@ Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help gettin
 
 ## What about Controllers and Razor Pages?
 
-As of version 9, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, version 7.1. Alternately, they're easily added to this template after installation.
+As of version 9, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, [version 7.1](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/7.1.0). Alternately, they're easily added to this template after installation.
 
 ### Add Ardalis.ApiEndpoints
 
