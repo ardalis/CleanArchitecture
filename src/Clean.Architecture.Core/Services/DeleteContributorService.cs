@@ -28,6 +28,7 @@ public class DeleteContributorService(IRepository<Contributor> _repository,
     await _repository.DeleteAsync(aggregateToDelete);
     var domainEvent = new ContributorDeletedEvent(contributorId);
     await _mediator.Publish(domainEvent);
+
     return Result.Success();
   }
 }

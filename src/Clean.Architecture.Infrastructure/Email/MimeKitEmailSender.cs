@@ -6,18 +6,11 @@ using MimeKit;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
-public class MimeKitEmailSender : IEmailSender
+public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
+  IOptions<MailserverConfiguration> mailserverOptions) : IEmailSender
 {
-  private readonly ILogger<MimeKitEmailSender> _logger;
-  private readonly MailserverConfiguration _mailserverConfiguration;
-
-  public MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
-    IOptions<MailserverConfiguration> mailserverOptions)
-  {
-    _logger = logger;
-    _mailserverConfiguration = mailserverOptions.Value!;
-  }
-
+  private readonly ILogger<MimeKitEmailSender> _logger = logger;
+  private readonly MailserverConfiguration _mailserverConfiguration = mailserverOptions.Value!;
 
   public async Task SendEmailAsync(string to, string from, string subject, string body)
   {
