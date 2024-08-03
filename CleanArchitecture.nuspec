@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>9.1.2</version>
+    <version>9.2.0</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 8 and C# 12.
@@ -13,7 +13,15 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-      Fixes MimeKit disonnect issue.
+      * Update all NuGet dependencies
+      * Remove duplicate addscoped by @Emopusta in https://github.com/ardalis/CleanArchitecture/pull/703
+      * add cancellation token to mediatr send requests. by @Emopusta in https://github.com/ardalis/CleanArchitecture/pull/704
+      * Update README.md by @ardalis in https://github.com/ardalis/CleanArchitecture/pull/705
+      * Rename GetById.GetProjectByIdRequest.cs to GetById.GetContributorByIdRequest.cs by @Zaigham-Gulzar in https://github.com/ardalis/CleanArchitecture/pull/721
+      * Migrate Autofac DI to Vanilla DI in the sample project (#723) by @marcotello in https://github.com/ardalis/CleanArchitecture/pull/728
+      * Rename variable from command to query to maintain consistency by @Ahmed-SM in https://github.com/ardalis/CleanArchitecture/pull/733
+      * Fix spelling by @thahnnwb in https://github.com/ardalis/CleanArchitecture/pull/735
+      * Adding async capability to database seeding operations by @samanazadi1996 in https://github.com/ardalis/CleanArchitecture/pull/734
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />

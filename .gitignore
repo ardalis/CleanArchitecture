@@ -264,3 +264,4 @@ Packages.props
 
 #Local Log Files
 log*.txt
+/sample/src/NimblePros.SampleToDo.Web/appsettings.Development.json
