@@ -1,9 +1,6 @@
-﻿using Ardalis.SharedKernel;
-using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
-using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace NimblePros.SampleToDo.Core.ContributorAggregate.Handlers;
 

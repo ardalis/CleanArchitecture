@@ -1,6 +1,4 @@
-﻿using Ardalis.SharedKernel;
-
-namespace NimblePros.SampleToDo.Core.ProjectAggregate.Events;
+﻿namespace NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
 public class ContributorAddedToItemEvent : DomainEventBase
 {

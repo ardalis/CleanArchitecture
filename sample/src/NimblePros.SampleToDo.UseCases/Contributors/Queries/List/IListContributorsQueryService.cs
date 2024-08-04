@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Contributors.List;
+﻿namespace NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 
 /// <summary>
 /// Represents a service that will actually fetch the necessary data

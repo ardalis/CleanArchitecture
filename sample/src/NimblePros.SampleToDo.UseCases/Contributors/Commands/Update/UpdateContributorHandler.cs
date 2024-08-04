@@ -2,7 +2,7 @@
 using Ardalis.SharedKernel;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Contributors.Update;
+namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 
 public class UpdateContributorHandler : ICommandHandler<UpdateContributorCommand, Result<ContributorDTO>>
 {

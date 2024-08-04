@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.UseCases.Contributors;
-using NimblePros.SampleToDo.UseCases.Contributors.List;
 using Microsoft.EntityFrameworkCore;
+using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;
 
