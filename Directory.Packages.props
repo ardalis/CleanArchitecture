@@ -3,8 +3,8 @@
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.6.0" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="4.2.0" />
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
-    <PackageVersion Include="Ardalis.Result" Version="9.1.0" />
-    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
+    <PackageVersion Include="Ardalis.Result" Version="10.0.0" />
+    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Ardalis.SharedKernel" Version="1.6.0" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
