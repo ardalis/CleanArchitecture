@@ -46,7 +46,7 @@ public class ToDoItemSearchService : IToDoItemSearchService
     catch (Exception ex)
     {
       // TODO: Log details here
-      return Result<List<ToDoItem>>.Error(new[] { ex.Message });
+      return Result<List<ToDoItem>>.Error( ex.Message );
     }
   }
 
