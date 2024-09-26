@@ -3,8 +3,8 @@
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.6.0" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="4.2.0" />
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
-    <PackageVersion Include="Ardalis.Result" Version="9.1.0" />
-    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
+    <PackageVersion Include="Ardalis.Result" Version="10.0.0" />
+    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Ardalis.SharedKernel" Version="1.6.0" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
@@ -12,7 +12,7 @@
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="FastEndpoints" Version="5.29.0" />
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
-    <PackageVersion Include="FastEndpoints.Swagger" Version="5.28.0" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.29.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.1" />
     <PackageVersion Include="MailKit" Version="4.7.1.1" />
