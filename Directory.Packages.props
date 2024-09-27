@@ -35,7 +35,7 @@
     <PackageVersion Include="SQLite" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-    <PackageVersion Include="xunit" Version="2.9.1" />
+    <PackageVersion Include="xunit" Version="2.9.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 </Project>
