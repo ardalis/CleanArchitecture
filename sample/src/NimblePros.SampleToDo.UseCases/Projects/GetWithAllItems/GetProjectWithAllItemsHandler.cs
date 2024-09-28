@@ -25,7 +25,7 @@ public class GetProjectWithAllItemsHandler : IQueryHandler<GetProjectWithAllItem
 
     var items = entity.Items
               .Select(i => new ToDoItemDTO(i.Id, i.Title, i.Description, i.IsDone, i.ContributorId)).ToList();
-    return new ProjectWithAllItemsDTO(entity.Id, entity.Name, items, entity.Status.ToString())
+    return new ProjectWithAllItemsDTO(entity.Id, entity.Name.Value, items, entity.Status.ToString())
       ;
   }
 }

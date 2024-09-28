@@ -1,12 +1,21 @@
 ﻿using Ardalis.GuardClauses;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 using Ardalis.SharedKernel;
+using Vogen;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
+[ValueObject<string>(conversions: Conversions.EfCoreValueConverter | Conversions.SystemTextJson)]
+public partial class ProjectName
+{
+  private static Validation Validate(in string name) => String.IsNullOrEmpty(name) ? 
+    Validation.Invalid("Name cannot be empty") : 
+    Validation.Ok;
+}
+
 public class Project : EntityBase, IAggregateRoot
 {
-  public string Name { get; private set; }
+  public ProjectName Name { get; private set; }
 
   private readonly List<ToDoItem> _items = new();
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
@@ -15,10 +24,10 @@ public class Project : EntityBase, IAggregateRoot
   // Note: Probably it makes more sense to prioritize items, not projects, but this is just an example
   public Priority Priority { get; }
 
-  public Project(string name, Priority priority)
+  public Project(ProjectName name, Priority priority)
   {
-    Name = Guard.Against.NullOrEmpty(name);
     Priority = priority;
+    Name = name;
   }
 
   public void AddItem(ToDoItem newItem)
@@ -30,8 +39,8 @@ public class Project : EntityBase, IAggregateRoot
     base.RegisterDomainEvent(newItemAddedEvent);
   }
 
-  public void UpdateName(string newName)
+  public void UpdateName(ProjectName newName)
   {
-    Name = Guard.Against.NullOrEmpty(newName);
+    Name = newName;
   }
 }

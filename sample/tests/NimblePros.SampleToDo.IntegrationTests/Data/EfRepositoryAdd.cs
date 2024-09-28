@@ -8,7 +8,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
   [Fact]
   public async Task AddsProjectAndSetsId()
   {
-    var testProjectName = "testProject";
+    var testProjectName = ProjectName.From("testProject");
     var testProjectPriority = Priority.Backlog;
     var repository = GetRepository();
     var project = new Project(testProjectName, testProjectPriority);
