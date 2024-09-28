@@ -1,17 +1,8 @@
 ﻿using Ardalis.GuardClauses;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 using Ardalis.SharedKernel;
-using Vogen;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
-
-[ValueObject<string>(conversions: Conversions.EfCoreValueConverter | Conversions.SystemTextJson)]
-public partial class ProjectName
-{
-  private static Validation Validate(in string name) => String.IsNullOrEmpty(name) ? 
-    Validation.Invalid("Name cannot be empty") : 
-    Validation.Ok;
-}
 
 public class Project : EntityBase, IAggregateRoot
 {
