@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
-using NimblePros.SampleToDo.UseCases.Contributors.Get;
+using NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 

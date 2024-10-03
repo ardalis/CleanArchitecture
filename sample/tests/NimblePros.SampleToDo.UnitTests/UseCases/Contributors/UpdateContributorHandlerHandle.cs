@@ -4,7 +4,7 @@ using Ardalis.Specification;
 using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
-using NimblePros.SampleToDo.UseCases.Contributors.Update;
+using NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Xunit;

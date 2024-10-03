@@ -6,7 +6,7 @@ namespace NimblePros.SampleToDo.UnitTests.Core.ProjectAggregate;
 public class ProjectConstructor
 {
   private string _testName = "test name";
-  private PriorityStatus _testPriority = PriorityStatus.Backlog;
+  private Priority _testPriority = Priority.Backlog;
   private Project? _testProject;
 
   private Project CreateProject()

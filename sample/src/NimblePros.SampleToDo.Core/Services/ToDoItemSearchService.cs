@@ -1,8 +1,6 @@
-﻿using Ardalis.Result;
-using NimblePros.SampleToDo.Core.Interfaces;
+﻿using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
-using Ardalis.SharedKernel;
 
 namespace NimblePros.SampleToDo.Core.Services;
 
@@ -46,7 +44,7 @@ public class ToDoItemSearchService : IToDoItemSearchService
     catch (Exception ex)
     {
       // TODO: Log details here
-      return Result<List<ToDoItem>>.Error(new[] { ex.Message });
+      return Result<List<ToDoItem>>.Error( ex.Message );
     }
   }
 

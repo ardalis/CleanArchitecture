@@ -5,7 +5,7 @@ namespace NimblePros.SampleToDo.UnitTests.Core.ProjectAggregate;
 
 public class Project_AddItem
 {
-  private Project _testProject = new Project("some name", PriorityStatus.Backlog);
+  private Project _testProject = new Project("some name", Priority.Backlog);
 
   [Fact]
   public void AddsItemToItems()

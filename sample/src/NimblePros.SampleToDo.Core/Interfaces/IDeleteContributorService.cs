@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace NimblePros.SampleToDo.Core.Interfaces;
+﻿namespace NimblePros.SampleToDo.Core.Interfaces;
 
 public interface IDeleteContributorService
 {
