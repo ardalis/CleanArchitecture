@@ -8,6 +8,12 @@ public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
 {
   public void Configure(EntityTypeBuilder<ToDoItem> builder)
   {
+    // TODO: Use Vogen to generate this
+    builder.Property(t => t.Id)
+      .HasConversion(
+        t => t.Value,
+        t => ToDoItemId.From(t))
+      .IsRequired();
     builder.Property(t => t.Title)
         .IsRequired();
     builder.Property(t => t.ContributorId)

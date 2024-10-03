@@ -1,11 +1,12 @@
 ﻿using Ardalis.GuardClauses;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 using Ardalis.SharedKernel;
-
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
-public class ToDoItem : EntityBase
+public class ToDoItem : EntityBase<ToDoItemId>
 {
+  //public new ToDoItemId Id { get; set; } = ToDoItemId.New;
+
   public string Title { get; set; } = string.Empty;
   public string Description { get; set; } = string.Empty;
   public int? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
