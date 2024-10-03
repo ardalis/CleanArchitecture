@@ -6,17 +6,21 @@ using Ardalis.HttpClientTestExtensions;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 using NimblePros.SampleToDo.Web.Projects;
 using FluentAssertions;
+using NimblePros.SampleToDo.FunctionalTests.ClassFixtures;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
 [Collection("Sequential")]
-public class ProjectItemMarkComplete : IClassFixture<CustomWebApplicationFactory<Program>>
+public class ProjectItemMarkComplete : 
+  IClassFixture<CustomWebApplicationFactory<Program>>,
+  IClassFixture<SmtpServerFixture>
 {
   private readonly HttpClient _client;
 
-  public ProjectItemMarkComplete(CustomWebApplicationFactory<Program> factory)
+  public ProjectItemMarkComplete(CustomWebApplicationFactory<Program> factory, SmtpServerFixture smtpServer)
   {
     _client = factory.CreateClient();
+    smtpServer.EnsureContainerIsRunning();
   }
 
   [Fact]
