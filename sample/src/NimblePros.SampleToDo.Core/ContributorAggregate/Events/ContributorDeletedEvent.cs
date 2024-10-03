@@ -1,6 +1,4 @@
-﻿using Ardalis.SharedKernel;
-
-namespace NimblePros.SampleToDo.Core.ContributorAggregate.Events;
+﻿namespace NimblePros.SampleToDo.Core.ContributorAggregate.Events;
 
 /// <summary>
 /// A domain event that is dispatched whenever a contributor is deleted.

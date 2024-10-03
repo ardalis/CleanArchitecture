@@ -1,6 +1,4 @@
-﻿using Ardalis.Specification;
-
-namespace NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
+﻿namespace NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
 public class ProjectsWithItemsByContributorIdSpec : Specification<Project>
 {
