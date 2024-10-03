@@ -40,7 +40,7 @@ public class ToDoItemSearchServiceTests
   public async Task ReturnsAllIncompleteItems()
   {
     var title = "Some Title";
-    Project project = new Project("Cool Project", PriorityStatus.Backlog);
+    Project project = new Project("Cool Project", Priority.Backlog);
     
     project.AddItem(new ToDoItem
     {

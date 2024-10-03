@@ -15,6 +15,6 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     builder.Property(p => p.Priority)
       .HasConversion(
           p => p.Value,
-          p => PriorityStatus.FromValue(p));
+          p => Priority.FromValue(p));
   }
 }

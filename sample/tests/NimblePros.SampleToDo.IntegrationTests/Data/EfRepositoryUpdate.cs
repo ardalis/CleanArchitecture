@@ -12,7 +12,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     // add a project
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
-    var project = new Project(initialName, PriorityStatus.Backlog);
+    var project = new Project(initialName, Priority.Backlog);
 
     await repository.AddAsync(project);
 
