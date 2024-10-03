@@ -12,8 +12,8 @@ using MediatR;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.UseCases.Contributors.Create;
 using Serilog.Extensions.Logging;
+using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
