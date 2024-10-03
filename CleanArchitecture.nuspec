@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>9.2.0</version>
+    <version>9.3.0</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 8 and C# 12.
@@ -14,14 +14,12 @@
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
       * Update all NuGet dependencies
-      * Remove duplicate addscoped by @Emopusta in https://github.com/ardalis/CleanArchitecture/pull/703
-      * add cancellation token to mediatr send requests. by @Emopusta in https://github.com/ardalis/CleanArchitecture/pull/704
-      * Update README.md by @ardalis in https://github.com/ardalis/CleanArchitecture/pull/705
-      * Rename GetById.GetProjectByIdRequest.cs to GetById.GetContributorByIdRequest.cs by @Zaigham-Gulzar in https://github.com/ardalis/CleanArchitecture/pull/721
-      * Migrate Autofac DI to Vanilla DI in the sample project (#723) by @marcotello in https://github.com/ardalis/CleanArchitecture/pull/728
-      * Rename variable from command to query to maintain consistency by @Ahmed-SM in https://github.com/ardalis/CleanArchitecture/pull/733
-      * Fix spelling by @thahnnwb in https://github.com/ardalis/CleanArchitecture/pull/735
-      * Adding async capability to database seeding operations by @samanazadi1996 in https://github.com/ardalis/CleanArchitecture/pull/734
+      * change Result to impilict type in UpdateContributorhandler by @akbaramd in https://github.com/ardalis/CleanArchitecture/pull/741
+      * Primary constructor implement by @KhanbalaRashidov in https://github.com/ardalis/CleanArchitecture/pull/762
+      * Clean.Architecture.Web/Program.cs configuration over all clean up by @TadehB7 in https://github.com/ardalis/CleanArchitecture/pull/821
+      * chore: update jquery.validate.js by @eltociear in https://github.com/ardalis/CleanArchitecture/pull/788
+      * KISS principle & fluent builder pattern by @aminsharifi in https://github.com/ardalis/CleanArchitecture/pull/763
+      * Added smtp server instance in functional tests using test-containers by @Asafima in https://github.com/ardalis/CleanArchitecture/pull/805
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
