@@ -5,9 +5,9 @@ using FastEndpoints.Swagger;
 
 namespace Clean.Architecture.Web.Configurations;
 
-public static class WebApplicatonConfigs
+public static class WebApplicationConfigs
 {
-  public static async Task<IApplicationBuilder> UseWebApplicationConfigs(this WebApplication app)
+  public static async Task<IApplicationBuilder> UseAppMiddleware(this WebApplication app)
   {
     if (app.Environment.IsDevelopment())
     {
@@ -23,13 +23,11 @@ public static class WebApplicatonConfigs
     app.UseFastEndpoints()
         .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
-
     app.UseHttpsRedirection();
 
     await SeedDatabase(app);
 
     return app;
-
   }
 
   static async Task SeedDatabase(WebApplication app)
