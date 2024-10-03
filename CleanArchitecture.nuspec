@@ -18,7 +18,7 @@
       * Primary constructor implement by @KhanbalaRashidov in https://github.com/ardalis/CleanArchitecture/pull/762
       * Clean.Architecture.Web/Program.cs configuration over all clean up by @TadehB7 in https://github.com/ardalis/CleanArchitecture/pull/821
       * chore: update jquery.validate.js by @eltociear in https://github.com/ardalis/CleanArchitecture/pull/788
-      * KISS principle & fluent builder pattern by @aminsharifi in https://github.com/ardalis/CleanArchitecture/pull/763
+      * KISS principle and fluent builder pattern by @aminsharifi in https://github.com/ardalis/CleanArchitecture/pull/763
       * Added smtp server instance in functional tests using test-containers by @Asafima in https://github.com/ardalis/CleanArchitecture/pull/805
     </releaseNotes>
     <packageTypes>
