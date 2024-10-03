@@ -6,9 +6,10 @@
     <PackageVersion Include="Ardalis.Result" Version="10.0.0" />
     <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.0.0" />
     <PackageVersion Include="Ardalis.SharedKernel" Version="1.6.0" />
-    <PackageVersion Include="Ardalis.SmartEnum" Version="8.0.0" />
+    <PackageVersion Include="Ardalis.SmartEnum" Version="8.1.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.12.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="FastEndpoints" Version="5.30.0" />
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
