@@ -17,7 +17,7 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
     _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
     using var client = new SmtpClient(); 
-    client.Connect(_mailserverConfiguration.Hostname, 
+    await client.ConnectAsync(_mailserverConfiguration.Hostname, 
       _mailserverConfiguration.Port, false);
     var message = new MimeMessage();
     message.From.Add(new MailboxAddress(from, from));
