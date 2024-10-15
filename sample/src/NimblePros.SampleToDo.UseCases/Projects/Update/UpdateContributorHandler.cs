@@ -8,9 +8,9 @@ namespace NimblePros.SampleToDo.UseCases.Contributors.Update;
 
 public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result<ProjectDTO>>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Project> _repository;
 
-  public UpdateProjectHandler(IRepository<Project> repository)
+  public UpdateProjectHandler(SharedKernel.Interfaces.IRepository<Project> repository)
   {
     _repository = repository;
   }

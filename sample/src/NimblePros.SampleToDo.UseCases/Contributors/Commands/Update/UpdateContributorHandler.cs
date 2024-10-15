@@ -6,9 +6,9 @@ namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 
 public class UpdateContributorHandler : ICommandHandler<UpdateContributorCommand, Result<ContributorDTO>>
 {
-  private readonly IRepository<Contributor> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Contributor> _repository;
 
-  public UpdateContributorHandler(IRepository<Contributor> repository)
+  public UpdateContributorHandler(SharedKernel.Interfaces.IRepository<Contributor> repository)
   {
     _repository = repository;
   }

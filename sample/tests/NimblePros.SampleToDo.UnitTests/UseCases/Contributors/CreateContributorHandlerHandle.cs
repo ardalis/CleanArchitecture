@@ -1,4 +1,4 @@
-﻿using Ardalis.SharedKernel;
+﻿using NimblePros.SharedKernel.Interfaces;
 using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;

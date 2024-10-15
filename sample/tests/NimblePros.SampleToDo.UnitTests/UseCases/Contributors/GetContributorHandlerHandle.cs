@@ -1,5 +1,5 @@
 ﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
+using NimblePros.SharedKernel.Interfaces;
 using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
@@ -18,7 +18,7 @@ public class GetContributorHandlerHandle
 
   public GetContributorHandlerHandle()
   {
-      _handler = new GetContributorHandler(_repository);
+    _handler = new GetContributorHandler(_repository);
   }
 
   [Fact]

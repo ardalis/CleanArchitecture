@@ -10,9 +10,9 @@ namespace NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
 /// </summary>
 public class GetProjectWithAllItemsHandler : IQueryHandler<GetProjectWithAllItemsQuery, Result<ProjectWithAllItemsDTO>>
 {
-  private readonly IReadRepository<Project> _repository;
+  private readonly SharedKernel.Interfaces.IReadRepository<Project> _repository;
 
-  public GetProjectWithAllItemsHandler(IReadRepository<Project> repository)
+  public GetProjectWithAllItemsHandler(SharedKernel.Interfaces.IReadRepository<Project> repository)
   {
     _repository = repository;
   }

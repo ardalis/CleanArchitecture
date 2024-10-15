@@ -10,9 +10,9 @@ namespace NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
 /// </summary>
 public class GetContributorHandler : IQueryHandler<GetContributorQuery, Result<ContributorDTO>>
 {
-  private readonly IReadRepository<Contributor> _repository;
+  private readonly SharedKernel.Interfaces.IReadRepository<Contributor> _repository;
 
-  public GetContributorHandler(IReadRepository<Contributor> repository)
+  public GetContributorHandler(SharedKernel.Interfaces.IReadRepository<Contributor> repository)
   {
     _repository = repository;
   }

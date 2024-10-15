@@ -7,9 +7,9 @@ namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 
 public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<int>>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Project> _repository;
 
-  public AddToDoItemHandler(IRepository<Project> repository)
+  public AddToDoItemHandler(SharedKernel.Interfaces.IRepository<Project> repository)
   {
     _repository = repository;
   }
@@ -30,7 +30,7 @@ public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<int
       Description = request.Description!
     };
 
-    if(request.ContributorId.HasValue)
+    if (request.ContributorId.HasValue)
     {
       newItem.AddContributor(request.ContributorId.Value);
     }
