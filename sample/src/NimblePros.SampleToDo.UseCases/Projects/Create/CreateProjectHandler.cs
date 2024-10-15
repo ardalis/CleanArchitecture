@@ -6,9 +6,9 @@ namespace NimblePros.SampleToDo.UseCases.Projects.Create;
 
 public class CreateProjectHandler : ICommandHandler<CreateProjectCommand, Result<int>>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Project> _repository;
 
-  public CreateProjectHandler(IRepository<Project> repository)
+  public CreateProjectHandler(SharedKernel.Interfaces.IRepository<Project> repository)
   {
     _repository = repository;
   }

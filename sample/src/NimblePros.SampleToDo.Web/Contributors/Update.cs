@@ -1,5 +1,5 @@
 ﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
+using NimblePros.SharedKernel.Interfaces;
 using FastEndpoints;
 using MediatR;
 using NimblePros.SampleToDo.Core.ContributorAggregate;

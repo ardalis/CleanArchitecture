@@ -6,9 +6,9 @@ namespace NimblePros.SampleToDo.UseCases.Projects.Delete;
 
 public class DeleteProjectHandler : ICommandHandler<DeleteProjectCommand, Result>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Project> _repository;
 
-  public DeleteProjectHandler(IRepository<Project> repository)
+  public DeleteProjectHandler(SharedKernel.Interfaces.IRepository<Project> repository)
   {
     _repository = repository;
   }

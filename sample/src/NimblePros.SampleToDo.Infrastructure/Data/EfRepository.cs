@@ -1,5 +1,5 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
-using Ardalis.SharedKernel;
+using NimblePros.SharedKernel.Interfaces;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 

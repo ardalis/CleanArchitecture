@@ -27,6 +27,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="NimblePros.SharedKernel" Version="1.0.0" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="ReportGenerator" Version="5.3.9" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.2" />

@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.Services;
-using Ardalis.SharedKernel;
+using NimblePros.SharedKernel.Interfaces;
 using MediatR;
 using Xunit;
 using Microsoft.Extensions.Logging;

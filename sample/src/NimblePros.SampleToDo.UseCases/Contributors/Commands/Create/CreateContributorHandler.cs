@@ -6,9 +6,9 @@ namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 public class CreateContributorHandler : ICommandHandler<CreateContributorCommand, Result<int>>
 {
-  private readonly IRepository<Contributor> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Contributor> _repository;
 
-  public CreateContributorHandler(IRepository<Contributor> repository)
+  public CreateContributorHandler(SharedKernel.Interfaces.IRepository<Contributor> repository)
   {
     _repository = repository;
   }

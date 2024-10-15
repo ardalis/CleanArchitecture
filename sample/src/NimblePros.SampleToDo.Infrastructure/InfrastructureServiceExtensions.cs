@@ -1,4 +1,4 @@
-﻿using Ardalis.SharedKernel;
+﻿using NimblePros.SharedKernel.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NimblePros.SampleToDo.Core.Interfaces;
@@ -26,11 +26,11 @@ public static class InfrastructureServiceExtensions
     {
       RegisterProductionOnlyDependencies(services);
     }
-    
+
     RegisterEF(services);
-    
+
     logger.LogInformation("{Project} services registered", "Infrastructure");
-    
+
     return services;
   }
 
@@ -41,7 +41,7 @@ public static class InfrastructureServiceExtensions
     services.AddScoped<IListIncompleteItemsQueryService, FakeListIncompleteItemsQueryService>();
     services.AddScoped<IListProjectsShallowQueryService, FakeListProjectsShallowQueryService>();
   }
-  
+
   private static void RegisterProductionOnlyDependencies(IServiceCollection services)
   {
     services.AddScoped<IEmailSender, SmtpEmailSender>();

@@ -3,7 +3,7 @@ using Ardalis.Specification;
 using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.Services;
-using Ardalis.SharedKernel;
+using NimblePros.SharedKernel.Interfaces;
 using Xunit;
 using NSubstitute;
 
@@ -13,21 +13,21 @@ public class ToDoItemSearchServiceTests
 {
   private readonly IToDoItemSearchService _service;
   private readonly IRepository<Project> _repo = Substitute.For<IRepository<Project>>();
-  
+
   public ToDoItemSearchServiceTests()
   {
     _service = new ToDoItemSearchService(_repo);
-    
+
   }
 
   [Fact]
   public async Task ReturnsValidationErrors()
   {
     var projects = await _service.GetAllIncompleteItemsAsync(0, string.Empty);
-    
+
     Assert.NotEmpty(projects.ValidationErrors);
   }
-  
+
   [Fact]
   public async Task ReturnsProjectNotFound()
   {
@@ -35,13 +35,13 @@ public class ToDoItemSearchServiceTests
 
     Assert.Equal(ResultStatus.NotFound, projects.Status);
   }
-  
+
   [Fact]
   public async Task ReturnsAllIncompleteItems()
   {
     var title = "Some Title";
     Project project = new Project("Cool Project", Priority.Backlog);
-    
+
     project.AddItem(new ToDoItem
     {
       Title = title,

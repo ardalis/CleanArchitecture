@@ -7,9 +7,9 @@ namespace NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
 
 public class MarkToDoItemCompleteHandler : ICommandHandler<MarkToDoItemCompleteCommand, Result>
 {
-  private readonly IRepository<Project> _repository;
+  private readonly SharedKernel.Interfaces.IRepository<Project> _repository;
 
-  public MarkToDoItemCompleteHandler(IRepository<Project> repository)
+  public MarkToDoItemCompleteHandler(SharedKernel.Interfaces.IRepository<Project> repository)
   {
     _repository = repository;
   }

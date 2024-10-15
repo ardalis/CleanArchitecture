@@ -1,9 +1,7 @@
 ﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using Ardalis.Specification;
+using NimblePros.SharedKernel.Interfaces;
 using FluentAssertions;
 using NimblePros.SampleToDo.Core.ContributorAggregate;
-using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
@@ -20,7 +18,7 @@ public class UpdateContributorHandlerHandle
 
   public UpdateContributorHandlerHandle()
   {
-      _handler = new UpdateContributorHandler(_repository);
+    _handler = new UpdateContributorHandler(_repository);
   }
 
   [Fact]
