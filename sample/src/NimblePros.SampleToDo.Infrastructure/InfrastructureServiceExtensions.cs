@@ -6,8 +6,8 @@ using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Infrastructure.Data.Queries;
 using NimblePros.SampleToDo.Infrastructure.Email;
 using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
-using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
-using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.ListShallow;
 
 namespace NimblePros.SampleToDo.Infrastructure;
 

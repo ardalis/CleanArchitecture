@@ -1,14 +1,7 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Ardalis.SharedKernel;
-using Microsoft.AspNetCore.Mvc;
-//using Swashbuckle.AspNetCore.Annotations;
-using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
+﻿using Ardalis.Result;
 using FastEndpoints;
-using NimblePros.SampleToDo.Web.Contributors;
 using MediatR;
-using Ardalis.Result;
-using NimblePros.SampleToDo.UseCases.Contributors.Update;
-using NimblePros.SampleToDo.UseCases.Projects.Update;
+using NimblePros.SampleToDo.UseCases.Projects.Commands.Update;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 

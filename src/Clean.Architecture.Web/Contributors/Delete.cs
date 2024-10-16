@@ -1,5 +1,5 @@
 ﻿using Ardalis.Result;
-using Clean.Architecture.UseCases.Contributors.Delete;
+using Clean.Architecture.UseCases.Contributors.Commands.Delete;
 using FastEndpoints;
 using MediatR;
 

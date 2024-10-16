@@ -1,5 +1,5 @@
 ﻿using Ardalis.Result;
-using Clean.Architecture.UseCases.Contributors.Get;
+using Clean.Architecture.UseCases.Contributors.Queries.Get;
 using FastEndpoints;
 using MediatR;
 

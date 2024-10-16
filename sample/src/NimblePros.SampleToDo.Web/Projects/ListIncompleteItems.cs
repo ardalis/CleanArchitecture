@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
-using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
 using NimblePros.SampleToDo.Web.Endpoints.ProjectEndpoints;
 
 namespace NimblePros.SampleToDo.Web.Projects;
