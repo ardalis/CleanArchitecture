@@ -6,15 +6,10 @@ public class Contributor : EntityBase, IAggregateRoot
 
   public Contributor(string name)
   {
-    SetName(name);
+    UpdateName(name);
   }
 
-  public void UpdateName(string newName)
-  {
-    SetName(newName);
-  }
-
-  public Contributor SetName(string newName)
+  public Contributor UpdateName(string newName)
   {
     this.Name = Guard.Against.NullOrEmpty(newName, nameof(newName));
     return this;

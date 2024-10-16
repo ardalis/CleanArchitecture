@@ -4,9 +4,9 @@ namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
 public class Project : EntityBase, IAggregateRoot
 {
-  public string Name { get; private set; }
+  public string Name { get; private set; } = default!;
 
-  private readonly List<ToDoItem> _items = new();
+  private readonly List<ToDoItem> _items = [];
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
   public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
 
@@ -15,21 +15,23 @@ public class Project : EntityBase, IAggregateRoot
 
   public Project(string name, Priority priority)
   {
-    Name = Guard.Against.NullOrEmpty(name);
+    UpdateName(name);
     Priority = priority;
   }
 
-  public void AddItem(ToDoItem newItem)
+  public Project AddItem(ToDoItem newItem)
   {
     Guard.Against.Null(newItem);
     _items.Add(newItem);
 
     var newItemAddedEvent = new NewItemAddedEvent(this, newItem);
     base.RegisterDomainEvent(newItemAddedEvent);
+    return this;
   }
 
-  public void UpdateName(string newName)
+  public Project UpdateName(string newName)
   {
     Name = Guard.Against.NullOrEmpty(newName);
+    return this;
   }
 }
