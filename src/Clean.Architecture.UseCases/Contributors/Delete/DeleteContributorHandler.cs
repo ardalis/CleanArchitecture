@@ -1,4 +1,5 @@
 ﻿using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.UseCases.Contributors.Commands.Delete;
 
 namespace Clean.Architecture.UseCases.Contributors.Delete;
 
