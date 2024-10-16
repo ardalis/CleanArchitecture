@@ -10,12 +10,8 @@ public class Project : EntityBase, IAggregateRoot
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
   public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
 
-  // Note: Probably it makes more sense to prioritize items, not projects, but this is just an example
-  public Priority Priority { get; }
-
-  public Project(ProjectName name, Priority priority)
+  public Project(ProjectName name)
   {
-    Priority = priority;
     Name = name;
   }
 

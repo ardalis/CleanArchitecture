@@ -1,6 +1,4 @@
-﻿using Ardalis.SmartEnum;
-
-namespace NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
 public class Priority : SmartEnum<Priority>
 {

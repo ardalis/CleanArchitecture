@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 
-public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
+public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
 {
   public void Configure(EntityTypeBuilder<ToDoItem> builder)
   {
@@ -18,5 +18,9 @@ public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
         .IsRequired();
     builder.Property(t => t.ContributorId)
         .IsRequired(false);
+    builder.Property(t => t.Priority)
+      .HasConversion(
+          p => p.Value,
+          p => Priority.FromValue(p));
   }
 }

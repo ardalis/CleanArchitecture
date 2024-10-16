@@ -9,9 +9,8 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
   public async Task AddsProjectAndSetsId()
   {
     var testProjectName = ProjectName.From("testProject");
-    var testProjectPriority = Priority.Backlog;
     var repository = GetRepository();
-    var project = new Project(testProjectName, testProjectPriority);
+    var project = new Project(testProjectName);
 
     var item = new ToDoItem();
     item.Title = "test item title";
@@ -23,7 +22,6 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
                     .FirstOrDefault();
 
     Assert.Equal(testProjectName, newProject?.Name);
-    Assert.Equal(testProjectPriority, newProject?.Priority);
     Assert.True(newProject?.Id > 0);
   }
 }
