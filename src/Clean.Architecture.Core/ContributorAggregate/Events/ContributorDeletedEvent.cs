@@ -1,6 +1,4 @@
-﻿using Ardalis.SharedKernel;
-
-namespace Clean.Architecture.Core.ContributorAggregate.Events;
+﻿namespace Clean.Architecture.Core.ContributorAggregate.Events;
 
 /// <summary>
 /// A domain event that is dispatched whenever a contributor is deleted.

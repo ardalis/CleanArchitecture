@@ -1,6 +1,4 @@
 ﻿using Clean.Architecture.UseCases.Contributors.Create;
-using FastEndpoints;
-using MediatR;
 
 namespace Clean.Architecture.Web.Contributors;
 

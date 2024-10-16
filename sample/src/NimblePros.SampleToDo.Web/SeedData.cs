@@ -1,7 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace NimblePros.SampleToDo.Web;
 

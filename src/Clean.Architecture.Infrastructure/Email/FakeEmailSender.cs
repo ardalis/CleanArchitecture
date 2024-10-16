@@ -1,5 +1,4 @@
 ﻿using Clean.Architecture.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.Infrastructure.Email;
 

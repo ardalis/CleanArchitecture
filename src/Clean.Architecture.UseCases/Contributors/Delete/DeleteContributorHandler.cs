@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using Clean.Architecture.Core.Interfaces;
+﻿using Clean.Architecture.Core.Interfaces;
 
 namespace Clean.Architecture.UseCases.Contributors.Delete;
 
