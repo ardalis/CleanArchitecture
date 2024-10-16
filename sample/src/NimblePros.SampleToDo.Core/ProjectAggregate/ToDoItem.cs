@@ -1,6 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 using Ardalis.SharedKernel;
+
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
 public class ToDoItem : EntityBase<ToDoItemId>

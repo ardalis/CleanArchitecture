@@ -1,6 +1,4 @@
-﻿using Ardalis.Specification;
-
-namespace NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
+﻿namespace NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
 
 public class ContributorByIdSpec : Specification<Contributor>
 {

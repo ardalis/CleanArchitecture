@@ -16,11 +16,11 @@ logger.Information("Starting web host");
 
 builder.AddLoggerConfigs();
 
-var microsoftLogger = new SerilogLoggerFactory(logger)
+var appLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
 
-builder.Services.AddOptionConfigs(builder.Configuration, microsoftLogger, builder);
-builder.Services.AddServiceConfigs(microsoftLogger, builder);
+builder.Services.AddOptionConfigs(builder.Configuration, appLogger, builder);
+builder.Services.AddServiceConfigs(appLogger, builder);
 
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument(o =>
@@ -30,11 +30,9 @@ builder.Services.AddFastEndpoints()
 
 var app = builder.Build();
 
-await app.UseWebApplicationConfigs();
-
+await app.UseAppMiddleware();
 
 app.Run();
-
 
 // Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building
 public partial class Program { }

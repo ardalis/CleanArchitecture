@@ -757,7 +757,7 @@ $.extend( $.validator, {
 				normalizer = this.settings.normalizer;
 			}
 
-			// If normalizer is defined, then call it to retreive the changed value instead
+			// If normalizer is defined, then call it to retrieve the changed value instead
 			// of using the real one.
 			// Note that `this` in the normalizer is `element`.
 			if ( normalizer ) {
