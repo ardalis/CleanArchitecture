@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Projects\AddContributorToItem\**" />
+    <EmbeddedResource Remove="Projects\AddContributorToItem\**" />
+    <None Remove="Projects\AddContributorToItem\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" />
@@ -14,10 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NimblePros.SampleToDo.Core\NimblePros.SampleToDo.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Projects\AddContributorToItem\" />
   </ItemGroup>
 
 </Project>

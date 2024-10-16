@@ -1,5 +1,4 @@
 ﻿using NimblePros.SampleToDo.Core.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace NimblePros.SampleToDo.Infrastructure.Email;
 

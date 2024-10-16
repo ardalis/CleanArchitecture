@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using Clean.Architecture.Core.ContributorAggregate;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.ContributorAggregate.Specifications;
 
 namespace Clean.Architecture.UseCases.Contributors.Get;

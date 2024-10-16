@@ -1,6 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
-using Xunit;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Specifications;
 

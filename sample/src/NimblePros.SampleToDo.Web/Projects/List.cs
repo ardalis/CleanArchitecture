@@ -1,6 +1,4 @@
-﻿using FastEndpoints;
-using MediatR;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
 
 namespace NimblePros.SampleToDo.Web.Projects;

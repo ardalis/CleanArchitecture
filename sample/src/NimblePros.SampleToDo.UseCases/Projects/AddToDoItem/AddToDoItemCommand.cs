@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+﻿namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 
 /// <summary>
 /// Creates a new ToDoItem and adds it to a Project
