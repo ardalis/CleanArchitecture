@@ -1,10 +1,7 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using Clean.Architecture.Core.ContributorAggregate;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.ContributorAggregate.Events;
 using Clean.Architecture.Core.Interfaces;
-using MediatR;
-using Microsoft.Extensions.Logging;
+
 
 namespace Clean.Architecture.Core.Services;
 

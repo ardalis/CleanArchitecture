@@ -1,6 +1,4 @@
-﻿using FastEndpoints;
-using MediatR;
-using NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
+﻿using NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
 

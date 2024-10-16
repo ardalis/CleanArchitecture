@@ -1,6 +1,5 @@
 ﻿using Clean.Architecture.UseCases.Contributors;
 using Clean.Architecture.UseCases.Contributors.List;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data.Queries;
 

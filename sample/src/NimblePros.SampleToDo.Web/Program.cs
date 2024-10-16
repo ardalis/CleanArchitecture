@@ -1,19 +1,9 @@
-﻿using System.Reflection;
-using Ardalis.ListStartupServices;
-using Ardalis.SharedKernel;
-using NimblePros.SampleToDo.Core;
+﻿using NimblePros.SampleToDo.Core;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Infrastructure;
 using NimblePros.SampleToDo.Infrastructure.Data;
-using NimblePros.SampleToDo.Web;
-using FastEndpoints;
-using FastEndpoints.Swagger;
-using FastEndpoints.ApiExplorer;
-using MediatR;
-using Serilog;
-using Microsoft.EntityFrameworkCore;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Serilog.Extensions.Logging;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
+using NimblePros.SampleToDo.Web;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()

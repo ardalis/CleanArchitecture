@@ -1,7 +1,4 @@
-﻿using Ardalis.Result;
-using Clean.Architecture.UseCases.Contributors.Delete;
-using FastEndpoints;
-using MediatR;
+﻿using Clean.Architecture.UseCases.Contributors.Delete;
 
 namespace Clean.Architecture.Web.Contributors;
 

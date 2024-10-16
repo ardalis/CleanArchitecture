@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace NimblePros.SampleToDo.UseCases.Projects.Create;
+﻿namespace NimblePros.SampleToDo.UseCases.Projects.Create;
 
 /// <summary>
 /// Create a new Project.

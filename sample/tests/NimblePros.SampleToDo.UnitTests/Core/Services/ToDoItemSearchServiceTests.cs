@@ -1,11 +1,6 @@
-﻿using Ardalis.Result;
-using Ardalis.Specification;
-using NimblePros.SampleToDo.Core.Interfaces;
+﻿using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.Services;
-using Ardalis.SharedKernel;
-using Xunit;
-using NSubstitute;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Services;
 

@@ -1,7 +1,4 @@
-﻿using Ardalis.Result;
-using Clean.Architecture.UseCases.Contributors.Get;
-using FastEndpoints;
-using MediatR;
+﻿using Clean.Architecture.UseCases.Contributors.Get;
 
 namespace Clean.Architecture.Web.Contributors;
 
