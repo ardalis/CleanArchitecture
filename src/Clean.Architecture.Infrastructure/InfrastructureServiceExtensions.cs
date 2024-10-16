@@ -1,9 +1,4 @@
-﻿using Clean.Architecture.Core.Interfaces;
-using Clean.Architecture.Core.Services;
-using Clean.Architecture.Infrastructure.Data;
-using Clean.Architecture.Infrastructure.Data.Queries;
-using Clean.Architecture.UseCases.Contributors.List;
-
+﻿using Clean.Architecture.UseCases.Contributors.Queries.List;
 
 namespace Clean.Architecture.Infrastructure;
 public static class InfrastructureServiceExtensions

@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.UseCases.Contributors.Delete;
+using Clean.Architecture.UseCases.Contributors.Commands.Delete;
 
 namespace Clean.Architecture.Web.Contributors;
 

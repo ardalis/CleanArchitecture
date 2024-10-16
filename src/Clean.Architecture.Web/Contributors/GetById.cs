@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.UseCases.Contributors.Get;
+using Clean.Architecture.UseCases.Contributors.Queries.Get;
 
 namespace Clean.Architecture.Web.Contributors;
 

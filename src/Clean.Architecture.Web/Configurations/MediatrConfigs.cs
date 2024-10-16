@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 using Clean.Architecture.Core.ContributorAggregate;
-using Clean.Architecture.UseCases.Contributors.Create;
+using Clean.Architecture.UseCases.Contributors.Commands.Create;
 using MediatR;
 using System.Reflection;
 
