@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using MediatR;
-
-namespace Clean.Architecture.UnitTests;
+﻿namespace Clean.Architecture.UnitTests;
 
 public class NoOpMediator : IMediator
 {

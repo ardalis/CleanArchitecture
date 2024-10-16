@@ -1,7 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using NimblePros.SampleToDo.Core.Interfaces;
+﻿using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Infrastructure.Data.Queries;
 using NimblePros.SampleToDo.Infrastructure.Email;

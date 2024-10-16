@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Clean.Architecture.Core.Interfaces;
+﻿namespace Clean.Architecture.Core.Interfaces;
 
 public interface IDeleteContributorService
 {

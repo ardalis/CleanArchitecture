@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
