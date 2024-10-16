@@ -1,5 +1,4 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
-using Xunit;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.ContributorAggregate;
 

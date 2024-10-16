@@ -1,10 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.Services;
-using Ardalis.SharedKernel;
-using MediatR;
-using Xunit;
-using Microsoft.Extensions.Logging;
-using NSubstitute;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Services;
 

@@ -1,6 +1,4 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 

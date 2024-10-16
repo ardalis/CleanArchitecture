@@ -1,6 +1,4 @@
-﻿using FastEndpoints;
-using MediatR;
-using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
+﻿using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 

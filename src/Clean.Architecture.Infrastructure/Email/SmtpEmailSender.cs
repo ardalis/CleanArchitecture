@@ -1,7 +1,4 @@
-﻿using System.Net.Mail;
-using Clean.Architecture.Core.Interfaces;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+﻿using Clean.Architecture.Core.Interfaces;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
@@ -17,7 +14,7 @@ public class SmtpEmailSender(ILogger<SmtpEmailSender> logger,
 
   public async Task SendEmailAsync(string to, string from, string subject, string body)
   {
-    var emailClient = new SmtpClient(_mailserverConfiguration.Hostname, _mailserverConfiguration.Port);
+    var emailClient = new System.Net.Mail.SmtpClient(_mailserverConfiguration.Hostname, _mailserverConfiguration.Port);
 
     var message = new MailMessage
     {

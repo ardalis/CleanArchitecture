@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using NimblePros.SampleToDo.UseCases.Projects;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
-using NimblePros.SampleToDo.UseCases.Projects;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;
 

@@ -1,5 +1,4 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
-using Xunit;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.ProjectAggregate;
 

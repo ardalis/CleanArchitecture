@@ -1,6 +1,4 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clean.Architecture.Infrastructure.Data.Config;
 

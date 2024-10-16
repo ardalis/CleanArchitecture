@@ -1,7 +1,4 @@
-﻿using Ardalis.HttpClientTestExtensions;
-using FluentAssertions;
-using NimblePros.SampleToDo.Web.Contributors;
-using Xunit;
+﻿using NimblePros.SampleToDo.Web.Contributors;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Contributors;
 

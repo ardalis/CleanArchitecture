@@ -1,6 +1,4 @@
-﻿using FastEndpoints;
-using MediatR;
-using NimblePros.SampleToDo.UseCases.Projects.Create;
+﻿using NimblePros.SampleToDo.UseCases.Projects.Create;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
