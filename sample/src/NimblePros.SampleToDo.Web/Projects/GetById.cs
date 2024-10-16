@@ -1,6 +1,3 @@
-﻿using Ardalis.Result;
-using FastEndpoints;
-using MediatR;
 using NimblePros.SampleToDo.UseCases.Projects.Queries.GetWithAllItems;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 

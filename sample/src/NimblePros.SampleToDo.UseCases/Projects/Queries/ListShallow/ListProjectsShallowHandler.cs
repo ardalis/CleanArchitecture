@@ -1,6 +1,3 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-
 namespace NimblePros.SampleToDo.UseCases.Projects.Queries.ListShallow;
 
 public class ListProjectsShallowHandler(IListProjectsShallowQueryService query)

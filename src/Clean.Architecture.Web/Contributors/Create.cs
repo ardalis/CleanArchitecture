@@ -1,6 +1,4 @@
-﻿using Clean.Architecture.UseCases.Contributors.Commands.Create;
-using FastEndpoints;
-using MediatR;
+using Clean.Architecture.UseCases.Contributors.Commands.Create;
 
 namespace Clean.Architecture.Web.Contributors;
 

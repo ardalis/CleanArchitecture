@@ -1,7 +1,5 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-
 namespace NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
+
 
 public class ListIncompleteItemsByProjectHandler : IQueryHandler<ListIncompleteItemsByProjectQuery, Result<IEnumerable<ToDoItemDTO>>>
 {

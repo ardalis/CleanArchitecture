@@ -1,10 +1,3 @@
-﻿using Ardalis.SharedKernel;
-using Clean.Architecture.Core.ContributorAggregate;
-using Clean.Architecture.UseCases.Contributors.Commands.Create;
-using FluentAssertions;
-using NSubstitute;
-using Xunit;
-
 namespace Clean.Architecture.UnitTests.UseCases.Contributors.Commands;
 
 public class CreateContributorHandlerHandle

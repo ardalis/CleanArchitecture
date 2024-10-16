@@ -2,8 +2,6 @@
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Handlers;
-using Xunit;
-using NSubstitute;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Handlers;
 

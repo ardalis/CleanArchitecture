@@ -1,7 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using NimblePros.SampleToDo.UseCases.Projects;
-using NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
+﻿﻿using NimblePros.SampleToDo.UseCases.Projects;
+using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;
 

@@ -1,8 +1,5 @@
-﻿using Ardalis.Result;
 using Clean.Architecture.UseCases.Contributors.Queries.Get;
 using Clean.Architecture.UseCases.Contributors.Commands.Update;
-using FastEndpoints;
-using MediatR;
 
 namespace Clean.Architecture.Web.Contributors;
 

@@ -1,5 +1,3 @@
-﻿using Ardalis.Result;
-
 namespace Clean.Architecture.UseCases.Contributors.Commands.Create;
 
 /// <summary>

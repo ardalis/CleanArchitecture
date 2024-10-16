@@ -1,7 +1,5 @@
-﻿using Ardalis.Result;
-using FastEndpoints;
-using MediatR;
 using NimblePros.SampleToDo.UseCases.Projects.Commands.Delete;
+
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
