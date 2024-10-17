@@ -1,8 +1,7 @@
 ﻿using Vogen;
 
 [assembly: VogenDefaults(
-        staticAbstractsGeneration: StaticAbstractsGeneration.MostCommon | StaticAbstractsGeneration.InstanceMethodsAndProperties,
-        conversions: Conversions.EfCoreValueConverter)]
+        staticAbstractsGeneration: StaticAbstractsGeneration.MostCommon | StaticAbstractsGeneration.InstanceMethodsAndProperties)]
 
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
