@@ -9,7 +9,7 @@ public class ToDoItem : EntityBase
   public int? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
   public bool IsDone { get; private set; }
 
-  public void MarkComplete()
+  public ToDoItem MarkComplete()
   {
     if (!IsDone)
     {
@@ -17,20 +17,23 @@ public class ToDoItem : EntityBase
 
       RegisterDomainEvent(new ToDoItemCompletedEvent(this));
     }
+    return this;
   }
 
-  public void AddContributor(int contributorId)
+  public ToDoItem AddContributor(int contributorId)
   {
     Guard.Against.Null(contributorId);
     ContributorId = contributorId;
 
     var contributorAddedToItem = new ContributorAddedToItemEvent(this, contributorId);
     base.RegisterDomainEvent(contributorAddedToItem);
+    return this;
   }
 
-  public void RemoveContributor()
+  public ToDoItem RemoveContributor()
   {
     ContributorId = null;
+    return this;
   }
 
   public override string ToString()
