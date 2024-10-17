@@ -1,4 +1,4 @@
-﻿using Clean.Architecture.UseCases.Contributors.Create;
+using Clean.Architecture.UseCases.Contributors.Commands.Create;
 
 namespace Clean.Architecture.Web.Contributors;
 

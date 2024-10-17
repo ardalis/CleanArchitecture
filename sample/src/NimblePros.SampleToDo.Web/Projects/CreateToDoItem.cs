@@ -1,4 +1,4 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+using NimblePros.SampleToDo.UseCases.Projects.Commands.AddToDoItem;
 using NimblePros.SampleToDo.Web.Projects;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;

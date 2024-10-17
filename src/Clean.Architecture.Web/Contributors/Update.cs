@@ -1,5 +1,5 @@
-﻿using Clean.Architecture.UseCases.Contributors.Get;
-using Clean.Architecture.UseCases.Contributors.Update;
+using Clean.Architecture.UseCases.Contributors.Queries.Get;
+using Clean.Architecture.UseCases.Contributors.Commands.Update;
 
 namespace Clean.Architecture.Web.Contributors;
 

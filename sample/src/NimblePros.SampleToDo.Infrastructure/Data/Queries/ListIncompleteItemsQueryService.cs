@@ -1,4 +1,4 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects;
+﻿﻿using NimblePros.SampleToDo.UseCases.Projects;
 using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;

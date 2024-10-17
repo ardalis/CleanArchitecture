@@ -1,5 +1,5 @@
-﻿using Clean.Architecture.UseCases.Contributors;
-using Clean.Architecture.UseCases.Contributors.List;
+using Clean.Architecture.UseCases.Contributors;
+using Clean.Architecture.UseCases.Contributors.Queries.List;
 
 namespace Clean.Architecture.Web.Contributors;
 
