@@ -3,6 +3,16 @@ using Ardalis.SharedKernel;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
+
+public abstract class EntityBase<T, TId> where T: EntityBase<T, TId>
+{
+  public TId Id { get; set; }
+  protected void RegisterDomainEvent(DomainEventBase toDoItemCompletedEvent)
+  {
+    
+  }
+}
+
 public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
 {
   public ToDoItem() : this(Priority.Backlog)

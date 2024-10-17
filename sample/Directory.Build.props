@@ -5,6 +5,6 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-    <NoWarn>1591</NoWarn> <!-- Remove this to turn on warnings for missing XML Comments -->
+    <NoWarn>1591, NU1902, NU1903, NU1901</NoWarn> <!-- Remove this to turn on warnings for missing XML Comments -->
   </PropertyGroup>
 </Project>

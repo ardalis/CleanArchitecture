@@ -9,6 +9,7 @@ using Vogen;
 namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 
 [EfCoreConverter<ProjectName>] // not needed for structs
+[EfCoreConverter<ToDoItemId>] // not needed for structs
 internal partial class VogenEfCoreConverters;
 
 internal class VogenIdValueGenerator<TContext, TEntityBase, TId> : ValueGenerator<TId>
