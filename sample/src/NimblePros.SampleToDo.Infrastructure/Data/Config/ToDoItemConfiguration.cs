@@ -8,11 +8,10 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
 {
   public void Configure(EntityTypeBuilder<ToDoItem> builder)
   {
-    // TODO: Use Vogen to generate this
     builder.Property(t => t.Id)
-      .HasConversion(
-        t => t.Value,
-        t => ToDoItemId.From(t))
+      //.HasConversion(
+      //  t => t.Value,
+      //  t => ToDoItemId.From(t))
       .IsRequired();
     builder.Property(t => t.Title)
         .IsRequired();
