@@ -19,6 +19,6 @@ public class CreateProjectHandler : ICommandHandler<CreateProjectCommand, Result
     var newProject = new Project(ProjectName.From(request.Name));
     var createdItem = await _repository.AddAsync(newProject, cancellationToken);
 
-    return createdItem.Id;
+    return createdItem.Id.Value;
   }
 }

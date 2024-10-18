@@ -2,4 +2,4 @@
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
 [ValueObject<int>]
-public partial struct ToDoItemId;
+public partial struct ProjectId;
