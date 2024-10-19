@@ -1,12 +1,7 @@
-﻿using System.Text;
-using Newtonsoft.Json;
-using Xunit;
-using NimblePros.SampleToDo.Web.ProjectEndpoints;
-using Ardalis.HttpClientTestExtensions;
+﻿using NimblePros.SampleToDo.FunctionalTests.ClassFixtures;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
+using NimblePros.SampleToDo.Web.ProjectEndpoints;
 using NimblePros.SampleToDo.Web.Projects;
-using FluentAssertions;
-using NimblePros.SampleToDo.FunctionalTests.ClassFixtures;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 

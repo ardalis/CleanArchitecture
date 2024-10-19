@@ -1,6 +1,3 @@
-﻿using FastEndpoints;
-using MediatR;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 using NimblePros.SampleToDo.Web.Projects;
 

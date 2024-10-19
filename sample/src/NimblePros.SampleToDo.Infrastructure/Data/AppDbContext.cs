@@ -1,8 +1,5 @@
-﻿using System.Reflection;
-using Ardalis.SharedKernel;
-using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Microsoft.EntityFrameworkCore;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 

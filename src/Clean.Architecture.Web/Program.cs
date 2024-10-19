@@ -1,9 +1,4 @@
 ﻿using Clean.Architecture.Web.Configurations;
-using FastEndpoints;
-using FastEndpoints.Swagger;
-using Serilog;
-using Serilog.Extensions.Logging;
-
 
 var builder = WebApplication.CreateBuilder(args);
 

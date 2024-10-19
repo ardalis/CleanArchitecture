@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
 namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;

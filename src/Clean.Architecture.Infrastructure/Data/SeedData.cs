@@ -1,5 +1,4 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.Infrastructure.Data;
 

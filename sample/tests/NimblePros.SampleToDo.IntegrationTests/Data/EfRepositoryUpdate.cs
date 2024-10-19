@@ -1,6 +1,4 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using Microsoft.EntityFrameworkCore;
-using Xunit;
 
 namespace NimblePros.SampleToDo.IntegrationTests.Data;
 

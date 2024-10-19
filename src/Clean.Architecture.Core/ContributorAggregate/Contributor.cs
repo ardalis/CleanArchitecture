@@ -1,7 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using Ardalis.SharedKernel;
-
-namespace Clean.Architecture.Core.ContributorAggregate;
+﻿namespace Clean.Architecture.Core.ContributorAggregate;
 
 public class Contributor(string name) : EntityBase, IAggregateRoot
 {

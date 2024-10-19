@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using MediatR;
-
-namespace NimblePros.SampleToDo.UnitTests;
+﻿namespace NimblePros.SampleToDo.UnitTests;
 
 public class NoOpMediator : IMediator
 {

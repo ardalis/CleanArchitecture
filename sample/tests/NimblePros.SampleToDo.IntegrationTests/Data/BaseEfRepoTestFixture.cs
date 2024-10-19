@@ -1,9 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Infrastructure.Data;
-using Ardalis.SharedKernel;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using NSubstitute;
 
 namespace NimblePros.SampleToDo.IntegrationTests.Data;
 

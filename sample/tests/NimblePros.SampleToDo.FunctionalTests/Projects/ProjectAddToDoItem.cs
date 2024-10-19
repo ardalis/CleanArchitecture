@@ -1,7 +1,4 @@
-﻿using Ardalis.HttpClientTestExtensions;
-using Xunit;
-using FluentAssertions;
-using NimblePros.SampleToDo.Web;
+﻿using NimblePros.SampleToDo.Web;
 using NimblePros.SampleToDo.Web.Projects;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 

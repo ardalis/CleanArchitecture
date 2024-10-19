@@ -1,8 +1,4 @@
-﻿using DotNet.Testcontainers.Builders;
-using DotNet.Testcontainers.Containers;
-using Xunit;
-
-namespace NimblePros.SampleToDo.FunctionalTests.ClassFixtures;
+﻿namespace NimblePros.SampleToDo.FunctionalTests.ClassFixtures;
 
 /// <summary>
 /// This class ensures that an SMTP server is running and shared between all tests in a specified class.

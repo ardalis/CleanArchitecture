@@ -1,8 +1,4 @@
 ﻿using Clean.Architecture.Core.Interfaces;
-using MailKit.Net.Smtp;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MimeKit;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
@@ -16,8 +12,8 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
   {
     _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
-    using var client = new SmtpClient(); 
-    client.Connect(_mailserverConfiguration.Hostname, 
+    using var client = new MailKit.Net.Smtp.SmtpClient(); 
+    await client.ConnectAsync(_mailserverConfiguration.Hostname, 
       _mailserverConfiguration.Port, false);
     var message = new MimeMessage();
     message.From.Add(new MailboxAddress(from, from));

@@ -1,7 +1,5 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate.Events;
 using Clean.Architecture.Core.Interfaces;
-using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace Clean.Architecture.Core.ContributorAggregate.Handlers;
 
