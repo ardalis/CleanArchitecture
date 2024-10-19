@@ -13,7 +13,7 @@ public class ToDoItemSearchService : IToDoItemSearchService
     _repository = repository;
   }
 
-  public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(int projectId, string searchString)
+  public async Task<Result<List<ToDoItem>>> GetAllIncompleteItemsAsync(ProjectId projectId, string searchString)
   {
     if (string.IsNullOrEmpty(searchString))
     {
@@ -48,7 +48,7 @@ public class ToDoItemSearchService : IToDoItemSearchService
     }
   }
 
-  public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(int projectId)
+  public async Task<Result<ToDoItem>> GetNextIncompleteItemAsync(ProjectId projectId)
   {
     var projectSpec = new ProjectByIdWithItemsSpec(projectId);
     var project = await _repository.FirstOrDefaultAsync(projectSpec);

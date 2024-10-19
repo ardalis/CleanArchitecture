@@ -2,7 +2,7 @@
 
 public class ProjectByIdWithItemsSpec : Specification<Project>
 {
-  public ProjectByIdWithItemsSpec(int projectId)
+  public ProjectByIdWithItemsSpec(ProjectId projectId)
   {
     Query
         .Where(project => project.Id == projectId)

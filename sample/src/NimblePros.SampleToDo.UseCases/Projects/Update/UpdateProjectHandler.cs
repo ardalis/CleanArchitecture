@@ -1,10 +1,8 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.UseCases.Projects;
-using NimblePros.SampleToDo.UseCases.Projects.Update;
 
-namespace NimblePros.SampleToDo.UseCases.Contributors.Update;
+namespace NimblePros.SampleToDo.UseCases.Projects.Update;
 
 public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result<ProjectDTO>>
 {

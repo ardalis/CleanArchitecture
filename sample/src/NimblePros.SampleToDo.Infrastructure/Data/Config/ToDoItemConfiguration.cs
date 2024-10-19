@@ -9,8 +9,9 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
   public void Configure(EntityTypeBuilder<ToDoItem> builder)
   {
     builder.Property(p => p.Id)
-      .IsRequired()
-      .HasValueGenerator<VogenIdValueGenerator<AppDbContext, ToDoItem, ToDoItemId>>();
+      .HasValueGenerator<VogenIdValueGenerator<AppDbContext, ToDoItem, ToDoItemId>>()
+      .HasVogenConversion()
+      .IsRequired();
     builder.Property(t => t.Title)
         .IsRequired();
     builder.Property(t => t.ContributorId)
