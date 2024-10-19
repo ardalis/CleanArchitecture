@@ -27,6 +27,6 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
 
     await _repository.UpdateAsync(existingEntity, cancellationToken);
 
-    return Result.Success(new ProjectDTO(existingEntity.Id, existingEntity.Name.Value, existingEntity.Status.ToString()));
+    return Result.Success(new ProjectDTO(existingEntity.Id.Value, existingEntity.Name.Value, existingEntity.Status.ToString()));
   }
 }
