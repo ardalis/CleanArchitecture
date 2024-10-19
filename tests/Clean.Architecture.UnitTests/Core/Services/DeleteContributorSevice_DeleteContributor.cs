@@ -1,4 +1,5 @@
-﻿using Clean.Architecture.Core.Services;
+﻿using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Core.Services;
 
 namespace Clean.Architecture.UnitTests.Core.Services;
 
