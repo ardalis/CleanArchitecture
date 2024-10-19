@@ -10,7 +10,7 @@ public class ProjectConstructor
 
   private Project CreateProject()
   {
-    return new Project(_testName, _testPriority);
+    return new Project(ProjectName.From(_testName));
   }
 
   [Fact]
@@ -18,15 +18,7 @@ public class ProjectConstructor
   {
     _testProject = CreateProject();
 
-    Assert.Equal(_testName, _testProject.Name);
-  }
-
-  [Fact]
-  public void InitializesPriority()
-  {
-    _testProject = CreateProject();
-
-    Assert.Equal(_testPriority, _testProject.Priority);
+    Assert.Equal(_testName, _testProject.Name.Value);
   }
 
   [Fact]

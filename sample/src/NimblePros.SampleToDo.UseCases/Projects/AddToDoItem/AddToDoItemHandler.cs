@@ -3,7 +3,7 @@ using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
 namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 
-public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<int>>
+public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<ToDoItemId>>
 {
   private readonly IRepository<Project> _repository;
 
@@ -12,7 +12,7 @@ public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<int
     _repository = repository;
   }
 
-  public async Task<Result<int>> Handle(AddToDoItemCommand request,
+  public async Task<Result<ToDoItemId>> Handle(AddToDoItemCommand request,
     CancellationToken cancellationToken)
   {
     var spec = new ProjectByIdWithItemsSpec(request.ProjectId);

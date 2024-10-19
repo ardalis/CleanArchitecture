@@ -24,6 +24,13 @@ public class AppDbContext : DbContext
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
   }
 
+  protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+  {
+    base.ConfigureConventions(configurationBuilder);
+
+    //configurationBuilder.RegisterAllInVogenEfCoreConverters();
+  }
+
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
   {
     int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

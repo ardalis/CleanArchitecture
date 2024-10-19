@@ -74,7 +74,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
           // Add ApplicationDbContext using an in-memory database for testing.
           services.AddDbContext<AppDbContext>(options =>
           {
-            options.UseInMemoryDatabase(inMemoryCollectionName);
+            options.UseInMemoryDatabase(inMemoryCollectionName).LogTo(s => Console.WriteLine(s));
           });
 
           // Add MediatR

@@ -17,7 +17,7 @@ public class ListIncompleteItemsQueryService : IListIncompleteItemsQueryService
     var projectParameter = new SqlParameter("@projectId", System.Data.SqlDbType.Int);
     var result = await _db.ToDoItems.FromSqlRaw("SELECT Id, Title, Description, IsDone, ContributorId FROM ToDoItems WHERE ProjectId = @ProjectId",
       projectParameter) // don't fetch other big columns
-      .Select(x => new ToDoItemDTO(x.Id, x.Title, x.Description, x.IsDone, x.ContributorId))
+      .Select(x => new ToDoItemDTO(x.Id.Value, x.Title, x.Description, x.IsDone, x.ContributorId))
       .ToListAsync();
 
     return result;

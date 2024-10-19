@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
 
@@ -32,7 +33,7 @@ public class MarkItemComplete : Endpoint<MarkItemCompleteRequest>
     MarkItemCompleteRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new MarkToDoItemCompleteCommand(request.ProjectId, request.ToDoItemId);
+    var command = new MarkToDoItemCompleteCommand(ProjectId.From(request.ProjectId), request.ToDoItemId);
     var result = await _mediator.Send(command);
 
     if (result.Status == Ardalis.Result.ResultStatus.NotFound)

@@ -1,4 +1,4 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.Update;
+using NimblePros.SampleToDo.UseCases.Projects.Update;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 

@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.UseCases.Projects.Create;
 
-public class CreateProjectHandler : ICommandHandler<CreateProjectCommand, Result<int>>
+public class CreateProjectHandler : ICommandHandler<CreateProjectCommand, Result<ProjectId>>
 {
   private readonly IRepository<Project> _repository;
 
@@ -11,10 +11,10 @@ public class CreateProjectHandler : ICommandHandler<CreateProjectCommand, Result
     _repository = repository;
   }
 
-  public async Task<Result<int>> Handle(CreateProjectCommand request,
+  public async Task<Result<ProjectId>> Handle(CreateProjectCommand request,
     CancellationToken cancellationToken)
   {
-    var newProject = new Project(request.Name, Priority.Backlog);
+    var newProject = new Project(ProjectName.From(request.Name));
     var createdItem = await _repository.AddAsync(newProject, cancellationToken);
 
     return createdItem.Id;
