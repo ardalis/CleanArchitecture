@@ -12,5 +12,31 @@
 "name": "ASP.NET Clean Architecture Solution",
 "shortName": "clean-arch",
 "sourceName": "Clean.Architecture",
-"preferNameDirectory": true
+"preferNameDirectory": true,
+"symbols": {
+    "aspire": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include .NET Aspire."
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!aspire)",
+          "exclude": [
+            "Aspire/**"
+          ]
+        },
+        {
+          "condition": "aspire",
+          "include": [
+            "Aspire/**"
+          ]
+        }
+      ]
+    }
+  ]
 }
