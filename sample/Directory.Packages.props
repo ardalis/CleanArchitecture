@@ -5,7 +5,6 @@
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
     <PackageVersion Include="Ardalis.Result" Version="10.0.0" />
     <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.0.0" />
-    <PackageVersion Include="Ardalis.SharedKernel" Version="2.1.1" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.1.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
@@ -27,6 +26,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="NimblePros.SharedKernel" Version="2.1.1" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="ReportGenerator" Version="5.3.11" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.3" />

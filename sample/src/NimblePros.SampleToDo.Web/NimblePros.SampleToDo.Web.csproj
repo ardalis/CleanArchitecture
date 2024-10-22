@@ -15,7 +15,6 @@
     <PackageReference Include="Ardalis.ListStartupServices" />
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.Result.AspNetCore" />
-    <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.ApiExplorer" />
     <PackageReference Include="FastEndpoints.Swagger" />
@@ -23,6 +22,7 @@
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" />
+    <PackageReference Include="NimblePros.SharedKernel" />
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" />
     <PackageReference Include="Serilog.AspNetCore" />
     <!--<PackageReference Include="Swashbuckle.AspNetCore" />

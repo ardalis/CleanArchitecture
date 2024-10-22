@@ -9,11 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" />
     <PackageReference Include="Ardalis.Result" />
-    <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="Ardalis.SmartEnum" />
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="NimblePros.SharedKernel" />
     <PackageReference Include="Vogen" />
   </ItemGroup>
 
