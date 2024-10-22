@@ -37,6 +37,6 @@
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageVersion Include="xunit" Version="2.9.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0-pre.35" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0-pre.42" />
   </ItemGroup>
 </Project>
