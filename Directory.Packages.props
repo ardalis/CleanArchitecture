@@ -9,7 +9,7 @@
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.1.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
-    <PackageVersion Include="Azure.Identity" Version="1.13.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.13.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="FastEndpoints" Version="5.30.0.10-beta" />
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
