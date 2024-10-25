@@ -1,6 +1,6 @@
 namespace Clean.Architecture.AspireTests.Tests;
 
-public class IntegrationTest1
+public class AspireIntegrationTests
 {
     [Fact]
     public async Task GetContributorsReturnsOkStatusCode()
