@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 using NimblePros.SampleToDo.Web.Projects;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
@@ -32,7 +33,7 @@ public class Create : Endpoint<CreateToDoItemRequest>
     CreateToDoItemRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new AddToDoItemCommand(request.ProjectId, request.ContributorId,
+    var command = new AddToDoItemCommand(ProjectId.From(request.ProjectId), request.ContributorId,
       request.Title, request.Description);
     var result = await _mediator.Send(command);
 

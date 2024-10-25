@@ -18,9 +18,14 @@ public class ProjectItemMarkComplete :
     smtpServer.EnsureContainerIsRunning();
   }
 
+  /// <summary>
+  /// Currently this fails if you don't have a local mailserver running, like papercut
+  /// </summary>
+  /// <returns></returns>
   [Fact]
   public async Task MarksIncompleteItemComplete()
   {
+    // TODO: Arrange to use a fake mail server for this test
     var projectId = 1;
     var itemId = 1;
 

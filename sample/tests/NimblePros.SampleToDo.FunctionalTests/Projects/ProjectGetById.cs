@@ -20,7 +20,7 @@ public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<Program>
     var result = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(GetProjectByIdRequest.BuildRoute(1));
 
     Assert.Equal(1, result.Id);
-    Assert.Equal(SeedData.TestProject1.Name, result.Name);
+    Assert.Equal(SeedData.TestProject1.Name.Value, result.Name);
     Assert.Equal(3, result.Items.Count);
   }
 

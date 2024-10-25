@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
 namespace NimblePros.SampleToDo.Web.Projects;
@@ -21,7 +22,7 @@ public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
   public override async Task HandleAsync(GetProjectByIdRequest request,
   CancellationToken cancellationToken)
   {
-    var command = new GetProjectWithAllItemsQuery(request.ProjectId);
+    var command = new GetProjectWithAllItemsQuery(ProjectId.From(request.ProjectId));
 
     var result = await _mediator.Send(command);
 

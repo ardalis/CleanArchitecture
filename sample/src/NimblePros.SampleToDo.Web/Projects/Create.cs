@@ -35,7 +35,7 @@ public class Create : Endpoint<CreateProjectRequest, CreateProjectResponse>
 
     if (result.IsSuccess)
     {
-      Response = new CreateProjectResponse(result.Value, request.Name!);
+      Response = new CreateProjectResponse(result.Value.Value, request.Name!);
       return;
     }
     // TODO: Handle other cases as necessary
