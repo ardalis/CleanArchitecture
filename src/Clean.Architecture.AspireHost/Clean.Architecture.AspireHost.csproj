@@ -17,7 +17,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clean.Architecture.Web\Clean.Architecture.Web.csproj" />
-    <ProjectReference Include="..\Clean.Architecture.ServiceDefaults\Clean.Architecture.ServiceDefaults.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
+        reference as a standard project reference and not attempt to generate
+        a metadata file -->
+    <ProjectReference Include="..\Clean.Architecture.ServiceDefaults\Clean.Architecture.ServiceDefaults.csproj"
+                      IsAspireProjectResource="false" />
   </ItemGroup>
 
 </Project>

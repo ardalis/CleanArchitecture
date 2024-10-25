@@ -23,9 +23,10 @@ builder.Services.AddFastEndpoints()
                   o.ShortSchemaNames = true;
                 });
 
-#if ASPIRE
+#if (aspire)
 builder.AddServiceDefaults();
 #endif
+
 var app = builder.Build();
 
 await app.UseAppMiddleware();
