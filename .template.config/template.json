@@ -1,16 +1,72 @@
 {
-"$schema": "http://json.schemastore.org/template",
-"author": "Steve Smith @ardalis, Erik Dahl",
-"classifications": [
-"Web","ASP.NET","Clean Architecture"
-],
-"tags": {
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Steve Smith @ardalis, Erik Dahl",
+  "classifications": [
+    "Web",
+    "ASP.NET",
+    "Clean Architecture"
+  ],
+  "tags": {
     "language": "C#",
-    "type":"project"
-},
-"identity": "Ardalis.CleanArchitecture.Template",
-"name": "ASP.NET Clean Architecture Solution",
-"shortName": "clean-arch",
-"sourceName": "Clean.Architecture",
-"preferNameDirectory": true
+    "type": "project"
+  },
+  "identity": "Ardalis.CleanArchitecture.Template",
+  "name": "ASP.NET Clean Architecture Solution",
+  "shortName": "clean-arch",
+  "sourceName": "Clean.Architecture",
+  "preferNameDirectory": true,
+  "symbols": {
+    "aspire": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include .NET Aspire."
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!aspire)",
+          "exclude": [
+            "src/Clean.Architecture.AspireHost/**",
+            "src/Clean.Architecture.ServiceDefaults/**",
+            "tests/Clean.Architecture.AspireTests/**"
+          ]
+        },
+        {
+          "condition": "(aspire)",
+          "include": [
+            "src/Clean.Architecture.AspireHost/**",
+            "src/Clean.Architecture.ServiceDefaults/**",
+            "tests/Clean.Architecture.AspireTests/**"
+          ]
+        }
+      ]
+    }
+  ],
+  "primaryOutputs": [{
+    "path": "src/Clean.Architecture.AspireHost/Clean.Architecture.AspireHost.csproj"
+  },
+  {
+    "path": "src/Clean.Architecture.ServiceDefaults/Clean.Architecture.ServiceDefaults.csproj"
+  },
+  {
+    "path": "tests/Clean.Architecture.AspireTests/Clean.Architecture.AspireTests.csproj"
+  }
+],
+  "postActions": [{
+    "condition": "(aspire)",
+    "description": "Add Aspire projects to solution",
+    "manualInstructions": [{
+        "text": "Add generated project to solution manually."
+      }
+    ],
+    "args": {
+      "isRoot": "true"
+    },
+    "actionId": "D396686C-DE0E-4DE6-906D-291CD29FC5DE",
+    "continueOnError": true
+  }
+]
 }
