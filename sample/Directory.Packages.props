@@ -3,38 +3,38 @@
     <PackageVersion Include="Ardalis.GuardClauses" Version="5.0.0" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="4.2.0" />
     <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
-    <PackageVersion Include="Ardalis.Result" Version="10.0.0" />
-    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.0.0" />
+    <PackageVersion Include="Ardalis.Result" Version="10.1.0" />
+    <PackageVersion Include="Ardalis.Result.AspNetCore" Version="10.1.0" />
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.1.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-    <PackageVersion Include="FastEndpoints" Version="5.30.0" />
+    <PackageVersion Include="FastEndpoints" Version="5.31.0" />
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.3.0" />
-    <PackageVersion Include="FastEndpoints.Swagger" Version="5.30.0" />
+    <PackageVersion Include="FastEndpoints.Swagger" Version="5.31.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.3.0" />
-    <PackageVersion Include="FluentAssertions" Version="6.12.1" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.2" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
-    <PackageVersion Include="MediatR.Extensions.Autofac.DependencyInjection" Version="12.1.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="MediatR.Extensions.Autofac.DependencyInjection" Version="12.2.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="NimblePros.SharedKernel" Version="2.1.1" />
-    <PackageVersion Include="NSubstitute" Version="5.1.0" />
-    <PackageVersion Include="ReportGenerator" Version="5.3.11" />
+    <PackageVersion Include="NSubstitute" Version="5.3.0" />
+    <PackageVersion Include="ReportGenerator" Version="5.4.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.3" />
-    <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00043" />
+    <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00046" />
     <PackageVersion Include="SQLite" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-    <PackageVersion Include="Testcontainers" Version="3.10.0" />
+    <PackageVersion Include="Testcontainers" Version="4.0.0" />
     <PackageVersion Include="Vogen" Version="5.0.3" />
     <PackageVersion Include="xunit" Version="2.9.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
