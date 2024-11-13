@@ -29,7 +29,7 @@ builder.AddServiceDefaults();
 
 var app = builder.Build();
 
-await app.UseAppMiddleware();
+await app.UseAppMiddlewareAndSeedDatabase();
 
 app.Run();
 

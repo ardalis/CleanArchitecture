@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.Interfaces;
+﻿using Microsoft.Extensions.Configuration;
+using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Infrastructure.Data.Queries;
 using NimblePros.SampleToDo.Infrastructure.Email;
@@ -12,42 +13,68 @@ public static class InfrastructureServiceExtensions
 {
   public static IServiceCollection AddInfrastructureServices(
     this IServiceCollection services,
+    IConfiguration configuration,
     ILogger logger,
-    bool isDevelopment)
+    string environmentName)
   {
-    if (isDevelopment)
+    if (environmentName == "Development")
     {
-      RegisterDevelopmentOnlyDependencies(services);
+      RegisterDevelopmentOnlyDependencies(services, configuration);
+    }
+    else if (environmentName == "Testing")
+    {
+      RegisterTestingOnlyDependencies(services);
     }
     else
     {
-      RegisterProductionOnlyDependencies(services);
+      RegisterProductionOnlyDependencies(services, configuration);
     }
     
-    RegisterEF(services);
+    RegisterEFRepositories(services);
     
     logger.LogInformation("{Project} services registered", "Infrastructure");
     
     return services;
   }
 
-  private static void RegisterDevelopmentOnlyDependencies(IServiceCollection services)
+  private static void AddDbContextWithSqlite(IServiceCollection services, IConfiguration configuration)
   {
+    var connectionString = configuration.GetConnectionString("SqliteConnection");
+    services.AddDbContext<AppDbContext>(options =>
+              options.UseSqlite(connectionString));
+  }
+
+
+  private static void RegisterDevelopmentOnlyDependencies(IServiceCollection services, IConfiguration configuration)
+  {
+    AddDbContextWithSqlite(services, configuration);
     services.AddScoped<IEmailSender, SmtpEmailSender>();
     services.AddScoped<IListContributorsQueryService, FakeListContributorsQueryService>();
     services.AddScoped<IListIncompleteItemsQueryService, FakeListIncompleteItemsQueryService>();
     services.AddScoped<IListProjectsShallowQueryService, FakeListProjectsShallowQueryService>();
   }
-  
-  private static void RegisterProductionOnlyDependencies(IServiceCollection services)
+
+  private static void RegisterTestingOnlyDependencies(IServiceCollection services)
   {
+    // do not configure a DbContext here for testing - it's configured in CustomWebApplicationFactory
+
+    services.AddScoped<IEmailSender, FakeEmailSender>();
+    services.AddScoped<IListContributorsQueryService, FakeListContributorsQueryService>();
+    services.AddScoped<IListIncompleteItemsQueryService, FakeListIncompleteItemsQueryService>();
+    services.AddScoped<IListProjectsShallowQueryService, FakeListProjectsShallowQueryService>();
+  }
+
+  private static void RegisterProductionOnlyDependencies(IServiceCollection services, IConfiguration configuration)
+  {
+    AddDbContextWithSqlite(services, configuration);
+
     services.AddScoped<IEmailSender, SmtpEmailSender>();
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IListIncompleteItemsQueryService, ListIncompleteItemsQueryService>();
     services.AddScoped<IListProjectsShallowQueryService, ListProjectsShallowQueryService>();
   }
 
-  private static void RegisterEF(IServiceCollection services)
+  private static void RegisterEFRepositories(IServiceCollection services)
   {
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));

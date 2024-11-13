@@ -14,7 +14,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
   /// <returns></returns>
   protected override IHost CreateHost(IHostBuilder builder)
   {
-    builder.UseEnvironment("Development"); // will not send real emails
+    builder.UseEnvironment("Testing"); // will not send real emails
     var host = builder.Build();
     host.Start();
 
@@ -40,7 +40,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         //if (!db.ToDoItems.Any())
         //{
         // Seed the database with test data.
-        SeedData.PopulateTestData(db);
+        SeedData.PopulateTestDataAsync(db).GetAwaiter().GetResult();
         //}
       }
       catch (Exception ex)
@@ -59,11 +59,12 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         .ConfigureServices(services =>
         {
           // Remove the app's ApplicationDbContext registration.
-          var descriptor = services.SingleOrDefault(
-          d => d.ServiceType ==
-              typeof(DbContextOptions<AppDbContext>));
+          var descriptors = services.Where(
+            d => d.ServiceType == typeof(AppDbContext) ||
+                 d.ServiceType == typeof(DbContextOptions<AppDbContext>))
+                .ToList();
 
-          if (descriptor != null)
+          foreach(var descriptor in descriptors)
           {
             services.Remove(descriptor);
           }

@@ -1,11 +1,8 @@
-﻿using Ardalis.ListStartupServices;
-using Clean.Architecture.Infrastructure.Data;
-using FastEndpoints;
-using FastEndpoints.Swagger;
+﻿using NimblePros.SampleToDo.Infrastructure.Data;
 
-namespace Clean.Architecture.Web.Configurations;
+namespace NimblePros.SampleToDo.Web.Configurations;
 
-public static class WebApplicationConfigs
+public static class MiddlewareConfig
 {
   public static async Task<IApplicationBuilder> UseAppMiddleware(this WebApplication app)
   {
