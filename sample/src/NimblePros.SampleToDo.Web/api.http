@@ -50,7 +50,7 @@ GET {{host}}:{{port}}/Projects
 ###
 
 // Get a specific project
-@id_to_get=1000
+@id_to_get=1
 GET {{host}}:{{port}}/Projects/{{id_to_get}}
 
 ###

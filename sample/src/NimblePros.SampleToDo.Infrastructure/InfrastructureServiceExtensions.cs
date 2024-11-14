@@ -49,9 +49,9 @@ public static class InfrastructureServiceExtensions
   {
     AddDbContextWithSqlite(services, configuration);
     services.AddScoped<IEmailSender, SmtpEmailSender>();
-    services.AddScoped<IListContributorsQueryService, FakeListContributorsQueryService>();
-    services.AddScoped<IListIncompleteItemsQueryService, FakeListIncompleteItemsQueryService>();
-    services.AddScoped<IListProjectsShallowQueryService, FakeListProjectsShallowQueryService>();
+    services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
+    services.AddScoped<IListIncompleteItemsQueryService, ListIncompleteItemsQueryService>();
+    services.AddScoped<IListProjectsShallowQueryService, ListProjectsShallowQueryService>();
   }
 
   private static void RegisterTestingOnlyDependencies(IServiceCollection services)
