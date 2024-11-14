@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>c540eeb6-e06b-4456-a539-be58dd8b88c7</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NimblePros.SampleToDo.Web\NimblePros.SampleToDo.Web.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
+        reference as a standard project reference and not attempt to generate
+        a metadata file -->
+    <ProjectReference Include="..\NimblePros.SampleToDo.ServiceDefaults\NimblePros.SampleToDo.ServiceDefaults.csproj"
+                      IsAspireProjectResource="false" />
+  </ItemGroup>
+
+</Project>

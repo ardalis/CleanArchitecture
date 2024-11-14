@@ -38,18 +38,19 @@ Content-Type: application/json
 ###
 
 // Delete a contributor
-@id_to_delete=1
+@id_to_delete=5
 DELETE {{host}}:{{port}}/Contributors/{{id_to_delete}}
 
 
+###
 
 // List all Projects
-GET http://{{hostname}}:{{port}}/Projects
+GET {{host}}:{{port}}/Projects
 
 ###
 
 // Get a specific project
-@id_to_get=1
+@id_to_get=1000
 GET {{host}}:{{port}}/Projects/{{id_to_get}}
 
 ###
