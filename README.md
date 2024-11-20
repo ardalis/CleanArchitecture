@@ -22,10 +22,6 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
 
 [Learn about how to implement Clean Architecture](https://academy.nimblepros.com/p/intro-to-clean-architecture) from [NimblePros](https://nimblepros.com) trainers [Sarah "sadukie" Dutkiewicz](https://blog.nimblepros.com/author/sadukie/) and [Steve "ardalis" Smith](https://blog.nimblepros.com/author/ardalis/).
 
-## Troubleshooting Chrome Errors
-
-By default the site uses HTTPS and expects you to have a self-signed developer certificate for localhost use. If you get an error with Chrome [see this answer](https://stackoverflow.com/a/31900210/13729) for mitigation instructions.
-
 ## Table Of Contents
 
 - [Clean Architecture](#clean-architecture)
@@ -61,6 +57,14 @@ By default the site uses HTTPS and expects you to have a self-signed developer c
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
 Or if you're feeling really generous, we now support GitHub sponsorships - see the button above.
+
+## Sponsors
+
+I'm please to announce that [Amazon AWS's FOSS fund](https://github.com/aws/dotnet-foss) has chosen to award a 12-month sponsorship to this project. Thank you, and thanks to all of my other past and current sponsors!
+
+## Troubleshooting Chrome Errors
+
+By default the site uses HTTPS and expects you to have a self-signed developer certificate for localhost use. If you get an error with Chrome [see this answer](https://stackoverflow.com/a/31900210/13729) for mitigation instructions.
 
 ## Versions
 
