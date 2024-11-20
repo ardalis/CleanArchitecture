@@ -21,5 +21,5 @@ Based on community feedback and a review of our project's requirements, we have 
 - **Standardization**: Adopting .NET's built-in DI promotes consistency with other .NET projects, making it easier for developers familiar with the framework to contribute effectively.
 
 ## References
-- [Issue #649: Why is this repo using Autofac instead of .NET's own DI infrastructure?](https://github.com/your-repo/issues/649) - Discussion that led to this decision.
+- [Issue #649: Why is this repo using Autofac instead of .NET's own DI infrastructure?](https://github.com/ardalis/CleanArchitecture/issues/649) - Discussion that led to this decision.
 - [Getting Started with Architecture Decision Records](https://ardalis.com/getting-started-with-architecture-decision-records/) - Resource on ADR best practices.
