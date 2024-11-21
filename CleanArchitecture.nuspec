@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>10.0.0</version>
+    <version>10.0.1</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 8 and C# 12.
@@ -13,27 +13,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-* UPDATE to .NET 9!
-* Use ConnectAsync in MimeKitEmailSender for async SMTP connection by @samanazadi1996 in https://github.com/ardalis/CleanArchitecture/pull/837
-* Using GlobalUsings class file for commonly used namespaces by @aminsharifi in https://github.com/ardalis/CleanArchitecture/pull/844
-* Bump Azure.Identity from 1.12.1 to 1.13.0 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/842
-* Added ADR for Dependency Injection Framework Update #829 by @Zaki2409 in https://github.com/ardalis/CleanArchitecture/pull/840
-* Bump Serilog.AspNetCore from 8.0.2 to 8.0.3 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/839
-* Bump ReportGenerator from 5.3.10 to 5.3.11 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/835
-* Bump Microsoft.EntityFrameworkCore.SqlServer, Microsoft.EntityFrameworkCore.Relational, Microsoft.Extensions.Logging.Abstractions and Microsoft.Extensions.Logging by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/834
-* Bump Microsoft.EntityFrameworkCore.Sqlite, Microsoft.EntityFrameworkCore.Relational, Microsoft.Extensions.Logging.Abstractions and Microsoft.Extensions.Logging by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/833
-* Bump Microsoft.EntityFrameworkCore.Tools, Microsoft.EntityFrameworkCore.Design, Microsoft.EntityFrameworkCore.Relational, Microsoft.Extensions.Logging.Abstractions and Microsoft.Extensions.Logging by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/830
-* Bump Microsoft.EntityFrameworkCore.InMemory from 8.0.8 to 8.0.10 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/850
-* Bump Microsoft.AspNetCore.Mvc.Testing from 8.0.8 to 8.0.10 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/851
-* Update to .NET 9.0 RC2 by @KyleMcMaster in https://github.com/ardalis/CleanArchitecture/pull/852
-* Adding Vogen Value Objects to Sample by @ardalis in https://github.com/ardalis/CleanArchitecture/pull/855
-* Bump Ardalis.SharedKernel from 1.6.0 to 2.1.1 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/856
-* Adds Aspire by @benjaminmishra in https://github.com/ardalis/CleanArchitecture/pull/859
-* Bump NSubstitute from 5.1.0 to 5.3.0 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/861
-* Bump Ardalis.Result from 10.0.0 to 10.1.0 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/860
-* Bump Azure.Identity from 1.13.0 to 1.13.1 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/858
-* Bump Ardalis.Result.AspNetCore from 10.0.0 to 10.1.0 by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/862
-* Bump FastEndpoints and FastEndpoints.Swagger by @dependabot in https://github.com/ardalis/CleanArchitecture/pull/863
+      * Fix Launch URL in launchSettings.json
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
