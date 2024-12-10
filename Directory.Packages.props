@@ -16,7 +16,7 @@
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.31.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.2" />
-    <PackageVersion Include="MailKit" Version="4.8.0" />
+    <PackageVersion Include="MailKit" Version="4.9.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
