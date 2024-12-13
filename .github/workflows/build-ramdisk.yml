@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 9.0.100-rc.2.24474.11 # Match the SDK version
+          dotnet-version: 9.0.100
 
       # Step 3: Prepare a directory in /dev/shm
       - name: Set up Ramdisk Directory
@@ -35,5 +35,5 @@ jobs:
       - name: Build and Test
         run: |
           cd /dev/shm/ramdisk/project
-          dotnet build --configuration Release
-          dotnet test --no-build --verbosity normal
+          dotnet build --configuration Debug --output /dev/shm/ramdisk/build
+          dotnet test --no-build /dev/shm/ramdisk/build --verbosity normal
