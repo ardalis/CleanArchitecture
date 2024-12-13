@@ -31,9 +31,14 @@ jobs:
         run: |
           cp -r $GITHUB_WORKSPACE/* /dev/shm/ramdisk/project
 
-      # Step 5: Build and Test from the ramdisk
+      # Step 5: Debug Directory Contents
+      - name: Debug Directory
+        run: |
+          ls -R /dev/shm/ramdisk/project
+
+      # Step 6: Build and Test from the ramdisk
       - name: Build and Test
         run: |
           cd /dev/shm/ramdisk/project
-          dotnet build --configuration Debug --output /dev/shm/ramdisk/build
-          dotnet test --no-build /dev/shm/ramdisk/build --verbosity normal
+          dotnet build Clean.Architecture.sln --configuration Debug
+          dotnet test Clean.Architecture.sln --
