@@ -21,27 +21,19 @@ jobs:
         with:
           dotnet-version: 7.0
 
-      # Step 3: Create a ramdisk
-      - name: Create Ramdisk
+      # Step 3: Prepare a directory in /dev/shm
+      - name: Set up Ramdisk Directory
         run: |
-          mkdir -p /mnt/ramdisk
-          sudo mount -t tmpfs -o size=2G tmpfs /mnt/ramdisk
+          mkdir -p /dev/shm/ramdisk/project
 
       # Step 4: Copy source code to the ramdisk
       - name: Copy Code to Ramdisk
         run: |
-          cp -r $GITHUB_WORKSPACE /mnt/ramdisk/project
+          cp -r $GITHUB_WORKSPACE/* /dev/shm/ramdisk/project
 
-      # Step 5: Build and test from the ramdisk
+      # Step 5: Build and Test from the ramdisk
       - name: Build and Test
         run: |
-          cd /mnt/ramdisk/project
+          cd /dev/shm/ramdisk/project
           dotnet build --configuration Release
           dotnet test --no-build --verbosity normal
-
-      # Step 6: Cleanup the ramdisk (optional, as the instance is ephemeral)
-      - name: Cleanup Ramdisk
-        if: always()
-        run: |
-          sudo umount /mnt/ramdisk
-          rm -rf /mnt/ramdisk
