@@ -1,0 +1,47 @@
+name: Build and Test with Ramdisk
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up .NET environment
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0
+
+      # Step 3: Create a ramdisk
+      - name: Create Ramdisk
+        run: |
+          mkdir -p /mnt/ramdisk
+          sudo mount -t tmpfs -o size=2G tmpfs /mnt/ramdisk
+
+      # Step 4: Copy source code to the ramdisk
+      - name: Copy Code to Ramdisk
+        run: |
+          cp -r $GITHUB_WORKSPACE /mnt/ramdisk/project
+
+      # Step 5: Build and test from the ramdisk
+      - name: Build and Test
+        run: |
+          cd /mnt/ramdisk/project
+          dotnet build --configuration Release
+          dotnet test --no-build --verbosity normal
+
+      # Step 6: Cleanup the ramdisk (optional, as the instance is ephemeral)
+      - name: Cleanup Ramdisk
+        if: always()
+        run: |
+          sudo umount /mnt/ramdisk
+          rm -rf /mnt/ramdisk
