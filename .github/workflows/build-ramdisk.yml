@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0
+          dotnet-version: 9.0.100-rc.2.24474.11 # Match the SDK version
 
       # Step 3: Prepare a directory in /dev/shm
       - name: Set up Ramdisk Directory
