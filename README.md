@@ -226,7 +226,7 @@ If you're used to building applications as single-project or as a set of project
 
 Steve Smith also maintains Microsoft's reference application, eShopOnWeb, and its associated free eBook. Check them out here:
 
-- [eShopOnWeb on GitHub](https://github.com/nimblepros/eShopOnWeb) (now supported by [NimblePros](https://nimblepros.com)
+- [eShopOnWeb on GitHub](https://github.com/nimblepros/eShopOnWeb) (now supported by [NimblePros](https://nimblepros.com))
 - [Architecting Modern Web Applications with ASP.NET Core and Microsoft Azure](https://aka.ms/webappebook) (eBook)
 
 Note that the goal of this project and repository is **not** to provide a sample or reference application. It's meant to just be a template, but with enough pieces in place to show you where things belong as you set up your actual solution. Instead of useless "Class1.cs" there are a few real classes in place. Delete them as soon as you understand why they're there and where you should put your own, similar files. There *is* a sample application in the `/sample` folder, if you're looking for that.
