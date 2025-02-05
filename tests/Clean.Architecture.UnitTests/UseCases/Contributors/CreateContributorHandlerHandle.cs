@@ -23,6 +23,6 @@ public class CreateContributorHandlerHandle
       .Returns(Task.FromResult(CreateContributor()));
     var result = await _handler.Handle(new CreateContributorCommand(_testName, null), CancellationToken.None);
 
-    result.IsSuccess.Should().BeTrue();
+    result.IsSuccess.ShouldBeTrue();
   }
 }

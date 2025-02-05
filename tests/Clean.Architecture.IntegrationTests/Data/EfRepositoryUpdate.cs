@@ -1,6 +1,5 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
 
-
 namespace Clean.Architecture.IntegrationTests.Data;
 
 public class EfRepositoryUpdate : BaseEfRepoTestFixture
@@ -21,12 +20,9 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     // fetch the item and update its title
     var newContributor = (await repository.ListAsync())
         .FirstOrDefault(Contributor => Contributor.Name == initialName);
-    if (newContributor == null)
-    {
-      Assert.NotNull(newContributor);
-      return;
-    }
-    Assert.NotSame(Contributor, newContributor);
+    newContributor.ShouldNotBeNull();
+
+    Contributor.ShouldNotBeSameAs(newContributor);
     var newName = Guid.NewGuid().ToString();
     newContributor.UpdateName(newName);
 
@@ -37,9 +33,9 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     var updatedItem = (await repository.ListAsync())
         .FirstOrDefault(Contributor => Contributor.Name == newName);
 
-    Assert.NotNull(updatedItem);
-    Assert.NotEqual(Contributor.Name, updatedItem?.Name);
-    Assert.Equal(Contributor.Status, updatedItem?.Status);
-    Assert.Equal(newContributor.Id, updatedItem?.Id);
+    updatedItem.ShouldNotBeNull();
+    Contributor.Name.ShouldNotBe(updatedItem.Name);
+    Contributor.Status.ShouldBe(updatedItem.Status);
+    newContributor.Id.ShouldBe(updatedItem.Id);
   }
 }
