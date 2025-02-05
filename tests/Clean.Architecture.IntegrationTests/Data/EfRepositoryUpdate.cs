@@ -20,11 +20,8 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     // fetch the item and update its title
     var newContributor = (await repository.ListAsync())
         .FirstOrDefault(Contributor => Contributor.Name == initialName);
-    if (newContributor == null)
-    {
-      newContributor.ShouldNotBeNull();
-      return;
-    }
+    newContributor.ShouldNotBeNull();
+
     Contributor.ShouldNotBeSameAs(newContributor);
     var newName = Guid.NewGuid().ToString();
     newContributor.UpdateName(newName);
