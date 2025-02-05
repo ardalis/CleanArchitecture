@@ -17,8 +17,9 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
     var newContributor = (await repository.ListAsync())
                     .FirstOrDefault();
 
-    Assert.Equal(testContributorName, newContributor?.Name);
-    Assert.Equal(testContributorStatus, newContributor?.Status);
-    Assert.True(newContributor?.Id > 0);
+    newContributor.ShouldNotBeNull();
+    testContributorName.ShouldBe(newContributor.Name);
+    testContributorStatus.ShouldBe(newContributor.Status);
+    newContributor.Id.ShouldBeGreaterThan(0);
   }
 }
