@@ -1,22 +1,16 @@
-using NimblePros.SampleToDo.UseCases.Projects.Update;
+﻿using NimblePros.SampleToDo.UseCases.Projects.Update;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
-public class Update : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
+public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
 {
-  private readonly IMediator _mediator;
-
-  public Update(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
     Put(UpdateProjectRequest.Route);
     AllowAnonymous();
   }
-
 
   public override async Task HandleAsync(
   UpdateProjectRequest request,

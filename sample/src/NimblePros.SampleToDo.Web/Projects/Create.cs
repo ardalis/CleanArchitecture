@@ -8,14 +8,9 @@ namespace NimblePros.SampleToDo.Web.Projects;
 /// <remarks>
 /// Creates a new project given a name.
 /// </remarks>
-public class Create : Endpoint<CreateProjectRequest, CreateProjectResponse>
+public class Create(IMediator mediator) : Endpoint<CreateProjectRequest, CreateProjectResponse>
 {
-  private readonly IMediator _mediator;
-
-  public Create(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {

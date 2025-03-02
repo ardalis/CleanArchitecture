@@ -5,14 +5,9 @@ namespace NimblePros.SampleToDo.Web.Projects;
 /// <summary>
 /// Deletes a project
 /// </summary>
-public class Delete : Endpoint<DeleteProjectRequest>
+public class Delete(IMediator mediator) : Endpoint<DeleteProjectRequest>
 {
-  private readonly IMediator _mediator;
-
-  public Delete(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
