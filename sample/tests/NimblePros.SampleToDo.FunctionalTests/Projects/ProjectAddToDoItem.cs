@@ -1,6 +1,7 @@
 ﻿using NimblePros.SampleToDo.Web;
 using NimblePros.SampleToDo.Web.Projects;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
+using Shouldly;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
@@ -39,6 +40,6 @@ public class ProjectAddToDoItem : IClassFixture<CustomWebApplicationFactory<Prog
     result.Headers.Location!.ToString().Should().Be(expectedRoute);
 
     var updatedProject = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(expectedRoute);
-    updatedProject.Items.Should().ContainSingle(item => item.Title == toDoTitle);
+    updatedProject.Items.Count(item => item.Title == toDoTitle).ShouldBe(1);
   }
 }

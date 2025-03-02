@@ -2,7 +2,6 @@
 global using Ardalis.HttpClientTestExtensions;
 global using DotNet.Testcontainers.Builders;
 global using DotNet.Testcontainers.Containers;
-global using FluentAssertions;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.Testing;
 global using Microsoft.EntityFrameworkCore;

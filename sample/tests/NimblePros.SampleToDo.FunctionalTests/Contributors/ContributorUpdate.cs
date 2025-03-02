@@ -1,5 +1,6 @@
 ﻿using NimblePros.SampleToDo.Web;
 using NimblePros.SampleToDo.Web.Contributors;
+using Shouldly;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Contributors;
 
@@ -24,8 +25,8 @@ public class ContributorUpdate : IClassFixture<CustomWebApplicationFactory<Progr
 
     var result = await _client.PutAndDeserializeAsync<UpdateContributorResponse>(putRoute, content);
 
-    result.Contributor.Name.Should().Be(newName);
-    result.Contributor.Id.Should().BeGreaterThan(0);
+    result.Contributor.Name.ShouldBe(newName);
+    result.Contributor.Id.ShouldBeGreaterThan(0);
   }
 
   [Fact]
@@ -50,5 +51,4 @@ public class ContributorUpdate : IClassFixture<CustomWebApplicationFactory<Progr
 
     _ = await _client.PutAndEnsureBadRequestAsync(putRoute, content);
   }
-
 }
