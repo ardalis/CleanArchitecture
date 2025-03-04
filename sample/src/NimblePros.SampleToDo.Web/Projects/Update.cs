@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.Update;
+﻿using Ardalis.Result.AspNetCore;
+using NimblePros.SampleToDo.UseCases.Projects.Update;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
@@ -18,17 +19,19 @@ public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest, UpdateP
   {
     var result = await _mediator.Send(new UpdateProjectCommand(request.Id, request.Name!));
 
-    if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
+    await SendResultAsync(result.ToMinimalApiResult());
 
-    if (result.IsSuccess)
-    {
-      var dto = result.Value;
-      Response = new UpdateProjectResponse(new ProjectRecord(dto.Id, dto.Name));
-      return;
-    }
+    //if (result.Status == ResultStatus.NotFound)
+    //{
+    //  await SendNotFoundAsync(cancellationToken);
+    //  return;
+    //}
+
+    //if (result.IsSuccess)
+    //{
+    //  var dto = result.Value;
+    //  Response = new UpdateProjectResponse(new ProjectRecord(dto.Id, dto.Name));
+    //  return;
+    //}
   }
 }

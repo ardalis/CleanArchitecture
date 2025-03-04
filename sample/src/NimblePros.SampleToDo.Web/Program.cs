@@ -1,5 +1,8 @@
-﻿using NimblePros.SampleToDo.Infrastructure.Data;
+﻿using FluentValidation;
+using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Web.Configurations;
+using NimblePros.SampleToDo.Web.Projects;
+using FluentValidation;
 
 public partial class Program
 {
@@ -27,6 +30,11 @@ public partial class Program
                     {
                       o.ShortSchemaNames = true;
                     });
+    builder.Services.AddValidatorsFromAssemblyContaining<UpdateProjectRequestValidator>();
+
+    var serviceProvider = builder.Services.BuildServiceProvider();
+    var validatorsCount = serviceProvider.GetServices<IValidator<UpdateProjectRequest>>().Count();
+    appLogger.LogInformation("Validators found: {validatorsCount}", validatorsCount);
 
     if (!builder.Environment.EnvironmentName.Equals("Testing"))
     {

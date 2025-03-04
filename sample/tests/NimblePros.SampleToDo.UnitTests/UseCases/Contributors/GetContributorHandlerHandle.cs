@@ -1,6 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
 using NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
+using Shouldly;
 
 namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
 
@@ -23,8 +24,8 @@ public class GetContributorHandlerHandle
       .Returns(new Contributor(_testName));
     var result = await _handler.Handle(new GetContributorQuery(validId), CancellationToken.None);
 
-    result.IsSuccess.Should().BeTrue();
-    result.Value.Name.Should().Be(_testName);
+    result.IsSuccess.ShouldBeTrue();
+    result.Value.Name.ShouldBe(_testName);
   }
 
   [Fact]
@@ -34,7 +35,7 @@ public class GetContributorHandlerHandle
     _repository.FirstOrDefaultAsync(Arg.Any<ContributorByIdSpec>(), Arg.Any<CancellationToken>()).ReturnsNull();
     var result = await _handler.Handle(new GetContributorQuery(invalidId), CancellationToken.None);
 
-    result.IsSuccess.Should().BeFalse();
-    result.Status.Should().Be(ResultStatus.NotFound);
+    result.IsSuccess.ShouldBeFalse();
+    result.Status.ShouldBe(ResultStatus.NotFound);
   }
 }

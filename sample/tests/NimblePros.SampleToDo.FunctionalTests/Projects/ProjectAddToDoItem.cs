@@ -37,7 +37,7 @@ public class ProjectAddToDoItem : IClassFixture<CustomWebApplicationFactory<Prog
     var expectedRoute = GetProjectByIdRequest.BuildRoute(testProjectId.Value);
 
     // TODO: Figure out why FastEndpoints isn't setting Location header
-    result.Headers.Location!.ToString().Should().Be(expectedRoute);
+    result.Headers.Location!.ToString().ShouldBe(expectedRoute);
 
     var updatedProject = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(expectedRoute);
     updatedProject.Items.Count(item => item.Title == toDoTitle).ShouldBe(1);

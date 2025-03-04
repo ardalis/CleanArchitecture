@@ -1,7 +1,6 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using Vogen;
-using Xunit;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.ProjectAggregate;
 
@@ -12,7 +11,7 @@ public class ProjectNameFrom
   [InlineData(null!)]
   public void ThrowsGivenNullOrEmpty(string name)
   {
-    Assert.Throws<ValueObjectValidationException>(() => ProjectName.From(name));
+    Should.Throw<ValueObjectValidationException>(() => ProjectName.From(name));
   }
 
   [Fact]
@@ -20,7 +19,6 @@ public class ProjectNameFrom
   {
     string validName = "valid name";
     var name = ProjectName.From(validName);
-    name.Should().NotBeNull();
-    name.Value.Should().Be(validName);
+    name.Value.ShouldBe(validName);
   }
 }

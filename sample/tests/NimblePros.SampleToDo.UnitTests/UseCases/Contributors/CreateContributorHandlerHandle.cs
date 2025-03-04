@@ -1,5 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
+using Shouldly;
 
 namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
 public class CreateContributorHandlerHandle
@@ -25,6 +26,6 @@ public class CreateContributorHandlerHandle
       .Returns(Task.FromResult(CreateContributor()));
     var result = await _handler.Handle(new CreateContributorCommand(_testName), CancellationToken.None);
 
-    result.IsSuccess.Should().BeTrue();
+    result.IsSuccess.ShouldBeTrue();
   }
 }
