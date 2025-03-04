@@ -1,4 +1,6 @@
-﻿namespace NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
+
+namespace NimblePros.SampleToDo.Core.ContributorAggregate;
 
 public class Contributor : EntityBase, IAggregateRoot
 {
@@ -11,6 +13,9 @@ public class Contributor : EntityBase, IAggregateRoot
 
   public void UpdateName(ContributorName newName)
   {
+    if (Name.Equals(newName)) return;
     Name = newName;
+    this.RegisterDomainEvent(new ContributorNameUpdatedEvent(this));
   }
 }
+
