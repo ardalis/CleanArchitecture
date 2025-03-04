@@ -21,6 +21,6 @@ public class GetContributorHandler : IQueryHandler<GetContributorQuery, Result<C
     var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
     if (entity == null) return Result.NotFound();
 
-    return new ContributorDTO(entity.Id, entity.Name);
+    return new ContributorDTO(entity.Id, entity.Name.Value);
   }
 }

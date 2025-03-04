@@ -13,13 +13,13 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
 
   public async Task<Result<ProjectDTO>> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
   {
-    var existingEntity = await _repository.GetByIdAsync(ProjectId.From(request.ProjectId), cancellationToken);
+    var existingEntity = await _repository.GetByIdAsync(request.ProjectId, cancellationToken);
     if (existingEntity == null)
     {
       return Result.NotFound();
     }
 
-    existingEntity.UpdateName(ProjectName.From(request.NewName!));
+    existingEntity.UpdateName(request.NewName!);
 
     await _repository.UpdateAsync(existingEntity, cancellationToken);
 

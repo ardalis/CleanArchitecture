@@ -9,7 +9,7 @@ public class ContributorConstructor
 
   private Contributor CreateContributor()
   {
-    return new Contributor(_testName);
+    return new Contributor(ContributorName.From(_testName));
   }
 
   [Fact]
@@ -17,6 +17,6 @@ public class ContributorConstructor
   {
     _testContributor = CreateContributor();
 
-    Assert.Equal(_testName, _testContributor.Name);
+    Assert.Equal(_testName, _testContributor.Name.Value);
   }
 }

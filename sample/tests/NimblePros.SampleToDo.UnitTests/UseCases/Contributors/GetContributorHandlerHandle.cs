@@ -21,7 +21,7 @@ public class GetContributorHandlerHandle
   {
     int validId = 1;
     _repository.FirstOrDefaultAsync(Arg.Any<ContributorByIdSpec>(), Arg.Any<CancellationToken>())
-      .Returns(new Contributor(_testName));
+      .Returns(new Contributor(ContributorName.From(_testName)));
     var result = await _handler.Handle(new GetContributorQuery(validId), CancellationToken.None);
 
     result.IsSuccess.ShouldBeTrue();

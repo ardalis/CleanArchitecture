@@ -21,8 +21,8 @@ public class UpdateContributorHandlerHandle
   {
     int validId = 1;
     _repository.GetByIdAsync(Arg.Any<int>(), Arg.Any<CancellationToken>())
-      .Returns(new Contributor(_testName));
-    var result = await _handler.Handle(new UpdateContributorCommand(validId, _newName), CancellationToken.None);
+      .Returns(new Contributor(ContributorName.From(_testName)));
+    var result = await _handler.Handle(new UpdateContributorCommand(validId, ContributorName.From(_newName)), CancellationToken.None);
 
     result.IsSuccess.ShouldBeTrue();
     result.Value.Name.ShouldBe(_newName);
@@ -33,7 +33,7 @@ public class UpdateContributorHandlerHandle
   {
     int invalidId = 1000;
     _repository.GetByIdAsync(Arg.Any<int>(), Arg.Any<CancellationToken>()).ReturnsNull();
-    var result = await _handler.Handle(new UpdateContributorCommand(invalidId, _newName), CancellationToken.None);
+    var result = await _handler.Handle(new UpdateContributorCommand(invalidId, ContributorName.From(_newName)), CancellationToken.None);
 
     result.IsSuccess.ShouldBeFalse();
     result.Status.ShouldBe(ResultStatus.NotFound);
