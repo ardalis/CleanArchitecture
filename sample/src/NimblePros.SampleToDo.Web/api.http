@@ -32,7 +32,7 @@ Content-Type: application/json
 
 {
   "id": {{id_to_update}},
-  "name": "ardalis2"
+  "name": "ardalis3"
 }
 
 ###
@@ -50,8 +50,14 @@ GET {{host}}:{{port}}/Projects
 ###
 
 // Get a specific project
-@id_to_get=2
+@id_to_get=1
 GET {{host}}:{{port}}/Projects/{{id_to_get}}
+
+###
+
+// Delete a specific project
+@id_to_delete=20
+DELETE {{host}}:{{port}}/Projects/{{id_to_delete}}
 
 ###
 
@@ -84,3 +90,5 @@ Content-Type: application/json
 
 {
 }
+
+###

@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.Create;
+﻿using Ardalis.Result.AspNetCore;
+using NimblePros.SampleToDo.UseCases.Projects.Create;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
@@ -33,6 +34,6 @@ public class Create(IMediator mediator) : Endpoint<CreateProjectRequest, CreateP
       Response = new CreateProjectResponse(result.Value.Value, request.Name!);
       return;
     }
-    // TODO: Handle other cases as necessary
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

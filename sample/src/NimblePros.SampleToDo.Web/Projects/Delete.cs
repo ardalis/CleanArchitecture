@@ -1,4 +1,6 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.Delete;
+﻿using Ardalis.Result.AspNetCore;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Projects.Delete;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
@@ -19,20 +21,10 @@ public class Delete(IMediator mediator) : Endpoint<DeleteProjectRequest>
   DeleteProjectRequest request,
   CancellationToken cancellationToken)
   {
-    var command = new DeleteProjectCommand(request.ProjectId);
+    var command = new DeleteProjectCommand(ProjectId.From(request.ProjectId));
 
     var result = await _mediator.Send(command);
 
-    if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
-
-    if (result.IsSuccess)
-    {
-      await SendNoContentAsync(cancellationToken);
-    };
-    // TODO: Handle other issues as needed
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }
