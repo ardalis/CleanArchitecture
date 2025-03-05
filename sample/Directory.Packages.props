@@ -34,6 +34,7 @@
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="NimblePros.Metronome" Version="0.4.0" />
     <PackageVersion Include="NimblePros.SharedKernel" Version="2.1.1" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="ReportGenerator" Version="5.4.4" />

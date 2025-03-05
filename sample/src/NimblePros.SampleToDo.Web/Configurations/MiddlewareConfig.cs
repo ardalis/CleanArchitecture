@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Infrastructure.Data;
+﻿using NimblePros.Metronome;
+using NimblePros.SampleToDo.Infrastructure.Data;
 
 namespace NimblePros.SampleToDo.Web.Configurations;
 
@@ -10,6 +11,7 @@ public static class MiddlewareConfig
     {
       app.UseDeveloperExceptionPage();
       app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+      app.UseMetronomeLoggingMiddleware();
     }
     else
     {
