@@ -1,0 +1,3 @@
+[submodule "CrossCuttingSettingsAndConfigs"]
+	path = CrossCuttingSettingsAndConfigs
+	url = https://github.com/MartinHock/CrosscuttingConcernsAndSettings.git
