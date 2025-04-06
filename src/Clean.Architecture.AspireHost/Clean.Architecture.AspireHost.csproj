@@ -12,7 +12,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsNotAsErrors>NU1902</WarningsNotAsErrors>
-    <
+    
   </PropertyGroup>
 
   <ItemGroup>
