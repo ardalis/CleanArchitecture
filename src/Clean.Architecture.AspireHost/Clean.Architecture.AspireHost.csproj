@@ -8,12 +8,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsAspireHost>true</IsAspireHost>
-    <UserSecretsId>c540eeb6-e06b-4456-a539-be58dd8b88c7</UserSecretsId>
-    <PropertyGroup>
-      <TargetFramework>net9.0</TargetFramework>
-      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-      <WarningsNotAsErrors>NU1902</WarningsNotAsErrors>
-    </PropertyGroup>
+
+    <TargetFramework>net9.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1902</WarningsNotAsErrors>
+    <
   </PropertyGroup>
 
   <ItemGroup>
