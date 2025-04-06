@@ -1,7 +1,7 @@
 ﻿using Clean.Architecture.Infrastructure.Data;
 
 namespace Clean.Architecture.FunctionalTests;
-
+#pragma warning disable S125
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
   /// <summary>
@@ -83,3 +83,4 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         });
   }
 }
+#pragma warning restore S125
