@@ -1,4 +1,5 @@
-﻿using Clean.Architecture.Infrastructure.Data;
+﻿using System.Net;
+using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web.Contributors;
 
 
@@ -22,6 +23,7 @@ public class ContributorGetById(CustomWebApplicationFactory<Program> factory) : 
   public async Task ReturnsNotFoundGivenId1000()
   {
     string route = GetContributorByIdRequest.BuildRoute(1000);
-    _ = await _client.GetAndEnsureNotFoundAsync(route);
+    var result = await _client.GetAndEnsureNotFoundAsync(route);
+    result.StatusCode.ShouldBe(HttpStatusCode.NotFound);
   }
 }
