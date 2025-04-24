@@ -25,6 +25,14 @@
   },
   "sources": [
     {
+      "exclude": [ 
+        ".vs/**",
+        ".vscode/**",
+        ".git/**",
+        ".github/**",
+        ".template.config",
+        "sample/**"
+      ],
       "modifiers": [
         {
           "condition": "(!aspire)",
@@ -44,29 +52,5 @@
         }
       ]
     }
-  ],
-  "primaryOutputs": [{
-    "path": "src/Clean.Architecture.AspireHost/Clean.Architecture.AspireHost.csproj"
-  },
-  {
-    "path": "src/Clean.Architecture.ServiceDefaults/Clean.Architecture.ServiceDefaults.csproj"
-  },
-  {
-    "path": "tests/Clean.Architecture.AspireTests/Clean.Architecture.AspireTests.csproj"
-  }
-],
-  "postActions": [{
-    "condition": "(aspire)",
-    "description": "Add Aspire projects to solution",
-    "manualInstructions": [{
-        "text": "Add generated project to solution manually."
-      }
-    ],
-    "args": {
-      "isRoot": "true"
-    },
-    "actionId": "D396686C-DE0E-4DE6-906D-291CD29FC5DE",
-    "continueOnError": true
-  }
-]
+  ]
 }
