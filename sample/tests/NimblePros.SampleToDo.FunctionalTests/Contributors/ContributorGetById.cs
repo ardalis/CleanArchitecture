@@ -19,7 +19,7 @@ public class ContributorGetById : IClassFixture<CustomWebApplicationFactory<Prog
     var result = await _client.GetAndDeserializeAsync<ContributorRecord>(GetContributorByIdRequest.BuildRoute(1));
 
     Assert.Equal(1, result.Id);
-    Assert.Equal(SeedData.Contributor1.Name, result.Name);
+    Assert.Equal(SeedData.Contributor1.Name.Value, result.Name);
   }
 
   [Fact]

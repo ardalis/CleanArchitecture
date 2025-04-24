@@ -1,4 +1,4 @@
-using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
@@ -6,14 +6,9 @@ namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
 /// <summary>
 /// Mark an item as complete
 /// </summary>
-public class MarkItemComplete : Endpoint<MarkItemCompleteRequest>
+public class MarkItemComplete(IMediator mediator) : Endpoint<MarkItemCompleteRequest>
 {
-  private readonly IMediator _mediator;
-
-  public MarkItemComplete(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {

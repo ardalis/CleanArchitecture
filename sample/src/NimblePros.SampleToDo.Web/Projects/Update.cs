@@ -1,15 +1,12 @@
+﻿using Ardalis.Result.AspNetCore;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.Update;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
-public class Update : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
+public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
 {
-  private readonly IMediator _mediator;
-
-  public Update(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
@@ -17,24 +14,12 @@ public class Update : Endpoint<UpdateProjectRequest, UpdateProjectResponse>
     AllowAnonymous();
   }
 
-
   public override async Task HandleAsync(
   UpdateProjectRequest request,
   CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new UpdateProjectCommand(request.Id, request.Name!));
+    var result = await _mediator.Send(new UpdateProjectCommand(ProjectId.From(request.Id), ProjectName.From(request.Name!)));
 
-    if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
-
-    if (result.IsSuccess)
-    {
-      var dto = result.Value;
-      Response = new UpdateProjectResponse(new ProjectRecord(dto.Id, dto.Name));
-      return;
-    }
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }
