@@ -13,7 +13,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-      * Fixes project references in the SLN file for excluding Aspire
+      * Fixes project references in the SLN file for Aspire
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
