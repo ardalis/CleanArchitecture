@@ -32,7 +32,7 @@ Content-Type: application/json
 
 {
   "id": {{id_to_update}},
-  "name": "ardalis2"
+  "name": "ardalis3"
 }
 
 ###
@@ -55,12 +55,29 @@ GET {{host}}:{{port}}/Projects/{{id_to_get}}
 
 ###
 
+// Delete a specific project
+@id_to_delete=20
+DELETE {{host}}:{{port}}/Projects/{{id_to_delete}}
+
+###
+
 // Create a new project
 POST {{host}}:{{port}}/Projects
 Content-Type: application/json
 
 {
   "name": "New Project"
+}
+
+###
+
+// Update project - specify id in body
+PUT {{host}}:{{port}}/Projects/
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "new name"
 }
 
 ###
@@ -73,3 +90,5 @@ Content-Type: application/json
 
 {
 }
+
+###

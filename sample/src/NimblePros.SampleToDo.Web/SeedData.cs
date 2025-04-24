@@ -6,8 +6,8 @@ namespace NimblePros.SampleToDo.Web;
 
 public static class SeedData
 {
-  public static readonly Contributor Contributor1 = new ("Ardalis");
-  public static readonly Contributor Contributor2 = new ("Snowfrog");
+  public static readonly Contributor Contributor1 = new (ContributorName.From("Ardalis"));
+  public static readonly Contributor Contributor2 = new (ContributorName.From("Snowfrog"));
   public static readonly Project TestProject1 = new Project(ProjectName.From("Test Project"));
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {

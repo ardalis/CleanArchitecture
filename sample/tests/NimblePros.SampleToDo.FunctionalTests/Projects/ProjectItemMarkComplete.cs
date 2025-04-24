@@ -2,6 +2,7 @@
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 using NimblePros.SampleToDo.Web.ProjectEndpoints;
 using NimblePros.SampleToDo.Web.Projects;
+using Shouldly;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
@@ -36,10 +37,10 @@ public class ProjectItemMarkComplete :
     response.EnsureSuccessStatusCode();
 
     var stringResponse = await response.Content.ReadAsStringAsync();
-    Assert.Equal("", stringResponse);
+    stringResponse.ShouldBeEmpty();
 
     // confirm item is complete
     var project = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(GetProjectByIdRequest.BuildRoute(projectId));
-    project.Items.First(i => i.Id == itemId).IsDone.Should().BeTrue();
+    project.Items.First(i => i.Id == itemId).IsDone.ShouldBeTrue();
   }
 }

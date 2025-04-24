@@ -4,14 +4,9 @@ using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
-public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
+public class GetById(IMediator mediator) : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
 {
-  private readonly IMediator _mediator;
-
-  public GetById(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {

@@ -10,14 +10,9 @@ namespace NimblePros.SampleToDo.Web.Projects;
 /// Lists all projects without their sub-properties.
 /// NOTE: In DEV will always show a FAKE ID 1000 project, not real data
 /// </remarks>
-public class List : EndpointWithoutRequest<ProjectListResponse>
+public class List(IMediator mediator) : EndpointWithoutRequest<ProjectListResponse>
 {
-  private readonly IMediator _mediator;
-
-  public List(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {

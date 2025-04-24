@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 
@@ -34,7 +35,7 @@ public class Create : Endpoint<CreateContributorRequest, CreateContributorRespon
     CreateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new CreateContributorCommand(request.Name!));
+    var result = await _mediator.Send(new CreateContributorCommand(ContributorName.From(request.Name!)));
 
     if (result.IsSuccess)
     {
