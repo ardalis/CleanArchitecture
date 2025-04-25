@@ -1,0 +1,28 @@
+name: Windows Build and Test
+
+on:
+  push:
+    branches:
+      - feature/github-actions-build-and-test
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+
+    - name: Build the project
+      run: dotnet build --configuration Release
+
+    - name: Run tests
+      run: dotnet test --configuration Release
