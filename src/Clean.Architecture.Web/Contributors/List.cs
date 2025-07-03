@@ -21,6 +21,9 @@ public class List(IMediator _mediator) : EndpointWithoutRequest<ContributorListR
   {
     Result<IEnumerable<ContributorDTO>> result = await _mediator.Send(new ListContributorsQuery(null, null), cancellationToken);
 
+    var result2 = await new ListContributorsQuery2(null, null)
+      .ExecuteAsync(cancellationToken);
+
     if (result.IsSuccess)
     {
       Response = new ContributorListResponse
