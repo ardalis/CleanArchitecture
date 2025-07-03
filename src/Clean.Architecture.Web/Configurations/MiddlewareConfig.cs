@@ -36,8 +36,8 @@ public static class MiddlewareConfig
     try
     {
       var context = services.GetRequiredService<AppDbContext>();
-      //          context.Database.Migrate();
-      context.Database.EnsureCreated();
+      //          await context.Database.MigrateAsync();
+      await context.Database.EnsureCreatedAsync();
       await SeedData.InitializeAsync(context);
     }
     catch (Exception ex)
