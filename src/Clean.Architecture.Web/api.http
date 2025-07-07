@@ -18,7 +18,7 @@ POST {{host}}:{{port}}/Contributors
 Content-Type: application/json
 
 {
-  "name": "John Doe 2",
+  "name": "John Doe 3",
   "email": "test@test.com",
   "phoneNumber": "1234567890"
 }
