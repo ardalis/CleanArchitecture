@@ -6,9 +6,9 @@ namespace NimblePros.SampleToDo.Web;
 
 public static class SeedData
 {
-  public static readonly Contributor Contributor1 = new ("Ardalis");
-  public static readonly Contributor Contributor2 = new ("Snowfrog");
-  public static readonly Project TestProject1 = new Project("Test Project", Priority.Backlog);
+  public static readonly Contributor Contributor1 = new (ContributorName.From("Ardalis"));
+  public static readonly Contributor Contributor2 = new (ContributorName.From("Snowfrog"));
+  public static readonly Project TestProject1 = new Project(ProjectName.From("Test Project"));
   public static readonly ToDoItem ToDoItem1 = new ToDoItem
   {
     Title = "Get Sample Working",
@@ -25,23 +25,17 @@ public static class SeedData
     Description = "Make sure all the tests run and review what they are doing."
   };
 
-  public static void Initialize(IServiceProvider serviceProvider)
+  public static async Task InitializeAsync(AppDbContext dbContext)
   {
-    using (var dbContext = new AppDbContext(
-        serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
-    {
-      // Look for any TODO items.
-      if (dbContext.ToDoItems.Any())
+      if (await dbContext.ToDoItems.AnyAsync())
       {
         return;   // DB has been seeded
       }
 
-      PopulateTestData(dbContext);
-
-
-    }
+      await PopulateTestDataAsync(dbContext);
   }
-  public static void PopulateTestData(AppDbContext dbContext)
+
+  public static async Task PopulateTestDataAsync(AppDbContext dbContext)
   {
     foreach (var item in dbContext.Projects)
     {
@@ -55,12 +49,12 @@ public static class SeedData
     {
       dbContext.Remove(item);
     }
-    dbContext.SaveChanges();
+    await dbContext.SaveChangesAsync();
 
     dbContext.Contributors.Add(Contributor1);
     dbContext.Contributors.Add(Contributor2);
 
-    dbContext.SaveChanges();
+    await dbContext.SaveChangesAsync();
 
     ToDoItem1.AddContributor(Contributor1.Id);
     ToDoItem2.AddContributor(Contributor2.Id);
@@ -71,6 +65,6 @@ public static class SeedData
     TestProject1.AddItem(ToDoItem3);
     dbContext.Projects.Add(TestProject1);
 
-    dbContext.SaveChanges();
+    await dbContext.SaveChangesAsync();
   }
 }

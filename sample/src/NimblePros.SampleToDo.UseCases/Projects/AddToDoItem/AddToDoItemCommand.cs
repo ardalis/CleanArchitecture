@@ -1,4 +1,6 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+
+namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 
 /// <summary>
 /// Creates a new ToDoItem and adds it to a Project
@@ -7,4 +9,7 @@
 /// <param name="ContributorId"></param>
 /// <param name="Title"></param>
 /// <param name="Description"></param>
-public record AddToDoItemCommand(int ProjectId, int? ContributorId, string Title, string Description) : Ardalis.SharedKernel.ICommand<Result<int>>;
+public record AddToDoItemCommand(ProjectId ProjectId,
+                                 int? ContributorId,
+                                 string Title,
+                                 string Description) : ICommand<Result<ToDoItemId>>;

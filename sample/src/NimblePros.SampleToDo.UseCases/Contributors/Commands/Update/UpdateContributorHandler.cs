@@ -23,6 +23,6 @@ public class UpdateContributorHandler : ICommandHandler<UpdateContributorCommand
 
     await _repository.UpdateAsync(existingContributor, cancellationToken);
 
-    return Result.Success(new ContributorDTO(existingContributor.Id, existingContributor.Name));
+    return Result.Success(new ContributorDTO(existingContributor.Id, existingContributor.Name.Value));
   }
 }

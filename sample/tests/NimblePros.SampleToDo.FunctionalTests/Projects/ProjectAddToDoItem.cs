@@ -1,6 +1,7 @@
 ﻿using NimblePros.SampleToDo.Web;
 using NimblePros.SampleToDo.Web.Projects;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
+using Shouldly;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Projects;
 
@@ -22,22 +23,23 @@ public class ProjectAddToDoItem : IClassFixture<CustomWebApplicationFactory<Prog
     var request = new CreateToDoItemRequest()
     {
       Title = toDoTitle,
-      ProjectId = testProjectId,
+      ProjectId = testProjectId.Value,
       Description = toDoTitle
     };
     var content = StringContentHelpers.FromModelAsJson(request);
 
-    var result = await _client.PostAsync(CreateToDoItemRequest.BuildRoute(testProjectId), content);
+    var result = await _client.PostAsync(
+      CreateToDoItemRequest.BuildRoute(testProjectId.Value), content);
 
     // useful for debugging error responses:
     var stringContent = await result.Content.ReadAsStringAsync();
 
-    var expectedRoute = GetProjectByIdRequest.BuildRoute(testProjectId);
+    var expectedRoute = GetProjectByIdRequest.BuildRoute(testProjectId.Value);
 
     // TODO: Figure out why FastEndpoints isn't setting Location header
-    result.Headers.Location!.ToString().Should().Be(expectedRoute);
+    result.Headers.Location!.ToString().ShouldBe(expectedRoute);
 
     var updatedProject = await _client.GetAndDeserializeAsync<GetProjectByIdResponse>(expectedRoute);
-    updatedProject.Items.Should().ContainSingle(item => item.Title == toDoTitle);
+    updatedProject.Items.Count(item => item.Title == toDoTitle).ShouldBe(1);
   }
 }

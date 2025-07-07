@@ -1,17 +1,22 @@
-﻿namespace NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
+
+namespace NimblePros.SampleToDo.Core.ContributorAggregate;
 
 public class Contributor : EntityBase, IAggregateRoot
 {
-  public string Name { get; private set; } = default!;
+  public ContributorName Name { get; private set; }
 
-  public Contributor(string name)
+  public Contributor(ContributorName name)
   {
-    UpdateName(name);
+      Name = name;
   }
 
-  public Contributor UpdateName(string newName)
+  public Contributor UpdateName(ContributorName newName)
   {
-    this.Name = Guard.Against.NullOrEmpty(newName, nameof(newName));
+    if (Name.Equals(newName)) return;
+    Name = newName;
+    this.RegisterDomainEvent(new ContributorNameUpdatedEvent(this));
     return this;
   }
 }
+

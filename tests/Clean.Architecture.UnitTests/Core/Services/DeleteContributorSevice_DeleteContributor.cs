@@ -20,6 +20,6 @@ public class DeleteContributorService_DeleteContributor
   {
     var result = await _service.DeleteContributor(0);
 
-    Assert.Equal(Ardalis.Result.ResultStatus.NotFound, result.Status);
+    result.Status.ShouldBe(Ardalis.Result.ResultStatus.NotFound);
   }
 }

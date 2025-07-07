@@ -2,21 +2,17 @@
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
-public class Project : EntityBase, IAggregateRoot
+public class Project : EntityBase<Project, ProjectId>, IAggregateRoot
 {
-  public string Name { get; private set; } = default!;
+  public ProjectName Name { get; private set; }
 
   private readonly List<ToDoItem> _items = [];
   public IEnumerable<ToDoItem> Items => _items.AsReadOnly();
   public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
 
-  // Note: Probably it makes more sense to prioritize items, not projects, but this is just an example
-  public Priority Priority { get; }
-
-  public Project(string name, Priority priority)
+  public Project(ProjectName name)
   {
-    UpdateName(name); // TODO: Replace with value object
-    Priority = priority;
+    Name = name;
   }
 
   public Project AddItem(ToDoItem newItem)
@@ -29,9 +25,9 @@ public class Project : EntityBase, IAggregateRoot
     return this;
   }
 
-  public Project UpdateName(string newName)
+  public Project UpdateName(ProjectName newName)
   {
-    Name = Guard.Against.NullOrEmpty(newName);
+    Name = newName;
     return this;
   }
 }

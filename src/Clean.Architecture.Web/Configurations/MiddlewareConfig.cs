@@ -1,13 +1,11 @@
 ﻿using Ardalis.ListStartupServices;
 using Clean.Architecture.Infrastructure.Data;
-using FastEndpoints;
-using FastEndpoints.Swagger;
 
 namespace Clean.Architecture.Web.Configurations;
 
-public static class WebApplicationConfigs
+public static class MiddlewareConfig
 {
-  public static async Task<IApplicationBuilder> UseAppMiddleware(this WebApplication app)
+  public static async Task<IApplicationBuilder> UseAppMiddlewareAndSeedDatabase(this WebApplication app)
   {
     if (app.Environment.IsDevelopment())
     {
@@ -23,7 +21,7 @@ public static class WebApplicationConfigs
     app.UseFastEndpoints()
         .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
-    app.UseHttpsRedirection();
+    app.UseHttpsRedirection(); // Note this will drop Authorization headers
 
     await SeedDatabase(app);
 
@@ -38,8 +36,8 @@ public static class WebApplicationConfigs
     try
     {
       var context = services.GetRequiredService<AppDbContext>();
-      //          context.Database.Migrate();
-      context.Database.EnsureCreated();
+      //          await context.Database.MigrateAsync();
+      await context.Database.EnsureCreatedAsync();
       await SeedData.InitializeAsync(context);
     }
     catch (Exception ex)

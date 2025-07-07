@@ -16,7 +16,7 @@ public class ListContributorsQueryService : IListContributorsQueryService
   public async Task<IEnumerable<ContributorDTO>> ListAsync()
   {
     var result = await _db.Contributors.FromSqlRaw("SELECT Id, Name FROM Contributors") // don't fetch other big columns
-      .Select(c => new ContributorDTO(c.Id, c.Name))
+      .Select(c => new ContributorDTO(c.Id, c.Name.Value))
       .ToListAsync();
 
     return result;

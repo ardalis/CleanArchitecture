@@ -1,59 +1,68 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
-@hostname=localhost
+@host=https://localhost
 @port=57678
 
 // List all contributors
-GET http://{{hostname}}:{{port}}/Contributors
+GET {{host}}:{{port}}/Contributors
 
 ###
 
 // Get a specific contributor
 @id_to_get=1
-GET http://{{hostname}}:{{port}}/Contributors/{{id_to_get}}
+GET {{host}}:{{port}}/Contributors/{{id_to_get}}
 
 ###
 
 // Add a new contributor
-POST http://{{hostname}}:{{port}}/Contributors
+POST {{host}}:{{port}}/Contributors
 Content-Type: application/json
 
 {
-  "name": "John Doe"
+  "name": "John Doe 2",
+  "email": "test@test.com",
+  "phoneNumber": "1234567890"
 }
 
 ###
 
 // Update a contributor
 @id_to_update=1
-PUT http://{{hostname}}:{{port}}/Contributors/{{id_to_update}}
+PUT {{host}}:{{port}}/Contributors/{{id_to_update}}
 Content-Type: application/json
 
 {
   "id": {{id_to_update}},
-  "name": "ardalis2"
+  "name": "ardalis3"
 }
 
 ###
 
 // Delete a contributor
-@id_to_delete=1
-DELETE http://{{hostname}}:{{port}}/Contributors/{{id_to_delete}}
+@id_to_delete=5
+DELETE {{host}}:{{port}}/Contributors/{{id_to_delete}}
+
 
 ###
 
 // List all Projects
-GET http://{{hostname}}:{{port}}/Projects
+GET {{host}}:{{port}}/Projects
 
 ###
 
 // Get a specific project
 @id_to_get=1
-GET http://{{hostname}}:{{port}}/Projects/{{id_to_get}}
+GET {{host}}:{{port}}/Projects/{{id_to_get}}
+
+###
+
+// Delete a specific project
+@id_to_delete=20
+DELETE {{host}}:{{port}}/Projects/{{id_to_delete}}
 
 ###
 
 // Create a new project
-POST http://{{hostname}}:{{port}}/Projects
+POST {{host}}:{{port}}/Projects
 Content-Type: application/json
 
 {
@@ -62,11 +71,24 @@ Content-Type: application/json
 
 ###
 
+// Update project - specify id in body
+PUT {{host}}:{{port}}/Projects/
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "new name"
+}
+
+###
+
 // Mark an item as complete
 @project_id=1
 @item_id=2
-POST http://{{hostname}}:{{port}}/Projects/{{project_id}}/ToDoItems/{{item_id}}
+POST {{host}}:{{port}}/Projects/{{project_id}}/ToDoItems/{{item_id}}
 Content-Type: application/json
 
 {
 }
+
+###

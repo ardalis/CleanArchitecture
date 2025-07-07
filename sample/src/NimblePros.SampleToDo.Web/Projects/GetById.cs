@@ -1,16 +1,12 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+using NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
-public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
+public class GetById(IMediator mediator) : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
 {
-  private readonly IMediator _mediator;
-
-  public GetById(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
@@ -21,7 +17,7 @@ public class GetById : Endpoint<GetProjectByIdRequest, GetProjectByIdResponse>
   public override async Task HandleAsync(GetProjectByIdRequest request,
   CancellationToken cancellationToken)
   {
-    var command = new GetProjectWithAllItemsQuery(request.ProjectId);
+    var command = new GetProjectWithAllItemsQuery(ProjectId.From(request.ProjectId));
 
     var result = await _mediator.Send(command);
 

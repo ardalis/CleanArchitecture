@@ -1,8 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.UseCases.Projects;
-using NimblePros.SampleToDo.UseCases.Projects.Update;
 
-namespace NimblePros.SampleToDo.UseCases.Contributors.Update;
+namespace NimblePros.SampleToDo.UseCases.Projects.Update;
 
 public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result<ProjectDTO>>
 {
@@ -25,6 +23,6 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
 
     await _repository.UpdateAsync(existingEntity, cancellationToken);
 
-    return Result.Success(new ProjectDTO(existingEntity.Id, existingEntity.Name, existingEntity.Status.ToString()));
+    return Result.Success(new ProjectDTO(existingEntity.Id.Value, existingEntity.Name.Value, existingEntity.Status.ToString()));
   }
 }

@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Projects.Create;
+﻿using Ardalis.Result.AspNetCore;
+using NimblePros.SampleToDo.UseCases.Projects.Create;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
@@ -8,14 +9,9 @@ namespace NimblePros.SampleToDo.Web.Projects;
 /// <remarks>
 /// Creates a new project given a name.
 /// </remarks>
-public class Create : Endpoint<CreateProjectRequest, CreateProjectResponse>
+public class Create(IMediator mediator) : Endpoint<CreateProjectRequest, CreateProjectResponse>
 {
-  private readonly IMediator _mediator;
-
-  public Create(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
@@ -35,9 +31,9 @@ public class Create : Endpoint<CreateProjectRequest, CreateProjectResponse>
 
     if (result.IsSuccess)
     {
-      Response = new CreateProjectResponse(result.Value, request.Name!);
+      Response = new CreateProjectResponse(result.Value.Value, request.Name!);
       return;
     }
-    // TODO: Handle other cases as necessary
+    await SendResultAsync(result.ToMinimalApiResult());
   }
 }

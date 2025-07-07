@@ -1,3 +1,5 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 
-public record UpdateContributorCommand(int ContributorId, string NewName) : ICommand<Result<ContributorDTO>>;
+namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
+
+public record UpdateContributorCommand(int ContributorId, ContributorName NewName) : ICommand<Result<ContributorDTO>>;

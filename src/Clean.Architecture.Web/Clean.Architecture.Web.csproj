@@ -25,6 +25,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Clean.Architecture.Infrastructure\Clean.Architecture.Infrastructure.csproj" />
     <ProjectReference Include="..\Clean.Architecture.UseCases\Clean.Architecture.UseCases.csproj" />
+    <!--#if (aspire)-->
+    <ProjectReference Include="..\Clean.Architecture.ServiceDefaults\Clean.Architecture.ServiceDefaults.csproj" />
+    <!--#endif -->
   </ItemGroup>
 
 </Project>

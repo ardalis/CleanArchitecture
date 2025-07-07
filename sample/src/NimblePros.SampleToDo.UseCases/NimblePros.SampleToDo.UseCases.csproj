@@ -14,8 +14,8 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="MediatR" />
-    <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="NimblePros.SharedKernel" />
   </ItemGroup>
 
   <ItemGroup>
