@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="FastEndpoints" />
     <PackageReference Include="MediatR" />
   </ItemGroup>
 
