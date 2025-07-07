@@ -15,6 +15,6 @@ public class ContributorConstructor
   {
     _testContributor = CreateContributor();
 
-    Assert.Equal(_testName, _testContributor.Name);
+    _testContributor.Name.ShouldBe(_testName);
   }
 }

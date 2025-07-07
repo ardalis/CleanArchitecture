@@ -1,0 +1,30 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="CleanArchitecture.nuspec" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Clean.Architecture.AspireHost/Clean.Architecture.AspireHost.csproj" />
+    <Project Path="src/Clean.Architecture.Core/Clean.Architecture.Core.csproj" />
+    <Project Path="src/Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj" />
+    <Project Path="src/Clean.Architecture.ServiceDefaults/Clean.Architecture.ServiceDefaults.csproj" />
+    <Project Path="src/Clean.Architecture.UseCases/Clean.Architecture.UseCases.csproj" />
+    <Project Path="src/Clean.Architecture.Web/Clean.Architecture.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj">
+      <BuildDependency Project="src/Clean.Architecture.Web/Clean.Architecture.Web.csproj" />
+    </Project>
+    <Project Path="tests/Clean.Architecture.IntegrationTests/Clean.Architecture.IntegrationTests.csproj">
+      <BuildDependency Project="src/Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj" />
+    </Project>
+    <Project Path="tests/Clean.Architecture.UnitTests/Clean.Architecture.UnitTests.csproj" />
+  </Folder>
+</Solution>

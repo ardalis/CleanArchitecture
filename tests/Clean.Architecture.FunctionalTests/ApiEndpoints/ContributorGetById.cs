@@ -14,8 +14,8 @@ public class ContributorGetById(CustomWebApplicationFactory<Program> factory) : 
   {
     var result = await _client.GetAndDeserializeAsync<ContributorRecord>(GetContributorByIdRequest.BuildRoute(1));
 
-    Assert.Equal(1, result.Id);
-    Assert.Equal(SeedData.Contributor1.Name, result.Name);
+    result.Id.ShouldBe(1);
+    result.Name.ShouldBe(SeedData.Contributor1.Name);
   }
 
   [Fact]

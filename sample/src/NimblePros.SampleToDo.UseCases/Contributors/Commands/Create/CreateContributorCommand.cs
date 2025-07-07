@@ -1,7 +1,9 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+
+namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 /// <summary>
 /// Create a new Contributor.
 /// </summary>
 /// <param name="Name"></param>
-public record CreateContributorCommand(string Name) : Ardalis.SharedKernel.ICommand<Result<int>>;
+public record CreateContributorCommand(ContributorName Name) : Ardalis.SharedKernel.ICommand<Result<int>>;

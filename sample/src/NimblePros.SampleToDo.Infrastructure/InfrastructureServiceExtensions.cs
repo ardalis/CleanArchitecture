@@ -6,6 +6,7 @@ using NimblePros.SampleToDo.Infrastructure.Email;
 using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+using NimblePros.Metronome;
 
 namespace NimblePros.SampleToDo.Infrastructure;
 
@@ -40,8 +41,9 @@ public static class InfrastructureServiceExtensions
   private static void AddDbContextWithSqlite(IServiceCollection services, IConfiguration configuration)
   {
     var connectionString = configuration.GetConnectionString("SqliteConnection");
-    services.AddDbContext<AppDbContext>(options =>
-              options.UseSqlite(connectionString));
+    services.AddDbContext<AppDbContext>((provider, options) =>
+              options.UseSqlite(connectionString)
+              .AddMetronomeDbTracking(provider));
   }
 
 

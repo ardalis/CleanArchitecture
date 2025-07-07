@@ -1,4 +1,4 @@
-using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Projects.Update;
 
@@ -19,7 +19,7 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
       return Result.NotFound();
     }
 
-    existingEntity.UpdateName(ProjectName.From(request.NewName!));
+    existingEntity.UpdateName(request.NewName!);
 
     await _repository.UpdateAsync(existingEntity, cancellationToken);
 

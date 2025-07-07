@@ -31,7 +31,7 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
     UpdateContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new UpdateContributorCommand(request.Id, request.Name!));
+    var result = await _mediator.Send(new UpdateContributorCommand(request.Id, ContributorName.From(request.Name!)));
 
     if (result.Status == ResultStatus.NotFound)
     {

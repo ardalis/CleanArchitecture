@@ -10,14 +10,9 @@ namespace NimblePros.SampleToDo.Web.Projects;
 /// Lists all incomplete items in a project.
 /// Returns FAKE data in DEV. Run in production to use real database-driven data.
 /// </remarks>
-public class ListIncompleteItems : Endpoint<ListIncompleteItemsRequest, ListIncompleteItemsResponse>
+public class ListIncompleteItems(IMediator mediator) : Endpoint<ListIncompleteItemsRequest, ListIncompleteItemsResponse>
 {
-  private readonly IMediator _mediator;
-
-  public ListIncompleteItems(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {

@@ -1,3 +1,5 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects.Update;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-public record UpdateProjectCommand(int ProjectId, string NewName) : ICommand<Result<ProjectDTO>>;
+namespace NimblePros.SampleToDo.UseCases.Projects.Update;
+
+public record UpdateProjectCommand(ProjectId ProjectId, ProjectName NewName) : ICommand<Result<ProjectDTO>>;

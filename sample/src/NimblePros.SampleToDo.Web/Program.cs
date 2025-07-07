@@ -1,5 +1,9 @@
-﻿using NimblePros.SampleToDo.Infrastructure.Data;
+﻿using FluentValidation;
+using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Web.Configurations;
+using NimblePros.SampleToDo.Web.Projects;
+using FluentValidation;
+using NimblePros.Metronome;
 
 public partial class Program
 {
@@ -27,6 +31,15 @@ public partial class Program
                     {
                       o.ShortSchemaNames = true;
                     });
+    builder.Services.AddValidatorsFromAssemblyContaining<UpdateProjectRequestValidator>();
+
+    if (builder.Environment.EnvironmentName == "Development")
+    {
+      // verify validators are added properly
+      var serviceProvider = builder.Services.BuildServiceProvider();
+      var validatorsCount = serviceProvider.GetServices<IValidator<UpdateProjectRequest>>().Count();
+      appLogger.LogInformation("Validators found: {validatorsCount}", validatorsCount);
+    }
 
     if (!builder.Environment.EnvironmentName.Equals("Testing"))
     {
@@ -44,8 +57,10 @@ public partial class Program
       config.Path = "/listservices";
     });
 
+    // track db and external service calls
+    builder.Services.AddMetronome();
 
-    var app = builder.Build();
+        var app = builder.Build();
 
     await app.UseAppMiddleware();
 
