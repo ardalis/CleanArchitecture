@@ -1,21 +1,28 @@
 ﻿namespace Clean.Architecture.Core.ContributorAggregate;
 
-public class Contributor(string name) : EntityBase, IAggregateRoot
+public class Contributor : EntityBase, IAggregateRoot
 {
-  // Example of validating primary constructor inputs
-  // See: https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/primary-constructors#initialize-base-class
-  public string Name { get; private set; } = Guard.Against.NullOrEmpty(name, nameof(name));
+  public Contributor(string name)
+  {
+    UpdateName(name); // TODO: Replace with value object and use primary constructor to populate field.
+  }
+  public string Name { get; private set; } = default!;
   public ContributorStatus Status { get; private set; } = ContributorStatus.NotSet;
   public PhoneNumber? PhoneNumber { get; private set; }
+  public Contributor SetPhoneNumber(string phoneNumber)
+  {
+    PhoneNumber = new PhoneNumber(string.Empty, phoneNumber, string.Empty);
+    return this;
+  }
 
-  public void SetPhoneNumber(string phoneNumber) => PhoneNumber = new PhoneNumber(string.Empty, phoneNumber, string.Empty);
-
-  public void UpdateName(string newName) => Name = Guard.Against.NullOrEmpty(newName, nameof(newName));
+  public Contributor UpdateName(string newName)
+  {
+    Name = Guard.Against.NullOrEmpty(newName, nameof(newName));
+    return this;
+  }
 }
 
-public class PhoneNumber(string countryCode,
-  string number,
-  string? extension) : ValueObject
+public class PhoneNumber(string countryCode, string number, string? extension) : ValueObject
 {
   public string CountryCode { get; private set; } = countryCode;
   public string Number { get; private set; } = number;
