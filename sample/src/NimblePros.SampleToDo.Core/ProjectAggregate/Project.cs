@@ -15,7 +15,7 @@ public class Project : EntityBase, IAggregateRoot
 
   public Project(string name, Priority priority)
   {
-    UpdateName(name);
+    UpdateName(name); // TODO: Replace with value object
     Priority = priority;
   }
 
