@@ -4,7 +4,7 @@ public class Contributor : EntityBase, IAggregateRoot
 {
   public Contributor(string name)
   {
-    UpdateName(name);
+    UpdateName(name); // TODO: Replace with value object and use primary constructor to populate field.
   }
   public string Name { get; private set; } = default!;
   public ContributorStatus Status { get; private set; } = ContributorStatus.NotSet;
