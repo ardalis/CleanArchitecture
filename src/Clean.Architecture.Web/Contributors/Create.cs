@@ -31,6 +31,9 @@ public class Create(IMediator _mediator)
     var result = await _mediator.Send(new CreateContributorCommand(request.Name!,
       request.PhoneNumber), cancellationToken);
 
+    var result2 = await new CreateContributorCommand2(request.Name!)
+      .ExecuteAsync(cancellationToken);
+
     if (result.IsSuccess)
     {
       Response = new CreateContributorResponse(result.Value, request.Name!);
