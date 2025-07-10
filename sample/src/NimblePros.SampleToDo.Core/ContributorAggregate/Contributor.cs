@@ -8,14 +8,15 @@ public class Contributor : EntityBase, IAggregateRoot
 
   public Contributor(ContributorName name)
   {
-    Name = name;
+      Name = name;
   }
 
-  public void UpdateName(ContributorName newName)
+  public Contributor UpdateName(ContributorName newName)
   {
     if (Name.Equals(newName)) return;
     Name = newName;
     this.RegisterDomainEvent(new ContributorNameUpdatedEvent(this));
+    return this;
   }
 }
 

@@ -20,8 +20,7 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
 
   public Priority Priority { get; private set; }
 
-
-  public void MarkComplete()
+  public ToDoItem MarkComplete()
   {
     if (!IsDone)
     {
@@ -29,20 +28,23 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
 
       RegisterDomainEvent(new ToDoItemCompletedEvent(this));
     }
+    return this;
   }
 
-  public void AddContributor(int contributorId)
+  public ToDoItem AddContributor(int contributorId)
   {
     Guard.Against.Null(contributorId);
     ContributorId = contributorId;
 
     var contributorAddedToItem = new ContributorAddedToItemEvent(this, contributorId);
     base.RegisterDomainEvent(contributorAddedToItem);
+    return this;
   }
 
-  public void RemoveContributor()
+  public ToDoItem RemoveContributor()
   {
     ContributorId = null;
+    return this;
   }
 
   public override string ToString()
