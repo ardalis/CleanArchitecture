@@ -1,0 +1,30 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="CleanArchitecture.nuspec" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/NimblePros.SampleToDo.AspireHost/NimblePros.SampleToDo.AspireHost.csproj" />
+    <Project Path="src/NimblePros.SampleToDo.Core/NimblePros.SampleToDo.Core.csproj" />
+    <Project Path="src/NimblePros.SampleToDo.Infrastructure/NimblePros.SampleToDo.Infrastructure.csproj" />
+    <Project Path="src/NimblePros.SampleToDo.ServiceDefaults/NimblePros.SampleToDo.ServiceDefaults.csproj" />
+    <Project Path="src/NimblePros.SampleToDo.UseCases/NimblePros.SampleToDo.UseCases.csproj" />
+    <Project Path="src/NimblePros.SampleToDo.Web/NimblePros.SampleToDo.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NimblePros.SampleToDo.FunctionalTests/NimblePros.SampleToDo.FunctionalTests.csproj">
+      <BuildDependency Project="src/NimblePros.SampleToDo.Web/NimblePros.SampleToDo.Web.csproj" />
+    </Project>
+    <Project Path="tests/NimblePros.SampleToDo.IntegrationTests/NimblePros.SampleToDo.IntegrationTests.csproj">
+      <BuildDependency Project="src/NimblePros.SampleToDo.Infrastructure/NimblePros.SampleToDo.Infrastructure.csproj" />
+    </Project>
+    <Project Path="tests/NimblePros.SampleToDo.UnitTests/NimblePros.SampleToDo.UnitTests.csproj" />
+  </Folder>
+</Solution>
