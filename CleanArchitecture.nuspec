@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>10.0.2</version>
+    <version>10.1.1</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 8 and C# 12.
@@ -13,7 +13,8 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-      * Fixes project references in the SLN file for Aspire
+      * Aspire on by default
+      * Fixes issues with sln/slnx files
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
