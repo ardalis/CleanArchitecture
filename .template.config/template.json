@@ -14,23 +14,27 @@
   "name": "ASP.NET Clean Architecture Solution",
   "shortName": "clean-arch",
   "sourceName": "Clean.Architecture",
+  "templateFileExtensions": [ ".cs", ".csproj", ".slnx" ],
   "preferNameDirectory": true,
   "symbols": {
     "aspire": {
       "type": "parameter",
       "datatype": "bool",
-      "defaultValue": "false",
+      "defaultValue": "true",
       "description": "Include .NET Aspire."
     }
   },
   "sources": [
     {
+      "include": [
+        "**/*"
+      ],
       "exclude": [ 
         ".vs/**",
         ".vscode/**",
         ".git/**",
         ".github/**",
-        ".template.config",
+        ".template.config/**",
         "sample/**"
       ],
       "modifiers": [
@@ -43,12 +47,8 @@
           ]
         },
         {
-          "condition": "(aspire)",
-          "include": [
-            "src/Clean.Architecture.AspireHost/**",
-            "src/Clean.Architecture.ServiceDefaults/**",
-            "tests/Clean.Architecture.AspireTests/**"
-          ]
+          "condition": "true",
+          "copyOnly": [ "*.dll", "*.png", "*.ico", "*.jpg", "*.jpeg", "*.ps1" ]
         }
       ]
     }

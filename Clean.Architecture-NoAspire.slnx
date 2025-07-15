@@ -11,8 +11,6 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Clean.Architecture.AspireHost/Clean.Architecture.AspireHost.csproj" />
-    <Project Path="src/Clean.Architecture.ServiceDefaults/Clean.Architecture.ServiceDefaults.csproj" />
     <Project Path="src/Clean.Architecture.Core/Clean.Architecture.Core.csproj" />
     <Project Path="src/Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj" />
     <Project Path="src/Clean.Architecture.UseCases/Clean.Architecture.UseCases.csproj" />

@@ -13,7 +13,7 @@ public class Contributor : EntityBase, IAggregateRoot
 
   public Contributor UpdateName(ContributorName newName)
   {
-    if (Name.Equals(newName)) return;
+    if (Name.Equals(newName)) return this;
     Name = newName;
     this.RegisterDomainEvent(new ContributorNameUpdatedEvent(this));
     return this;
