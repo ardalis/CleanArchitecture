@@ -37,13 +37,19 @@ public static class InfrastructureServiceExtensions
     
     return services;
   }
-
   private static void AddDbContextWithSqlite(IServiceCollection services, IConfiguration configuration)
   {
+    services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+    services.AddScoped<EventDispatchInterceptor>();
     var connectionString = configuration.GetConnectionString("SqliteConnection");
     services.AddDbContext<AppDbContext>((provider, options) =>
-              options.UseSqlite(connectionString)
-              .AddMetronomeDbTracking(provider));
+    {
+      
+      options.UseSqlite(connectionString)
+             .AddMetronomeDbTracking(provider)
+             .AddInterceptors(provider.GetRequiredService<EventDispatchInterceptor>());
+    });
+             
   }
 
 
