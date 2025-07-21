@@ -49,6 +49,11 @@
         {
           "condition": "true",
           "copyOnly": [ "*.dll", "*.png", "*.ico", "*.jpg", "*.jpeg", "*.ps1" ]
+        },
+        {
+          "rename": {
+            "README.template.md": "README.md"
+          }
         }
       ]
     }
