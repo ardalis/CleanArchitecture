@@ -19,6 +19,10 @@ public static class MediatrConfig
             .AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>))
             .AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
+            .AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>))
+            .AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+
     return services;
   }
 }
