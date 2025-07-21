@@ -48,6 +48,9 @@ public partial class Program
                 options.UseSqlite(connectionString));
     }
 
+    builder.Services.AddMemoryCache();
+
+
     // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
     builder.Services.Configure((Ardalis.ListStartupServices.ServiceConfig config) =>
     {
