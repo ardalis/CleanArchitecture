@@ -39,7 +39,6 @@ public static class InfrastructureServiceExtensions
   }
   private static void AddDbContextWithSqlite(IServiceCollection services, IConfiguration configuration)
   {
-    services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
     services.AddScoped<EventDispatchInterceptor>();
     var connectionString = configuration.GetConnectionString("SqliteConnection");
     services.AddDbContext<AppDbContext>((provider, options) =>

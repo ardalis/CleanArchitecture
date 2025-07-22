@@ -16,9 +16,7 @@ public static class InfrastructureServiceExtensions
     string? connectionString = config.GetConnectionString("SqliteConnection");
     Guard.Against.Null(connectionString);
 
-    services
-      .AddSingleton<IDomainEventDispatcher, NoOpDomainEventDispatcher>()
-      .AddScoped<EventDispatchInterceptor>();
+    services.AddScoped<EventDispatchInterceptor>();
 
     services.AddDbContext<AppDbContext>((provider, options) =>
     {
