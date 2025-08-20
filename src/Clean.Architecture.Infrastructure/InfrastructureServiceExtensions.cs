@@ -15,8 +15,15 @@ public static class InfrastructureServiceExtensions
   {
     string? connectionString = config.GetConnectionString("SqliteConnection");
     Guard.Against.Null(connectionString);
-    services.AddDbContext<AppDbContext>(options =>
-     options.UseSqlite(connectionString));
+
+    services.AddScoped<EventDispatchInterceptor>();
+
+    services.AddDbContext<AppDbContext>((provider, options) =>
+    {
+      var eventDispatchInterceptor = provider.GetRequiredService<EventDispatchInterceptor>();
+      options.UseSqlite(connectionString);
+      options.AddInterceptors(eventDispatchInterceptor);
+    });
 
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
            .AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>))
