@@ -1,4 +1,6 @@
-﻿namespace NimblePros.SampleToDo.Infrastructure.Data;
+﻿using NimblePros.SampleToDo.Core;
+
+namespace NimblePros.SampleToDo.Infrastructure.Data;
 
 // inherit from Ardalis.Specification type
 public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot

@@ -1,7 +1,6 @@
 ﻿namespace NimblePros.SampleToDo.Core.ContributorAggregate.Events;
 
-internal class ContributorNameUpdatedEvent(Contributor contributor) : DomainEventBase
+internal sealed record ContributorNameUpdatedEvent(Contributor contributor) : DomainEvent
 {
   public Contributor Contributor { get; private set; } = contributor;
-
 }

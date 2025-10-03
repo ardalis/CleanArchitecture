@@ -1,6 +1,6 @@
 ﻿namespace NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
-public class ToDoItemCompletedEvent : DomainEventBase
+public sealed record ToDoItemCompletedEvent : DomainEvent
 {
   public ToDoItem CompletedItem { get; set; }
 

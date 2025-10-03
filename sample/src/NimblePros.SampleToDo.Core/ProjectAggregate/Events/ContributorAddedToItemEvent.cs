@@ -1,6 +1,6 @@
 ﻿namespace NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
-public class ContributorAddedToItemEvent : DomainEventBase
+public sealed record ContributorAddedToItemEvent : DomainEvent
 {
   public int ContributorId { get; set; }
   public ToDoItem Item { get; set; }

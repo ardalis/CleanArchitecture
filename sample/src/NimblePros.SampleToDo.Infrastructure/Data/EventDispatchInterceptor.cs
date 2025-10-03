@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using NimblePros.SampleToDo.Core;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 
 // Intercepts SaveChanges to dispatch domain events after changes are successfully saved
-public class EventDispatchInterceptor(IDomainEventDispatcher domainEventDispatcher) : SaveChangesInterceptor
+public class EventDispatchInterceptor(IDomainEventDispatcher2 domainEventDispatcher) : SaveChangesInterceptor
 {
-  private readonly IDomainEventDispatcher _domainEventDispatcher = domainEventDispatcher;
+  private readonly IDomainEventDispatcher2 _domainEventDispatcher = domainEventDispatcher;
 
   // Called after SaveChangesAsync has completed successfully
   public override async ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result,
@@ -18,7 +19,7 @@ public class EventDispatchInterceptor(IDomainEventDispatcher domainEventDispatch
     }
 
     // Retrieve all tracked entities that have domain events
-    var entitiesWithEvents = appDbContext.ChangeTracker.Entries<HasDomainEventsBase>()
+    var entitiesWithEvents = appDbContext.ChangeTracker.Entries<IHasDomainEvents>()
       .Select(e => e.Entity)
       .Where(e => e.DomainEvents.Any())
       .ToArray();

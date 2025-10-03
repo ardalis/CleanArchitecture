@@ -6,6 +6,15 @@ namespace NimblePros.SampleToDo.Web.Configurations;
 
 public static class MediatrConfig
 {
+  public static IServiceCollection AddMediator(this IServiceCollection services)
+  {
+    services.AddMediator(options =>
+    {
+      options.Assemblies = [Assembly.GetExecutingAssembly()];
+    });
+    return services;
+  }
+
   public static IServiceCollection AddMediatrConfigs(this IServiceCollection services)
   {
     var mediatRAssemblies = new[]
