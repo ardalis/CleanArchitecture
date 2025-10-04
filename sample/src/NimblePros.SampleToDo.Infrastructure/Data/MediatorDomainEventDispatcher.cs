@@ -1,5 +1,6 @@
 ﻿using Mediator;
 using NimblePros.SampleToDo.Core;
+using NimblePros.SampleToDo.Core.Interfaces;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 
@@ -24,7 +25,7 @@ public class MediatorDomainEventDispatcher : IDomainEventDispatcher2
       aggregate.ClearDomainEvents();
     }
 
-    foreach (DomainEvent domainEvent in eventsToPublish)
+    foreach (DomainEventBase domainEvent in eventsToPublish)
     {
       await _mediator.Publish(domainEvent).ConfigureAwait(continueOnCapturedContext: false);
     }

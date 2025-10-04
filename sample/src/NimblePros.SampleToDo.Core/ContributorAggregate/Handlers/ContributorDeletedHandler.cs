@@ -1,4 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
+using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 

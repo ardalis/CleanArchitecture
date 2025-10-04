@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.Core;
+﻿namespace NimblePros.SampleToDo.Core.Interfaces;
 
 public interface IDomainEvent : Mediator.INotification
 {

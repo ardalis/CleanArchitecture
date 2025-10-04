@@ -1,7 +1,7 @@
-﻿namespace NimblePros.SampleToDo.Core;
+﻿using NimblePros.SampleToDo.Core.Interfaces;
 
-public interface IAggregateRoot : IHasDomainEvents { }
-public abstract class AggregateRoot<TId> : Entity<TId>, NimblePros.SampleToDo.Core.IAggregateRoot where TId : struct
+namespace NimblePros.SampleToDo.Core;
+public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot where TId : struct
 {
   private List<IDomainEvent> _domainEvents = new();
   public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();

@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
-public class Project : EntityBase<Project, ProjectId>, IAggregateRoot
+public class Project : AggregateRoot<ProjectId>
 {
   public ProjectName Name { get; private set; }
 
