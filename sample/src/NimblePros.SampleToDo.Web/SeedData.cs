@@ -72,6 +72,6 @@ public static class SeedData
     {
       dbContext.Contributors.Add(new Contributor(ContributorName.From($"Contributor {i}")));
     }
-
+    await dbContext.SaveChangesAsync();
   }
 }
