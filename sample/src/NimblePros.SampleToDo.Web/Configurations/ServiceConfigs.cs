@@ -12,7 +12,7 @@ public static class ServiceConfig
   {
     services.AddCoreServices(logger)
             .AddInfrastructureServices(builder.Configuration, logger, builder.Environment.EnvironmentName)
-            .AddMediator();
+            .AddMediatorSourceGen();
 
     // add a default http client
     services.AddHttpClient("Default")

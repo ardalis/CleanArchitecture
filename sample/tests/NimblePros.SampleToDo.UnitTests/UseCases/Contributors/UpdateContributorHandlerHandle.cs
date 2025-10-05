@@ -19,7 +19,7 @@ public class UpdateContributorHandlerHandle
   [Fact]
   public async Task ReturnsRecordGivenValidId()
   {
-    int validId = 1;
+    ContributorId validId = ContributorId.From(1);
     _repository.GetByIdAsync(Arg.Any<int>(), Arg.Any<CancellationToken>())
       .Returns(new Contributor(_testName));
     var result = await _handler.Handle(new UpdateContributorCommand(validId, _newName), CancellationToken.None);
@@ -29,11 +29,11 @@ public class UpdateContributorHandlerHandle
   }
 
   [Fact]
-  public async Task ReturnsNotFoundGivenInvalidId()
+  public async Task ReturnsNotFoundGivenNonexistentId()
   {
-    int invalidId = 1000;
+    ContributorId nonexistentId = ContributorId.From(1000);
     _repository.GetByIdAsync(Arg.Any<int>(), Arg.Any<CancellationToken>()).ReturnsNull();
-    var result = await _handler.Handle(new UpdateContributorCommand(invalidId, _newName), CancellationToken.None);
+    var result = await _handler.Handle(new UpdateContributorCommand(nonexistentId, _newName), CancellationToken.None);
 
     result.IsSuccess.ShouldBeFalse();
     result.Status.ShouldBe(ResultStatus.NotFound);

@@ -9,7 +9,8 @@ public static class OptionConfig
                                                     Microsoft.Extensions.Logging.ILogger logger,
                                                     WebApplicationBuilder builder)
   {
-    services.Configure<MailserverConfiguration>(configuration.GetSection("Mailserver"));
+    services.Configure<MailserverConfiguration>(configuration.GetSection(MailserverConfiguration.SectionName));
+    services.Configure<CachingOptions>(builder.Configuration.GetSection(CachingOptions.SectionName));
 
     services.Configure<CookiePolicyOptions>(options =>
     {

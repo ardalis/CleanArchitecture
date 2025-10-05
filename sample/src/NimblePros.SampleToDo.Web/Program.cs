@@ -2,7 +2,6 @@
 using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Web.Configurations;
 using NimblePros.SampleToDo.Web.Projects;
-using FluentValidation;
 using NimblePros.Metronome;
 
 public partial class Program
@@ -24,6 +23,7 @@ public partial class Program
         .CreateLogger<Program>();
 
     builder.Services.AddOptionConfigs(builder.Configuration, appLogger, builder);
+
     builder.Services.AddServiceConfigs(appLogger, builder);
 
     builder.Services.AddFastEndpoints()
@@ -35,7 +35,7 @@ public partial class Program
 
     if (builder.Environment.EnvironmentName == "Development")
     {
-      // verify validators are added properly
+      // verify validators are added properly only in development
       var serviceProvider = builder.Services.BuildServiceProvider();
       var validatorsCount = serviceProvider.GetServices<IValidator<UpdateProjectRequest>>().Count();
       appLogger.LogInformation("Validators found: {validatorsCount}", validatorsCount);
@@ -63,8 +63,9 @@ public partial class Program
     // track db and external service calls
     builder.Services.AddMetronome();
 
-        var app = builder.Build();
-
+    var app = builder.Build();
+    
+    // see Configurations/MiddlewareConfig.cs  
     await app.UseAppMiddleware();
 
     app.Run();

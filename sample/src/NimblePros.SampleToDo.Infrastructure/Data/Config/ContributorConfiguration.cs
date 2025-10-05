@@ -6,7 +6,12 @@ public class ContributorConfiguration : IEntityTypeConfiguration<Contributor>
 {
   public void Configure(EntityTypeBuilder<Contributor> builder)
   {
-    builder.Property(p => p.Name)
+    builder.Property(entity => entity.Id)
+      .HasValueGenerator<VogenIdValueGenerator<AppDbContext, Contributor, ContributorId>>()
+      .HasVogenConversion()
+      .IsRequired();
+
+    builder.Property(entity => entity.Name)
       .HasVogenConversion()
       .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
       .IsRequired();

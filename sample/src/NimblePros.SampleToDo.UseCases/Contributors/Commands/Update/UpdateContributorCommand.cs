@@ -1,6 +1,5 @@
-﻿using Mediator;
-using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 
-public record UpdateContributorCommand(int ContributorId, ContributorName NewName) : ICommand<Result<ContributorDTO>>;
+public record UpdateContributorCommand(ContributorId ContributorId, ContributorName NewName) : ICommand<Result<ContributorDTO>>;

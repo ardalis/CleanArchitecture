@@ -9,14 +9,11 @@ namespace NimblePros.SampleToDo.Web.Contributors;
 /// <remarks>
 /// Delete a Contributor by providing a valid integer id.
 /// </remarks>
-public class Delete : Endpoint<DeleteContributorRequest>
+public class Delete
+  : Endpoint<DeleteContributorRequest, Results<NoContent, NotFound, ProblemHttpResult>>
 {
   private readonly IMediator _mediator;
-
-  public Delete(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  public Delete(IMediator mediator) => _mediator = mediator;
 
   public override void Configure()
   {
@@ -24,24 +21,19 @@ public class Delete : Endpoint<DeleteContributorRequest>
     AllowAnonymous();
   }
 
-  public override async Task HandleAsync(
-    DeleteContributorRequest request,
-    CancellationToken cancellationToken)
+  public override async Task<Results<NoContent, NotFound, ProblemHttpResult>>
+    ExecuteAsync(DeleteContributorRequest req, CancellationToken ct)
   {
-    var command = new DeleteContributorCommand(ContributorId.From(request.ContributorId));
+    var cmd = new DeleteContributorCommand(ContributorId.From(req.ContributorId));
+    var result = await _mediator.Send(cmd, ct);
 
-    var result = await _mediator.Send(command);
+    if (result.Status == ResultStatus.NotFound) return TypedResults.NotFound();
 
-    if (result.Status == ResultStatus.NotFound)
-    {
-      await Send.NotFoundAsync(cancellationToken);
-      return;
-    }
+    if (result.IsSuccess) return TypedResults.NoContent();
 
-    if (result.IsSuccess)
-    {
-      await Send.NoContentAsync(cancellationToken);
-    };
-    // TODO: Handle other issues as needed
+    return TypedResults.Problem(
+      title: "Delete failed",
+      detail: string.Join("; ", result.Errors),
+      statusCode: StatusCodes.Status400BadRequest);
   }
 }

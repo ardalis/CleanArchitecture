@@ -1,12 +1,12 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Infrastructure;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
-using Mediator;
 
 namespace NimblePros.SampleToDo.Web.Configurations;
 
 public static class MediatorConfig
 {
+  // Should be called from ServiceConfigs.cs, not Program.cs
   public static IServiceCollection AddMediatorSourceGen(this IServiceCollection services)
   {
     services.AddMediator(options =>

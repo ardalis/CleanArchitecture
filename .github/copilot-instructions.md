@@ -5,6 +5,16 @@ This is a **Clean Architecture template** for .NET 9 that demonstrates Domain-Dr
 
 ## Architecture & Project Structure
 
+### C# Conventions
+- Use standard Microsoft naming conventions
+- Use `PascalCase` for types and methods, `camelCase` for parameters and private fields
+- Use `I` prefix for interfaces (e.g., `IRepository`)
+- Use `Async` suffix for async methods (e.g., `GetByIdAsync`)
+- Prefix private fields with `_` (e.g., `_repository`)
+- Always use {} for blocks except single-line exits (e.g. `return`, `throw`)
+- Always keep single line blocks on one line (e.g., `if (x) return y;`)
+- Prefer primary constructors for required dependencies
+
 ### Core Dependencies Flow
 - **Core** ← UseCases ← Infrastructure 
 - **Core** ← UseCases ← Web

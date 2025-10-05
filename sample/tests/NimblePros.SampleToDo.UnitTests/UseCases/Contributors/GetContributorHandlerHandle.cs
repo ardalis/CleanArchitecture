@@ -19,7 +19,7 @@ public class GetContributorHandlerHandle
   [Fact]
   public async Task ReturnsRecordGivenValidId()
   {
-    int validId = 1;
+    ContributorId validId = ContributorId.From(1);
     _repository.FirstOrDefaultAsync(Arg.Any<ContributorByIdSpec>(), Arg.Any<CancellationToken>())
       .Returns(new Contributor(_testName));
     var result = await _handler.Handle(new GetContributorQuery(validId), CancellationToken.None);
@@ -31,7 +31,7 @@ public class GetContributorHandlerHandle
   [Fact]
   public async Task ReturnsNotFoundGivenInvalidId()
   {
-    int invalidId = 1000;
+    ContributorId invalidId = ContributorId.From(1000);
     _repository.FirstOrDefaultAsync(Arg.Any<ContributorByIdSpec>(), Arg.Any<CancellationToken>()).ReturnsNull();
     var result = await _handler.Handle(new GetContributorQuery(invalidId), CancellationToken.None);
 
