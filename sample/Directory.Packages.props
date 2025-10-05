@@ -43,7 +43,6 @@
     <PackageVersion Include="SQLite" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-    <PackageVersion Include="System.Linq.Async" Version="6.0.3" />
     <PackageVersion Include="Testcontainers" Version="4.7.0" />
     <PackageVersion Include="Vogen" Version="8.0.2" />
     <PackageVersion Include="xunit" Version="2.9.3" />
