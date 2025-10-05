@@ -1,4 +1,4 @@
-﻿global using Ardalis.SharedKernel;
+﻿global using NimblePros.SharedKernel;
 global using Microsoft.EntityFrameworkCore;
 global using NSubstitute;
 global using Xunit;

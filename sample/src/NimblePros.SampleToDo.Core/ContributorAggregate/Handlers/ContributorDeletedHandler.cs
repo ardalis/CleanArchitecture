@@ -1,14 +1,11 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
-using NimblePros.SampleToDo.Core.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
 namespace NimblePros.SampleToDo.Core.ContributorAggregate.Handlers;
 
-/// <summary>
-/// NOTE: Internal because ContributorDeleted is also marked as internal.
-/// </summary>
-internal class ContributorDeletedHandler : Mediator.INotificationHandler<ContributorDeletedEvent>
+public class ContributorDeletedHandler : INotificationHandler<ContributorDeletedEvent>
 {
   private readonly IRepository<Project> _repository;
   private readonly ILogger<ContributorDeletedHandler> _logger;

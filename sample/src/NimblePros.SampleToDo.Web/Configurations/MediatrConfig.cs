@@ -1,36 +1,41 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Infrastructure;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
+using Mediator;
 
 namespace NimblePros.SampleToDo.Web.Configurations;
 
-public static class MediatrConfig
+public static class MediatorConfig
 {
-  public static IServiceCollection AddMediator(this IServiceCollection services)
+  public static IServiceCollection AddMediatorSourceGen(this IServiceCollection services)
   {
     services.AddMediator(options =>
     {
-      options.Assemblies = [Assembly.GetExecutingAssembly()];
+      // Lifetime: Singleton is fastest per docs; Scoped/Transient also supported.
+      options.ServiceLifetime = ServiceLifetime.Scoped;
+
+      // Supply any TYPE from each assembly you want scanned (the generator finds the assembly from the type)
+      options.Assemblies =
+      [
+        typeof(Contributor),                  // Core
+        typeof(CreateContributorCommand),     // UseCases
+        typeof(InfrastructureServiceExtensions) // Infrastructure
+      ];
+
+      // Register pipeline behaviors here (order matters)
+      options.PipelineBehaviors =
+      [
+        typeof(LoggingBehavior<,>),
+        typeof(CachingBehavior<,>)
+      ];
+
+      // If you have stream behaviors:
+      // options.StreamPipelineBehaviors = [ typeof(YourStreamBehavior<,>) ];
     });
-    return services;
-  }
 
-  public static IServiceCollection AddMediatrConfigs(this IServiceCollection services)
-  {
-    var mediatRAssemblies = new[]
-      {
-        Assembly.GetAssembly(typeof(Contributor)), // Core
-        Assembly.GetAssembly(typeof(CreateContributorCommand)), // UseCases
-        Assembly.GetAssembly(typeof(InfrastructureServiceExtensions)) // Infrastructure
-      };
-
-    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
-            .AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>))
-            .AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
-
-    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
-            .AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>))
-            .AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+    // Alternative: register behaviors via DI yourself (useful if not doing AOT):
+    // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+    // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
     return services;
   }

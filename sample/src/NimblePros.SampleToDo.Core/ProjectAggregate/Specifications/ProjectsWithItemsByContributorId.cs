@@ -1,8 +1,10 @@
-﻿namespace NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+
+namespace NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
 public class ProjectsWithItemsByContributorIdSpec : Specification<Project>
 {
-  public ProjectsWithItemsByContributorIdSpec(int contributorId)
+  public ProjectsWithItemsByContributorIdSpec(ContributorId contributorId)
   {
     Query
         .Where(project => project.Items.Any(item => item.ContributorId == contributorId))

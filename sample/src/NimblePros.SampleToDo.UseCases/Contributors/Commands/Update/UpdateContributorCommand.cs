@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using Mediator;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 

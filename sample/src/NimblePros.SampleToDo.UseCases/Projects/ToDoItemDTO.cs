@@ -1,3 +1,6 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-public record ToDoItemDTO(int Id, string Title, string Description, bool IsComplete, int? ContributorId);
+namespace NimblePros.SampleToDo.UseCases.Projects;
+
+public record ToDoItemDTO(ToDoItemId Id, string Title, string Description, bool IsComplete, ContributorId? ContributorId);

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 

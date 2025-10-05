@@ -25,6 +25,6 @@ public class Delete(IMediator mediator) : Endpoint<DeleteProjectRequest>
 
     var result = await _mediator.Send(command);
 
-    await SendResultAsync(result.ToMinimalApiResult());
+    await Send.ResultAsync(result.ToMinimalApiResult());
   }
 }

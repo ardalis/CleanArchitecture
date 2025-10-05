@@ -1,10 +1,10 @@
 ﻿global using System.Reflection;
 global using Ardalis.ListStartupServices;
 global using Ardalis.Result;
-global using Ardalis.SharedKernel;
+global using NimblePros.SharedKernel;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
-global using MediatR;
+global using Mediator;
 global using Microsoft.EntityFrameworkCore;
 global using Serilog;
 global using Serilog.Extensions.Logging;

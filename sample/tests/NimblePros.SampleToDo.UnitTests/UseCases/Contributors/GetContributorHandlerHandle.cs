@@ -7,7 +7,7 @@ namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
 
 public class GetContributorHandlerHandle
 {
-  private readonly string _testName = "test name";
+  private readonly ContributorName _testName = ContributorName.From("test name");
   private readonly IReadRepository<Contributor> _repository = Substitute.For<IReadRepository<Contributor>>();
   private GetContributorHandler _handler;
 
@@ -21,7 +21,7 @@ public class GetContributorHandlerHandle
   {
     int validId = 1;
     _repository.FirstOrDefaultAsync(Arg.Any<ContributorByIdSpec>(), Arg.Any<CancellationToken>())
-      .Returns(new Contributor(ContributorName.From(_testName)));
+      .Returns(new Contributor(_testName));
     var result = await _handler.Handle(new GetContributorQuery(validId), CancellationToken.None);
 
     result.IsSuccess.ShouldBeTrue();

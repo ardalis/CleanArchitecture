@@ -12,7 +12,7 @@ public class MarkToDoItemCompleteHandler : ICommandHandler<MarkToDoItemCompleteC
     _repository = repository;
   }
 
-  public async Task<Result> Handle(MarkToDoItemCompleteCommand request,
+  public async ValueTask<Result> Handle(MarkToDoItemCompleteCommand request,
     CancellationToken cancellationToken)
   {
     var spec = new ProjectByIdWithItemsSpec(request.ProjectId);

@@ -5,7 +5,7 @@ public class ListProjectsShallowHandler(IListProjectsShallowQueryService query)
 {
   private readonly IListProjectsShallowQueryService _query = query;
 
-  public async Task<Result<IEnumerable<ProjectDTO>>> Handle(ListProjectsShallowQuery request, CancellationToken cancellationToken)
+  public async ValueTask<Result<IEnumerable<ProjectDTO>>> Handle(ListProjectsShallowQuery request, CancellationToken cancellationToken)
   {
     var result = await _query.ListAsync();
 

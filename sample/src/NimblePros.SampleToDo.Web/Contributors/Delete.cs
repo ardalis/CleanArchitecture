@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 
@@ -27,19 +28,19 @@ public class Delete : Endpoint<DeleteContributorRequest>
     DeleteContributorRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new DeleteContributorCommand(request.ContributorId);
+    var command = new DeleteContributorCommand(ContributorId.From(request.ContributorId));
 
     var result = await _mediator.Send(command);
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      await Send.NoContentAsync(cancellationToken);
     };
     // TODO: Handle other issues as needed
   }

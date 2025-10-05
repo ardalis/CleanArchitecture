@@ -11,7 +11,7 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
     _repository = repository;
   }
 
-  public async Task<Result<ProjectDTO>> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
+  public async ValueTask<Result<ProjectDTO>> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
   {
     var existingEntity = await _repository.GetByIdAsync(request.ProjectId, cancellationToken);
     if (existingEntity == null)

@@ -34,6 +34,6 @@ public class Create(IMediator mediator) : Endpoint<CreateProjectRequest, CreateP
       Response = new CreateProjectResponse(result.Value.Value, request.Name!);
       return;
     }
-    await SendResultAsync(result.ToMinimalApiResult());
+    await Send.ResultAsync(result.ToMinimalApiResult());
   }
 }

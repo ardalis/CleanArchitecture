@@ -1,4 +1,4 @@
-﻿using NimblePros.SampleToDo.Core.Interfaces;
+﻿using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 

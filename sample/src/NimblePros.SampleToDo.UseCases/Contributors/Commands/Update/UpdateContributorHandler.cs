@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using Mediator;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 
@@ -11,7 +12,7 @@ public class UpdateContributorHandler : ICommandHandler<UpdateContributorCommand
     _repository = repository;
   }
 
-  public async Task<Result<ContributorDTO>> Handle(UpdateContributorCommand request, CancellationToken cancellationToken)
+  public async ValueTask<Result<ContributorDTO>> Handle(UpdateContributorCommand request, CancellationToken cancellationToken)
   {
     var existingContributor = await _repository.GetByIdAsync(request.ContributorId, cancellationToken);
     if (existingContributor == null)
@@ -23,6 +24,6 @@ public class UpdateContributorHandler : ICommandHandler<UpdateContributorCommand
 
     await _repository.UpdateAsync(existingContributor, cancellationToken);
 
-    return Result.Success(new ContributorDTO(existingContributor.Id, existingContributor.Name.Value));
+    return Result.Success(new ContributorDTO(existingContributor.Id, existingContributor.Name));
   }
 }

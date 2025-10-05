@@ -7,6 +7,7 @@ using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
 using NimblePros.Metronome;
+using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure;
 

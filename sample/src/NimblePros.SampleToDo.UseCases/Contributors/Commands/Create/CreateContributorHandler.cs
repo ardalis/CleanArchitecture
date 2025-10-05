@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using Mediator;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
@@ -11,12 +12,11 @@ public class CreateContributorHandler : ICommandHandler<CreateContributorCommand
     _repository = repository;
   }
 
-  public async Task<Result<int>> Handle(CreateContributorCommand request,
-    CancellationToken cancellationToken)
+  public async ValueTask<Result<int>> Handle(CreateContributorCommand command, CancellationToken cancellationToken)
   {
-    var newContributor = new Contributor(request.Name);
+    var newContributor = new Contributor(command.Name);
     var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
 
-    return createdItem.Id;
+    return createdItem.Id.Value;
   }
 }

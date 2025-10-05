@@ -32,13 +32,13 @@ public class GetById : Endpoint<GetContributorByIdRequest, ContributorRecord>
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     if (result.IsSuccess)
     {
-      Response = new ContributorRecord(result.Value.Id, result.Value.Name);
+      Response = new ContributorRecord(result.Value.Id.Value, result.Value.Name.Value);
     }
   }
 }

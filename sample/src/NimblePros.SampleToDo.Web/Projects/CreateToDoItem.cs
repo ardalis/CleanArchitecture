@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 using NimblePros.SampleToDo.Web.Projects;
 
@@ -33,20 +34,20 @@ public class Create : Endpoint<CreateToDoItemRequest>
     CreateToDoItemRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new AddToDoItemCommand(ProjectId.From(request.ProjectId), request.ContributorId,
+    var command = new AddToDoItemCommand(ProjectId.From(request.ProjectId), ContributorId.From(request.ContributorId!.Value),
       request.Title, request.Description);
     var result = await _mediator.Send(command);
 
     if (result.Status == Ardalis.Result.ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     if (result.IsSuccess)
     {
       // send route to project
-      await SendCreatedAtAsync<GetById>(new { projectId = request.ProjectId }, "");
+      await Send.CreatedAtAsync<GetById>(new { projectId = request.ProjectId }, "");
     };
     // TODO: Handle other cases as necessary
   }

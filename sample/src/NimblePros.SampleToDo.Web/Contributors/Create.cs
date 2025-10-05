@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using Mediator;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 namespace NimblePros.SampleToDo.Web.Contributors;

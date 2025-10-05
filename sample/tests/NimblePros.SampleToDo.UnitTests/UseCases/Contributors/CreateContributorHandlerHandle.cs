@@ -1,5 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
+using NimblePros.SharedKernel;
 using Shouldly;
 
 namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;

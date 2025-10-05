@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
@@ -15,7 +16,7 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
 
   public string Title { get; set; } = string.Empty;
   public string Description { get; set; } = string.Empty;
-  public int? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
+  public ContributorId? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
   public bool IsDone { get; private set; }
 
   public Priority Priority { get; private set; }
@@ -31,7 +32,7 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
     return this;
   }
 
-  public ToDoItem AddContributor(int contributorId)
+  public ToDoItem AddContributor(ContributorId contributorId)
   {
     Guard.Against.Null(contributorId);
     ContributorId = contributorId;

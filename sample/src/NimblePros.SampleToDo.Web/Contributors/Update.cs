@@ -35,7 +35,7 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
@@ -43,14 +43,14 @@ public class Update : Endpoint<UpdateContributorRequest, UpdateContributorRespon
     var existingContributor = await _repository.GetByIdAsync(request.Id, cancellationToken);
     if (existingContributor == null)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     if (result.IsSuccess)
     {
       var dto = result.Value;
-      Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name));
+      Response = new UpdateContributorResponse(new ContributorRecord(dto.Id.Value, dto.Name.Value));
       return;
     }
   }

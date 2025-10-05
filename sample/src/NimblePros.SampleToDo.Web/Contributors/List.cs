@@ -32,7 +32,7 @@ public class List : EndpointWithoutRequest<ContributorListResponse>
     {
       Response = new ContributorListResponse
       {
-        Contributors = result.Value.Select(c => new ContributorRecord(c.Id, c.Name)).ToList()
+        Contributors = result.Value.Select(c => new ContributorRecord(c.Id.Value, c.Name.Value)).ToList()
       };
     }
   }

@@ -6,7 +6,7 @@ public class CreateProjectHandler(IRepository<Project> repository) : ICommandHan
 {
   private readonly IRepository<Project> _repository = repository;
 
-  public async Task<Result<ProjectId>> Handle(CreateProjectCommand request,
+  public async ValueTask<Result<ProjectId>> Handle(CreateProjectCommand request,
     CancellationToken cancellationToken)
   {
     var newProject = new Project(ProjectName.From(request.Name));

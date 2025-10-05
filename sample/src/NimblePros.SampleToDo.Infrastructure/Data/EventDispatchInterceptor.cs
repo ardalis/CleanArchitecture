@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
-using NimblePros.SampleToDo.Core.Interfaces;
+using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 
 // Intercepts SaveChanges to dispatch domain events after changes are successfully saved
-public class EventDispatchInterceptor(IDomainEventDispatcher2 domainEventDispatcher) : SaveChangesInterceptor
+public class EventDispatchInterceptor(IDomainEventDispatcher domainEventDispatcher) : SaveChangesInterceptor
 {
-  private readonly IDomainEventDispatcher2 _domainEventDispatcher = domainEventDispatcher;
+  private readonly IDomainEventDispatcher _domainEventDispatcher = domainEventDispatcher;
 
   // Called after SaveChangesAsync has completed successfully
   public override async ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result,

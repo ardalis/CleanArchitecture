@@ -9,7 +9,7 @@ public class ListIncompleteItemsByProjectHandler : IQueryHandler<ListIncompleteI
     _query = query;
   }
 
-  public async Task<Result<IEnumerable<ToDoItemDTO>>> Handle(ListIncompleteItemsByProjectQuery request,
+  public async ValueTask<Result<IEnumerable<ToDoItemDTO>>> Handle(ListIncompleteItemsByProjectQuery request,
     CancellationToken cancellationToken)
   {
     var result = await _query.ListAsync(request.ProjectId);

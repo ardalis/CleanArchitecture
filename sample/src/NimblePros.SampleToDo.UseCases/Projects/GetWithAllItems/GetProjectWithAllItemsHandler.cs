@@ -15,15 +15,15 @@ public class GetProjectWithAllItemsHandler : IQueryHandler<GetProjectWithAllItem
     _repository = repository;
   }
 
-  public async Task<Result<ProjectWithAllItemsDTO>> Handle(GetProjectWithAllItemsQuery request, CancellationToken cancellationToken)
+  public async ValueTask<Result<ProjectWithAllItemsDTO>> Handle(GetProjectWithAllItemsQuery request, CancellationToken cancellationToken)
   {
     var spec = new ProjectByIdWithItemsSpec(request.ProjectId);
-    var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
-    if (entity == null) return Result.NotFound();
+    var project = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
+    if (project == null) return Result.NotFound();
 
-    var items = entity.Items
-              .Select(i => new ToDoItemDTO(i.Id.Value, i.Title, i.Description, i.IsDone, i.ContributorId)).ToList();
-    return new ProjectWithAllItemsDTO(entity.Id.Value, entity.Name.Value, items, entity.Status.ToString())
+    var items = project.Items
+              .Select(i => new ToDoItemDTO(i.Id, i.Title, i.Description, i.IsDone, i.ContributorId)).ToList();
+    return new ProjectWithAllItemsDTO(project.Id, project.Name, items, project.Status.ToString())
       ;
   }
 }
