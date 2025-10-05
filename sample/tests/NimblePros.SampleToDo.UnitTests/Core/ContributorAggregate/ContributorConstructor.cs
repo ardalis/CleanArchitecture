@@ -55,6 +55,6 @@ public class ContributorUpdateName
     _testContributor.UpdateName(ContributorName.From(newName));
 
     Assert.Equal(newName, _testContributor.Name.Value);
-    Assert.Equal(1, _testContributor.DomainEvents.Count);
+    Assert.Single(_testContributor.DomainEvents);
   }
 }
