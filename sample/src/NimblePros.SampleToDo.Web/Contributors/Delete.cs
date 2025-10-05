@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 
@@ -8,14 +9,11 @@ namespace NimblePros.SampleToDo.Web.Contributors;
 /// <remarks>
 /// Delete a Contributor by providing a valid integer id.
 /// </remarks>
-public class Delete : Endpoint<DeleteContributorRequest>
+public class Delete
+  : Endpoint<DeleteContributorRequest, Results<NoContent, NotFound, ProblemHttpResult>>
 {
   private readonly IMediator _mediator;
-
-  public Delete(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  public Delete(IMediator mediator) => _mediator = mediator;
 
   public override void Configure()
   {
@@ -23,24 +21,20 @@ public class Delete : Endpoint<DeleteContributorRequest>
     AllowAnonymous();
   }
 
-  public override async Task HandleAsync(
-    DeleteContributorRequest request,
-    CancellationToken cancellationToken)
+  public override async Task<Results<NoContent, NotFound, ProblemHttpResult>>
+    ExecuteAsync(DeleteContributorRequest req, CancellationToken ct)
   {
-    var command = new DeleteContributorCommand(request.ContributorId);
+    var cmd = new DeleteContributorCommand(ContributorId.From(req.ContributorId));
+    var result = await _mediator.Send(cmd, ct);
 
-    var result = await _mediator.Send(command);
-
-    if (result.Status == ResultStatus.NotFound)
+    return result.Status switch
     {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
-
-    if (result.IsSuccess)
-    {
-      await SendNoContentAsync(cancellationToken);
+        ResultStatus.NotFound => TypedResults.NotFound(),
+        ResultStatus.Ok => TypedResults.NoContent(),
+        _ => TypedResults.Problem(
+                title: "Delete failed",
+                detail: string.Join("; ", result.Errors),
+                statusCode: StatusCodes.Status400BadRequest)
     };
-    // TODO: Handle other issues as needed
   }
 }

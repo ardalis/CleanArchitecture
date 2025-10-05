@@ -6,21 +6,17 @@ namespace NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
 /// </summary>
-public class GetContributorHandler : IQueryHandler<GetContributorQuery, Result<ContributorDTO>>
+public class GetContributorHandler(IReadRepository<Contributor> repository)
+  : IQueryHandler<GetContributorQuery, Result<ContributorDto>>
 {
-  private readonly IReadRepository<Contributor> _repository;
+  private readonly IReadRepository<Contributor> _repository = repository;
 
-  public GetContributorHandler(IReadRepository<Contributor> repository)
-  {
-    _repository = repository;
-  }
-
-  public async Task<Result<ContributorDTO>> Handle(GetContributorQuery request, CancellationToken cancellationToken)
+  public async ValueTask<Result<ContributorDto>> Handle(GetContributorQuery request, CancellationToken cancellationToken)
   {
     var spec = new ContributorByIdSpec(request.ContributorId);
     var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
     if (entity == null) return Result.NotFound();
 
-    return new ContributorDTO(entity.Id, entity.Name.Value);
+    return new ContributorDto(entity.Id, entity.Name);
   }
 }

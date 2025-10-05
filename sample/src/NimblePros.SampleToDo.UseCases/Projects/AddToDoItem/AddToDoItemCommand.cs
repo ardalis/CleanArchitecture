@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 
@@ -10,6 +11,6 @@ namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 /// <param name="Title"></param>
 /// <param name="Description"></param>
 public record AddToDoItemCommand(ProjectId ProjectId,
-                                 int? ContributorId,
+                                 ContributorId? ContributorId,
                                  string Title,
                                  string Description) : ICommand<Result<ToDoItemId>>;

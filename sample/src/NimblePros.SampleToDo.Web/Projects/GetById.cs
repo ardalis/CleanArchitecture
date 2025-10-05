@@ -23,22 +23,22 @@ public class GetById(IMediator mediator) : Endpoint<GetProjectByIdRequest, GetPr
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     if (result.IsSuccess)
     {
-      Response = new GetProjectByIdResponse(result.Value.Id,
-        result.Value.Name, 
+      Response = new GetProjectByIdResponse(result.Value.Id.Value,
+        result.Value.Name.Value, 
         items:
         result.Value.Items
           .Select(item => new ToDoItemRecord(
-            item.Id,
+            item.Id.Value,
             item.Title,
             item.Description,
             item.IsComplete,
-            item.ContributorId
+            item.ContributorId?.Value
             ))
           .ToList()
           );

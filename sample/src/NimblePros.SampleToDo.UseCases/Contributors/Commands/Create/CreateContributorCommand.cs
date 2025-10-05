@@ -6,4 +6,4 @@ namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 /// Create a new Contributor.
 /// </summary>
 /// <param name="Name"></param>
-public record CreateContributorCommand(ContributorName Name) : Ardalis.SharedKernel.ICommand<Result<int>>;
+public record CreateContributorCommand(ContributorName Name) : Mediator.ICommand<Result<int>>;

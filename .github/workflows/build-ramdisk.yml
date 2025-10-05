@@ -40,5 +40,5 @@ jobs:
       - name: Build and Test
         run: |
           cd /dev/shm/ramdisk/project
-          dotnet build Clean.Architecture.sln --configuration Debug
-          dotnet test Clean.Architecture.sln --
+          dotnet build Clean.Architecture.slnx --configuration Debug
+          dotnet test Clean.Architecture.slnx --

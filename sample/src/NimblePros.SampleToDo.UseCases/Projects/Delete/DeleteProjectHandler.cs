@@ -11,7 +11,7 @@ public class DeleteProjectHandler : ICommandHandler<DeleteProjectCommand, Result
     _repository = repository;
   }
 
-  public async Task<Result> Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
+  public async ValueTask<Result> Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
   {
     var aggregateToDelete = await _repository.GetByIdAsync(request.ProjectId, cancellationToken);
     if (aggregateToDelete == null)

@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.Core.ContributorAggregate;
 
-public class Contributor : EntityBase, IAggregateRoot
+public sealed class Contributor : EntityBase<Contributor, ContributorId>, IAggregateRoot
 {
   public ContributorName Name { get; private set; }
 

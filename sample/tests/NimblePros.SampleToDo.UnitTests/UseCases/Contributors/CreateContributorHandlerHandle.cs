@@ -16,7 +16,7 @@ public class CreateContributorHandlerHandle
 
   private Contributor CreateContributor()
   {
-    return new Contributor(ContributorName.From(_testName));
+    return new Contributor(ContributorName.From(_testName)) { Id = ContributorId.From(1) };
   }
 
   [Fact]

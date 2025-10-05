@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.100-rc.2.24474.11'
+        dotnet-version: '10.0.x'
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build ./Clean.Architecture.slnx --configuration Release
     - name: Test with dotnet
-      run: dotnet test ./Clean.Architecture.sln --configuration Release
+      run: dotnet test ./Clean.Architecture.slnx --configuration Release

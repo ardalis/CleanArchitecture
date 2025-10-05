@@ -66,5 +66,12 @@ public static class SeedData
     dbContext.Projects.Add(TestProject1);
 
     await dbContext.SaveChangesAsync();
+
+    // add a bunch more contributors to support demonstrating paging
+    for (int i = 1; i <= 25; i++)
+    {
+      dbContext.Contributors.Add(new Contributor(ContributorName.From($"Contributor {i}")));
+    }
+    await dbContext.SaveChangesAsync();
   }
 }

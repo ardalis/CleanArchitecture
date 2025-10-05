@@ -12,7 +12,7 @@ public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<ToD
     _repository = repository;
   }
 
-  public async Task<Result<ToDoItemId>> Handle(AddToDoItemCommand request,
+  public async ValueTask<Result<ToDoItemId>> Handle(AddToDoItemCommand request,
     CancellationToken cancellationToken)
   {
     var spec = new ProjectByIdWithItemsSpec(request.ProjectId);

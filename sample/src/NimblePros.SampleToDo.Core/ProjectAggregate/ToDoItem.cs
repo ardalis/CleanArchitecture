@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
@@ -13,9 +14,9 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
     Priority = priority;
   }
 
-  public string Title { get; set; } = string.Empty;
-  public string Description { get; set; } = string.Empty;
-  public int? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
+  public string Title { get; set; } = string.Empty; // TODO: Use Value Object
+  public string Description { get; set; } = string.Empty; // TODO: Use Value Object
+  public ContributorId? ContributorId { get; private set; } // tasks don't have anyone assigned when first created
   public bool IsDone { get; private set; }
 
   public Priority Priority { get; private set; }
@@ -31,7 +32,7 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
     return this;
   }
 
-  public ToDoItem AddContributor(int contributorId)
+  public ToDoItem AddContributor(ContributorId contributorId)
   {
     Guard.Against.Null(contributorId);
     ContributorId = contributorId;
@@ -50,6 +51,6 @@ public class ToDoItem : EntityBase<ToDoItem, ToDoItemId>
   public override string ToString()
   {
     string status = IsDone ? "Done!" : "Not done.";
-    return $"{Id}: Status: {status} - {Title} - {Description}";
+    return $"{Id}: Status: {status} - {Title} - Priority: {Priority}";
   }
 }

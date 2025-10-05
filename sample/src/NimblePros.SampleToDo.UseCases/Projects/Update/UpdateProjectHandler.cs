@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.UseCases.Projects.Update;
 
-public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result<ProjectDTO>>
+public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result<ProjectDto>>
 {
   private readonly IRepository<Project> _repository;
 
@@ -11,7 +11,7 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
     _repository = repository;
   }
 
-  public async Task<Result<ProjectDTO>> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
+  public async ValueTask<Result<ProjectDto>> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
   {
     var existingEntity = await _repository.GetByIdAsync(request.ProjectId, cancellationToken);
     if (existingEntity == null)
@@ -23,6 +23,6 @@ public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result
 
     await _repository.UpdateAsync(existingEntity, cancellationToken);
 
-    return Result.Success(new ProjectDTO(existingEntity.Id.Value, existingEntity.Name.Value, existingEntity.Status.ToString()));
+    return Result.Success(new ProjectDto(existingEntity.Id.Value, existingEntity.Name.Value, existingEntity.Status.ToString()));
   }
 }

@@ -2,42 +2,58 @@
 
 public class NoOpMediator : IMediator
 {
-  public Task Publish(object notification, CancellationToken cancellationToken = default)
+  public async Task<IAsyncEnumerable<TResponse>> CreateStream<TResponse>(IStreamQuery<TResponse> query, CancellationToken cancellationToken = default)
   {
-    return Task.CompletedTask;
+    return AsyncEnumerable.Empty<TResponse>();
   }
 
-  public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
+  public IAsyncEnumerable<TResponse> CreateStream<TResponse>(IStreamRequest<TResponse> request, CancellationToken cancellationToken = default)
   {
-    return Task.CompletedTask;
+    return AsyncEnumerable.Empty<TResponse>();
   }
 
-  public Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
+  public IAsyncEnumerable<TResponse> CreateStream<TResponse>(IStreamCommand<TResponse> command, CancellationToken cancellationToken = default)
   {
-    return Task.FromResult<TResponse>(default!);
+    return AsyncEnumerable.Empty<TResponse>();
   }
 
-  public Task<object?> Send(object request, CancellationToken cancellationToken = default)
+  public IAsyncEnumerable<object?> CreateStream(object message, CancellationToken cancellationToken = default)
   {
-    return Task.FromResult<object?>(default);
+    return AsyncEnumerable.Empty<object?>();
   }
 
-  public async IAsyncEnumerable<TResponse> CreateStream<TResponse>(IStreamRequest<TResponse> request,
-    [EnumeratorCancellation] CancellationToken cancellationToken = default)
+  public ValueTask Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = default) where TNotification : INotification
   {
-    await Task.CompletedTask;
-    yield break;
+    return ValueTask.CompletedTask;
   }
 
-  public async IAsyncEnumerable<object?> CreateStream(object request,
-    [EnumeratorCancellation] CancellationToken cancellationToken = default)
+  public ValueTask Publish(object notification, CancellationToken cancellationToken = default)
   {
-    await Task.CompletedTask;
-    yield break;
+    return ValueTask.CompletedTask;
   }
 
-  public Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default) where TRequest : IRequest
+  public ValueTask<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
   {
-    return Task.CompletedTask;
+    return ValueTask.FromResult(default(TResponse)!);
+  }
+
+  public ValueTask<TResponse> Send<TResponse>(ICommand<TResponse> command, CancellationToken cancellationToken = default)
+  {
+    return ValueTask.FromResult(default(TResponse)!);
+  }
+
+  public ValueTask<TResponse> Send<TResponse>(IQuery<TResponse> query, CancellationToken cancellationToken = default)
+  {
+    return ValueTask.FromResult(default(TResponse)!);
+  }
+
+  public ValueTask<object?> Send(object message, CancellationToken cancellationToken = default)
+  {
+    return ValueTask.FromResult<object?>(null);
+  }
+
+  IAsyncEnumerable<TResponse> ISender.CreateStream<TResponse>(IStreamQuery<TResponse> query, CancellationToken cancellationToken)
+  {
+    return AsyncEnumerable.Empty<TResponse>();
   }
 }

@@ -2,21 +2,16 @@
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
-public class CreateContributorHandler : ICommandHandler<CreateContributorCommand, Result<int>>
+public class CreateContributorHandler(IRepository<Contributor> repository)
+  : ICommandHandler<CreateContributorCommand, Result<int>>
 {
-  private readonly IRepository<Contributor> _repository;
+  private readonly IRepository<Contributor> _repository = repository;
 
-  public CreateContributorHandler(IRepository<Contributor> repository)
+  public async ValueTask<Result<int>> Handle(CreateContributorCommand command, CancellationToken cancellationToken)
   {
-    _repository = repository;
-  }
-
-  public async Task<Result<int>> Handle(CreateContributorCommand request,
-    CancellationToken cancellationToken)
-  {
-    var newContributor = new Contributor(request.Name);
+    var newContributor = new Contributor(command.Name);
     var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
 
-    return createdItem.Id;
+    return createdItem.Id.Value;
   }
 }

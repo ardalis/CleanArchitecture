@@ -4,6 +4,7 @@ using Vogen;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 
+[EfCoreConverter<ContributorId>]
 [EfCoreConverter<ToDoItemId>]
 [EfCoreConverter<ContributorName>]
 [EfCoreConverter<ProjectName>]

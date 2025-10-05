@@ -1,6 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.Services;
+using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.Services;
 

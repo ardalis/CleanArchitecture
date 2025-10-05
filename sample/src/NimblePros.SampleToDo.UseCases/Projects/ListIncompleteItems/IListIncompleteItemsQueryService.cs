@@ -6,5 +6,5 @@
 /// </summary>
 public interface IListIncompleteItemsQueryService
 {
-  Task<IEnumerable<ToDoItemDTO>> ListAsync(int projectId);
+  Task<IEnumerable<ToDoItemDto>> ListAsync(int projectId);
 }

@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using Microsoft.Extensions.Logging;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
 using NimblePros.SampleToDo.Core.Interfaces;
 
@@ -19,7 +20,7 @@ public class DeleteContributorService : IDeleteContributorService
     _logger = logger;
   }
 
-  public async Task<Result> DeleteContributor(int contributorId)
+  public async Task<Result> DeleteContributor(ContributorId contributorId)
   {
     _logger.LogInformation("Deleting Contributor {contributorId}", contributorId);
     var aggregateToDelete = await _repository.GetByIdAsync(contributorId);

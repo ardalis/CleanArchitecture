@@ -1,5 +1,4 @@
 ﻿using NimblePros.SampleToDo.Infrastructure.Data.Config;
-using FastEndpoints;
 using FluentValidation;
 
 namespace NimblePros.SampleToDo.Web.Contributors;

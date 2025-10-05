@@ -7,6 +7,7 @@ using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
 using NimblePros.Metronome;
+using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure;
 
@@ -40,6 +41,7 @@ public static class InfrastructureServiceExtensions
   private static void AddDbContextWithSqlite(IServiceCollection services, IConfiguration configuration)
   {
     services.AddScoped<EventDispatchInterceptor>();
+    services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
     var connectionString = configuration.GetConnectionString("SqliteConnection");
     services.AddDbContext<AppDbContext>((provider, options) =>
     {
@@ -55,7 +57,7 @@ public static class InfrastructureServiceExtensions
   private static void RegisterDevelopmentOnlyDependencies(IServiceCollection services, IConfiguration configuration)
   {
     AddDbContextWithSqlite(services, configuration);
-    services.AddScoped<IEmailSender, SmtpEmailSender>();
+    services.AddScoped<IEmailSender, SmtpEmailSender>(); // to demo with a localhost test email server like Papercut
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IListIncompleteItemsQueryService, ListIncompleteItemsQueryService>();
     services.AddScoped<IListProjectsShallowQueryService, ListProjectsShallowQueryService>();

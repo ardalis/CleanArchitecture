@@ -1,3 +1,5 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 
-public record DeleteContributorCommand(int ContributorId) : ICommand<Result>;
+namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Delete;
+
+public record DeleteContributorCommand(ContributorId ContributorId) : ICommand<Result>;

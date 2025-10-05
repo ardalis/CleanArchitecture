@@ -20,6 +20,6 @@ public class Update(IMediator mediator) : Endpoint<UpdateProjectRequest, UpdateP
   {
     var result = await _mediator.Send(new UpdateProjectCommand(ProjectId.From(request.Id), ProjectName.From(request.Name!)));
 
-    await SendResultAsync(result.ToMinimalApiResult());
+    await Send.ResultAsync(result.ToMinimalApiResult());
   }
 }

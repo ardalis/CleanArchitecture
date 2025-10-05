@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data;
 
@@ -18,7 +19,7 @@ public class EventDispatchInterceptor(IDomainEventDispatcher domainEventDispatch
     }
 
     // Retrieve all tracked entities that have domain events
-    var entitiesWithEvents = appDbContext.ChangeTracker.Entries<HasDomainEventsBase>()
+    var entitiesWithEvents = appDbContext.ChangeTracker.Entries<IHasDomainEvents>()
       .Select(e => e.Entity)
       .Where(e => e.DomainEvents.Any())
       .ToArray();

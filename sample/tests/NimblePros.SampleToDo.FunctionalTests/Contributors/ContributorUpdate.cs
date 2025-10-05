@@ -18,8 +18,8 @@ public class ContributorUpdate : IClassFixture<CustomWebApplicationFactory<Progr
   public async Task UpdatesContributorNameAndReturnsUpdatedRecord()
   {
     var newName = Guid.NewGuid().ToString();
-    var request = new UpdateContributorRequest() { Id = SeedData.Contributor1.Id, Name = newName };
-    var putRoute = UpdateContributorRequest.BuildRoute(SeedData.Contributor1.Id);
+    var request = new UpdateContributorRequest() { Id = SeedData.Contributor1.Id.Value, Name = newName };
+    var putRoute = UpdateContributorRequest.BuildRoute(SeedData.Contributor1.Id.Value);
 
     var content = StringContentHelpers.FromModelAsJson(request);
 

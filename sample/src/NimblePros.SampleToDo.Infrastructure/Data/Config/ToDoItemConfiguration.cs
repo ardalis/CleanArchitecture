@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 
@@ -11,9 +12,16 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
       .HasVogenConversion()
       .IsRequired();
     builder.Property(t => t.Title)
-        .IsRequired();
+      .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
+      .IsRequired();
+    builder.Property(t => t.Description)
+      .HasMaxLength(200);
     builder.Property(t => t.ContributorId)
-        .IsRequired(false);
+      .HasConversion(
+          v => v.HasValue ? v.Value.Value : (int?)null, // to db
+          v => v.HasValue ? ContributorId.From(v.Value) : (ContributorId?)null // from db
+      )
+      .IsRequired(false);
     builder.Property(t => t.Priority)
       .HasConversion(
           p => p.Value,

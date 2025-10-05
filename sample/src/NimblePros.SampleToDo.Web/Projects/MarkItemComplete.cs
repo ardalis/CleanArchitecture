@@ -33,13 +33,13 @@ public class MarkItemComplete(IMediator mediator) : Endpoint<MarkItemCompleteReq
 
     if (result.Status == Ardalis.Result.ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     if (result.IsSuccess)
     {
-      await SendNoContentAsync(cancellationToken);
+      await Send.NoContentAsync(cancellationToken);
     };
     // TODO: Handle other issues as needed
   }

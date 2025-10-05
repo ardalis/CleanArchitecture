@@ -28,12 +28,12 @@ public class ListIncompleteItems(IMediator mediator) : Endpoint<ListIncompleteIt
 
     if (result.Status == ResultStatus.NotFound)
     {
-      await SendNotFoundAsync(cancellationToken);
+      await Send.NotFoundAsync(cancellationToken);
       return;
     }
 
     Response.IncompleteItems = result.Value.Select(item =>
-                    new ToDoItemRecord(item.Id, item.Title, item.Description, item.IsComplete, item.ContributorId))
+                    new ToDoItemRecord(item.Id.Value, item.Title, item.Description, item.IsComplete, item.ContributorId?.Value))
                     .ToList();
 
   }

@@ -1,6 +1,5 @@
 ﻿global using System.Net.Mail;
 global using System.Reflection;
-global using Ardalis.SharedKernel;
 global using Ardalis.Specification.EntityFrameworkCore;
 global using Microsoft.Data.SqlClient;
 global using Microsoft.EntityFrameworkCore;

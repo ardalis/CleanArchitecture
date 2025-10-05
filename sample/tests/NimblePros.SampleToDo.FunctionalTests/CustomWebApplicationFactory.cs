@@ -1,4 +1,6 @@
-﻿using NimblePros.SampleToDo.Infrastructure.Data;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Infrastructure;
+using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 using NimblePros.SampleToDo.Web;
 
@@ -64,7 +66,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
                  d.ServiceType == typeof(DbContextOptions<AppDbContext>))
                 .ToList();
 
-          foreach(var descriptor in descriptors)
+          foreach (var descriptor in descriptors)
           {
             services.Remove(descriptor);
           }
@@ -78,12 +80,16 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
             options.UseInMemoryDatabase(inMemoryCollectionName).LogTo(s => Console.WriteLine(s));
           });
 
-          // Add MediatR
-          services.AddMediatR(cfg =>
+          // Add Mediator
+          services.AddMediator(options =>
           {
-            cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly,
-              typeof(CreateContributorCommand).Assembly,
-              typeof(AppDbContext).Assembly);
+            options.ServiceLifetime = ServiceLifetime.Scoped;
+            options.Assemblies =
+            [
+              typeof(Contributor),                    // Core
+              typeof(CreateContributorCommand),       // UseCases
+              typeof(InfrastructureServiceExtensions) // Infrastructure
+            ];
           });
         });
   }

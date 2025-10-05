@@ -1,6 +1,6 @@
 ﻿namespace NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 
-public class ListIncompleteItemsByProjectHandler : IQueryHandler<ListIncompleteItemsByProjectQuery, Result<IEnumerable<ToDoItemDTO>>>
+public class ListIncompleteItemsByProjectHandler : IQueryHandler<ListIncompleteItemsByProjectQuery, Result<IEnumerable<ToDoItemDto>>>
 {
   private readonly IListIncompleteItemsQueryService _query;
 
@@ -9,7 +9,7 @@ public class ListIncompleteItemsByProjectHandler : IQueryHandler<ListIncompleteI
     _query = query;
   }
 
-  public async Task<Result<IEnumerable<ToDoItemDTO>>> Handle(ListIncompleteItemsByProjectQuery request,
+  public async ValueTask<Result<IEnumerable<ToDoItemDto>>> Handle(ListIncompleteItemsByProjectQuery request,
     CancellationToken cancellationToken)
   {
     var result = await _query.ListAsync(request.ProjectId);
