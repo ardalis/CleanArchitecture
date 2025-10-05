@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
 
-public record GetContributorQuery(ContributorId ContributorId) : IQuery<Result<ContributorDTO>>, ICacheable
+public record GetContributorQuery(ContributorId ContributorId) : IQuery<Result<ContributorDto>>, ICacheable
 {
   public string GetCacheKey()
   {

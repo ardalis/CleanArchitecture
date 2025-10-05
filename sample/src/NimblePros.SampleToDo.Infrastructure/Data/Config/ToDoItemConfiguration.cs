@@ -12,7 +12,10 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
       .HasVogenConversion()
       .IsRequired();
     builder.Property(t => t.Title)
-        .IsRequired();
+      .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
+      .IsRequired();
+    builder.Property(t => t.Description)
+      .HasMaxLength(200);
     builder.Property(t => t.ContributorId)
       .HasConversion(
           v => v.HasValue ? v.Value.Value : (int?)null, // to db

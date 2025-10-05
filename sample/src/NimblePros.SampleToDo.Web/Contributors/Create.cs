@@ -1,5 +1,4 @@
-﻿using Mediator;
-using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
@@ -10,14 +9,10 @@ namespace NimblePros.SampleToDo.Web.Contributors;
 /// <remarks>
 /// Creates a new Contributor given a name.
 /// </remarks>
-public class Create : Endpoint<CreateContributorRequest, CreateContributorResponse>
+public class Create(IMediator mediator)
+  : Endpoint<CreateContributorRequest, Results<Created<CreateContributorResponse>, ValidationProblem, ProblemHttpResult>>
 {
-  private readonly IMediator _mediator;
-
-  public Create(IMediator mediator)
-  {
-    _mediator = mediator;
-  }
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
@@ -25,24 +20,33 @@ public class Create : Endpoint<CreateContributorRequest, CreateContributorRespon
     AllowAnonymous();
     Summary(s =>
     {
-      // XML Docs are used by default but are overridden by these properties:
-      //s.Summary = "Create a new Contributor.";
-      //s.Description = "Create a new Contributor. A valid name is required.";
       s.ExampleRequest = new CreateContributorRequest { Name = "Contributor Name" };
     });
   }
 
-  public override async Task HandleAsync(
-    CreateContributorRequest request,
-    CancellationToken cancellationToken)
+  public override async Task<Results<Created<CreateContributorResponse>, ValidationProblem, ProblemHttpResult>>
+    ExecuteAsync(CreateContributorRequest request, CancellationToken cancellationToken)
   {
     var result = await _mediator.Send(new CreateContributorCommand(ContributorName.From(request.Name!)));
 
-    if (result.IsSuccess)
+    return result.Status switch
     {
-      Response = new CreateContributorResponse(result.Value, request.Name!);
-      return;
-    }
-    // TODO: Handle other cases as necessary
+      ResultStatus.Ok =>
+        TypedResults.Created($"/Contributors/{result.Value}", new CreateContributorResponse(result.Value, request.Name!)),
+      ResultStatus.Invalid =>
+        TypedResults.ValidationProblem(
+          result.ValidationErrors
+            .GroupBy(e => e.Identifier ?? string.Empty)
+            .ToDictionary(
+              g => g.Key,
+              g => g.Select(e => e.ErrorMessage).ToArray()
+            )
+        ),
+      _ =>
+        TypedResults.Problem(
+          title: "Create failed",
+          detail: string.Join("; ", result.Errors),
+          statusCode: StatusCodes.Status400BadRequest)
+    };
   }
 }

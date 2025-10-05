@@ -6,7 +6,7 @@ namespace NimblePros.SampleToDo.Web.Contributors;
 /// <summary>Get a Contributor by integer ID.</summary>
 /// <remarks>Takes a positive integer ID and returns a matching Contributor record.</remarks>
 public class GetById(IMediator mediator)
-  : Endpoint<GetContributorByIdRequest, Results<Ok<ContributorRecord>, NotFound>>
+  : Endpoint<GetContributorByIdRequest, Results<Ok<ContributorRecord>, NotFound>, GetContributorByIdMapper>
 {
   public override void Configure()
   {
@@ -29,8 +29,7 @@ public class GetById(IMediator mediator)
 
     return result.Status switch
     {
-      ResultStatus.Ok => TypedResults.Ok(
-        new ContributorRecord(result.Value.Id.Value, result.Value.Name.Value)),
+      ResultStatus.Ok => TypedResults.Ok(Map.FromEntity(result.Value)),
       ResultStatus.NotFound => TypedResults.NotFound(),
       _ => TypedResults.NotFound() // map other failures as needed
     };

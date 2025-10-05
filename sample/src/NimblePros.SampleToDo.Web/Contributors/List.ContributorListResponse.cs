@@ -1,8 +1,10 @@
-﻿using NimblePros.SampleToDo.Web.Contributors;
-
+﻿
 namespace NimblePros.SampleToDo.Web.Contributors;
 
-public class ContributorListResponse
+public record ContributorListResponse : UseCases.PagedResult<ContributorRecord>
 {
-  public List<ContributorRecord> Contributors { get; set; } = new();
+  public ContributorListResponse(IReadOnlyList<ContributorRecord> Items, int Page, int PerPage, int TotalCount, int TotalPages)
+    : base(Items, Page, PerPage, TotalCount, TotalPages)
+  {
+  }
 }

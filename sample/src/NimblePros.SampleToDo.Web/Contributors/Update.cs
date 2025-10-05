@@ -54,8 +54,8 @@ public class Update(IMediator mediator)
 }
 
 public sealed class UpdateContributorMapper
-  : Mapper<UpdateContributorRequest, UpdateContributorResponse, ContributorDTO>
+  : Mapper<UpdateContributorRequest, UpdateContributorResponse, ContributorDto>
 {
-  public override UpdateContributorResponse FromEntity(ContributorDTO e)
+  public override UpdateContributorResponse FromEntity(ContributorDto e)
     => new(new ContributorRecord(e.Id.Value, e.Name.Value));
 }

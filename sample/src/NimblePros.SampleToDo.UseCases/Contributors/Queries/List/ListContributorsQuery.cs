@@ -1,9 +1,10 @@
 ﻿namespace NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 
-public record ListContributorsQuery(int? Skip, int? Take) : IQuery<Result<IEnumerable<ContributorDTO>>>, ICacheable
+public record ListContributorsQuery(int? Page = 1, int? PerPage = Constants.DEFAULT_PAGE_SIZE)
+  : IQuery<Result<PagedResult<ContributorDto>>>, ICacheable
 {
   public string GetCacheKey()
   {
-    return $"{nameof(ListContributorsQuery)}-{Skip}-{Take}";
+    return $"{nameof(ListContributorsQuery)}-{Page}-{PerPage}";
   }
 }

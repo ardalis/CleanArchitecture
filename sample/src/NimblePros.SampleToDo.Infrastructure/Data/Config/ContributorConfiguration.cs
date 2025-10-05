@@ -13,7 +13,7 @@ public class ContributorConfiguration : IEntityTypeConfiguration<Contributor>
 
     builder.Property(entity => entity.Name)
       .HasVogenConversion()
-      .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
+      .HasMaxLength(ContributorName.MaxLength)
       .IsRequired();
   }
 }

@@ -1,16 +1,11 @@
-﻿using Mediator;
-using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
-public class CreateContributorHandler : ICommandHandler<CreateContributorCommand, Result<int>>
+public class CreateContributorHandler(IRepository<Contributor> repository)
+  : ICommandHandler<CreateContributorCommand, Result<int>>
 {
-  private readonly IRepository<Contributor> _repository;
-
-  public CreateContributorHandler(IRepository<Contributor> repository)
-  {
-    _repository = repository;
-  }
+  private readonly IRepository<Contributor> _repository = repository;
 
   public async ValueTask<Result<int>> Handle(CreateContributorCommand command, CancellationToken cancellationToken)
   {

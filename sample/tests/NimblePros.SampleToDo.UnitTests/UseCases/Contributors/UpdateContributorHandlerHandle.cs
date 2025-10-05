@@ -1,4 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+using NimblePros.SampleToDo.Core.ContributorAggregate.Specifications;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 using Shouldly;
 
@@ -20,8 +21,8 @@ public class UpdateContributorHandlerHandle
   public async Task ReturnsRecordGivenValidId()
   {
     ContributorId validId = ContributorId.From(1);
-    _repository.GetByIdAsync(Arg.Any<int>(), Arg.Any<CancellationToken>())
-      .Returns(new Contributor(_testName));
+    _repository.SingleOrDefaultAsync(Arg.Any<ContributorByIdSpec>(), Arg.Any<CancellationToken>())
+      .Returns(new Contributor(_testName) { Id = ContributorId.From(1)});
     var result = await _handler.Handle(new UpdateContributorCommand(validId, _newName), CancellationToken.None);
 
     result.IsSuccess.ShouldBeTrue();

@@ -6,5 +6,5 @@
 /// </summary>
 public interface IListProjectsShallowQueryService
 {
-  Task<IEnumerable<ProjectDTO>> ListAsync();
+  Task<IEnumerable<ProjectDto>> ListAsync();
 }

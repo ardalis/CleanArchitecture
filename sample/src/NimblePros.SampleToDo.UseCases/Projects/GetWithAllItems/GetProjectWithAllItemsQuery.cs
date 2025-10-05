@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
 
-public record GetProjectWithAllItemsQuery(ProjectId ProjectId) : IQuery<Result<ProjectWithAllItemsDTO>>, ICacheable
+public record GetProjectWithAllItemsQuery(ProjectId ProjectId) : IQuery<Result<ProjectWithAllItemsDto>>, ICacheable
 {
   public string GetCacheKey()
   {

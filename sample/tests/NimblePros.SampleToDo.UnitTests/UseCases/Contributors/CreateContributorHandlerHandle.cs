@@ -1,6 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
-using NimblePros.SharedKernel;
 using Shouldly;
 
 namespace NimblePros.SampleToDo.UnitTests.UseCases.Contributors;
@@ -17,7 +16,7 @@ public class CreateContributorHandlerHandle
 
   private Contributor CreateContributor()
   {
-    return new Contributor(ContributorName.From(_testName));
+    return new Contributor(ContributorName.From(_testName)) { Id = ContributorId.From(1) };
   }
 
   [Fact]

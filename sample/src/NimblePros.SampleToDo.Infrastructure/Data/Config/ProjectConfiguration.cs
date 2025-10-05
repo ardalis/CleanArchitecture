@@ -12,7 +12,7 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
       .IsRequired();
     builder.Property(p => p.Name)
       .HasVogenConversion()
-      .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
+      .HasMaxLength(ProjectName.MaxLength)
       .IsRequired();
   }
 }

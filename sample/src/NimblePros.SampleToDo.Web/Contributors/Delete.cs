@@ -27,13 +27,14 @@ public class Delete
     var cmd = new DeleteContributorCommand(ContributorId.From(req.ContributorId));
     var result = await _mediator.Send(cmd, ct);
 
-    if (result.Status == ResultStatus.NotFound) return TypedResults.NotFound();
-
-    if (result.IsSuccess) return TypedResults.NoContent();
-
-    return TypedResults.Problem(
-      title: "Delete failed",
-      detail: string.Join("; ", result.Errors),
-      statusCode: StatusCodes.Status400BadRequest);
+    return result.Status switch
+    {
+        ResultStatus.NotFound => TypedResults.NotFound(),
+        ResultStatus.Ok => TypedResults.NoContent(),
+        _ => TypedResults.Problem(
+                title: "Delete failed",
+                detail: string.Join("; ", result.Errors),
+                statusCode: StatusCodes.Status400BadRequest)
+    };
   }
 }

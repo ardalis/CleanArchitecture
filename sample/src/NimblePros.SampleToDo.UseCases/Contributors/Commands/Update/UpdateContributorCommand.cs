@@ -2,4 +2,4 @@
 
 namespace NimblePros.SampleToDo.UseCases.Contributors.Commands.Update;
 
-public record UpdateContributorCommand(ContributorId ContributorId, ContributorName NewName) : ICommand<Result<ContributorDTO>>;
+public record UpdateContributorCommand(ContributorId ContributorId, ContributorName NewName) : ICommand<Result<ContributorDto>>;

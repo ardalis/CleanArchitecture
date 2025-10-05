@@ -34,11 +34,14 @@ public class Create : Endpoint<CreateToDoItemRequest>
     CreateToDoItemRequest request,
     CancellationToken cancellationToken)
   {
-    var command = new AddToDoItemCommand(ProjectId.From(request.ProjectId), ContributorId.From(request.ContributorId!.Value),
+    ContributorId? contributorId = request.ContributorId.HasValue
+                                    ? ContributorId.From(request.ContributorId.Value)
+                                    : null;
+    var command = new AddToDoItemCommand(ProjectId.From(request.ProjectId), contributorId,
       request.Title, request.Description);
     var result = await _mediator.Send(command);
 
-    if (result.Status == Ardalis.Result.ResultStatus.NotFound)
+    if (result.Status == ResultStatus.NotFound)
     {
       await Send.NotFoundAsync(cancellationToken);
       return;
