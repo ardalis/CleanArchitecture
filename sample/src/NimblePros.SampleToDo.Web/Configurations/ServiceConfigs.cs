@@ -1,6 +1,6 @@
-﻿using NimblePros.SampleToDo.Infrastructure;
+﻿using NimblePros.Metronome;
 using NimblePros.SampleToDo.Core;
-using NimblePros.Metronome;
+using NimblePros.SampleToDo.Infrastructure;
 
 namespace NimblePros.SampleToDo.Web.Configurations;
 

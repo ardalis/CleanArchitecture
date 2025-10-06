@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
+using NimblePros.Metronome;
 using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Web.Configurations;
 using NimblePros.SampleToDo.Web.Projects;
-using NimblePros.Metronome;
 
 public partial class Program
 {

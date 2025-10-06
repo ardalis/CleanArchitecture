@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Web;
-using NimblePros.SampleToDo.Web.Projects;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
+using NimblePros.SampleToDo.Web.Projects;
 using Shouldly;
 
 namespace NimblePros.SampleToDo.FunctionalTests.Projects;

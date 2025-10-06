@@ -1,5 +1,5 @@
-﻿using NimblePros.SampleToDo.Infrastructure.Data.Config;
-using FluentValidation;
+﻿using FluentValidation;
+using NimblePros.SampleToDo.Infrastructure.Data.Config;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 

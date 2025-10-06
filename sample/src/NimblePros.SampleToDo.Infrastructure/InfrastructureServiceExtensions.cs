@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using NimblePros.Metronome;
 using NimblePros.SampleToDo.Core.Interfaces;
 using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Infrastructure.Data.Queries;
@@ -6,7 +7,6 @@ using NimblePros.SampleToDo.Infrastructure.Email;
 using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
 using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
-using NimblePros.Metronome;
 using NimblePros.SharedKernel;
 
 namespace NimblePros.SampleToDo.Infrastructure;

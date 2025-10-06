@@ -1,5 +1,5 @@
-﻿using Shouldly;
-using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+using Shouldly;
 using Vogen;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.ProjectAggregate;

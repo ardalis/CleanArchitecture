@@ -1,7 +1,35 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
+﻿using System.ComponentModel.DataAnnotations;
+using FluentValidation;
+using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.UseCases.Contributors.Commands.Create;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
+
+public class CreateContributorRequest
+{
+  public const string Route = "/Contributors";
+
+  [Required]
+  public string Name { get; set; } = String.Empty;
+}
+
+public class CreateContributorValidator : Validator<CreateContributorRequest>
+{
+  public CreateContributorValidator()
+  {
+    RuleFor(x => x.Name)
+      .NotEmpty()
+      .WithMessage("Name is required.")
+      .MinimumLength(2)
+      .MaximumLength(ContributorName.MaxLength);
+  }
+}
+
+public class CreateContributorResponse(int id, string name)
+{
+  public int Id { get; set; } = id;
+  public string Name { get; set; } = name;
+}
 
 /// <summary>
 /// Create a new Contributor
