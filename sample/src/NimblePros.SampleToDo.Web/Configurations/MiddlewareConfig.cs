@@ -7,15 +7,16 @@ public static class MiddlewareConfig
 {
   public static async Task<IApplicationBuilder> UseAppMiddleware(this WebApplication app)
   {
+    // Use global exception handler in both dev and prod
+    app.UseExceptionHandler();
+
     if (app.Environment.IsDevelopment())
     {
-      app.UseDeveloperExceptionPage();
       app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
       app.UseMetronomeLoggingMiddleware();
     }
     else
     {
-      app.UseDefaultExceptionHandler(); // from FastEndpoints
       app.UseHsts();
     }
 

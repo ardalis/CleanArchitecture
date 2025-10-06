@@ -9,7 +9,11 @@ public partial class Program
   private static async Task Main(string[] args)
   {
     var builder = WebApplication.CreateBuilder(args);
-
+    builder.WebHost.ConfigureKestrel(o =>
+    {
+      o.AddServerHeader = false; // <- removes "Server: Kestrel"
+    });
+    
     var logger = Log.Logger = new LoggerConfiguration()
       .Enrich.FromLogContext()
       .WriteTo.Console()
@@ -32,14 +36,6 @@ public partial class Program
                       o.ShortSchemaNames = true;
                     });
     builder.Services.AddValidatorsFromAssemblyContaining<UpdateProjectRequestValidator>();
-
-    if (builder.Environment.EnvironmentName == "Development")
-    {
-      // verify validators are added properly only in development
-      var serviceProvider = builder.Services.BuildServiceProvider();
-      var validatorsCount = serviceProvider.GetServices<IValidator<UpdateProjectRequest>>().Count();
-      appLogger.LogInformation("Validators found: {validatorsCount}", validatorsCount);
-    }
 
     if (!builder.Environment.EnvironmentName.Equals("Testing"))
     {
@@ -64,6 +60,14 @@ public partial class Program
     builder.Services.AddMetronome();
 
     var app = builder.Build();
+    
+    // Verify validators are registered properly in development
+    if (app.Environment.IsDevelopment())
+    {
+      using var scope = app.Services.CreateScope();
+      var validatorsCount = scope.ServiceProvider.GetServices<IValidator<UpdateProjectRequest>>().Count();
+      appLogger.LogInformation("Validators found: {validatorsCount}", validatorsCount);
+    }
     
     // see Configurations/MiddlewareConfig.cs  
     await app.UseAppMiddleware();

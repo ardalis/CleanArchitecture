@@ -18,6 +18,10 @@ public static class OptionConfig
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
 
+    // Register global exception handler
+    services.AddExceptionHandler<GlobalExceptionHandler>();
+    services.AddProblemDetails();
+
     if (builder.Environment.IsDevelopment())
     {
       // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices

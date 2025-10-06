@@ -14,6 +14,9 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
   {
     _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, ToString());
 
+    try
+    {
+
     using var client = new MailKit.Net.Smtp.SmtpClient();
     await client.ConnectAsync(_mailserverConfiguration.Hostname,
       _mailserverConfiguration.Port, false);
@@ -27,5 +30,13 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
 
     await client.DisconnectAsync(true,
       new CancellationToken(canceled: true));
+    }
+    catch (Exception ex)
+    {
+      _logger.LogWarning("Run Papercut docker image: ");
+      _logger.LogWarning("docker run --name=papercut -p 25:25 -p 37408:37408 jijiechen/papercut:latest");
+      _logger.LogError(ex, "Error sending email");
+      throw;
+    }
   }
 }

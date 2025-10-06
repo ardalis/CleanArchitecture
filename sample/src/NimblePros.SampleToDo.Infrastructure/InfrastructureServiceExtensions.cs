@@ -57,7 +57,7 @@ public static class InfrastructureServiceExtensions
   private static void RegisterDevelopmentOnlyDependencies(IServiceCollection services, IConfiguration configuration)
   {
     AddDbContextWithSqlite(services, configuration);
-    services.AddScoped<IEmailSender, SmtpEmailSender>(); // to demo with a localhost test email server like Papercut
+    services.AddScoped<IEmailSender, MimeKitEmailSender>(); // to demo with a localhost test email server like Papercut
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IListIncompleteItemsQueryService, ListIncompleteItemsQueryService>();
     services.AddScoped<IListProjectsShallowQueryService, ListProjectsShallowQueryService>();
@@ -77,7 +77,7 @@ public static class InfrastructureServiceExtensions
   {
     AddDbContextWithSqlite(services, configuration);
 
-    services.AddScoped<IEmailSender, SmtpEmailSender>();
+    services.AddScoped<IEmailSender, MimeKitEmailSender>();
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
     services.AddScoped<IListIncompleteItemsQueryService, ListIncompleteItemsQueryService>();
     services.AddScoped<IListProjectsShallowQueryService, ListProjectsShallowQueryService>();

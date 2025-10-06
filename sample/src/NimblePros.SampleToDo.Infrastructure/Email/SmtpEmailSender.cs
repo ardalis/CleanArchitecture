@@ -2,6 +2,7 @@
 
 namespace NimblePros.SampleToDo.Infrastructure.Email;
 
+[Obsolete("Use MimeKitEmailSender instead")]
 public class SmtpEmailSender : IEmailSender
 {
   private readonly ILogger<SmtpEmailSender> _logger;

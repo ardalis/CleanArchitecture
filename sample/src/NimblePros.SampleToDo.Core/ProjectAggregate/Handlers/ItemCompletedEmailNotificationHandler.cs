@@ -19,7 +19,8 @@ public class ItemCompletedEmailNotificationHandler : Mediator.INotificationHandl
   {
     Guard.Against.Null(domainEvent, nameof(domainEvent));
 
-    await _emailSender.SendEmailAsync("test@test.com", "test@test.com", $"{domainEvent.CompletedItem.Title} was completed.", 
+    await _emailSender.SendEmailAsync("test@test.com", "test@test.com",
+      $"{domainEvent.CompletedItem.Title} was completed.",
       domainEvent.CompletedItem.ToString());
   }
 }

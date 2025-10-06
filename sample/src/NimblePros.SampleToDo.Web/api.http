@@ -18,9 +18,9 @@ POST {{host}}:{{port}}/Contributors
 Content-Type: application/json
 
 {
-  "name": "John Doe 2",
-  "email": "test@test.com",
-  "phoneNumber": "1234567890"
+  "name": "John Doe 123",
+  "email": "test@t2est.com",
+  "phoneNumber": "1224567890"
 }
 
 ###
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 {
   "id": {{id_to_update}},
-  "name": "ardalis3"
+  "name": "ardalis"
 }
 
 ###
@@ -50,14 +50,14 @@ GET {{host}}:{{port}}/Projects
 ###
 
 // Get a specific project
-@id_to_get=1
-GET {{host}}:{{port}}/Projects/{{id_to_get}}
+@projectId_to_get=1
+GET {{host}}:{{port}}/Projects/{{projectId_to_get}}
 
 ###
 
 // Delete a specific project
-@id_to_delete=20
-DELETE {{host}}:{{port}}/Projects/{{id_to_delete}}
+@projectId_to_delete=20
+DELETE {{host}}:{{port}}/Projects/{{projectId_to_delete}}
 
 ###
 
@@ -84,7 +84,7 @@ Content-Type: application/json
 
 // Mark an item as complete
 @project_id=1
-@item_id=2
+@item_id=1
 POST {{host}}:{{port}}/Projects/{{project_id}}/ToDoItems/{{item_id}}
 Content-Type: application/json
 

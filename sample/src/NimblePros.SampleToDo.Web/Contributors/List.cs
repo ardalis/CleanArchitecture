@@ -76,7 +76,7 @@ public sealed class ListContributorsRequest
 
   // Bind to ?per_page=
   [BindFrom("per_page")]
-  public int PerPage { get; init; } = 30;
+  public int PerPage { get; init; } = UseCases.Constants.DEFAULT_PAGE_SIZE;
 }
 
 public sealed class ListContributorsValidator : Validator<ListContributorsRequest>

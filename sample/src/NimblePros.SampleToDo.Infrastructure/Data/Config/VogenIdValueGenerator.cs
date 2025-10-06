@@ -14,7 +14,7 @@ internal class VogenIdValueGenerator<TContext, TEntityBase, TId> : ValueGenerato
   public VogenIdValueGenerator()
   {
     var matchingProperties =
-        typeof(TContext).GetProperties().Where(p => p.GetGetMethod().IsPublic && p.PropertyType == typeof(DbSet<TEntityBase>)).ToList();
+        typeof(TContext).GetProperties().Where(p => p!.GetGetMethod()!.IsPublic && p.PropertyType == typeof(DbSet<TEntityBase>)).ToList();
 
     if (matchingProperties.Count == 0)
     {
@@ -33,7 +33,7 @@ internal class VogenIdValueGenerator<TContext, TEntityBase, TId> : ValueGenerato
   {
     TContext ctx = (TContext)entry.Context;
 
-    DbSet<TEntityBase> entities = (DbSet<TEntityBase>)_matchPropertyGetter.GetValue(ctx);
+    DbSet<TEntityBase> entities = (DbSet<TEntityBase>)_matchPropertyGetter!.GetValue(ctx)!;
 
     var next = Math.Max(
         MaxFrom(entities.Local),
