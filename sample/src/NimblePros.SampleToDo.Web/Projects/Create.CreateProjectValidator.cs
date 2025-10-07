@@ -1,12 +1,9 @@
 ﻿using FastEndpoints;
 using FluentValidation;
-using NimblePros.SampleToDo.Infrastructure.Data.Config;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
-/// <summary>
-/// See: https://fast-endpoints.com/docs/validation
-/// </summary>
 public class CreateProjectValidator : Validator<CreateProjectRequest>
 {
   public CreateProjectValidator()
@@ -15,6 +12,6 @@ public class CreateProjectValidator : Validator<CreateProjectRequest>
       .NotEmpty()
       .WithMessage("Name is required.")
       .MinimumLength(2)
-      .MaximumLength(DataSchemaConstants.DEFAULT_NAME_LENGTH);
+      .MaximumLength(ProjectName.MaxLength);
   }
 }

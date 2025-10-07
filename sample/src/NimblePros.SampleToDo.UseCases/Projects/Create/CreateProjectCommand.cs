@@ -6,4 +6,4 @@ namespace NimblePros.SampleToDo.UseCases.Projects.Create;
 /// Create a new Project.
 /// </summary>
 /// <param name="Name"></param>
-public record CreateProjectCommand(string Name) : ICommand<Result<ProjectId>>;
+public record CreateProjectCommand(ProjectName Name) : ICommand<Result<ProjectId>>;

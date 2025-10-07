@@ -26,9 +26,9 @@ public class ProjectGetById : IClassFixture<CustomWebApplicationFactory<Program>
   }
 
   [Fact]
-  public async Task ReturnsNotFoundGivenId0()
+  public async Task ReturnsNotFoundGivenInvalidId1000()
   {
-    var route = GetProjectByIdRequest.BuildRoute(0);
+    var route = GetProjectByIdRequest.BuildRoute(1000);
     _ = await _client.GetAndEnsureNotFoundAsync(route);
   }
 }

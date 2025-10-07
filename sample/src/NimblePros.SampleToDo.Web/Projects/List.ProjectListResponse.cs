@@ -1,6 +1,9 @@
 ﻿namespace NimblePros.SampleToDo.Web.Projects;
 
-public class ProjectListResponse
+public record ProjectListResponse : UseCases.PagedResult<ProjectRecord>
 {
-  public List<ProjectRecord> Projects { get; set; } = new();
+  public ProjectListResponse(IReadOnlyList<ProjectRecord> Items, int Page, int PerPage, int TotalCount, int TotalPages)
+    : base(Items, Page, PerPage, TotalCount, TotalPages)
+  {
+  }
 }
