@@ -4,13 +4,6 @@ using NimblePros.SampleToDo.UseCases.Contributors.Queries.List;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
 
-/// <summary>
-/// List all Contributors
-/// </summary>
-/// <remarks>
-/// List all contributors - returns a ContributorListResponse containing the Contributors.
-/// NOTE: In DEV always returns a FAKE set of contributors
-/// </remarks>
 public class List(IMediator mediator) : Endpoint<ListContributorsRequest, ContributorListResponse, ListContributorsMapper>
 {
   private readonly IMediator _mediator = mediator;
@@ -22,12 +15,34 @@ public class List(IMediator mediator) : Endpoint<ListContributorsRequest, Contri
 
     Summary(s =>
     {
-      s.Summary = "List contributors (GitHub-style pagination).";
-      s.Description = "Supports ?page=x&per_page=y with 1-based pages and capped page size.";
-      s.Params["page"] = "1-based page index (default 1).";
-      s.Params["per_page"] = $"Page size 1–{UseCases.Constants.MAX_PAGE_SIZE} (default {UseCases.Constants.DEFAULT_PAGE_SIZE}).";
-      s.Response<ContributorListResponse>(StatusCodes.Status200OK, "Paged result.");
+      s.Summary = "List contributors with pagination";
+      s.Description = "Retrieves a paginated list of all contributors. Supports GitHub-style pagination with 1-based page indexing and configurable page size.";
+      s.ExampleRequest = new ListContributorsRequest { Page = 1, PerPage = 10 };
+      s.ResponseExamples[200] = new ContributorListResponse(
+        new List<ContributorRecord> 
+        { 
+          new(1, "John Doe"), 
+          new(2, "Jane Smith") 
+        },
+        1, 10, 2, 1);
+      
+      // Document pagination parameters
+      s.Params["page"] = "1-based page index (default 1)";
+      s.Params["per_page"] = $"Page size 1–{UseCases.Constants.MAX_PAGE_SIZE} (default {UseCases.Constants.DEFAULT_PAGE_SIZE})";
+      
+      // Document possible responses
+      s.Responses[200] = "Paginated list of contributors returned successfully";
+      s.Responses[400] = "Invalid pagination parameters";
     });
+    
+    // Add tags for API grouping
+    Tags("Contributors");
+    
+    // Add additional metadata
+    Description(builder => builder
+      .Accepts<ListContributorsRequest>()
+      .Produces<ContributorListResponse>(200, "application/json")
+      .ProducesProblem(400));
   }
 
   public override async Task HandleAsync(ListContributorsRequest request, CancellationToken cancellationToken)
