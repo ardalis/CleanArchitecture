@@ -1,5 +1,4 @@
-﻿using FastEndpoints;
-using FluentValidation;
+﻿using FluentValidation;
 using NimblePros.SampleToDo.Infrastructure.Data.Config;
 
 namespace NimblePros.SampleToDo.Web.Projects;
@@ -18,6 +17,7 @@ public class CreateToDoItemValidator : Validator<CreateToDoItemRequest>
       .MinimumLength(2)
       .MaximumLength(DataSchemaConstants.DEFAULT_NAME_LENGTH);
     RuleFor(x => x.Description)
+      .MaximumLength(200) // TODO: Move to constant
       .NotEmpty();
   }
 }
