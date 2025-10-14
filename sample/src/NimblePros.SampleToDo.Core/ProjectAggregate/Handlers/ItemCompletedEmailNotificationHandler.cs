@@ -15,7 +15,8 @@ public class ItemCompletedEmailNotificationHandler : Mediator.INotificationHandl
 
   // configure a test email server to demo this works
   // https://ardalis.com/configuring-a-local-test-email-server
-  public async ValueTask Handle(ToDoItemCompletedEvent domainEvent, CancellationToken cancellationToken)
+  public async ValueTask Handle(ToDoItemCompletedEvent domainEvent, 
+    CancellationToken cancellationToken)
   {
     Guard.Against.Null(domainEvent, nameof(domainEvent));
 

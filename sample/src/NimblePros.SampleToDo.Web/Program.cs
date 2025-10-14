@@ -46,7 +46,6 @@ public partial class Program
 
     builder.Services.AddMemoryCache();
 
-
     // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
     builder.Services.Configure((Ardalis.ListStartupServices.ServiceConfig config) =>
     {

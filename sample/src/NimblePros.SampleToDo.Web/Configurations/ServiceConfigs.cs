@@ -12,13 +12,11 @@ public static class ServiceConfig
   {
     services.AddCoreServices(logger)
             .AddInfrastructureServices(builder.Configuration, logger, builder.Environment.EnvironmentName)
-            .AddMediatorSourceGen();
+            .AddMediatorSourceGen(logger);
 
     // add a default http client
     services.AddHttpClient("Default")
       .AddMetronomeHandler();
-
-    logger.LogInformation("{Project} services registered", "Core and Infrastructure services registered");
 
     return services;
   }

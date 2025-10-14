@@ -84,7 +84,7 @@ Content-Type: application/json
 
 // Mark an item as complete
 @project_id=1
-@item_id=1
+@item_id=2
 POST {{host}}:{{port}}/Projects/{{project_id}}/ToDoItems/{{item_id}}
 Content-Type: application/json
 
