@@ -11,7 +11,6 @@ public static class ServiceConfigs
     services.AddInfrastructureServices(builder.Configuration, logger)
             .AddMediatrConfigs();
 
-
     if (builder.Environment.IsDevelopment())
     {
       // Use a local test email server
