@@ -35,8 +35,16 @@ jobs:
       - name: Test
         run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
 
-      - name: Pack
-        run: dotnet pack "${{ env.NUSPEC_FILE }}" -NoDefaultExcludes --configuration Release --no-build --no-restore --output "${{ env.PACK_OUTPUT }}"
+      - uses: nuget/setup-nuget@v2
+        name: Setup NuGet
+        with:
+          nuget-version: 'latest'
+
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete
+
+      - name: Pack (nuspec)
+        run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
 
       - name: NuGet login (OIDC -> temp API key)
         uses: NuGet/login@v1
@@ -45,7 +53,7 @@ jobs:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
-        if: startsWith(github.ref, 'refs/tags/')   # only push if building a tag
+        #if: startsWith(github.ref, 'refs/tags/')   # only push if building a tag
         shell: pwsh
         run: |
           Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
