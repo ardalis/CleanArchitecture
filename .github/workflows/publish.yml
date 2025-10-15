@@ -1,23 +1,52 @@
-name: publish Ardalis.CleanArchitecture Template to nuget
-on:
-  push:
-    branches:
-      - main # Your default release branch
-    paths:
-      - 'CleanArchitecture.nuspec'
-jobs:
-  publish:
-    name: list on nuget
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
+name: Publish to Nuget
 
-      - uses: nuget/setup-nuget@v1
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+env:
+  SOLUTION_FILE: Clean.Architecture.slnx
+  NUSPEC_FILE: CleanArchitecture.nuspec
+  PACK_OUTPUT: artifacts/package/release
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
         with:
-          nuget-version: '5.x'
-          
-      - name: Package the template
-        run: nuget pack CleanArchitecture.nuspec -NoDefaultExcludes
-        
-      - name: Publish to nuget.org
-        run: nuget push Ardalis.CleanArchitecture.Template.*.nupkg -src https://api.nuget.org/v3/index.json ${{secrets.NUGET_API_KEY}}
+          dotnet-version: 10.0.x
+
+      - name: Build
+        run: dotnet build "${{ env.SOLUTION_FILE }}" --configuration Release
+
+      - name: Test
+        run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
+
+      - name: Pack
+        run: dotnet pack "${{ env.NUSPEC_FILE }}" -NoDefaultExcludes --configuration Release --no-build --no-restore --output "${{ env.PACK_OUTPUT }}"
+
+      - name: NuGet login (OIDC -> temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push to NuGet
+        if: startsWith(github.ref, 'refs/tags/')   # only push if building a tag
+        shell: pwsh
+        run: |
+          Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
+            dotnet nuget push $_.FullName `
+              --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" `
+              --source https://api.nuget.org/v3/index.json
+          }
