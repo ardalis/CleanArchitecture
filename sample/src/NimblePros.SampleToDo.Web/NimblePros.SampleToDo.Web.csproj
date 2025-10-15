@@ -35,6 +35,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\NimblePros.SampleToDo.Infrastructure\NimblePros.SampleToDo.Infrastructure.csproj" />
+    <ProjectReference Include="..\NimblePros.SampleToDo.ServiceDefaults\NimblePros.SampleToDo.ServiceDefaults.csproj" />
     <ProjectReference Include="..\NimblePros.SampleToDo.UseCases\NimblePros.SampleToDo.UseCases.csproj" />
   </ItemGroup>
   
