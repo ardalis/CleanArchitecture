@@ -1,51 +1,66 @@
-﻿using Clean.Architecture.UseCases.Contributors.Get;
+﻿using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.UseCases.Contributors;
+using Clean.Architecture.UseCases.Contributors.Get;
 using Clean.Architecture.UseCases.Contributors.Update;
+using Clean.Architecture.Web.Extensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Clean.Architecture.Web.Contributors;
 
-/// <summary>
-/// Update an existing Contributor.
-/// </summary>
-/// <remarks>
-/// Update an existing Contributor by providing a fully defined replacement set of values.
-/// See: https://stackoverflow.com/questions/60761955/rest-update-best-practice-put-collection-id-without-id-in-body-vs-put-collecti
-/// </remarks>
-public class Update(IMediator _mediator)
-  : Endpoint<UpdateContributorRequest, UpdateContributorResponse>
+public class Update(IMediator mediator)
+  : Endpoint<
+        UpdateContributorRequest,
+        Results<Ok<UpdateContributorResponse>, NotFound, ProblemHttpResult>,
+        UpdateContributorMapper>
 {
+  private readonly IMediator _mediator = mediator;
+
   public override void Configure()
   {
     Put(UpdateContributorRequest.Route);
     AllowAnonymous();
+
+    // Optional but nice: enumerate for Swagger
+    Summary(s =>
+    {
+      s.Summary = "Update a contributor";
+      s.Description = "Updates an existing contributor's information. The contributor name must be between 2 and 100 characters long.";
+      s.ExampleRequest = new UpdateContributorRequest { Id = 1, Name = "Updated Name" };
+      s.ResponseExamples[200] = new UpdateContributorResponse(new ContributorRecord(1, "Updated Name", ""));
+
+      // Document possible responses
+      s.Responses[200] = "Contributor updated successfully";
+      s.Responses[404] = "Contributor with specified ID not found";
+      s.Responses[400] = "Invalid input data or business rule violation";
+    });
+
+    // Add tags for API grouping
+    Tags("Contributors");
+
+    // Add additional metadata
+    Description(builder => builder
+      .Accepts<UpdateContributorRequest>("application/json")
+      .Produces<UpdateContributorResponse>(200, "application/json")
+      .ProducesProblem(404)
+      .ProducesProblem(400));
   }
 
-  public override async Task HandleAsync(
-    UpdateContributorRequest request,
-    CancellationToken cancellationToken)
+  public override async Task<Results<Ok<UpdateContributorResponse>, NotFound, ProblemHttpResult>>
+    ExecuteAsync(UpdateContributorRequest request, CancellationToken ct)
   {
-    var result = await _mediator.Send(new UpdateContributorCommand(request.Id, request.Name!), cancellationToken);
+    var cmd = new UpdateContributorCommand(
+      ContributorId.From(request.Id),
+      ContributorName.From(request.Name!));
 
-    if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
+    var result = await _mediator.Send(cmd, ct);
 
-    var query = new GetContributorQuery(request.ContributorId);
-
-    var queryResult = await _mediator.Send(query, cancellationToken);
-
-    if (queryResult.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
-
-    if (queryResult.IsSuccess)
-    {
-      var dto = queryResult.Value;
-      Response = new UpdateContributorResponse(new ContributorRecord(dto.Id, dto.Name, dto.PhoneNumber));
-      return;
-    }
+    return result.ToUpdateResult(Map.FromEntity);
   }
+}
+
+public sealed class UpdateContributorMapper
+  : Mapper<UpdateContributorRequest, UpdateContributorResponse, ContributorDto>
+{
+  public override UpdateContributorResponse FromEntity(ContributorDto e)
+    => new(new ContributorRecord(e.Id.Value, e.Name.Value, ""));
 }

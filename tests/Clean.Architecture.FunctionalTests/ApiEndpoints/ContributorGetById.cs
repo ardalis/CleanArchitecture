@@ -15,7 +15,7 @@ public class ContributorGetById(CustomWebApplicationFactory<Program> factory) : 
     var result = await _client.GetAndDeserializeAsync<ContributorRecord>(GetContributorByIdRequest.BuildRoute(1));
 
     result.Id.ShouldBe(1);
-    result.Name.ShouldBe(SeedData.Contributor1.Name);
+    result.Name.ShouldBe(SeedData.Contributor1.Name.Value);
   }
 
   [Fact]

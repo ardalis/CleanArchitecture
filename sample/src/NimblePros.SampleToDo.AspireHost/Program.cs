@@ -1,4 +1,4 @@
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -20,12 +20,10 @@ var papercut = builder.AddContainer("papercut", "jijiechen/papercut", "latest")
 
 // Your web project
 var web = builder.AddProject<Projects.NimblePros_SampleToDo_Web>("web")
-
-  // REMOVE the .WithReference(papercut) — it’s for resources that expose connection strings
-
-  // Pass the endpoints to the app via env vars (EndpointReference resolves to a URL at run time)
-  .WithEnvironment("Papercut__Smtp__Url", papercut.GetEndpoint("smtp"))
-  .WithEnvironment("Papercut__Ui__Url", papercut.GetEndpoint("ui"));
+    .WithHttpHealthCheck("/health")
+    // Pass the endpoints to the app via env vars (EndpointReference resolves to a URL at run time)
+    .WithEnvironment("Papercut__Smtp__Url", papercut.GetEndpoint("smtp"))
+    .WithEnvironment("Papercut__Ui__Url", papercut.GetEndpoint("ui"));
 
 // (optionally) if your app wants separate host/port values, you can parse the URL at startup,
 // or expose two env vars and parse them from the URL inside the app.

@@ -1,3 +1,5 @@
-﻿namespace Clean.Architecture.UseCases.Contributors.Delete;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 
-public record DeleteContributorCommand(int ContributorId) : ICommand<Result>;
+namespace Clean.Architecture.UseCases.Contributors.Delete;
+
+public record DeleteContributorCommand(ContributorId ContributorId) : ICommand<Result>;

@@ -1,40 +1,52 @@
-﻿using Clean.Architecture.UseCases.Contributors.Delete;
+﻿using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.UseCases.Contributors.Delete;
+using Clean.Architecture.Web.Extensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Clean.Architecture.Web.Contributors;
 
-/// <summary>
-/// Delete a Contributor.
-/// </summary>
-/// <remarks>
-/// Delete a Contributor by providing a valid integer id.
-/// </remarks>
-public class Delete(IMediator _mediator)
-  : Endpoint<DeleteContributorRequest>
+public class Delete
+  : Endpoint<DeleteContributorRequest,
+             Results<NoContent,
+                     NotFound,
+                     ProblemHttpResult>>
 {
+  private readonly IMediator _mediator;
+  public Delete(IMediator mediator) => _mediator = mediator;
+
   public override void Configure()
   {
     Delete(DeleteContributorRequest.Route);
     AllowAnonymous();
+    Summary(s =>
+    {
+      s.Summary = "Delete a contributor";
+      s.Description = "Deletes an existing contributor by ID. This action cannot be undone.";
+      s.ExampleRequest = new DeleteContributorRequest { ContributorId = 1 };
+
+      // Document possible responses
+      s.Responses[204] = "Contributor deleted successfully";
+      s.Responses[404] = "Contributor not found";
+      s.Responses[400] = "Invalid request or deletion failed";
+    });
+
+    // Add tags for API grouping
+    Tags("Contributors");
+
+    // Add additional metadata
+    Description(builder => builder
+      .Accepts<DeleteContributorRequest>()
+      .Produces(204)
+      .ProducesProblem(404)
+      .ProducesProblem(400));
   }
 
-  public override async Task HandleAsync(
-    DeleteContributorRequest request,
-    CancellationToken cancellationToken)
+  public override async Task<Results<NoContent, NotFound, ProblemHttpResult>>
+    ExecuteAsync(DeleteContributorRequest req, CancellationToken ct)
   {
-    var command = new DeleteContributorCommand(request.ContributorId);
+    var cmd = new DeleteContributorCommand(ContributorId.From(req.ContributorId));
+    var result = await _mediator.Send(cmd, ct);
 
-    var result = await _mediator.Send(command, cancellationToken);
-
-    if (result.Status == ResultStatus.NotFound)
-    {
-      await SendNotFoundAsync(cancellationToken);
-      return;
-    }
-
-    if (result.IsSuccess)
-    {
-      await SendNoContentAsync(cancellationToken);
-    };
-    // TODO: Handle other issues as needed
+    return result.ToDeleteResult();
   }
 }

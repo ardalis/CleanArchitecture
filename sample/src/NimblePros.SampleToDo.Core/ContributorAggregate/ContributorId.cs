@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.Core.ContributorAggregate;
 
-[Vogen.ValueObject<int>]
+[ValueObject<int>]
 public partial struct ContributorId
 {
     private static Validation Validate(int value)

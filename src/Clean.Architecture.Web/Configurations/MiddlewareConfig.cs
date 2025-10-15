@@ -1,5 +1,6 @@
 ﻿using Ardalis.ListStartupServices;
 using Clean.Architecture.Infrastructure.Data;
+using Scalar.AspNetCore;
 
 namespace Clean.Architecture.Web.Configurations;
 
@@ -13,13 +14,21 @@ public static class MiddlewareConfig
       app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
     }
     else
-    {
+    {   
       app.UseDefaultExceptionHandler(); // from FastEndpoints
       app.UseHsts();
     }
 
-    app.UseFastEndpoints()
-        .UseSwaggerGen(); // Includes AddFileServer and static files middleware
+    app.UseFastEndpoints();
+
+    if (app.Environment.IsDevelopment())
+    {
+      app.UseSwaggerGen(options =>
+      {
+        options.Path = "/openapi/{documentName}.json";
+      });
+      app.MapScalarApiReference();
+    }
 
     app.UseHttpsRedirection(); // Note this will drop Authorization headers
 

@@ -9,7 +9,7 @@ public class EfRepositoryDelete : BaseEfRepoTestFixture
   {
     // add a Contributor
     var repository = GetRepository();
-    var initialName = Guid.NewGuid().ToString();
+    var initialName = ContributorName.From(Guid.NewGuid().ToString());
     var Contributor = new Contributor(initialName);
     await repository.AddAsync(Contributor);
 

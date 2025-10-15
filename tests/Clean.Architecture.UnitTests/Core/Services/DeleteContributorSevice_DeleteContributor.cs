@@ -18,7 +18,8 @@ public class DeleteContributorService_DeleteContributor
   [Fact]
   public async Task ReturnsNotFoundGivenCantFindContributor()
   {
-    var result = await _service.DeleteContributor(0);
+    int missingId = 9999;
+    var result = await _service.DeleteContributor(ContributorId.From(missingId));
 
     result.Status.ShouldBe(Ardalis.Result.ResultStatus.NotFound);
   }

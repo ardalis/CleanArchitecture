@@ -4,7 +4,6 @@ using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Infrastructure.Data.Queries;
 using Clean.Architecture.UseCases.Contributors.List;
 
-
 namespace Clean.Architecture.Infrastructure;
 public static class InfrastructureServiceExtensions
 {
@@ -17,6 +16,7 @@ public static class InfrastructureServiceExtensions
     Guard.Against.Null(connectionString);
 
     services.AddScoped<EventDispatchInterceptor>();
+    services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
 
     services.AddDbContext<AppDbContext>((provider, options) =>
     {
@@ -29,7 +29,6 @@ public static class InfrastructureServiceExtensions
            .AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>))
            .AddScoped<IListContributorsQueryService, ListContributorsQueryService>()
            .AddScoped<IDeleteContributorService, DeleteContributorService>();
-
 
     logger.LogInformation("{Project} services registered", "Infrastructure");
 

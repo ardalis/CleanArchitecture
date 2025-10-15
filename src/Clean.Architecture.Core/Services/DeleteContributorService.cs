@@ -2,7 +2,6 @@
 using Clean.Architecture.Core.ContributorAggregate.Events;
 using Clean.Architecture.Core.Interfaces;
 
-
 namespace Clean.Architecture.Core.Services;
 
 /// <summary>
@@ -16,10 +15,10 @@ public class DeleteContributorService(IRepository<Contributor> _repository,
   IMediator _mediator,
   ILogger<DeleteContributorService> _logger) : IDeleteContributorService
 {
-  public async Task<Result> DeleteContributor(int contributorId)
+  public async ValueTask<Result> DeleteContributor(ContributorId contributorId)
   {
     _logger.LogInformation("Deleting Contributor {contributorId}", contributorId);
-    Contributor? aggregateToDelete = await _repository.GetByIdAsync(contributorId);
+    Contributor? aggregateToDelete = await _repository.GetByIdAsync(contributorId.Value);
     if (aggregateToDelete == null) return Result.NotFound();
 
     await _repository.DeleteAsync(aggregateToDelete);

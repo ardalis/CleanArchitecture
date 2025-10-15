@@ -3,15 +3,16 @@
 namespace Clean.Architecture.UseCases.Contributors.Create;
 
 public class CreateContributorHandler(IRepository<Contributor> _repository)
-  : ICommandHandler<CreateContributorCommand, Result<int>>
+  : ICommandHandler<CreateContributorCommand, Result<ContributorId>>
 {
-  public async Task<Result<int>> Handle(CreateContributorCommand request,
+  public async ValueTask<Result<ContributorId>> Handle(CreateContributorCommand command,
     CancellationToken cancellationToken)
   {
-    var newContributor = new Contributor(request.Name);
-    if (!string.IsNullOrEmpty(request.PhoneNumber))
+    var newContributor = new Contributor(command.Name);
+    if (!string.IsNullOrEmpty(command.PhoneNumber))
     {
-      newContributor.SetPhoneNumber(request.PhoneNumber);
+      var phoneNumber = new PhoneNumber("+1", command.PhoneNumber, String.Empty);
+      newContributor.UpdatePhoneNumber(phoneNumber);
     }
     var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
 

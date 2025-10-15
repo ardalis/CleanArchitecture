@@ -3,21 +3,22 @@
 namespace Clean.Architecture.UseCases.Contributors.Update;
 
 public class UpdateContributorHandler(IRepository<Contributor> _repository)
-  : ICommandHandler<UpdateContributorCommand, Result<ContributorDTO>>
+  : ICommandHandler<UpdateContributorCommand, Result<ContributorDto>>
 {
-  public async Task<Result<ContributorDTO>> Handle(UpdateContributorCommand request, CancellationToken cancellationToken)
+  public async ValueTask<Result<ContributorDto>> Handle(UpdateContributorCommand command, 
+    CancellationToken ct)
   {
-    var existingContributor = await _repository.GetByIdAsync(request.ContributorId, cancellationToken);
+    var existingContributor = await _repository.GetByIdAsync(command.ContributorId, ct);
     if (existingContributor == null)
     {
       return Result.NotFound();
     }
 
-    existingContributor.UpdateName(request.NewName!);
+    existingContributor.UpdateName(command.NewName);
 
-    await _repository.UpdateAsync(existingContributor, cancellationToken);
+    await _repository.UpdateAsync(existingContributor, ct);
 
-    return new ContributorDTO(existingContributor.Id,
-      existingContributor.Name, existingContributor.PhoneNumber?.Number ?? "");
+    return new ContributorDto(existingContributor.Id,
+      existingContributor.Name, existingContributor.PhoneNumber ?? PhoneNumber.Unknown);
   }
 }

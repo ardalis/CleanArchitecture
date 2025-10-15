@@ -24,6 +24,8 @@
     </PackageReference>
     <PackageReference Include="ReportGenerator" />
     <PackageReference Include="xunit" />
+    <PackageReference Include="Mediator.Abstractions" />
+    <PackageReference Include="Mediator.SourceGenerator" />
   </ItemGroup>
 
   <ItemGroup>
