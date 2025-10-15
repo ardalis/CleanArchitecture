@@ -35,8 +35,8 @@ jobs:
       - name: Test
         run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
 
-      - name: Pack
-        run: dotnet pack "${{ env.NUSPEC_FILE }}" -NoDefaultExcludes --configuration Release --no-build --no-restore --output "${{ env.PACK_OUTPUT }}"
+      - name: Pack (nuspec)
+        run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
 
       - name: NuGet login (OIDC -> temp API key)
         uses: NuGet/login@v1
