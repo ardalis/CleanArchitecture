@@ -41,7 +41,7 @@ jobs:
           nuget-version: 'latest'
 
       - name: Install Mono
-        run: sudo apt-get update && sudo apt-get install -y mono-runtime
+        run: sudo apt-get update && sudo apt-get install -y mono-complete
 
       - name: Pack (nuspec)
         run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
