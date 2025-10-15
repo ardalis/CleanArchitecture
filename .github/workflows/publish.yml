@@ -35,8 +35,13 @@ jobs:
       - name: Test
         run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
+      - uses: nuget/setup-nuget@v2
+        name: Setup NuGet
+        with:
+          nuget-version: 'latest'
+
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete
 
       - name: Pack (nuspec)
         run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
