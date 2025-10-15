@@ -1,5 +1,4 @@
-﻿global using System.Runtime.CompilerServices;
-global using Ardalis.Result;
+﻿global using Ardalis.Result;
 global using Ardalis.Specification;
 global using Mediator;
 global using Microsoft.Extensions.Logging;

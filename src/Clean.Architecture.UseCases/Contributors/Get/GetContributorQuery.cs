@@ -1,3 +1,5 @@
-﻿namespace Clean.Architecture.UseCases.Contributors.Get;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 
-public record GetContributorQuery(int ContributorId) : IQuery<Result<ContributorDTO>>;
+namespace Clean.Architecture.UseCases.Contributors.Get;
+
+public record GetContributorQuery(ContributorId ContributorId) : IQuery<Result<ContributorDto>>;
