@@ -35,8 +35,13 @@ jobs:
       - name: Test
         run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
 
+      - name: Install NuGet CLI
+        run: dotnet tool install --global NuGet.CommandLine
+
       - name: Pack (nuspec)
-        run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
 
       - name: NuGet login (OIDC -> temp API key)
         uses: NuGet/login@v1
