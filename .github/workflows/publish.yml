@@ -41,7 +41,7 @@ jobs:
           nuget-version: 'latest'
 
       - name: Install Mono
-        run: sudo apt-get update && sudo apt-get install -y mono-complete
+        run: sudo apt-get update && sudo apt-get install -y mono-runtime
 
       - name: Pack (nuspec)
         run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
@@ -53,7 +53,7 @@ jobs:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
-        if: startsWith(github.ref, 'refs/tags/')   # only push if building a tag
+        #if: startsWith(github.ref, 'refs/tags/')   # only push if building a tag
         shell: pwsh
         run: |
           Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
