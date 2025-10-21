@@ -9,8 +9,7 @@ on:
     types: [published]
 
 env:
-  SOLUTION_FILE: Clean.Architecture.slnx
-  NUSPEC_FILE: CleanArchitecture.nuspec
+  SOLUTION_FILE: Ardalis.Modulith.csproj
   PACK_OUTPUT: artifacts/package/release
 
 jobs:
@@ -36,7 +35,7 @@ jobs:
         run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
 
       - name: Pack
-        run: dotnet pack "${{ env.NUSPEC_FILE }}" -NoDefaultExcludes --configuration Release --no-build --no-restore --output "${{ env.PACK_OUTPUT }}"
+        run: dotnet pack "${{ env.SOLUTION_FILE }}" -NoDefaultExcludes --configuration Release --no-build --no-restore --output "${{ env.PACK_OUTPUT }}"
 
       - name: NuGet login (OIDC -> temp API key)
         uses: NuGet/login@v1
