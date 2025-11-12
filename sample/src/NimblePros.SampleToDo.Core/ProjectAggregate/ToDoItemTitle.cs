@@ -8,8 +8,8 @@ public partial struct ToDoItemTitle
   public const int MaxLength = 100;
   private static Validation Validate(in string title) =>
     string.IsNullOrEmpty(title)
-      ? Validation.Invalid("Title cannot be empty")
+      ? Validation.Invalid(ProjectErrorMessages.CoreToDoItemTitleEmpty)
       : title.Length > MaxLength
-        ? Validation.Invalid($"Title cannot be longer than {MaxLength} characters")
+        ? Validation.Invalid(ProjectErrorMessages.CoreToDoItemTitleTooLong(MaxLength))
         : Validation.Ok;
 }

@@ -1,5 +1,9 @@
-﻿using FluentValidation;
+﻿using System.Text;
+using AspNetCore.Localizer.Json.Extensions;
+using FluentValidation;
+using Microsoft.Extensions.Localization;
 using NimblePros.Metronome;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Infrastructure.Data;
 using NimblePros.SampleToDo.Web.Configurations;
 using NimblePros.SampleToDo.Web.Projects;
@@ -58,8 +62,39 @@ public partial class Program
     // track db and external service calls
     builder.Services.AddMetronome();
 
+    // Add localization with the JSON path
+    builder.Services.AddLocalization(options => options.ResourcesPath = "i18n");
+
+    // ----- Add JSON-specific localization
+    builder.Services.AddJsonLocalization(options =>
+    {
+      options.ResourcesPath = "i18n";  // Path to the JSON files (e.g., i18n/en/Project.json)
+      options.CacheDuration = TimeSpan.FromHours(1);  // Optional: Cache for performance
+      options.FileEncoding = Encoding.UTF8; //Optional: Specify file encoding
+    });
+
+    // ----- Register the typed localizer for the Project aggregate -----
+    builder.Services.AddSingleton<IStringLocalizer>(sp =>
+    {
+      var factory = sp.GetRequiredService<IStringLocalizerFactory>();
+      // Creates a localizer for 'ProjectAggregate' – loads from i18n/{culture}/Project.json
+      return factory.Create(typeof(ProjectErrorMessages));
+    });
+
     var app = builder.Build();
-    
+
+    // ----- Set the static holder for Core access -----
+    var localizer = app.Services.GetRequiredService<IStringLocalizer>();
+    Localization.Current = new Localization.LocalizationContext(localizer);
+
+    // ----- Add request localization middleware (before app.Run()) -----
+    var supportedCultures = new[] { "en", "fr", "fa" };  // Add your cultures
+    var localizationOptions = new RequestLocalizationOptions()
+        .SetDefaultCulture(supportedCultures[0])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures);
+    app.UseRequestLocalization(localizationOptions);
+
     // Verify validators are registered properly in development
     if (app.Environment.IsDevelopment())
     {

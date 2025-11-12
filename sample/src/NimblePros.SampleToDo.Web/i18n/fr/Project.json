@@ -1,0 +1,8 @@
+{
+  "CoreProjectNameEmpty": "Le nom ne peut pas être vide",
+  "CoreProjectNameTooLong": "Le nom ne peut pas dépasser {0} caractères",
+  "CoreToDoItemDescriptionEmpty": "La description ne peut pas être vide",
+  "CoreToDoItemDescriptionTooLong": "La description ne peut pas dépasser {0} caractères",
+  "CoreToDoItemTitleEmpty": "Le titre ne peut pas être vide",
+  "CoreToDoItemTitleTooLong": "Le titre ne peut pas dépasser {0} caractères"
+}

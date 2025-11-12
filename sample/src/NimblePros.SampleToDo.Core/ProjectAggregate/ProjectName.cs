@@ -13,8 +13,8 @@ public partial struct ProjectName
   public const int MaxLength = 100;
   private static Validation Validate(in string name) =>
     string.IsNullOrEmpty(name)
-      ? Validation.Invalid("Name cannot be empty")
+      ? Validation.Invalid(ProjectErrorMessages.CoreProjectNameEmpty)
       : name.Length > MaxLength
-        ? Validation.Invalid($"Name cannot be longer than {MaxLength} characters")
+        ? Validation.Invalid(ProjectErrorMessages.CoreProjectNameTooLong(MaxLength))
         : Validation.Ok;
 }
