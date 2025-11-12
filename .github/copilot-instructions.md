@@ -56,8 +56,8 @@ This is a **Clean Architecture template** for .NET 9 that demonstrates Domain-Dr
 
 ### Build & Test
 ```bash
-dotnet build Clean.Architecture.sln
-dotnet test Clean.Architecture.sln
+dotnet build Clean.Architecture.slnx
+dotnet test Clean.Architecture.slnx
 ```
 
 ### Entity Framework Migrations

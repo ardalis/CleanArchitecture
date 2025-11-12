@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Clean.Architecture.sln",
+                "${workspaceFolder}/Clean.Architecture.slnx",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Clean.Architecture.sln",
+                "${workspaceFolder}/Clean.Architecture.slnx",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Clean.Architecture.sln"
+                "${workspaceFolder}/Clean.Architecture.slnx"
             ],
             "problemMatcher": "$msCompile"
         }
