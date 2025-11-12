@@ -18,6 +18,6 @@ jobs:
       with:
         dotnet-version: '10.0.x'
     - name: Build with dotnet
-      run: dotnet build ./Clean.Architecture.slnx --configuration Release
+      run: dotnet build ./Clean.Architecture.slnx -c Release
     - name: Test with dotnet
-      run: dotnet test ./Clean.Architecture.slnx --configuration Release
+      run: dotnet test ./Clean.Architecture.slnx -c Release --no-build --verbosity normal
