@@ -77,6 +77,9 @@ jobs:
         with:
           nuget-version: 'latest'
 
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete          
+
       - name: Create output directory
         run: mkdir -p ${{ env.PACK_OUTPUT }}
 
