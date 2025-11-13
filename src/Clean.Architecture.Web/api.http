@@ -26,7 +26,7 @@ Content-Type: application/json
 ###
 
 // Update a contributor
-@id_to_update=1
+@id_to_update=3
 PUT {{host}}:{{port}}/Contributors/{{id_to_update}}
 Content-Type: application/json
 

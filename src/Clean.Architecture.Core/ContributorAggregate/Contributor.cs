@@ -1,4 +1,6 @@
-﻿namespace Clean.Architecture.Core.ContributorAggregate;
+﻿using Clean.Architecture.Core.ContributorAggregate.Events;
+
+namespace Clean.Architecture.Core.ContributorAggregate;
 
 public class Contributor(ContributorName name) : EntityBase<Contributor, ContributorId>, IAggregateRoot
 {
@@ -15,6 +17,7 @@ public class Contributor(ContributorName name) : EntityBase<Contributor, Contrib
   public Contributor UpdateName(ContributorName newName)
   {
     Name = newName;
+    RegisterDomainEvent(new ContributorNameUpdatedEvent(this));
     return this;
   }
 }
