@@ -9,7 +9,7 @@ on:
     types: [published]
 
 env:
-  SOLUTION_FILE: Ardalis.Modulith.csproj
+  SOLUTION_FILE: Clean.Architecture.slnx
   PACK_OUTPUT: artifacts/package/release
 
 jobs:
