@@ -2,17 +2,17 @@
 <NsDepCopConfig>
     <Allowed From="*" To="*" />
 
-    <Disallowed From="OrderDemo.CleanVertical.Web.Domain.*"
-				To="OrderDemo.CleanVertical.Web.Infrastructure.*" />
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.*"
+				To="MinimalClean.Architecture.Web.Infrastructure.*" />
     
-    <Disallowed From="OrderDemo.CleanVertical.Web.CartFeatures.*"
-				To="OrderDemo.CleanVertical.Web.Infrastructure.*" />
+    <Disallowed From="MinimalClean.Architecture.Web.CartFeatures.*"
+				To="MinimalClean.Architecture.Web.Infrastructure.*" />
     
-    <Disallowed From="OrderDemo.CleanVertical.Web.ProductFeatures.*"
-				To="OrderDemo.CleanVertical.Web.Infrastructure.*" />
+    <Disallowed From="MinimalClean.Architecture.Web.ProductFeatures.*"
+				To="MinimalClean.Architecture.Web.Infrastructure.*" />
     
-    <Disallowed From="OrderDemo.CleanVertical.Web.Domain.OrderAggregate.*"
-				To="OrderDemo.CleanVertical.Web.Domain.CartAggregate.*" />
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.OrderAggregate.*"
+				To="MinimalClean.Architecture.Web.Domain.CartAggregate.*" />
 
     <AnalyzerConfig>
         <IssueKind Name="IllegalDependency" Severity="Error" />
