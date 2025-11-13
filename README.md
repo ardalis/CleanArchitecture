@@ -31,13 +31,20 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
 ## Table Of Contents
 
 - [Clean Architecture](#clean-architecture)
-  - [Troubleshooting Chrome Errors](#troubleshooting-chrome-errors)
+  - [Take the Course!](#take-the-course)
   - [Table Of Contents](#table-of-contents)
   - [Give a Star! :star:](#give-a-star-star)
+  - [Sponsors](#sponsors)
+  - [Troubleshooting Chrome Errors](#troubleshooting-chrome-errors)
   - [Versions](#versions)
   - [Learn More](#learn-more)
 - [Getting Started](#getting-started)
+  - [Template Installation](#template-installation)
   - [Using the dotnet CLI template](#using-the-dotnet-cli-template)
+    - [Full Clean Architecture (`clean-arch`)](#full-clean-architecture-clean-arch)
+    - [Minimal Clean Architecture (`min-clean`)](#minimal-clean-architecture-min-clean)
+  - [Template Comparison](#template-comparison)
+    - [Which Template Should I Use?](#which-template-should-i-use)
   - [What about Controllers and Razor Pages?](#what-about-controllers-and-razor-pages)
     - [Add Ardalis.ApiEndpoints](#add-ardalisapiendpoints)
     - [Add Controllers](#add-controllers)
@@ -52,11 +59,12 @@ This architecture is used in the [DDD Fundamentals course](https://www.pluralsig
   - [The Use Cases Project](#the-use-cases-project)
   - [The Infrastructure Project](#the-infrastructure-project)
   - [The Web Project](#the-web-project)
-  - [The SharedKernel Project](#the-sharedkernel-project)
+  - [The SharedKernel Package](#the-sharedkernel-package)
   - [The Test Projects](#the-test-projects)
 - [Patterns Used](#patterns-used)
   - [Domain Events](#domain-events)
   - [Related Projects](#related-projects)
+  - [Presentations and Videos on Clean Architecture](#presentations-and-videos-on-clean-architecture)
 
 ## Give a Star! :star:
 
@@ -84,12 +92,28 @@ The main branch is now using **.NET 9**. This corresponds with NuGet package ver
 
 # Getting Started
 
-To use this template, there are a few options:
+To use this template, there are **two template options**:
 
-- Install using `dotnet new` (recommended)
-- Download this Repository (and modify as needed)
+1. **Full Clean Architecture** (`clean-arch`) - Complete multi-project solution with Core, UseCases, Infrastructure, and Web
+2. **Minimal Clean Architecture** (`min-clean`) - Simplified single-project vertical slice architecture
+
+Choose based on your project's complexity and team preferences. See [Template Comparison](#template-comparison) below.
+
+## Template Installation
+
+Install the templates from NuGet:
+
+```powershell
+# Full Clean Architecture template
+dotnet new install Ardalis.CleanArchitecture.Template
+
+# Minimal Clean Architecture template  
+dotnet new install Ardalis.MinimalClean.Template
+```
 
 ## Using the dotnet CLI template
+
+### Full Clean Architecture (`clean-arch`)
 
 First, install the template from [NuGet (https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/):
 
@@ -131,7 +155,7 @@ Navigate to the parent directory in which you'd like the solution's folder to be
 
 Run this command to create the solution structure in a subfolder name `Your.ProjectName`:
 
-```
+```powershell
 dotnet new clean-arch -o Your.ProjectName
 ```
 
@@ -142,10 +166,66 @@ Example:
 
 Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
 
-**Known Issues**: 
+**Known Issues**:
 
 - Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
 - Don't use 'Ardalis' as your namespace (conflicts with dependencies).
+
+### Minimal Clean Architecture (`min-clean`)
+
+For a simpler, single-project vertical slice architecture, use the Minimal Clean Architecture template:
+
+```powershell
+dotnet new install Ardalis.MinimalClean.Template
+dotnet new min-clean -o Your.ProjectName
+```
+
+This template provides:
+
+- **Single Web project** with all code organized by vertical slices (features)
+- **Simplified architecture** - no separate Core, UseCases, or Infrastructure projects
+- **Domain-Driven Design patterns** - entities, aggregates, but pragmatic
+- **FastEndpoints** for clean API endpoints
+- **Entity Framework Core** with migrations
+- **Aspire** support for cloud-ready development (optional)
+
+Perfect for MVPs, smaller applications, or teams that want architectural guidance without multi-project complexity.
+
+## Template Comparison
+
+| Feature | Full Clean Architecture | Minimal Clean Architecture |
+|---------|------------------------|----------------------------|
+| **Command** | `clean-arch` | `min-clean` |
+| **Projects** | 4+ (Core, UseCases, Infrastructure, Web) | 1 (Web only) |
+| **Organization** | By layer (horizontal) | By feature (vertical slices) |
+| **DDD Patterns** | Extensive (Aggregates, Value Objects, Domain Events, Specifications) | Pragmatic (simplified domain model) |
+| **Repository Pattern** | Yes, with Specifications | Optional (direct DbContext or simple repos) |
+| **MediatR/CQRS** | Yes (separate UseCases project) | Optional (can be in endpoints) |
+| **Complexity** | Higher - more abstractions | Lower - simpler structure |
+| **Best For** | Large enterprise apps, long-term maintenance | MVPs, smaller apps, rapid iteration |
+| **Team Size** | Multiple teams, strict boundaries | Small teams, collaborative |
+| **Learning Curve** | Steeper - more patterns to learn | Gentler - focused essentials |
+| **Migration Path** | Can simplify to minimal | Can grow into full template |
+
+### Which Template Should I Use?
+
+**Choose Full Clean Architecture if:**
+
+- Building large, complex enterprise applications
+- Multiple teams working on different layers
+- Long-term maintenance and evolution expected
+- Need strict separation of concerns and testability
+- Domain complexity requires extensive DDD patterns
+
+**Choose Minimal Clean Architecture if:**
+
+- Building MVPs or smaller applications
+- Want architectural guidance without project overhead
+- Prefer vertical slice architecture
+- Team values simplicity and fast iteration
+- May grow into full Clean Architecture later
+
+**Not sure?** Start with Minimal Clean and migrate to Full Clean Architecture if your application grows in complexity.
 
 ## What about Controllers and Razor Pages?
 

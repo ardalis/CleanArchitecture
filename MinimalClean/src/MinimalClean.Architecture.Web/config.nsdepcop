@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NsDepCopConfig>
+    <Allowed From="*" To="*" />
+
+    <Disallowed From="OrderDemo.CleanVertical.Web.Domain.*"
+				To="OrderDemo.CleanVertical.Web.Infrastructure.*" />
+    
+    <Disallowed From="OrderDemo.CleanVertical.Web.CartFeatures.*"
+				To="OrderDemo.CleanVertical.Web.Infrastructure.*" />
+    
+    <Disallowed From="OrderDemo.CleanVertical.Web.ProductFeatures.*"
+				To="OrderDemo.CleanVertical.Web.Infrastructure.*" />
+    
+    <Disallowed From="OrderDemo.CleanVertical.Web.Domain.OrderAggregate.*"
+				To="OrderDemo.CleanVertical.Web.Domain.CartAggregate.*" />
+
+    <AnalyzerConfig>
+        <IssueKind Name="IllegalDependency" Severity="Error" />
+    </AnalyzerConfig>
+</NsDepCopConfig>

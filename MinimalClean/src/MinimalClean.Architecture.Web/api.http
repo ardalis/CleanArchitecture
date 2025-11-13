@@ -1,0 +1,61 @@
+@OrderDemo.Api_HostAddress = https://localhost:57679
+
+@OrderDemo.CartId = 68fe4cfd-84bb-4b8a-bb4e-528c26325c72
+@OrderDemo.OrderId = ec5a03fe-fc8c-4659-9fc7-f46351e9bf6f
+
+### List Products
+GET {{OrderDemo.Api_HostAddress}}/products
+Accept: application/json
+
+### Get Product By ID
+GET {{OrderDemo.Api_HostAddress}}/products/1
+Accept: application/json
+
+### Add to Cart (Anonymous User - creates cart)
+POST {{OrderDemo.Api_HostAddress}}/cart
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+### Add to Cart (Anonymous User - existing cart)
+POST {{OrderDemo.Api_HostAddress}}/cart
+Content-Type: application/json
+
+{
+  "cartId": "{{OrderDemo.CartId}}",
+  "productId": 2,
+  "quantity": 3
+}
+
+### View Cart
+GET {{OrderDemo.Api_HostAddress}}/cart/{{OrderDemo.CartId}}
+Accept: application/json
+
+### Checkout
+POST {{OrderDemo.Api_HostAddress}}/cart/{{OrderDemo.CartId}}/checkout
+Content-Type: application/json
+
+{
+  "email": "guest@example.com"
+}
+### get order id from response and set it to {{OrderDemo.OrderId}}
+
+### Confirm Purchase
+POST {{OrderDemo.Api_HostAddress}}/confirm-purchase
+Content-Type: application/json
+
+{
+  "orderId": "{{OrderDemo.OrderId}}",
+  "paymentIntent": "323r23r2jfsiidjf"
+}
+
+### List Orders
+GET {{OrderDemo.Api_HostAddress}}/orders?emailAddress=guest@example.com
+Accept: application/json
+
+
+
+
