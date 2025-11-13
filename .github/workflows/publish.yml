@@ -9,7 +9,8 @@ on:
     types: [published]
 
 env:
-  SOLUTION_FILE: Ardalis.Modulith.csproj
+  SOLUTION_FILE: Clean.Architecture.slnx
+  NUSPEC_FILE: CleanArchitecture.nuspec
   PACK_OUTPUT: artifacts/package/release
 
 jobs:
@@ -52,7 +53,7 @@ jobs:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
-        if: ${{ github.event_name == 'release' && github.event.action == 'published' && github.event.release.tag_name != '' }}
+        #if: ${{ github.event_name == 'release' && github.event.action == 'published' && github.event.release.tag_name != '' }}
         shell: pwsh
         run: |
           Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
