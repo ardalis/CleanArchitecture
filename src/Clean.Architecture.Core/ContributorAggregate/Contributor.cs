@@ -16,6 +16,7 @@ public class Contributor(ContributorName name) : EntityBase<Contributor, Contrib
 
   public Contributor UpdateName(ContributorName newName)
   {
+    if (Name == newName) return this;
     Name = newName;
     RegisterDomainEvent(new ContributorNameUpdatedEvent(this));
     return this;
