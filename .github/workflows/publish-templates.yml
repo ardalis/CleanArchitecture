@@ -100,7 +100,7 @@ jobs:
   publish:
     needs: package
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    #if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
     permissions:
       contents: read
       id-token: write
