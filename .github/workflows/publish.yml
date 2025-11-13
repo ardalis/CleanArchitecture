@@ -52,7 +52,7 @@ jobs:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
-        #if: startsWith(github.ref, 'refs/tags/')   # only push if building a tag
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' && github.event.release.tag_name != '' }}
         shell: pwsh
         run: |
           Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
