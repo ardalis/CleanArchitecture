@@ -21,7 +21,6 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
