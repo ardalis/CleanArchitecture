@@ -2,7 +2,7 @@
 
 namespace NimblePros.SampleToDo.UnitTests.Core.ContributorAggregate;
 
-public class ContributorIdFromValue
+public class ContributorIdFrom
 {
   [Fact]
   public void CreatesGivenValidValue()

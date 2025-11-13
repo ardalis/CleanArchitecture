@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <!-- Enable parallel test execution at the assembly level -->
+    <MaxCpuCount>0</MaxCpuCount>
+    <!-- 0 means use all available processors -->
+    <DisableParallelization>false</DisableParallelization>
+  </RunConfiguration>
+  
+  <xUnit>
+    <!-- Configure xUnit-specific settings -->
+    <ParallelizeAssembly>true</ParallelizeAssembly>
+    <ParallelizeTestCollections>true</ParallelizeTestCollections>
+    <MaxParallelThreads>0</MaxParallelThreads>
+    <!-- 0 means use default algorithm (processors * 2) -->
+  </xUnit>
+</RunSettings>

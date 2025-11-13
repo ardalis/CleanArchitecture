@@ -28,12 +28,14 @@
     <PackageReference Include="NimblePros.SharedKernel" />
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" />
     <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
     <!--<PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />-->
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\NimblePros.SampleToDo.Infrastructure\NimblePros.SampleToDo.Infrastructure.csproj" />
+    <ProjectReference Include="..\NimblePros.SampleToDo.ServiceDefaults\NimblePros.SampleToDo.ServiceDefaults.csproj" />
     <ProjectReference Include="..\NimblePros.SampleToDo.UseCases\NimblePros.SampleToDo.UseCases.csproj" />
   </ItemGroup>
   
