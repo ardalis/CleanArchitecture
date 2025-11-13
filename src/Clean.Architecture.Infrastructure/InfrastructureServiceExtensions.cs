@@ -12,7 +12,13 @@ public static class InfrastructureServiceExtensions
     ConfigurationManager config,
     ILogger logger)
   {
-    string? connectionString = config.GetConnectionString("SqliteConnection");
+    // Try to get connection strings in order of priority:
+    // 1. "cleanarchitecture" - provided by Aspire when using .WithReference(cleanArchDb)
+    // 2. "DefaultConnection" - traditional SQL Server connection
+    // 3. "SqliteConnection" - fallback to SQLite
+    string? connectionString = config.GetConnectionString("cleanarchitecture")
+                               ?? config.GetConnectionString("DefaultConnection") 
+                               ?? config.GetConnectionString("SqliteConnection");
     Guard.Against.Null(connectionString);
 
     services.AddScoped<EventDispatchInterceptor>();
@@ -21,7 +27,18 @@ public static class InfrastructureServiceExtensions
     services.AddDbContext<AppDbContext>((provider, options) =>
     {
       var eventDispatchInterceptor = provider.GetRequiredService<EventDispatchInterceptor>();
-      options.UseSqlite(connectionString);
+      
+      // Use SQL Server if Aspire or DefaultConnection is available, otherwise use SQLite
+      if (config.GetConnectionString("cleanarchitecture") != null || 
+          config.GetConnectionString("DefaultConnection") != null)
+      {
+        options.UseSqlServer(connectionString);
+      }
+      else
+      {
+        options.UseSqlite(connectionString);
+      }
+      
       options.AddInterceptors(eventDispatchInterceptor);
     });
 
