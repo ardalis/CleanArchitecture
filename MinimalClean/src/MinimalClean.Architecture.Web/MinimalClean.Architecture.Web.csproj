@@ -33,6 +33,7 @@
     <PackageReference Include="NimblePros.Metronome" />
     <PackageReference Include="Scalar.AspNetCore" />
     <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
 
     <PackageReference Include="Vogen">
       <IncludeAssets>compile; runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -40,7 +41,7 @@
 
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" PrivateAssets="all" >
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
 

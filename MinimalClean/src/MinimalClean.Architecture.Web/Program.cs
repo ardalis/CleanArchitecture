@@ -1,26 +1,20 @@
-using FastEndpoints;
+﻿using FastEndpoints;
 using FastEndpoints.Swagger;
 using MinimalClean.Architecture.Web.Configurations;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
+builder.AddServiceDefaults()    // This sets up OpenTelemetry logging
+       .AddLoggerConfigs();     // This adds Serilog for console formatting
 
-var logger = Serilog.Log.Logger = new Serilog.LoggerConfiguration()
-  .Enrich.FromLogContext()
-  .WriteTo.Console()
-  .CreateLogger();
+using var loggerFactory = LoggerFactory.Create(config => config.AddConsole());
+var startupLogger = loggerFactory.CreateLogger<Program>();
 
-logger.Information("Starting web host");
+startupLogger.LogInformation("Starting web host");
 
-builder.AddLoggerConfigs();
-
-var appLogger = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger)
-    .CreateLogger<Program>();
-
-builder.Services.AddOptionConfigs(builder.Configuration, appLogger, builder);
-builder.Services.AddServiceConfigs(appLogger, builder);
+builder.Services.AddOptionConfigs(builder.Configuration, startupLogger, builder);
+builder.Services.AddServiceConfigs(startupLogger, builder);
 
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument(o =>
