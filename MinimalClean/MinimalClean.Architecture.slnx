@@ -1,0 +1,20 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="CleanArchitecture.nuspec" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/MinimalClean.Architecture.Web/MinimalClean.Architecture.Web.csproj" />
+  </Folder>
+  <Folder Name="/src/_aspire/">
+    <Project Path="src/MinimalClean.Architecture.AspireHost/MinimalClean.Architecture.AspireHost.csproj" />
+    <Project Path="src/MinimalClean.Architecture.ServiceDefaults/MinimalClean.Architecture.ServiceDefaults.csproj" />
+  </Folder>
+</Solution>
