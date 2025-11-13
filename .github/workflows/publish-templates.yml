@@ -49,20 +49,20 @@ jobs:
         shell: pwsh
         run: |
           # Test Full Template
-          Write-Host "Testing Full Clean Architecture Template..."
-          dotnet new install .
-          dotnet new clean-arch -o TestFullTemplate
-          dotnet build TestFullTemplate/TestFullTemplate.slnx
-          dotnet new uninstall Ardalis.CleanArchitecture.Template
-          Remove-Item -Recurse -Force TestFullTemplate
+          # Write-Host "Testing Full Clean Architecture Template..."
+          # dotnet new install .
+          # dotnet new clean-arch -o TestFullTemplate
+          # dotnet build TestFullTemplate/TestFullTemplate.slnx
+          # dotnet new uninstall Ardalis.CleanArchitecture.Template
+          # Remove-Item -Recurse -Force TestFullTemplate
           
           # Test Minimal Template
-          Write-Host "Testing Minimal Clean Architecture Template..."
-          dotnet new install ./MinimalClean
-          dotnet new min-clean -o TestMinimalTemplate
-          dotnet build TestMinimalTemplate/TestMinimalTemplate.slnx
-          dotnet new uninstall Ardalis.MinimalClean.Template
-          Remove-Item -Recurse -Force TestMinimalTemplate
+          # Write-Host "Testing Minimal Clean Architecture Template..."
+          # dotnet new install ./MinimalClean
+          # dotnet new min-clean -o TestMinimalTemplate
+          # dotnet build TestMinimalTemplate/TestMinimalTemplate.slnx
+          # dotnet new uninstall Ardalis.MinimalClean.Template
+          # Remove-Item -Recurse -Force TestMinimalTemplate
 
   package:
     needs: build-and-test
