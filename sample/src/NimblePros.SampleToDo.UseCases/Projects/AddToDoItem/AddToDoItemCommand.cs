@@ -12,5 +12,5 @@ namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
 /// <param name="Description"></param>
 public record AddToDoItemCommand(ProjectId ProjectId,
                                  ContributorId? ContributorId,
-                                 string Title,
-                                 string Description) : ICommand<Result<ToDoItemId>>;
+                                 ToDoItemTitle Title,
+                                 ToDoItemDescription Description) : ICommand<Result<ToDoItemId>>;
