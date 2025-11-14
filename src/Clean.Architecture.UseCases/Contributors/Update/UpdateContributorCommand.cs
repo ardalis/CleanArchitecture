@@ -1,3 +1,5 @@
-﻿namespace Clean.Architecture.UseCases.Contributors.Update;
+﻿using Clean.Architecture.Core.ContributorAggregate;
 
-public record UpdateContributorCommand(int ContributorId, string NewName) : ICommand<Result<ContributorDTO>>;
+namespace Clean.Architecture.UseCases.Contributors.Update;
+
+public record UpdateContributorCommand(ContributorId ContributorId, ContributorName NewName) : ICommand<Result<ContributorDto>>;

@@ -8,12 +8,12 @@ Use Cases should not depend directly on infrastructure concerns, making them sim
 
 Use Cases are often grouped into Commands and Queries, following CQRS.
 
+Queries fetch data but do not mutate state. Commands mutate state but do not return data (other than perhaps an acknowledgment or ID).
+
 Having Use Cases as a separate project can reduce the amount of logic in UI and Infrastructure projects.
 
-For simpler projects, the Use Cases project can be omitted, and its behavior moved into the UI project, either as separate services or MediatR handlers, or by simply putting the logic into the API endpoints.
-
-For ideas on organizing your Use Case project's folder structure, see this thread:
-https://twitter.com/ardalis/status/1686406393018945536
+Using Use Case handlers combined with behavior can consolidate cross-cutting concerns like logging, validation, and error handling.
+See: https://www.youtube.com/watch?v=vagyJdrWLr0
 
 Need help? Check out the sample here:
 https://github.com/ardalis/CleanArchitecture/tree/main/sample

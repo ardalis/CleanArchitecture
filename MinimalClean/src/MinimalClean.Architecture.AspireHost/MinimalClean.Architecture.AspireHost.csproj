@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>47f99468-f41d-48b8-ae3f-69682954d973</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" />
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
+        reference as a standard project reference and not attempt to generate
+        a metadata file -->
+    <ProjectReference Include="..\MinimalClean.Architecture.ServiceDefaults\MinimalClean.Architecture.ServiceDefaults.csproj" IsAspireProjectResource="false" />
+    <ProjectReference Include="..\MinimalClean.Architecture.Web\MinimalClean.Architecture.Web.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,135 @@
+name: Publish Templates to NuGet
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish-full:
+        description: 'Publish Full Clean Architecture Template'
+        required: true
+        type: boolean
+        default: false
+      publish-minimal:
+        description: 'Publish Minimal Clean Architecture Template'
+        required: true
+        type: boolean
+        default: false
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  PACK_OUTPUT: artifacts/packages
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build Full Template Solution
+        run: dotnet build ./Clean.Architecture.slnx -c Release
+
+      - name: Test Full Template
+        run: dotnet test ./Clean.Architecture.slnx -c Release --no-build --verbosity normal
+
+      - name: Build MinimalClean Template Solution
+        run: dotnet build ./MinimalClean/MinimalClean.Architecture.slnx -c Release
+
+      - name: Test Template Installations
+        shell: pwsh
+        run: |
+          # Test Full Template
+          # Write-Host "Testing Full Clean Architecture Template..."
+          # dotnet new install .
+          # dotnet new clean-arch -o TestFullTemplate
+          # dotnet build TestFullTemplate/TestFullTemplate.slnx
+          # dotnet new uninstall Ardalis.CleanArchitecture.Template
+          # Remove-Item -Recurse -Force TestFullTemplate
+          
+          # Test Minimal Template
+          # Write-Host "Testing Minimal Clean Architecture Template..."
+          # dotnet new install ./MinimalClean
+          # dotnet new min-clean -o TestMinimalTemplate
+          # dotnet build TestMinimalTemplate/TestMinimalTemplate.slnx
+          # dotnet new uninstall Ardalis.MinimalClean.Template
+          # Remove-Item -Recurse -Force TestMinimalTemplate
+
+  package:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+        with:
+          nuget-version: 'latest'
+
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete          
+
+      - name: Create output directory
+        run: mkdir -p ${{ env.PACK_OUTPUT }}
+
+      - name: Pack Full Template
+        if: ${{ github.event_name == 'release' || github.event.inputs.publish-full == 'true' }}
+        run: nuget pack CleanArchitecture.nuspec -OutputDirectory ${{ env.PACK_OUTPUT }} -NoDefaultExcludes
+
+      - name: Pack Minimal Template
+        if: ${{ github.event_name == 'release' || github.event.inputs.publish-minimal == 'true' }}
+        run: nuget pack MinimalClean.nuspec -OutputDirectory ${{ env.PACK_OUTPUT }} -NoDefaultExcludes
+
+      - name: Upload packages as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: ${{ env.PACK_OUTPUT }}/*.nupkg
+
+  publish:
+    needs: package
+    runs-on: ubuntu-latest
+    #if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    permissions:
+      contents: read
+      id-token: write
+    
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-packages
+          path: ${{ env.PACK_OUTPUT }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push packages to NuGet
+        shell: pwsh
+        run: |
+          Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
+            Write-Host "Publishing $($_.Name)..."
+            dotnet nuget push $_.FullName `
+              --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" `
+              --source https://api.nuget.org/v3/index.json `
+              --skip-duplicate
+          }

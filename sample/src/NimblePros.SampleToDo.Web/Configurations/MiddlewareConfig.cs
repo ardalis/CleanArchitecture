@@ -27,6 +27,8 @@ public static class MiddlewareConfig
 
     await SeedDatabase(app);
 
+    app.MapDefaultEndpoints(); // aspire health checks
+
     return app;
   }
 

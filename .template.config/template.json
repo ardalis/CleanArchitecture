@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "Steve Smith @ardalis, Erik Dahl",
+  "author": "ardalis (Steve Smith)",
   "classifications": [
     "Web",
     "ASP.NET",
@@ -16,14 +16,6 @@
   "sourceName": "Clean.Architecture",
   "templateFileExtensions": [ ".cs", ".csproj", ".slnx" ],
   "preferNameDirectory": true,
-  "symbols": {
-    "aspire": {
-      "type": "parameter",
-      "datatype": "bool",
-      "defaultValue": "true",
-      "description": "Include .NET Aspire."
-    }
-  },
   "sources": [
     {
       "include": [
@@ -34,18 +26,12 @@
         ".vscode/**",
         ".git/**",
         ".github/**",
+        ".idea/**",
         ".template.config/**",
+        "docs/**",
         "sample/**"
       ],
       "modifiers": [
-        {
-          "condition": "(!aspire)",
-          "exclude": [
-            "src/Clean.Architecture.AspireHost/**",
-            "src/Clean.Architecture.ServiceDefaults/**",
-            "tests/Clean.Architecture.AspireTests/**"
-          ]
-        },
         {
           "condition": "true",
           "copyOnly": [ "*.dll", "*.png", "*.ico", "*.jpg", "*.jpeg", "*.ps1" ]

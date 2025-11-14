@@ -1,44 +1,29 @@
-﻿using Clean.Architecture.UseCases.Contributors.Create;
-using Clean.Architecture.Web.Configurations;
+﻿using Clean.Architecture.Web.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var logger = Log.Logger = new LoggerConfiguration()
-  .Enrich.FromLogContext()
-  .WriteTo.Console()
-  .CreateLogger();
+builder.AddServiceDefaults()    // This sets up OpenTelemetry logging
+       .AddLoggerConfigs();     // This adds Serilog for console formatting
 
-logger.Information("Starting web host");
+using var loggerFactory = LoggerFactory.Create(config => config.AddConsole());
+var startupLogger = loggerFactory.CreateLogger<Program>();
 
-builder.AddLoggerConfigs();
+startupLogger.LogInformation("Starting web host");
 
-var appLogger = new SerilogLoggerFactory(logger)
-    .CreateLogger<Program>();
-
-builder.Services.AddOptionConfigs(builder.Configuration, appLogger, builder);
-builder.Services.AddServiceConfigs(appLogger, builder);
-
+builder.Services.AddOptionConfigs(builder.Configuration, startupLogger, builder);
+builder.Services.AddServiceConfigs(startupLogger, builder);
 
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument(o =>
                 {
                   o.ShortSchemaNames = true;
-                })
-                .AddCommandMiddleware(c =>
-                {
-                  c.Register(typeof(CommandLogger<,>));
                 });
-
-// wire up commands
-//builder.Services.AddTransient<ICommandHandler<CreateContributorCommand2,Result<int>>, CreateContributorCommandHandler2>();
-
-#if (aspire)
-builder.AddServiceDefaults();
-#endif
 
 var app = builder.Build();
 
 await app.UseAppMiddlewareAndSeedDatabase();
+
+app.MapDefaultEndpoints(); // Aspire health checks and metrics
 
 app.Run();
 

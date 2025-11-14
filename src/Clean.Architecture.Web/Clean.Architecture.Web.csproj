@@ -14,20 +14,18 @@
     <PackageReference Include="Ardalis.Result.AspNetCore" />
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.Swagger" />
-    <PackageReference Include="MediatR" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+    <PackageReference Include="Mediator.SourceGenerator">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Scalar.AspNetCore" />
     <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Clean.Architecture.Infrastructure\Clean.Architecture.Infrastructure.csproj" />
     <ProjectReference Include="..\Clean.Architecture.UseCases\Clean.Architecture.UseCases.csproj" />
-    <!--#if (aspire)-->
     <ProjectReference Include="..\Clean.Architecture.ServiceDefaults\Clean.Architecture.ServiceDefaults.csproj" />
-    <!--#endif -->
   </ItemGroup>
 
 </Project>

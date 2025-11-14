@@ -2,7 +2,7 @@
 
 public class ContributorConstructor
 {
-  private readonly string _testName = "test name";
+  private readonly ContributorName _testName = ContributorName.From("test name");
   private Contributor? _testContributor;
 
   private Contributor CreateContributor()

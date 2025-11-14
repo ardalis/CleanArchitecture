@@ -17,7 +17,9 @@ public partial class Program
     {
       o.AddServerHeader = false; // <- removes "Server: Kestrel"
     });
-    
+    builder.AddServiceDefaults();
+
+
     var logger = Log.Logger = new LoggerConfiguration()
       .Enrich.FromLogContext()
       .WriteTo.Console()

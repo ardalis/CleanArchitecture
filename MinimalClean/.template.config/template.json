@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "ardalis (Steve Smith)",
+  "classifications": [
+    "Web",
+    "ASP.NET",
+    "Clean Architecture",
+    "Minimal"
+  ],
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "identity": "Ardalis.MinimalClean.Template",
+  "name": "ASP.NET Minimal Clean Architecture Solution",
+  "shortName": "min-clean",
+  "sourceName": "MinimalClean.Architecture",
+  "templateFileExtensions": [ ".cs", ".csproj", ".slnx" ],
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "include": [
+        "**/*"
+      ],
+      "exclude": [ 
+        ".vs/**",
+        ".vscode/**",
+        ".git/**",
+        ".github/**",
+        ".idea/**",
+        ".template.config/**",
+        "**/bin/**",
+        "**/obj/**",
+        "**/.vs/**"
+      ],
+      "modifiers": [
+        {
+          "condition": "true",
+          "copyOnly": [ "*.dll", "*.png", "*.ico", "*.jpg", "*.jpeg", "*.ps1" ]
+        },
+        {
+          "rename": {
+            "README.template.md": "README.md"
+          }
+        }
+      ]
+    }
+  ]
+}
