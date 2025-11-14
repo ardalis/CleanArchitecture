@@ -17,7 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '10.0.x'
-    - name: Build with dotnet
+    - name: Build Full Template
       run: dotnet build ./Clean.Architecture.slnx -c Release
-    - name: Test with dotnet
+    - name: Test Full Template
       run: dotnet test ./Clean.Architecture.slnx -c Release --no-build --verbosity normal
+    - name: Build MinimalClean Template
+      run: dotnet build ./MinimalClean/MinimalClean.Architecture.slnx -c Release

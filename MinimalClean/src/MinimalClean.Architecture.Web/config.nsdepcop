@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NsDepCopConfig>
+    <Allowed From="*" To="*" />
+
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.*"
+				To="MinimalClean.Architecture.Web.Infrastructure.*" />
+    
+    <Disallowed From="MinimalClean.Architecture.Web.CartFeatures.*"
+				To="MinimalClean.Architecture.Web.Infrastructure.*" />
+    
+    <Disallowed From="MinimalClean.Architecture.Web.ProductFeatures.*"
+				To="MinimalClean.Architecture.Web.Infrastructure.*" />
+    
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.OrderAggregate.*"
+				To="MinimalClean.Architecture.Web.Domain.CartAggregate.*" />
+
+    <AnalyzerConfig>
+        <IssueKind Name="IllegalDependency" Severity="Error" />
+    </AnalyzerConfig>
+</NsDepCopConfig>

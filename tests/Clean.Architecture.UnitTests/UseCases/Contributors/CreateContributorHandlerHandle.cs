@@ -2,7 +2,7 @@
 
 public class CreateContributorHandlerHandle
 {
-  private readonly string _testName = "test name";
+  private readonly ContributorName _testName = ContributorName.From("test name");
   private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
   private CreateContributorHandler _handler;
 
