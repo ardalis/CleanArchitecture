@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
+﻿namespace NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
 
 public class ListIncompleteItemsByProjectHandler : IQueryHandler<ListIncompleteItemsByProjectQuery, Result<IEnumerable<ToDoItemDto>>>
 {

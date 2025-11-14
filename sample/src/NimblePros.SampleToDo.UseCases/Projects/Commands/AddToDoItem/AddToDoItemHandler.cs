@@ -1,7 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.AddToDoItem;
 
 public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<ToDoItemId>>
 {

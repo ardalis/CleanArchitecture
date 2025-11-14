@@ -1,7 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.AddToDoItem;
 
 /// <summary>
 /// Creates a new ToDoItem and adds it to a Project

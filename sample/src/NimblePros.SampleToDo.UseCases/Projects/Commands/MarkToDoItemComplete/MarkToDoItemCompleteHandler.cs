@@ -1,7 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.MarkToDoItemComplete;
 
 public class MarkToDoItemCompleteHandler : ICommandHandler<MarkToDoItemCompleteCommand, Result>
 {

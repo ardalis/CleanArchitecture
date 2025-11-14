@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.Create;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.Create;
 
 /// <summary>
 /// Create a new Project.

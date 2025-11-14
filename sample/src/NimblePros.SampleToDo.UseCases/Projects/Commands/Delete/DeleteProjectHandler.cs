@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.Delete;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.Delete;
 
 public class DeleteProjectHandler : ICommandHandler<DeleteProjectCommand, Result>
 {

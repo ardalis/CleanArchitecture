@@ -1,5 +1,5 @@
 ﻿using NimblePros.SampleToDo.UseCases.Projects;
-using NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;
 

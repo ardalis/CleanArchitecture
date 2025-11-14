@@ -1,5 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.GetWithAllItems;
 using NimblePros.SampleToDo.Web.Endpoints.Projects;
 using NimblePros.SampleToDo.Web.Extensions;
 
