@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects;
-using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.ListShallow;
 
 namespace NimblePros.SampleToDo.Web.Projects;
 
