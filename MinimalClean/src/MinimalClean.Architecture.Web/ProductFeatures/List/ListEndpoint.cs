@@ -1,6 +1,6 @@
 using FastEndpoints;
 using FluentValidation;
-using MinimalClean.Architecture.Web.Products;
+using MinimalClean.Architecture.Web.ProductFeatures;
 
 namespace MinimalClean.Architecture.Web.ProductFeatures.List;
 

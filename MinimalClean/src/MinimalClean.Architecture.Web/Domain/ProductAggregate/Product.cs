@@ -1,3 +1,5 @@
+using Ardalis.GuardClauses;
+
 namespace MinimalClean.Architecture.Web.Domain.ProductAggregate;
 
 public class Product : EntityBase<Product, ProductId>, IAggregateRoot
@@ -20,7 +22,7 @@ public class Product : EntityBase<Product, ProductId>, IAggregateRoot
     return new Product(ProductId.New, name, unitPrice);
   }
 
-  public string Name { get; private set; }
+  public string Name { get; private set; } = string.Empty;
   public decimal UnitPrice { get; private set; }
 
   public Product UpdateName(string newName)

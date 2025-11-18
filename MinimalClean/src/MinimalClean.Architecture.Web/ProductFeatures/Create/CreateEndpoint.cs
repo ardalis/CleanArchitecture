@@ -2,8 +2,7 @@ using FastEndpoints;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalClean.Architecture.Web.Domain.ProductAggregate;
-using MinimalClean.Architecture.Web.Infrastructure.Data;
-using MinimalClean.Architecture.Web.Products;
+using MinimalClean.Architecture.Web.ProductFeatures;
 
 namespace MinimalClean.Architecture.Web.ProductFeatures.Create;
 
@@ -13,11 +12,11 @@ public sealed class CreateProductRequest
   public decimal UnitPrice { get; init; }
 }
 
-public class CreateEndpoint(AppDbContext dbContext) : 
+public class CreateEndpoint(IRepository<Product> repository) : 
   Endpoint<CreateProductRequest, 
            Results<Created<ProductRecord>, ValidationProblem, ProblemHttpResult>>
 {
-  private readonly AppDbContext _dbContext = dbContext;
+  private readonly IRepository<Product> _repository = repository;
 
   public override void Configure()
   {
@@ -48,8 +47,8 @@ public class CreateEndpoint(AppDbContext dbContext) :
   {
     var product = Product.Create(request.Name, request.UnitPrice);
 
-    _dbContext.Products.Add(product);
-    await _dbContext.SaveChangesAsync(cancellationToken);
+    await _repository.AddAsync(product, cancellationToken);
+    await _repository.SaveChangesAsync(cancellationToken);
 
     var response = new ProductRecord(product.Id.Value, product.Name, product.UnitPrice);
     return TypedResults.Created($"/Products/{product.Id.Value}", response);
