@@ -6,7 +6,7 @@
     <version>11.0.1</version>
     <authors>Steve Smith</authors>
     <description>
-      The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 8 and C# 12.
+      The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 10.
       Features zero tight coupling to database or data access technology.
     </description>
     <language>en-US</language>
