@@ -14,10 +14,13 @@ public static class InfrastructureServiceExtensions
   {
     // Try to get connection strings in order of priority:
     // 1. "cleanarchitecture" - provided by Aspire when using .WithReference(cleanArchDb)
-    // 2. "DefaultConnection" - traditional SQL Server connection
+    // 2. "DefaultConnection" - SQL Server (Windows only by default, can be forced with USE_SQL_SERVER=true)
     // 3. "SqliteConnection" - fallback to SQLite
+    bool isWindows = OperatingSystem.IsWindows();
+    bool forceSqlServer = Environment.GetEnvironmentVariable("USE_SQL_SERVER") == "true";
+    
     string? connectionString = config.GetConnectionString("cleanarchitecture")
-                               ?? config.GetConnectionString("DefaultConnection") 
+                               ?? ((isWindows || forceSqlServer) ? config.GetConnectionString("DefaultConnection") : null)
                                ?? config.GetConnectionString("SqliteConnection");
     Guard.Against.Null(connectionString);
 
@@ -28,9 +31,9 @@ public static class InfrastructureServiceExtensions
     {
       var eventDispatchInterceptor = provider.GetRequiredService<EventDispatchInterceptor>();
       
-      // Use SQL Server if Aspire or DefaultConnection is available, otherwise use SQLite
+      // Use SQL Server if Aspire or DefaultConnection (on Windows or forced) is available, otherwise use SQLite
       if (config.GetConnectionString("cleanarchitecture") != null || 
-          config.GetConnectionString("DefaultConnection") != null)
+          ((isWindows || forceSqlServer) && config.GetConnectionString("DefaultConnection") != null))
       {
         options.UseSqlServer(connectionString);
       }
