@@ -1,9 +1,11 @@
 using FastEndpoints;
 using FluentValidation;
+using Microsoft.AspNetCore.Http.HttpResults;
+using MinimalClean.Architecture.Web.Domain.ProductAggregate;
 using MinimalClean.Architecture.Web.Infrastructure.Data;
 using MinimalClean.Architecture.Web.Products;
 
-namespace MinimalClean.Architecture.Web.ProductFeatures.List;
+namespace MinimalClean.Architecture.Web.ProductFeatures.Create;
 
 public sealed class CreateProductRequest
 { 
@@ -11,28 +13,61 @@ public sealed class CreateProductRequest
   public decimal UnitPrice { get; init; }
 }
 
-// TODO: Add DbContext injection
-// AppDbContext dbContext
-public class CreateEndpoint() : 
-  Endpoint<CreateProductRequest, ProductRecord>
+public class CreateEndpoint(AppDbContext dbContext) : 
+  Endpoint<CreateProductRequest, 
+           Results<Created<ProductRecord>, ValidationProblem, ProblemHttpResult>>
 {
+  private readonly AppDbContext _dbContext = dbContext;
+
   public override void Configure()
   {
     Post("/Products");
     AllowAnonymous();
 
+    Summary(s =>
+    {
+      s.Summary = "Create a new product";
+      s.Description = "Creates a new product with the specified name and unit price.";
+      s.ExampleRequest = new CreateProductRequest { Name = "Sample Product", UnitPrice = 19.99m };
+      s.ResponseExamples[201] = new ProductRecord(1, "Sample Product", 19.99m);
+
+      s.Responses[201] = "Product created successfully";
+      s.Responses[400] = "Invalid request data";
+    });
+
     Tags("Products");
 
     Description(builder => builder
       .Accepts<CreateProductRequest>()
-      .Produces<ProductRecord>(200, "application/json")
+      .Produces<ProductRecord>(201, "application/json")
       .ProducesProblem(400));
   }
 
-  public override async Task HandleAsync(CreateProductRequest request,
-    CancellationToken cancellationToken)
+  public override async Task<Results<Created<ProductRecord>, ValidationProblem, ProblemHttpResult>> 
+    ExecuteAsync(CreateProductRequest request, CancellationToken cancellationToken)
   {
-    // TODO: Use DbContext to create product
-  }
+    var product = Product.Create(request.Name, request.UnitPrice);
 
+    _dbContext.Products.Add(product);
+    await _dbContext.SaveChangesAsync(cancellationToken);
+
+    var response = new ProductRecord(product.Id.Value, product.Name, product.UnitPrice);
+    return TypedResults.Created($"/Products/{product.Id.Value}", response);
+  }
+}
+
+public sealed class CreateProductValidator : Validator<CreateProductRequest>
+{
+  public CreateProductValidator()
+  {
+    RuleFor(x => x.Name)
+      .NotEmpty()
+      .WithMessage("Product name is required")
+      .MaximumLength(200)
+      .WithMessage("Product name must not exceed 200 characters");
+
+    RuleFor(x => x.UnitPrice)
+      .GreaterThan(0)
+      .WithMessage("Unit price must be greater than zero");
+  }
 }

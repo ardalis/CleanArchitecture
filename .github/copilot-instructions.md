@@ -14,6 +14,7 @@ This is a **Clean Architecture template** for .NET 9 that demonstrates Domain-Dr
 - Always use {} for blocks except single-line exits (e.g. `return`, `throw`)
 - Always keep single line blocks on one line (e.g., `if (x) return y;`)
 - Prefer primary constructors for required dependencies
+- Never use primary constructor parameters directly - always assign to private fields for clarity and testability
 
 ### Core Dependencies Flow
 - **Core** ← UseCases ← Infrastructure 
