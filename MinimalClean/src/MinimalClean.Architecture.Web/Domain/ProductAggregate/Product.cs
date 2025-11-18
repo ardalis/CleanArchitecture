@@ -1,4 +1,4 @@
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 
 namespace MinimalClean.Architecture.Web.Domain.ProductAggregate;
 
@@ -9,7 +9,7 @@ public class Product : EntityBase<Product, ProductId>, IAggregateRoot
 
   public Product(ProductId id, string name, decimal unitPrice)
   {
-    Guard.Against.Equal(id, ProductId.New, nameof(id), 
+    Guard.Against.InvalidInput(id, nameof(id), (id) => id == ProductId.New,
       "Use Product.Create() to create new products instead of passing ProductId.New to the constructor.");
     Id = id;
     Name = name;

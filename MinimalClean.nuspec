@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.MinimalClean.Template</id>
     <title>ASP.NET Minimal Clean Architecture Solution</title>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Steve Smith</authors>
     <description>
       A simplified Clean Architecture template using vertical slice architecture in a single project. 
@@ -21,6 +21,7 @@
       * FastEndpoints for REPR pattern
       * Pragmatic DDD with simplified patterns
       * Aspire support
+      * 1.0.1 fixes a minor bug
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />
