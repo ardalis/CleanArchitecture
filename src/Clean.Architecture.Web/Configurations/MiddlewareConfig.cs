@@ -21,21 +21,24 @@ public static class MiddlewareConfig
 
     app.UseFastEndpoints();
 
-    app.UseSwaggerGen(options =>
+    if (app.Environment.IsDevelopment())
     {
-      options.Path = "/openapi/{documentName}.json";
-    },
-    settings =>
-    {
-      settings.Path = "/swagger";
-      settings.DocumentPath = "/openapi/{documentName}.json";
-    });
-
-    app.MapScalarApiReference(options =>
-    {
-      options.WithTitle("Clean Architecture API");
-      options.WithOpenApiRoutePattern("/openapi/{documentName}.json");
-    });
+      app.UseSwaggerGen(options =>
+      {
+        options.Path = "/openapi/{documentName}.json";
+      },
+      settings =>
+      {
+        settings.Path = "/swagger";
+        settings.DocumentPath = "/openapi/{documentName}.json";
+      });
+  
+      app.MapScalarApiReference(options =>
+      {
+        options.WithTitle("Clean Architecture API");
+        options.WithOpenApiRoutePattern("/openapi/{documentName}.json");
+      });
+    }
 
     app.UseHttpsRedirection(); // Note this will drop Authorization headers
 
