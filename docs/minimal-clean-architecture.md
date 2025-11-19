@@ -24,7 +24,7 @@ The **Minimal Clean Architecture** template provides a simplified, pragmatic app
 
 - **Single Project**: All code in one Web project instead of 4+ projects
 - **Simplified DDD**: Essential patterns only (entities, aggregates) without extensive value objects, specifications
-- **Optional CQRS**: MediatR is optional; logic can live in endpoints
+- **Optional CQRS**: Mediator is optional; logic can live in endpoints
 - **Direct Data Access**: Can use DbContext directly or simple repositories instead of complex repository pattern
 - **Vertical Organization**: Group by feature (Cart, Order, Product) instead of by layer
 
@@ -142,46 +142,26 @@ Infrastructure ──→ Domain
 - ✅ Faster development
 - ⚠️ May need to add patterns as domain complexity grows
 
-### ADR-004: Optional MediatR/CQRS
+### ADR-004: Optional Mediator/CQRS
 
 **Status**: Accepted
 
-**Context**: CQRS with MediatR adds valuable patterns but also complexity.
+**Context**: CQRS with Mediator adds valuable patterns but also complexity.
 
-**Decision**: Make MediatR optional; allow business logic in endpoints for simple cases.
+**Decision**: Make Mediator optional; allow business logic in endpoints for simple cases. Trade-off is no ability to use custom pipeline for cross-cutting concerns.
 
 **Usage Guidelines**:
-- Simple CRUD: Put logic directly in endpoints
-- Complex workflows: Use MediatR commands/queries
-- Cross-cutting concerns: Use MediatR pipeline behaviors
+- Simple CRUD: Can put logic directly in endpoints
+- Complex workflows: Use Mediator commands/queries
+- Cross-cutting concerns: Use Mediator pipeline behaviors
 
 **Consequences**:
 - ✅ Lower initial complexity
 - ✅ Developers choose appropriate level of abstraction
 - ⚠️ Inconsistent patterns across codebase possible
-- ⚠️ Need clear team guidelines on when to use MediatR
+- ⚠️ Need clear team guidelines on when to use Mediator
 
-### ADR-005: Direct DbContext Access
-
-**Status**: Accepted
-
-**Context**: Repository pattern with specifications adds abstraction but also complexity.
-
-**Decision**: Allow direct DbContext usage; add repositories only when beneficial.
-
-**Usage Guidelines**:
-- Simple queries: Use DbContext directly in endpoints
-- Complex queries: Extract to query methods or repositories
-- Repeated queries: Create reusable query extensions
-
-**Consequences**:
-- ✅ Less boilerplate code
-- ✅ Direct access to EF Core features
-- ✅ Simpler for common scenarios
-- ⚠️ Easier to leak infrastructure concerns
-- ⚠️ May need repositories for complex scenarios
-
-### ADR-006: FastEndpoints for APIs
+### ADR-005: FastEndpoints for APIs
 
 **Status**: Accepted
 
@@ -278,8 +258,9 @@ dotnet add YourProject.Infrastructure reference YourProject.Core
 dotnet new classlib -n YourProject.UseCases
 
 # Move business logic from endpoints to use cases
-# Add MediatR
+# Add Mediator (if not already using)
 # Create command/query handlers
+# Leverage Mediator Behaviors for cross-cutting concerns
 ```
 
 #### Step 4: Clean Up Web Project
@@ -365,7 +346,7 @@ public class CreateCart : EndpointWithoutRequest<CartResponse>
         _db.Carts.Add(cart);
         await _db.SaveChangesAsync(ct);
         
-        await SendAsync(new CartResponse(cart.Id, cart.Items.Count), cancellation: ct);
+        await Send.Async(new CartResponse(cart.Id, cart.Items.Count), cancellation: ct);
     }
 }
 ```

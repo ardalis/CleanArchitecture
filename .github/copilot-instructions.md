@@ -14,6 +14,7 @@ This is a **Clean Architecture template** for .NET 9 that demonstrates Domain-Dr
 - Always use {} for blocks except single-line exits (e.g. `return`, `throw`)
 - Always keep single line blocks on one line (e.g., `if (x) return y;`)
 - Prefer primary constructors for required dependencies
+- Never use primary constructor parameters directly - always assign to private fields for clarity and testability
 
 ### Core Dependencies Flow
 - **Core** ← UseCases ← Infrastructure 
@@ -22,7 +23,7 @@ This is a **Clean Architecture template** for .NET 9 that demonstrates Domain-Dr
 
 ### Key Projects
 - **Core**: Domain entities, aggregates, value objects, specifications, interfaces
-- **UseCases**: Commands/queries (CQRS), MediatR handlers, application logic  
+- **UseCases**: Commands/queries (CQRS), Mediator handlers, application logic  
 - **Infrastructure**: EF Core, external services, email, file access
 - **Web**: FastEndpoints API, REPR pattern, validation
 
@@ -44,7 +45,7 @@ This is a **Clean Architecture template** for .NET 9 that demonstrates Domain-Dr
 ### Use Cases (CQRS)
 - Commands for mutations, Queries for reads
 - Queries can bypass repository pattern for performance
-- Use MediatR for command/query handling
+- Use Mediator (source generator) for command/query handling
 - Chain of responsibility for cross-cutting concerns (logging, validation)
 
 ### Validation Strategy
@@ -78,7 +79,7 @@ dotnet new clean-arch -o Your.ProjectName
 
 ### Primary Libraries
 - **FastEndpoints**: API endpoints (replaced Controllers/Minimal APIs)
-- **MediatR**: Command/query handling in UseCases
+- **Mediator**: Command/query handling in UseCases
 - **EF Core**: Data access (SQLite default, easily changed to SQL Server)
 - **Ardalis.Specification**: Repository query specifications
 - **Ardalis.Result**: Error handling pattern
