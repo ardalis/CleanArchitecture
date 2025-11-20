@@ -3,7 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalClean.Architecture.Web.Domain.ProductAggregate;
 using MinimalClean.Architecture.Web.Extensions;
-using MinimalClean.Architecture.Web.Products;
+using MinimalClean.Architecture.Web.ProductFeatures;
 
 namespace MinimalClean.Architecture.Web.ProductFeatures.GetById;
 

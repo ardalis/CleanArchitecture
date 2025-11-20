@@ -21,11 +21,24 @@ dotnet run --project src/MinimalClean.Architecture.AspireHost
 
 ### Database Setup
 
+This template uses **SQL Server in a container** managed by Aspire. When you run the Aspire AppHost, it automatically starts a SQL Server container and creates the database.
+
+#### Option 1: Run with Aspire (Recommended)
+
 ```powershell
-dotnet ef database update -c AppDbContext -p src/MinimalClean.Architecture.Web -s src/MinimalClean.Architecture.Web
+dotnet run --project src/MinimalClean.Architecture.AspireHost
 ```
 
-The database file will be created at: `src/MinimalClean.Architecture.Web/ToDo.db`
+The SQL Server container and database are automatically provisioned and migrations are applied on startup.
+
+#### Option 2: Run Web project directly (SQL Server LocalDB)
+
+If running the Web project without Aspire, update `appsettings.json` to use LocalDB:
+
+```powershell
+dotnet ef database update -c AppDbContext -p src/MinimalClean.Architecture.Web -s src/MinimalClean.Architecture.Web
+dotnet run --project src/MinimalClean.Architecture.Web
+```
 
 ## Project Structure
 
@@ -70,10 +83,10 @@ This minimal template simplifies the full Clean Architecture template:
 | Full Template | Minimal Template |
 |--------------|------------------|
 | 4+ projects (Core, UseCases, Infrastructure, Web) | 1 Web project |
-| Repository pattern with Specifications | Direct DbContext usage (or simple repositories) |
+| Repository pattern with Specifications | Repository pattern with Specifications if needed |
 | Extensive use of interfaces and abstractions | Pragmatic abstractions where needed |
-| Separate Use Cases project with MediatR | Optional MediatR, logic can be in endpoints |
-| Complex domain patterns (Aggregates, Value Objects, Domain Events) | Simplified domain model, pragmatic DDD |
+| Separate Use Cases project with Mediator | Optional Mediator; logic can be in endpoints |
+| Complex domain patterns (Aggregates, Value Objects, Domain Events) | Pragmatic DDD patterns (Aggregates, Value Objects) |
 
 ## When to Use This Template
 
@@ -98,8 +111,8 @@ This minimal template simplifies the full Clean Architecture template:
 - **.NET 10**: Latest LTS framework
 - **FastEndpoints**: REPR pattern for API endpoints
 - **Entity Framework Core**: Data access with migrations
-- **SQLite**: Default database (easily switched to SQL Server, PostgreSQL, etc.)
-- **Aspire**: Optional cloud-ready orchestration and observability
+- **SQL Server**: Containerized database via Aspire (easily switched to PostgreSQL, SQLite, etc.)
+- **Aspire**: Cloud-ready orchestration and observability
 - **Serilog**: Structured logging
 - **FluentValidation**: Request validation
 
@@ -135,7 +148,7 @@ dotnet test
 As your application grows, you can migrate to the full Clean Architecture template:
 
 1. **Extract Core**: Move Domain entities to separate Core project
-2. **Extract UseCases**: Move business logic to UseCases project with MediatR
+2. **Extract UseCases**: Move business logic to UseCases project with Mediator
 3. **Extract Infrastructure**: Move data access to Infrastructure project
 4. **Update Dependencies**: Set up proper dependency flow (Core ← UseCases ← Infrastructure)
 

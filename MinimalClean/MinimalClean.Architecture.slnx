@@ -5,8 +5,8 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/Solution Items/">
+    <File Path="../MinimalClean.nuspec" />
     <File Path=".editorconfig" />
-    <File Path="CleanArchitecture.nuspec" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
   </Folder>
