@@ -55,8 +55,4 @@
     <ProjectReference Include="..\MinimalClean.Architecture.ServiceDefaults\MinimalClean.Architecture.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Services\" />
-  </ItemGroup>
-
 </Project>

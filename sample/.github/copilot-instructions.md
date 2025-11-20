@@ -37,7 +37,7 @@ _Core must never depend on outer layers._
 ## Project Structure
 
 - **Core**: Domain entities, aggregates, value objects, domain events, repository interfaces.
-- **UseCases**: CQRS handlers (commands/queries), MediatR, application logic.
+- **UseCases**: CQRS handlers (commands/queries), Mediator, application logic.
 - **Infrastructure**: EF Core, external services, repository implementations.
 - **Web**: FastEndpoints API, request/response/validator classes, REPR pattern.
 
@@ -46,7 +46,7 @@ _Core must never depend on outer layers._
 ## Development Patterns
 
 - **CQRS**: Use commands for mutations and queries for reads.
-- **MediatR**: All use case handlers implement MediatR interfaces.
+- **Mediator**: All use case handlers implement Mediator interfaces.
 - **Repository Pattern**: Use repository interfaces from Core, implemented in Infrastructure.
 - **Value Objects**: Use for domain concepts (e.g., `ProjectName`, `ContributorId`).
 - **Domain Events**: Use for cross-aggregate communication.
