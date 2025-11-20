@@ -1,5 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.UseCases.Projects.Create;
+using NimblePros.SampleToDo.UseCases.Projects.Commands.Create;
 using NimblePros.SampleToDo.Web.Extensions;
 
 namespace NimblePros.SampleToDo.Web.Projects;
