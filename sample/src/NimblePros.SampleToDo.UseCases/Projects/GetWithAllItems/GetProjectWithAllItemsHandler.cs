@@ -22,7 +22,7 @@ public class GetProjectWithAllItemsHandler : IQueryHandler<GetProjectWithAllItem
     if (project == null) return Result.NotFound();
 
     var items = project.Items
-              .Select(i => new ToDoItemDto(i.Id, i.Title, i.Description, i.IsDone, i.ContributorId)).ToList();
+              .Select(i => new ToDoItemDto(i.Id, i.Title.Value, i.Description.Value, i.IsDone, i.ContributorId)).ToList();
     return new ProjectWithAllItemsDto(project.Id, project.Name, items, project.Status.ToString())
       ;
   }
