@@ -10,4 +10,4 @@ Use Cases are often grouped into Commands and Queries, following CQRS.
 
 Having Use Cases as a separate project can reduce the amount of logic in UI and Infrastructure projects.
 
-For simpler projects, the Use Cases project can be omitted, and its behavior moved into the UI project, either as using separate services or MediatR handlers, or by simply putting the logic into the API endpoints.
+For simpler projects, the Use Cases project can be omitted, and its behavior moved into the UI project, either as using separate services or Mediator handlers, or by simply putting the logic into the API endpoints.

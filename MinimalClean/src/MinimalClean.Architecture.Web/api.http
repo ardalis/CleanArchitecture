@@ -1,18 +1,26 @@
-@OrderDemo.Api_HostAddress = https://localhost:57379
+@MinimalClean_HostAddress = https://localhost:57379
 
-@OrderDemo.CartId = 68fe4cfd-84bb-4b8a-bb4e-528c26325c72
-@OrderDemo.OrderId = ec5a03fe-fc8c-4659-9fc7-f46351e9bf6f
+@MinimalClean_CartId = 68fe4cfd-84bb-4b8a-bb4e-528c26325c72
 
 ### List Products
-GET {{OrderDemo.Api_HostAddress}}/products
+GET {{MinimalClean_HostAddress}}/products
 Accept: application/json
 
 ### Get Product By ID
-GET {{OrderDemo.Api_HostAddress}}/products/1
+GET {{MinimalClean_HostAddress}}/products/1
 Accept: application/json
 
+### Create Product
+POST {{MinimalClean_HostAddress}}/products
+Content-Type: application/json
+
+{
+  "name": "New Product",
+  "unitPrice": 29.99
+}
+
 ### Add to Cart (Anonymous User - creates cart)
-POST {{OrderDemo.Api_HostAddress}}/cart
+POST {{MinimalClean_HostAddress}}/cart
 Content-Type: application/json
 
 {
@@ -21,40 +29,27 @@ Content-Type: application/json
 }
 
 ### Add to Cart (Anonymous User - existing cart)
-POST {{OrderDemo.Api_HostAddress}}/cart
+POST {{MinimalClean_HostAddress}}/cart
 Content-Type: application/json
 
 {
-  "cartId": "{{OrderDemo.CartId}}",
+  "cartId": "{{MinimalClean_CartId}}",
   "productId": 2,
   "quantity": 3
 }
 
 ### View Cart
-GET {{OrderDemo.Api_HostAddress}}/cart/{{OrderDemo.CartId}}
+GET {{MinimalClean_HostAddress}}/cart/{{MinimalClean_CartId}}
 Accept: application/json
 
 ### Checkout
-POST {{OrderDemo.Api_HostAddress}}/cart/{{OrderDemo.CartId}}/checkout
+POST {{MinimalClean_HostAddress}}/cart/{{MinimalClean_CartId}}/checkout
 Content-Type: application/json
 
 {
   "email": "guest@example.com"
 }
-### get order id from response and set it to {{OrderDemo.OrderId}}
-
-### Confirm Purchase
-POST {{OrderDemo.Api_HostAddress}}/confirm-purchase
-Content-Type: application/json
-
-{
-  "orderId": "{{OrderDemo.OrderId}}",
-  "paymentIntent": "323r23r2jfsiidjf"
-}
-
-### List Orders
-GET {{OrderDemo.Api_HostAddress}}/orders?emailAddress=guest@example.com
-Accept: application/json
+### Note: Get order ID from response for future use
 
 
 

@@ -200,7 +200,7 @@ Perfect for MVPs, smaller applications, or teams that want architectural guidanc
 | **Organization** | By layer (horizontal) | By feature (vertical slices) |
 | **DDD Patterns** | Extensive (Aggregates, Value Objects, Domain Events, Specifications) | Pragmatic (simplified domain model) |
 | **Repository Pattern** | Yes, with Specifications | Optional (direct DbContext or simple repos) |
-| **MediatR/CQRS** | Yes (separate UseCases project) | Optional (can be in endpoints) |
+| **Mediator/CQRS** | Yes (separate UseCases project) | Optional (can be in endpoints) |
 | **Complexity** | Higher - more abstractions | Lower - simpler structure |
 | **Best For** | Large enterprise apps, long-term maintenance | MVPs, smaller apps, rapid iteration |
 | **Team Size** | Multiple teams, strict boundaries | Small teams, collaborative |
@@ -333,7 +333,7 @@ Validation of user input is a requirement of all software applications. The ques
 
 The domain model itself should generally rely on object-oriented design to ensure it is always in a consistent state. It leverages encapsulation and limits public state mutation access to achieve this, and it assumes that any arguments passed to it have already been validated, so null or other improper values yield exceptions, not validation results, in most cases.
 
-The use cases / application project includes the set of all commands and queries the system supports. It's frequently responsible for validating its own command and query objects. This is most easily done using a [chain of responsibility pattern](https://deviq.com/design-patterns/chain-of-responsibility-pattern) via MediatR behaviors or some other pipeline.
+The use cases / application project includes the set of all commands and queries the system supports. It's frequently responsible for validating its own command and query objects. This is most easily done using a [chain of responsibility pattern](https://deviq.com/design-patterns/chain-of-responsibility-pattern) via Mediator behaviors or some other pipeline.
 
 The Web project includes all API endpoints, which include their own request and response types, following the [REPR pattern](https://deviq.com/design-patterns/repr-design-pattern). The FastEndpoints library includes built-in support for validation using FluentValidation on the request types. This is a natural place to perform input validation as well.
 
