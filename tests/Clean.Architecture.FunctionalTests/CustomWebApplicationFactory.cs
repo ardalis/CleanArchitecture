@@ -1,5 +1,6 @@
 ﻿using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Testcontainers.MsSql;
 
 namespace Clean.Architecture.FunctionalTests;
@@ -18,6 +19,8 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
   public new async Task DisposeAsync()
   {
+    // Clean up environment variable
+    Environment.SetEnvironmentVariable("USE_SQL_SERVER", null);
     await _dbContainer.DisposeAsync();
   }
 
@@ -66,7 +69,18 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
   protected override void ConfigureWebHost(IWebHostBuilder builder)
   {
+    // Force SQL Server mode even on non-Windows platforms for functional tests
+    Environment.SetEnvironmentVariable("USE_SQL_SERVER", "true");
+    
     builder
+        .ConfigureAppConfiguration((context, config) =>
+        {
+          // Set the connection string to use the Testcontainer
+          config.AddInMemoryCollection(new Dictionary<string, string?>
+          {
+            ["ConnectionStrings:DefaultConnection"] = _dbContainer.GetConnectionString()
+          });
+        })
         .ConfigureServices(services =>
         {
           // Remove the app's ApplicationDbContext registration
@@ -84,6 +98,8 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
           services.AddDbContext<AppDbContext>((provider, options) =>
           {
             options.UseSqlServer(_dbContainer.GetConnectionString());
+            var interceptor = provider.GetRequiredService<EventDispatchInterceptor>();
+            options.AddInterceptors(interceptor);
           });
         });
   }

@@ -65,8 +65,19 @@ public static class MiddlewareConfig
     {
       logger.LogInformation("Applying database migrations...");
       var context = services.GetRequiredService<AppDbContext>();
-      await context.Database.MigrateAsync();
-      logger.LogInformation("Database migrations applied successfully");
+      
+      // For SQLite, use EnsureCreated instead of migrations (common for dev/local scenarios)
+      // For SQL Server, use migrations (production scenario)
+      if (context.Database.IsSqlite())
+      {
+        await context.Database.EnsureCreatedAsync();
+        logger.LogInformation("SQLite database created successfully");
+      }
+      else
+      {
+        await context.Database.MigrateAsync();
+        logger.LogInformation("Database migrations applied successfully");
+      }
     }
     catch (Exception ex)
     {
