@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+﻿namespace NimblePros.SampleToDo.UseCases.Projects.Queries.ListShallow;
 
 public class ListProjectsShallowHandler(IListProjectsShallowQueryService query)
   : IQueryHandler<ListProjectsShallowQuery, Result<IEnumerable<ProjectDto>>>

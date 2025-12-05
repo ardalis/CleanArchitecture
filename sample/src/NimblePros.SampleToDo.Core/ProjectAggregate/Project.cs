@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
+﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
+using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 
@@ -27,6 +28,7 @@ public class Project : EntityBase<Project, ProjectId>, IAggregateRoot
 
   public Project UpdateName(ProjectName newName)
   {
+    if (Name.Equals(newName)) return this;
     Name = newName;
     return this;
   }

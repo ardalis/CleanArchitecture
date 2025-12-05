@@ -1,7 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.AddToDoItem;
 
 public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<ToDoItemId>>
 {
@@ -22,13 +22,9 @@ public class AddToDoItemHandler : ICommandHandler<AddToDoItemCommand, Result<ToD
       return Result.NotFound();
     }
 
-    var newItem = new ToDoItem()
-    {
-      Title = request.Title!,
-      Description = request.Description!
-    };
+    var newItem = new ToDoItem(title: request.Title!, description: request.Description!);
 
-    if(request.ContributorId.HasValue)
+    if (request.ContributorId.HasValue)
     {
       newItem.AddContributor(request.ContributorId.Value);
     }
