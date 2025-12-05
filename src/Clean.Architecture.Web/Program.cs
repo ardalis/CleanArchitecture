@@ -16,6 +16,12 @@ builder.Services.AddServiceConfigs(startupLogger, builder);
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument(o =>
                 {
+                  o.DocumentSettings = s =>
+                  {
+                    s.Title = "Clean Architecture API";
+                    s.Version = "v1";
+                    s.Description = "HTTP endpoints for the Clean Architecture sample application.";
+                  };
                   o.ShortSchemaNames = true;
                 });
 
