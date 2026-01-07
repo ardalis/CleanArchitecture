@@ -1,19 +1,14 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MinimalClean.Architecture.Web.ProductFeatures;
 using MinimalClean.Architecture.Web.ProductFeatures.List;
 
 namespace MinimalClean.Architecture.Web.Infrastructure.Data.Queries;
 
-public class ListProductsQueryService : IListProductsQueryService
+public class ListProductsQueryService(AppDbContext db) : IListProductsQueryService
 {
-  private readonly AppDbContext _db;
+  private readonly AppDbContext _db = db;
 
-  public ListProductsQueryService(AppDbContext db)
-  {
-    _db = db;
-  }
-
-  public async Task<PagedResult<ProductDto>> ListAsync(int page, int perPage)
+    public async Task<PagedResult<ProductDto>> ListAsync(int page, int perPage)
   {
     var items = await _db.Products
       .OrderBy(p => p.Id)
