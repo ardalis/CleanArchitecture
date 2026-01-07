@@ -14,21 +14,21 @@ public class ToDoItemBuilder
     return this;
   }
 
-  public ToDoItemBuilder Title(string title)
+  public ToDoItemBuilder Title(String title)
   {
-    _todo.Title = title;
+    _todo.UpdateTitle(ToDoItemTitle.From(title));
     return this;
   }
 
-  public ToDoItemBuilder Description(string description)
+  public ToDoItemBuilder Description(String description)
   {
-    _todo.Description = description;
+    _todo.UpdateDescription(ToDoItemDescription.From(description));
     return this;
   }
 
   public ToDoItemBuilder WithDefaultValues()
   {
-    _todo = new ToDoItem() { Id = ToDoItemId.From(1), Title = "Test Item", Description = "Test Description" };
+    _todo = new ToDoItem(title: ToDoItemTitle.From("Test Item"), description: ToDoItemDescription.From("Test Description")) { Id = ToDoItemId.From(1) };
 
     return this;
   }
