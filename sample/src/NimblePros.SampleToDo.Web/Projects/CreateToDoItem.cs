@@ -1,7 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.UseCases.Projects.AddToDoItem;
-using NimblePros.SampleToDo.Web.Extensions;
 using NimblePros.SampleToDo.Web.Projects;
 
 namespace NimblePros.SampleToDo.Web.ProjectEndpoints;
@@ -30,17 +29,17 @@ public class Create : Endpoint<CreateToDoItemRequest, Results<Created, NotFound,
         Title = "Implement user authentication",
         Description = "Add JWT-based authentication to the API"
       };
-      
+
       // Document possible responses
       s.Responses[201] = "Todo item created successfully";
       s.Responses[404] = "Project or contributor not found";
       s.Responses[400] = "Invalid input data";
       s.Responses[500] = "Internal server error";
     });
-    
+
     // Add tags for API grouping
     Tags("Projects");
-    
+
     // Add additional metadata
     Description(builder => builder
       .Accepts<CreateToDoItemRequest>("application/json")
@@ -57,7 +56,7 @@ public class Create : Endpoint<CreateToDoItemRequest, Results<Created, NotFound,
                                     ? ContributorId.From(request.ContributorId.Value)
                                     : null;
     var command = new AddToDoItemCommand(ProjectId.From(request.ProjectId), contributorId,
-      request.Title, request.Description);
+      ToDoItemTitle.From(request.Title), ToDoItemDescription.From(request.Description));
     var result = await _mediator.Send(command);
 
     return result.Status switch

@@ -11,11 +11,17 @@ public class ToDoItemConfiguration : IEntityTypeConfiguration<ToDoItem>
       .HasValueGenerator<VogenIdValueGenerator<AppDbContext, ToDoItem, ToDoItemId>>()
       .HasVogenConversion()
       .IsRequired();
-    builder.Property(t => t.Title)
-      .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
+
+    builder.Property(p => p.Title)
+      .HasVogenConversion()
+      .HasMaxLength(ToDoItemTitle.MaxLength)
       .IsRequired();
-    builder.Property(t => t.Description)
-      .HasMaxLength(200);
+
+    builder.Property(p => p.Description)
+      .HasVogenConversion()
+      .HasMaxLength(ToDoItemDescription.MaxLength)
+      .IsRequired();
+
     builder.Property(t => t.ContributorId)
       .HasConversion(
           v => v.HasValue ? v.Value.Value : (int?)null, // to db
