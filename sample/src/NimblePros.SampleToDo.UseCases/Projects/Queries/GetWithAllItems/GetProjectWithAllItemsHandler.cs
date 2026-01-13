@@ -1,7 +1,7 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 using NimblePros.SampleToDo.Core.ProjectAggregate.Specifications;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
+namespace NimblePros.SampleToDo.UseCases.Projects.Queries.GetWithAllItems;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
@@ -22,7 +22,7 @@ public class GetProjectWithAllItemsHandler : IQueryHandler<GetProjectWithAllItem
     if (project == null) return Result.NotFound();
 
     var items = project.Items
-              .Select(i => new ToDoItemDto(i.Id, i.Title, i.Description, i.IsDone, i.ContributorId)).ToList();
+              .Select(i => new ToDoItemDto(i.Id, i.Title.Value, i.Description.Value, i.IsDone, i.ContributorId)).ToList();
     return new ProjectWithAllItemsDto(project.Id, project.Name, items, project.Status.ToString())
       ;
   }

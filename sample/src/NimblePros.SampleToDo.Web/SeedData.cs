@@ -6,33 +6,31 @@ namespace NimblePros.SampleToDo.Web;
 
 public static class SeedData
 {
-  public static readonly Contributor Contributor1 = new (ContributorName.From("Ardalis"));
-  public static readonly Contributor Contributor2 = new (ContributorName.From("Snowfrog"));
+  public static readonly Contributor Contributor1 = new(ContributorName.From("Ardalis"));
+  public static readonly Contributor Contributor2 = new(ContributorName.From("Snowfrog"));
   public static readonly Project TestProject1 = new Project(ProjectName.From("Test Project"));
-  public static readonly ToDoItem ToDoItem1 = new ToDoItem
-  {
-    Title = "Get Sample Working",
-    Description = "Try to get the sample to build."
-  };
-  public static readonly ToDoItem ToDoItem2 = new ToDoItem
-  {
-    Title = "Review Solution",
-    Description = "Review the different projects in the solution and how they relate to one another."
-  };
-  public static readonly ToDoItem ToDoItem3 = new ToDoItem
-  {
-    Title = "Run and Review Tests",
-    Description = "Make sure all the tests run and review what they are doing."
-  };
+
+  public static readonly ToDoItem ToDoItem1 =
+    new ToDoItem(title: ToDoItemTitle.From("Get Sample Working"),
+      description: ToDoItemDescription.From("Try to get the sample to build."));
+
+  public static readonly ToDoItem ToDoItem2 =
+  new ToDoItem(title: ToDoItemTitle.From("Review Solution"),
+    description: ToDoItemDescription.From("Review the different projects in the solution and how they relate to one another."));
+
+
+  public static readonly ToDoItem ToDoItem3 =
+new ToDoItem(title: ToDoItemTitle.From("Run and Review Tests"),
+  description: ToDoItemDescription.From("Make sure all the tests run and review what they are doing."));
 
   public static async Task InitializeAsync(AppDbContext dbContext)
   {
-      if (await dbContext.ToDoItems.AnyAsync())
-      {
-        return;   // DB has been seeded
-      }
+    if (await dbContext.ToDoItems.AnyAsync())
+    {
+      return;   // DB has been seeded
+    }
 
-      await PopulateTestDataAsync(dbContext);
+    await PopulateTestDataAsync(dbContext);
   }
 
   public static async Task PopulateTestDataAsync(AppDbContext dbContext)

@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects.ListIncompleteItems;
+﻿namespace NimblePros.SampleToDo.UseCases.Projects.Queries.ListIncompleteItems;
 
 /// <summary>
 /// Represents a service that will actually fetch the necessary data

@@ -6,11 +6,10 @@ using NimblePros.SampleToDo.Web.Configurations;
 
 namespace NimblePros.SampleToDo.Web;
 
-public class CachingBehavior<TRequest, TResponse>(IMemoryCache cache,
-                                                  ILogger<CachingBehavior<TRequest, TResponse>> logger,
-                                                  IOptions<CachingOptions> cachingOptions) :
-    IPipelineBehavior<TRequest, TResponse?>
-    where TRequest : notnull, IMessage
+public class CachingBehavior<TRequest, TResponse>(
+  IMemoryCache cache,ILogger<CachingBehavior<TRequest, TResponse>> logger,
+  IOptions<CachingOptions> cachingOptions) :
+  IPipelineBehavior<TRequest, TResponse?> where TRequest : notnull, IMessage
 {
   private readonly IMemoryCache _cache = cache;
   private readonly ILogger<CachingBehavior<TRequest, TResponse>> _logger = logger;

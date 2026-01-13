@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.MarkToDoItemComplete;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.MarkToDoItemComplete;
 
 /// <summary>
 /// Create a new Project.

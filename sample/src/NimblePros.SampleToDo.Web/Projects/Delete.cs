@@ -1,5 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
-using NimblePros.SampleToDo.UseCases.Projects.Delete;
+using NimblePros.SampleToDo.UseCases.Projects.Commands.Delete;
 using NimblePros.SampleToDo.Web.Extensions;
 
 namespace NimblePros.SampleToDo.Web.Projects;

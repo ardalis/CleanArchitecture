@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.Update;
+namespace NimblePros.SampleToDo.UseCases.Projects.Commands.Update;
 
 public class UpdateProjectHandler : ICommandHandler<UpdateProjectCommand, Result<ProjectDto>>
 {
