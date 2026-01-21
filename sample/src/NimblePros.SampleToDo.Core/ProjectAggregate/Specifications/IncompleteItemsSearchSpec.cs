@@ -6,7 +6,7 @@ public class IncompleteItemsSearchSpec : Specification<ToDoItem>
   {
     Query
         .Where(item => !item.IsDone &&
-        (item.Title.Contains(searchString) ||
-        item.Description.Contains(searchString)));
+        (item.Title.Value.Contains(searchString) ||
+        item.Description.Value.Contains(searchString)));
   }
 }

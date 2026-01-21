@@ -9,4 +9,6 @@ namespace NimblePros.SampleToDo.Infrastructure.Data.Config;
 [EfCoreConverter<ContributorName>]
 [EfCoreConverter<ProjectName>]
 [EfCoreConverter<ProjectId>]
+[EfCoreConverter<ToDoItemTitle>]
+[EfCoreConverter<ToDoItemDescription>]
 internal partial class VogenEfCoreConverters;

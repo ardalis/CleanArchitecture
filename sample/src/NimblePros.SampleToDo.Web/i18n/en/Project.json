@@ -1,0 +1,8 @@
+{
+  "CoreProjectNameEmpty": "Name cannot be empty",
+  "CoreProjectNameTooLong": "Name cannot be longer than {0} characters",
+  "CoreToDoItemDescriptionEmpty": "Description cannot be empty",
+  "CoreToDoItemDescriptionTooLong": "Description cannot be longer than {0} characters",
+  "CoreToDoItemTitleEmpty": "Title cannot be empty",
+  "CoreToDoItemTitleTooLong": "Title cannot be longer than {0} characters"
+}
