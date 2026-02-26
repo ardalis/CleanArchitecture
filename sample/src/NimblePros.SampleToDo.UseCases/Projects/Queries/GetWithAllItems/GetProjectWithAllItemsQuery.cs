@@ -1,6 +1,6 @@
 ﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
 
-namespace NimblePros.SampleToDo.UseCases.Projects.GetWithAllItems;
+namespace NimblePros.SampleToDo.UseCases.Projects.Queries.GetWithAllItems;
 
 public record GetProjectWithAllItemsQuery(ProjectId ProjectId) : 
   IQuery<Result<ProjectWithAllItemsDto>>, ICacheable

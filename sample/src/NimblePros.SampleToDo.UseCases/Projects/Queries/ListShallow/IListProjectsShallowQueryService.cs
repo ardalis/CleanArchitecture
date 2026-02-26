@@ -1,4 +1,4 @@
-﻿namespace NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+﻿namespace NimblePros.SampleToDo.UseCases.Projects.Queries.ListShallow;
 
 /// <summary>
 /// Represents a service that will actually fetch the necessary data

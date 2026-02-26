@@ -1,5 +1,5 @@
 ﻿using NimblePros.SampleToDo.UseCases.Projects;
-using NimblePros.SampleToDo.UseCases.Projects.ListShallow;
+using NimblePros.SampleToDo.UseCases.Projects.Queries.ListShallow;
 
 namespace NimblePros.SampleToDo.Infrastructure.Data.Queries;
 
