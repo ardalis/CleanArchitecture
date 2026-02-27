@@ -1,4 +1,4 @@
-
+﻿
 using MinimalClean.Architecture.Web.Domain.ProductAggregate;
 
 namespace MinimalClean.Architecture.Web.Domain.OrderAggregate;
@@ -11,8 +11,5 @@ public class OrderItem(OrderId orderId, ProductId productId, Quantity quantity, 
   public Quantity Quantity { get; private set; } = quantity;
   public Price UnitPrice { get; private set; } = unitPrice;
 
-  internal void IncreaseQuantity(Quantity quantity)
-  {
-    Quantity += quantity;
-  }
+  internal void IncreaseQuantity(Quantity quantity) => Quantity += quantity;
 }
