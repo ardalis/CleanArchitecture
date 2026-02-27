@@ -1,4 +1,4 @@
-namespace MinimalClean.Architecture.Web.Domain.CartAggregate;
+﻿namespace MinimalClean.Architecture.Web.Domain.CartAggregate;
 
 public class Cart : EntityBase<Cart, CartId>, IAggregateRoot
 {
@@ -14,8 +14,5 @@ public class Cart : EntityBase<Cart, CartId>, IAggregateRoot
     _items.Add(item);
   }
 
-  public void MarkAsDeleted()
-  {
-    Deleted = true;
-  }
+    public void MarkAsDeleted() => Deleted = true;
 }

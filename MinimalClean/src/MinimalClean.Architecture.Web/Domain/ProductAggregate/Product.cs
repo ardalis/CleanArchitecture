@@ -17,10 +17,7 @@ public class Product : EntityBase<Product, ProductId>, IAggregateRoot
   }
 
   // Factory method for creating new products (before persistence)
-  public static Product Create(string name, decimal unitPrice)
-  {
-    return new Product(ProductId.New, name, unitPrice);
-  }
+  public static Product Create(string name, decimal unitPrice) => new Product(ProductId.New, name, unitPrice);
 
   public string Name { get; private set; } = string.Empty;
   public decimal UnitPrice { get; private set; }
