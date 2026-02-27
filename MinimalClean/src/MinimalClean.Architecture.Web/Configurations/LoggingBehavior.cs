@@ -1,18 +1,13 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Nimble.Modulith.Web;
 
-public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull, IMessage
 {
-  private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
+  private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger = logger;
 
-  public LoggingBehavior(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
-  {
-    _logger = logger;
-  }
-
-  public async ValueTask<TResponse> Handle(
+    public async ValueTask<TResponse> Handle(
       TRequest request,
       MessageHandlerDelegate<TRequest, TResponse> next,
       CancellationToken cancellationToken)

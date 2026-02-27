@@ -7,21 +7,33 @@ namespace Clean.Architecture.FunctionalTests;
 
 public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime where TProgram : class
 {
-  private readonly MsSqlContainer _dbContainer = new MsSqlBuilder()
-    .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
-    .WithPassword("Your_password123!")
-    .Build();
+  private MsSqlContainer? _dbContainer;
 
   public async Task InitializeAsync()
   {
-    await _dbContainer.StartAsync();
+    try
+    {
+      _dbContainer = new MsSqlBuilder()
+        .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
+        .WithPassword("Your_password123!")
+        .Build();
+      await _dbContainer.StartAsync();
+    }
+    catch (ArgumentException)
+    {
+      // Docker is not available; fall back to SQLite (configured via appsettings.Testing.json)
+      _dbContainer = null;
+    }
   }
 
   public new async Task DisposeAsync()
   {
     // Clean up environment variable
     Environment.SetEnvironmentVariable("USE_SQL_SERVER", null);
-    await _dbContainer.DisposeAsync();
+    if (_dbContainer != null)
+    {
+      await _dbContainer.DisposeAsync();
+    }
   }
 
   /// <summary>
@@ -51,11 +63,20 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
       try
       {
-        // Apply migrations to create the database schema
-        db.Database.Migrate();
-        
-        // Seed the database with test data.
-        SeedData.PopulateTestDataAsync(db).Wait();
+        if (_dbContainer != null)
+        {
+          // SQL Server via Testcontainers: apply migrations to create the schema
+          db.Database.Migrate();
+        }
+        else
+        {
+          // SQLite fallback: EnsureCreated is used because the migrations use SQL Server syntax
+          db.Database.EnsureCreated();
+        }
+
+        // Seed the database with test data only if it has not been seeded yet.
+        // This is safe for container reuse across test runs and multiple fixture instances.
+        SeedData.InitializeAsync(db).Wait();
       }
       catch (Exception ex)
       {
@@ -69,38 +90,47 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
   protected override void ConfigureWebHost(IWebHostBuilder builder)
   {
-    // Force SQL Server mode even on non-Windows platforms for functional tests
-    Environment.SetEnvironmentVariable("USE_SQL_SERVER", "true");
-    
+    if (_dbContainer != null)
+    {
+      // Force SQL Server mode even on non-Windows platforms for functional tests
+      Environment.SetEnvironmentVariable("USE_SQL_SERVER", "true");
+    }
+
     builder
         .ConfigureAppConfiguration((context, config) =>
         {
-          // Set the connection string to use the Testcontainer
-          config.AddInMemoryCollection(new Dictionary<string, string?>
+          if (_dbContainer != null)
           {
-            ["ConnectionStrings:DefaultConnection"] = _dbContainer.GetConnectionString()
-          });
+            // Set the connection string to use the Testcontainer
+            config.AddInMemoryCollection(new Dictionary<string, string?>
+            {
+              ["ConnectionStrings:DefaultConnection"] = _dbContainer.GetConnectionString()
+            });
+          }
         })
         .ConfigureServices(services =>
         {
-          // Remove the app's ApplicationDbContext registration
-          var descriptors = services.Where(
-            d => d.ServiceType == typeof(AppDbContext) ||
-                 d.ServiceType == typeof(DbContextOptions<AppDbContext>))
-                .ToList();
-
-          foreach (var descriptor in descriptors)
+          if (_dbContainer != null)
           {
-            services.Remove(descriptor);
+            // Remove the app's ApplicationDbContext registration
+            var descriptors = services.Where(
+              d => d.ServiceType == typeof(AppDbContext) ||
+                   d.ServiceType == typeof(DbContextOptions<AppDbContext>))
+                  .ToList();
+
+            foreach (var descriptor in descriptors)
+            {
+              services.Remove(descriptor);
+            }
+
+            // Add ApplicationDbContext using the Testcontainers SQL Server instance
+            services.AddDbContext<AppDbContext>((provider, options) =>
+            {
+              options.UseSqlServer(_dbContainer.GetConnectionString());
+              var interceptor = provider.GetRequiredService<EventDispatchInterceptor>();
+              options.AddInterceptors(interceptor);
+            });
           }
-
-          // Add ApplicationDbContext using the Testcontainers SQL Server instance
-          services.AddDbContext<AppDbContext>((provider, options) =>
-          {
-            options.UseSqlServer(_dbContainer.GetConnectionString());
-            var interceptor = provider.GetRequiredService<EventDispatchInterceptor>();
-            options.AddInterceptors(interceptor);
-          });
         });
   }
 }

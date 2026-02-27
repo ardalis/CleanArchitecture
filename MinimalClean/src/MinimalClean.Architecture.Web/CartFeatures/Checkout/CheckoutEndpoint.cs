@@ -1,4 +1,4 @@
-using FastEndpoints;
+﻿using FastEndpoints;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalClean.Architecture.Web.Domain.CartAggregate;
@@ -103,9 +103,6 @@ public sealed class CheckoutValidator : Validator<CheckoutRequest>
 public sealed class CheckoutMapper
   : Mapper<CheckoutRequest, CheckoutResponse, CheckoutResult>
 {
-  public override CheckoutResponse FromEntity(CheckoutResult e)
-  {
-    return new CheckoutResponse(e.OrderId.Value);
-  }
+    public override CheckoutResponse FromEntity(CheckoutResult e) => new CheckoutResponse(e.OrderId.Value);
 }
 
