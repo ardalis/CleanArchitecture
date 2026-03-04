@@ -4,7 +4,7 @@ using Clean.Architecture.Core.Interfaces;
 namespace Clean.Architecture.Core.ContributorAggregate.Handlers;
 
 public class ContributorNameUpdatedEmailNotificationHandler(
-  ILogger<ContributorDeletedHandler> logger,
+  ILogger<ContributorNameUpdatedEmailNotificationHandler> logger,
   IEmailSender emailSender) : INotificationHandler<ContributorNameUpdatedEvent>
 {
   public async ValueTask Handle(ContributorNameUpdatedEvent domainEvent, CancellationToken cancellationToken)
