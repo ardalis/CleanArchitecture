@@ -1,3 +1,4 @@
 {
-  "appHostPath": "../src/Clean.Architecture.AspireHost/Clean.Architecture.AspireHost.csproj"
+  "appHostPath": "../src/Clean.Architecture.AspireHost/Clean.Architecture.AspireHost.csproj",
+  "features:singlefileAppHostEnabled": "true"
 }
