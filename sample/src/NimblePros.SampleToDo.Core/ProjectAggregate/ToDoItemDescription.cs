@@ -8,8 +8,8 @@ public partial struct ToDoItemDescription
   public const int MaxLength = 200;
   private static Validation Validate(in string description) =>
     string.IsNullOrEmpty(description)
-      ? Validation.Invalid("Description cannot be empty")
+      ? Validation.Invalid(ProjectErrorMessages.CoreToDoItemDescriptionEmpty)
       : description.Length > MaxLength
-        ? Validation.Invalid($"Description cannot be longer than {MaxLength} characters")
+        ? Validation.Invalid(ProjectErrorMessages.CoreToDoItemDescriptionTooLong(MaxLength))
         : Validation.Ok;
 }

@@ -1,0 +1,8 @@
+﻿{
+  "CoreProjectNameEmpty": "نام نمی‌تواند خالی باشد",
+  "CoreProjectNameTooLong": "نام نمی‌تواند بیش از {0} کاراکتر باشد",
+  "CoreToDoItemDescriptionEmpty": "توضیحات نمی‌تواند خالی باشد",
+  "CoreToDoItemDescriptionTooLong": "توضیحات نمی‌تواند بیش از {0} کاراکتر باشد",
+  "CoreToDoItemTitleEmpty": "عنوان نمی‌تواند خالی باشد",
+  "CoreToDoItemTitleTooLong": "عنوان نمی‌تواند بیش از {0} کاراکتر باشد"
+}

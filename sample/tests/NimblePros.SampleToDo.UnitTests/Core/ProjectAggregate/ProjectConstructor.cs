@@ -1,4 +1,5 @@
-﻿using NimblePros.SampleToDo.Core.ProjectAggregate;
+﻿using System.Globalization;
+using NimblePros.SampleToDo.Core.ProjectAggregate;
 
 namespace NimblePros.SampleToDo.UnitTests.Core.ProjectAggregate;
 
@@ -35,5 +36,17 @@ public class ProjectConstructor
     _testProject = CreateProject();
 
     Assert.Equal(ProjectStatus.Complete, _testProject.Status);
+  }
+  [Fact]
+  public void ProjectName_TooLong_ReturnsLocalizedMessage()
+  {
+    // Arrange: Set a French culture for testing
+    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+
+    // Act
+    var message = ProjectErrorMessages.CoreProjectNameTooLong(100);
+
+    // Assert: Should use fallback or loaded JSON (depending on setup)
+    Assert.Equal("Name cannot be longer than 100 characters", message);
   }
 }
