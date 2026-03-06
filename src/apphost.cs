@@ -1,4 +1,7 @@
-﻿using System.Net.Sockets;
+#:sdk Aspire.AppHost.Sdk@13.1.2
+#:package Aspire.Hosting.SqlServer
+
+using System.Net.Sockets;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -26,7 +29,7 @@ var papercut = builder.AddContainer("papercut", "jijiechen/papercut", "latest")
   });
 
 // Add the web project with the database connection
-builder.AddProject<Projects.Clean_Architecture_Web>("web")
+builder.AddProject("web", "Clean.Architecture.Web/Clean.Architecture.Web.csproj")
   .WithReference(cleanArchDb)
   .WithEnvironment("ASPNETCORE_ENVIRONMENT", builder.Environment.EnvironmentName)
   .WithEnvironment("Papercut__Smtp__Url", papercut.GetEndpoint("smtp"))

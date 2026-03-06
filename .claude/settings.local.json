@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet workload list:*)",
+      "Bash(aspire:*)",
+      "Bash(dir:*)",
+      "Bash(powershell -Command:*)",
+      "WebFetch(domain:aspire.dev)",
+      "Bash(dotnet new:*)",
+      "Bash(findstr:*)",
+      "Bash(dotnet --version:*)",
+      "Bash(aspire config set features:singlefileAppHostEnabled true)",
+      "Bash(aspire new aspire-apphost-singlefile -n apphost -o .)"
+    ]
+  }
+}
