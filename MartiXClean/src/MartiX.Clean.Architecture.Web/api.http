@@ -1,0 +1,56 @@
+@MinimalClean_HostAddress = https://localhost:57379
+
+@MinimalClean_CartId = 68fe4cfd-84bb-4b8a-bb4e-528c26325c72
+
+### List Products
+GET {{MinimalClean_HostAddress}}/products
+Accept: application/json
+
+### Get Product By ID
+GET {{MinimalClean_HostAddress}}/products/1
+Accept: application/json
+
+### Create Product
+POST {{MinimalClean_HostAddress}}/products
+Content-Type: application/json
+
+{
+  "name": "New Product",
+  "unitPrice": 29.99
+}
+
+### Add to Cart (Anonymous User - creates cart)
+POST {{MinimalClean_HostAddress}}/cart
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+### Add to Cart (Anonymous User - existing cart)
+POST {{MinimalClean_HostAddress}}/cart
+Content-Type: application/json
+
+{
+  "cartId": "{{MinimalClean_CartId}}",
+  "productId": 2,
+  "quantity": 3
+}
+
+### View Cart
+GET {{MinimalClean_HostAddress}}/cart/{{MinimalClean_CartId}}
+Accept: application/json
+
+### Checkout
+POST {{MinimalClean_HostAddress}}/cart/{{MinimalClean_CartId}}/checkout
+Content-Type: application/json
+
+{
+  "email": "guest@example.com"
+}
+### Note: Get order ID from response for future use
+
+
+
+

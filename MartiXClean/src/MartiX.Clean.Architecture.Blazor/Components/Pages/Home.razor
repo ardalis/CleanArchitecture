@@ -1,0 +1,33 @@
+@page "/"
+@inject BackendApiClient BackendApiClient
+
+<PageTitle>Home</PageTitle>
+
+<h1>Blazor frontend is connected</h1>
+
+<p>
+  This optional project gives the template a UI host while the existing <code>Web</code> project remains the API and
+  application backend.
+</p>
+
+<section class="status-card">
+  <h2>Backend health</h2>
+
+  @if (_status is null)
+  {
+    <p>Checking the API health endpoint...</p>
+  }
+  else
+  {
+    <p>@_status</p>
+  }
+</section>
+
+@code {
+  private string? _status;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _status = await BackendApiClient.GetHealthSummaryAsync();
+  }
+}

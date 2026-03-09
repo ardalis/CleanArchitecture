@@ -1,0 +1,62 @@
+html, body {
+  font-family: Inter, system-ui, sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #f5f7fb;
+  color: #132238;
+}
+
+a {
+  color: #0d6efd;
+}
+
+.page-shell {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.page-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.page-header nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.page-body {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 12px 30px rgba(19, 34, 56, 0.08);
+  padding: 2rem;
+}
+
+.eyebrow {
+  color: #6b7280;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.status-card {
+  background: #eef4ff;
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

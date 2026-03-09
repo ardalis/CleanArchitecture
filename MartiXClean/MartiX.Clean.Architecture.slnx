@@ -1,0 +1,27 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="../MartiX.Clean.nuspec" />
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/MartiX.Clean.Architecture.Blazor/MartiX.Clean.Architecture.Blazor.csproj" />
+    <Project Path="src/MartiX.Clean.Architecture.Web/MartiX.Clean.Architecture.Web.csproj" />
+  </Folder>
+  <Folder Name="/src/_aspire/">
+    <Project
+      Path="src/MartiX.Clean.Architecture.AspireHost/MartiX.Clean.Architecture.AspireHost.csproj" />
+    <Project
+      Path="src/MartiX.Clean.Architecture.ServiceDefaults/MartiX.Clean.Architecture.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project
+      Path="tests/MartiX.Clean.Architecture.Web.Tests/MartiX.Clean.Architecture.Web.Tests.csproj" />
+  </Folder>
+</Solution>

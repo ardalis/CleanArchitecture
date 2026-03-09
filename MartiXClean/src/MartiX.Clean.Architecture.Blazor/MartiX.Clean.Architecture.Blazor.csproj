@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>MartiX.Clean.Architecture.Blazor</RootNamespace>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MartiX.Clean.Architecture.ServiceDefaults\MartiX.Clean.Architecture.ServiceDefaults.csproj" />
+  </ItemGroup>
+</Project>

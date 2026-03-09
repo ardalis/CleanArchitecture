@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>MartiX.Clean.Template</id>
+    <title>ASP.NET Minimal Clean Architecture Solution</title>
+    <version>1.0.1</version>
+    <authors>MartiXDev</authors>
+    <description>
+      A simplified Clean Architecture template using vertical slice architecture in a single
+      project.
+      Perfect for MVPs, smaller applications, or teams wanting architectural guidance without
+      multi-project complexity.
+      Features Domain-Driven Design patterns, FastEndpoints, Entity Framework Core, and optional
+      Aspire support.
+      Built with .NET 10 and C#.
+    </description>
+    <language>en-US</language>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/MartiXDev/CleanArchitecture</projectUrl>
+    <releaseNotes>
+      * Initial release of Minimal Clean Architecture template
+      * Single-project vertical slice architecture
+      * Built with .NET 10 and C#.
+      * FastEndpoints for REPR pattern
+      * Pragmatic DDD with simplified patterns
+      * Aspire support
+      * 1.0.1 fixes a minor bug
+    </releaseNotes>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <tags>Web ASP.NET "Clean Architecture" "Vertical Slice" minimal ddd domain-driven-design
+      clean-architecture MartiXDev FastEndpoints</tags>
+    <icon>./content/icon.png</icon>
+    <readme>README.md</readme>
+  </metadata>
+  <files>
+    <file src="MartiXClean\**" target="content"
+      exclude="**\bin\**;**\obj\**;**\.git\**;**\.vs\**;**\.vscode\**;**\*.user" />
+    <file src="MartiXClean\README.md" />
+    <file src="MartiXClean\icon.png" target="content" />
+  </files>
+</package>

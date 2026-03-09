@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NsDepCopConfig>
+    <Allowed From="*" To="*" />
+
+    <Disallowed From="MartiX.Clean.Architecture.Web.Domain.*"
+        To="MartiX.Clean.Architecture.Web.Infrastructure.*" />
+
+    <Disallowed From="MartiX.Clean.Architecture.Web.Feature.Cart.*"
+        To="MartiX.Clean.Architecture.Web.Infrastructure.*" />
+
+    <Disallowed From="MartiX.Clean.Architecture.Web.Feature.Product.*"
+        To="MartiX.Clean.Architecture.Web.Infrastructure.*" />
+
+    <Disallowed From="MartiX.Clean.Architecture.Web.Domain.OrderAggregate.*"
+        To="MartiX.Clean.Architecture.Web.Domain.CartAggregate.*" />
+
+    <AnalyzerConfig>
+        <IssueKind Name="IllegalDependency" Severity="Error" />
+    </AnalyzerConfig>
+</NsDepCopConfig>
+

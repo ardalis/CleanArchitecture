@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Martin Mikes",
+  "classifications": [
+    "Web",
+    "ASP.NET",
+    "Clean Architecture",
+    "Minimal"
+  ],
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "identity": "MartiX.Clean.Template",
+  "name": "ASP.NET Minimal Clean Architecture Solution",
+  "shortName": "min-clean",
+  "sourceName": "MartiX.Clean.Architecture",
+  "symbols": {
+    "IncludeBlazor": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "displayName": "Include Blazor frontend",
+      "description": "Adds an optional Blazor Web App project to the generated solution."
+    }
+  },
+  "templateFileExtensions": [
+    ".cs",
+    ".csproj",
+    ".slnx"
+  ],
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "include": [
+        "**/*"
+      ],
+      "exclude": [
+        ".vs/**",
+        ".vscode/**",
+        ".git/**",
+        ".github/**",
+        ".idea/**",
+        ".template.config/**",
+        "**/bin/**",
+        "**/obj/**",
+        "**/.vs/**"
+      ],
+      "modifiers": [
+        {
+          "condition": "true",
+          "copyOnly": [
+            "*.dll",
+            "*.png",
+            "*.ico",
+            "*.jpg",
+            "*.jpeg",
+            "*.ps1"
+          ]
+        },
+        {
+          "rename": {
+            "README.template.md": "README.md"
+          }
+        },
+        {
+          "condition": "(!IncludeBlazor)",
+          "exclude": [
+            "MartiX.Clean.Architecture.slnx",
+            "src/MartiX.Clean.Architecture.AspireHost/AppHost.cs",
+            "src/MartiX.Clean.Architecture.AspireHost/MartiX.Clean.Architecture.AspireHost.csproj",
+            "MartiX.Clean.Architecture.NoBlazor.slnx",
+            "src/MartiX.Clean.Architecture.AspireHost/AppHost.NoBlazor.cs",
+            "src/MartiX.Clean.Architecture.AspireHost/MartiX.Clean.Architecture.AspireHost.NoBlazor.csproj",
+            "src/MartiX.Clean.Architecture.Blazor/**"
+          ]
+        }
+      ]
+    },
+    {
+      "condition": "(!IncludeBlazor)",
+      "include": [
+        "MartiX.Clean.Architecture.NoBlazor.slnx",
+        "src/MartiX.Clean.Architecture.AspireHost/AppHost.NoBlazor.cs",
+        "src/MartiX.Clean.Architecture.AspireHost/MartiX.Clean.Architecture.AspireHost.NoBlazor.csproj"
+      ],
+      "rename": {
+        "MartiX.Clean.Architecture.NoBlazor.slnx": "MartiX.Clean.Architecture.slnx",
+        "src/MartiX.Clean.Architecture.AspireHost/AppHost.NoBlazor.cs": "src/MartiX.Clean.Architecture.AspireHost/AppHost.cs",
+        "src/MartiX.Clean.Architecture.AspireHost/MartiX.Clean.Architecture.AspireHost.NoBlazor.csproj": "src/MartiX.Clean.Architecture.AspireHost/MartiX.Clean.Architecture.AspireHost.csproj"
+      }
+    }
+  ]
+}
