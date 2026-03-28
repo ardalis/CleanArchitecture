@@ -23,6 +23,12 @@ jobs:
         with:
           queries: security-and-quality
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
+
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
 
