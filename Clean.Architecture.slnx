@@ -10,6 +10,7 @@
     <File Path="CleanArchitecture.nuspec" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
+    <File Path="nuget.config" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Clean.Architecture.Core/Clean.Architecture.Core.csproj" />
