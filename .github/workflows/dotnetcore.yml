@@ -12,11 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
+        dotnet-quality: 'preview'
     - name: Build Full Template
       run: dotnet build ./Clean.Architecture.slnx -c Release
     - name: Test Full Template

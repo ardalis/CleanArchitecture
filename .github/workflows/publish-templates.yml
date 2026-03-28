@@ -21,6 +21,7 @@ on:
 
 env:
   DOTNET_VERSION: '10.0.x'
+  DOTNET_QUALITY: 'preview'
   PACK_OUTPUT: artifacts/packages
 
 jobs:
@@ -35,6 +36,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: Build Full Template Solution
         run: dotnet build ./Clean.Architecture.slnx -c Release
@@ -116,6 +118,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: NuGet login (OIDC)
         uses: NuGet/login@v1
