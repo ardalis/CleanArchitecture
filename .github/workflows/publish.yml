@@ -1,10 +1,12 @@
 name: Publish to Nuget
 
 on:
-  workflow_dispatch:
   push:
+    branches:
+      - '**'
     tags:
       - 'v*'
+  workflow_dispatch:
   release:
     types: [published]
 

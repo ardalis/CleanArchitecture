@@ -1,6 +1,11 @@
 name: Publish Templates to NuGet
 
 on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       publish-full:
@@ -13,9 +18,6 @@ on:
         required: true
         type: boolean
         default: false
-  push:
-    tags:
-      - 'v*'
   release:
     types: [published]
 
