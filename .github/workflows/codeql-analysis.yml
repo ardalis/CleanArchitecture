@@ -1,40 +1,44 @@
-name: CodeQL Analysis
+name: CodeQL
 
 on:
   push:
     branches:
       - '**'
-  workflow_dispatch:
   pull_request:
+  workflow_dispatch:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 3 * * 1'
 
 jobs:
   analyze:
-    name: CodeQL Analysis
+    name: Analyze C#
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        id: checkout_repo
-        uses: actions/checkout@v5
 
-      - name: Initialize CodeQL
-        id: init_codeql
-        uses: github/codeql-action/init@v4
-        with:
-          queries: security-and-quality
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.0.x'
-          dotnet-quality: 'ga'
+          dotnet-version: 10.0.x
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: csharp
+          build-mode: manual
 
-      - name: Perform CodeQL Analysis
-        id: analyze_codeql
+      - name: Restore
+        run: dotnet restore ./Clean.Architecture.slnx --configfile ./.github/nuget.ci.config
+
+      - name: Build
+        run: dotnet build ./Clean.Architecture.slnx --configuration Release --no-restore
+
+      - name: Analyze
         uses: github/codeql-action/analyze@v4
-
-# Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
