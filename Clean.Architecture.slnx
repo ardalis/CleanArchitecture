@@ -6,6 +6,7 @@
   </Configurations>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path=".github/workflows/nuget.ci.config" />
     <File Path=".template.config/template.json" />
     <File Path="CleanArchitecture.nuspec" />
     <File Path="Directory.Build.props" />
