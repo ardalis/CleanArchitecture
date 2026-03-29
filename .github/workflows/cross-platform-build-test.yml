@@ -1,0 +1,62 @@
+name: Cross-Platform Build & Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build & Test (.NET 10)
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        configuration: [Debug, Release]
+      fail-fast: false
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET 10 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        dotnet-quality: 'preview'
+    
+    - name: Display .NET Info
+      run: dotnet --info
+    
+    - name: Restore dependencies
+      run: dotnet restore Clean.Architecture.slnx --verbosity normal
+      env:
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+    
+    - name: Build (${{ matrix.configuration }})
+      run: dotnet build Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
+    
+    - name: Test (${{ matrix.configuration }})
+      run: dotnet test Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
+    
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ matrix.os }}-${{ matrix.configuration }}
+        path: '**/TestResults/**/*.trx'
+        retention-days: 30
+    
+    - name: Upload Coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-${{ matrix.os }}-${{ matrix.configuration }}
+        path: '**/TestResults/**/coverage.cobertura.xml'
+        retention-days: 30
