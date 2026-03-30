@@ -19,7 +19,10 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
-          dotnet-quality: 'ga'
+          dotnet-quality: 'preview'
+
+      - name: Setup CI NuGet Config
+        run: cp .github/NuGet.Config NuGet.Config
 
       - name: Set up Ramdisk Directory
         run: mkdir -p /dev/shm/ramdisk/project
@@ -30,6 +33,7 @@ jobs:
       - name: Build and Test
         run: |
           cd /dev/shm/ramdisk/project
+          cp .github/NuGet.Config NuGet.Config
           dotnet restore Clean.Architecture.slnx
           dotnet build Clean.Architecture.slnx --configuration Debug --no-restore
-          dotnet test Clean.Architecture.slnx --configuration Debug --no-build --verbosity normal
+          dotnet test Clean.Architecture.slnx --configuration Debug --no-build --verbosity normal --filter "FullyQualifiedName!~DockerAvailabilityTests"
