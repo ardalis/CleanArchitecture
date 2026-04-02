@@ -1,6 +1,11 @@
 name: Publish Templates to NuGet
 
 on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       publish-full:
@@ -13,28 +18,27 @@ on:
         required: true
         type: boolean
         default: false
-  push:
-    tags:
-      - 'v*'
   release:
     types: [published]
 
 env:
   DOTNET_VERSION: '10.0.x'
+  DOTNET_QUALITY: 'ga'
   PACK_OUTPUT: artifacts/packages
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: Build Full Template Solution
         run: dotnet build ./Clean.Architecture.slnx -c Release
@@ -67,10 +71,10 @@ jobs:
   package:
     needs: build-and-test
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
@@ -92,6 +96,7 @@ jobs:
         run: nuget pack MinimalClean.nuspec -OutputDirectory ${{ env.PACK_OUTPUT }} -NoDefaultExcludes
 
       - name: Upload packages as artifacts
+        if: ${{ github.event_name == 'release' || github.event.inputs.publish-full == 'true' || github.event.inputs.publish-minimal == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: nuget-packages
@@ -100,7 +105,7 @@ jobs:
   publish:
     needs: package
     runs-on: ubuntu-latest
-    #if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    if: ${{ github.event_name == 'release' || github.event.inputs.publish-full == 'true' || github.event.inputs.publish-minimal == 'true' }}
     permissions:
       contents: read
       id-token: write
@@ -113,9 +118,10 @@ jobs:
           path: ${{ env.PACK_OUTPUT }}
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: NuGet login (OIDC)
         uses: NuGet/login@v1

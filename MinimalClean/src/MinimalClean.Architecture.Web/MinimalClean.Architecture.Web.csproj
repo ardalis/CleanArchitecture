@@ -33,6 +33,7 @@
     <PackageReference Include="MimeKit" />
     <PackageReference Include="NimblePros.Metronome" />
     <PackageReference Include="Scalar.AspNetCore" />
+    <PackageReference Include="Scriban" />
     <PackageReference Include="Serilog.AspNetCore" />
     <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
 

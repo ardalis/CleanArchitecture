@@ -1,7 +1,58 @@
 version: 2
 updates:
-- package-ecosystem: nuget
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  # .NET NuGet dependencies - Main project
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    # Security updates are automatically prioritized
+    versioning-strategy: increase
+    # Group Minor/Patch updates
+    groups:
+      production-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Sample project dependencies
+  - package-ecosystem: "nuget"
+    directory: "/sample"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "nuget"
+      - "sample"
+
+  # MinimalClean template dependencies
+  - package-ecosystem: "nuget"
+    directory: "/MinimalClean"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "nuget"
+      - "minimal"
+
+  # GitHub Actions - important for Node.js 20/24 updates!
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"

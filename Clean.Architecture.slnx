@@ -4,12 +4,16 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/Solution Items/">
+  <Folder Name="/Devops/">
     <File Path=".editorconfig" />
-    <File Path=".template.config/template.json" />
+    <File Path=".github/workflows/nuget.ci.config" />
     <File Path="CleanArchitecture.nuspec" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".template.config/template.json" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Clean.Architecture.Core/Clean.Architecture.Core.csproj" />

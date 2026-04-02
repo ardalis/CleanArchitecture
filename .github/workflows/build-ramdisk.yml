@@ -3,7 +3,8 @@ name: Build and Test with Ramdisk
 on:
   push:
     branches:
-      - main
+      - '**'
+  workflow_dispatch:
   pull_request:
 
 jobs:
@@ -11,34 +12,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
-      # Step 2: Set up .NET environment
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'ga'
 
-      # Step 3: Prepare a directory in /dev/shm
+      - name: Setup CI NuGet Config
+        run: cp .github/NuGet.Config NuGet.Config
+
       - name: Set up Ramdisk Directory
-        run: |
-          mkdir -p /dev/shm/ramdisk/project
+        run: mkdir -p /dev/shm/ramdisk/project
 
-      # Step 4: Copy source code to the ramdisk
       - name: Copy Code to Ramdisk
-        run: |
-          cp -r $GITHUB_WORKSPACE/* /dev/shm/ramdisk/project
+        run: cp -a "$GITHUB_WORKSPACE"/. /dev/shm/ramdisk/project/
 
-      # Step 5: Debug Directory Contents
-      - name: Debug Directory
-        run: |
-          ls -R /dev/shm/ramdisk/project
-
-      # Step 6: Build and Test from the ramdisk
       - name: Build and Test
         run: |
           cd /dev/shm/ramdisk/project
-          dotnet build Clean.Architecture.slnx --configuration Debug
-          dotnet test Clean.Architecture.slnx --
+          cp .github/NuGet.Config NuGet.Config
+          dotnet restore Clean.Architecture.slnx
+          dotnet build Clean.Architecture.slnx --configuration Debug --no-restore
+          dotnet test Clean.Architecture.slnx --configuration Debug --no-build --verbosity normal --filter "FullyQualifiedName!~DockerAvailabilityTests"

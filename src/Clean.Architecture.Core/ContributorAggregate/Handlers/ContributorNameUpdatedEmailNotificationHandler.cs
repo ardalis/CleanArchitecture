@@ -3,13 +3,18 @@ using Clean.Architecture.Core.Interfaces;
 
 namespace Clean.Architecture.Core.ContributorAggregate.Handlers;
 
-public class ContributorNameUpdatedEmailNotificationHandler(
+public partial class ContributorNameUpdatedEmailNotificationHandler(
   ILogger<ContributorNameUpdatedEmailNotificationHandler> logger,
   IEmailSender emailSender) : INotificationHandler<ContributorNameUpdatedEvent>
 {
+  private readonly ILogger<ContributorNameUpdatedEmailNotificationHandler> _logger = logger;
+
+  [LoggerMessage(LogLevel.Information, "Handling Contributor Name Updated event for {ContributorId}")]
+  private partial void LogHandlingEvent(ContributorId contributorId);
+
   public async ValueTask Handle(ContributorNameUpdatedEvent domainEvent, CancellationToken cancellationToken)
   {
-    logger.LogInformation("Handling Contributor Name Updated event for {contributorId}", domainEvent.Contributor.Id);
+    LogHandlingEvent(domainEvent.Contributor.Id);
 
     await emailSender.SendEmailAsync("to@test.com",
                                      "from@test.com",

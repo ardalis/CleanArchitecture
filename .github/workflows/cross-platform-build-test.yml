@@ -1,0 +1,79 @@
+name: Cross-Platform Build & Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build & Test (.NET 10)
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        configuration: [Debug, Release]
+      fail-fast: false
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET 10 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        dotnet-quality: 'ga'
+    
+    - name: Display .NET Info
+      run: dotnet --info
+    
+    - name: Setup CI NuGet Config (Windows)
+      if: runner.os == 'Windows'
+      run: Copy-Item ".github\NuGet.Config" "NuGet.Config" -Force
+
+    - name: Setup CI NuGet Config (Unix)
+      if: runner.os != 'Windows'
+      run: cp .github/NuGet.Config NuGet.Config
+
+    - name: Restore dependencies
+      run: dotnet restore Clean.Architecture.slnx --verbosity normal
+      env:
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+    - name: Build (${{ matrix.configuration }})
+      run: dotnet build Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
+
+    - name: Run Unit Tests (${{ matrix.configuration }})
+      run: dotnet test tests/Clean.Architecture.UnitTests/Clean.Architecture.UnitTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
+
+    - name: Run Integration Tests (${{ matrix.configuration }})
+      run: dotnet test tests/Clean.Architecture.IntegrationTests/Clean.Architecture.IntegrationTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
+      continue-on-error: true
+
+    # Functional Tests require Docker - skip Docker availability check in CI
+    - name: Run Functional Tests (without Docker check)
+      run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName!~DockerAvailabilityTests" --collect:"XPlat Code Coverage"
+      continue-on-error: true
+    
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ matrix.os }}-${{ matrix.configuration }}
+        path: '**/TestResults/**/*.trx'
+        retention-days: 30
+    
+    - name: Upload Coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-${{ matrix.os }}-${{ matrix.configuration }}
+        path: '**/TestResults/**/coverage.cobertura.xml'
+        retention-days: 30

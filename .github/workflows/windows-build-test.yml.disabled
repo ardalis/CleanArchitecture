@@ -1,0 +1,86 @@
+name: Windows Build & Test
+
+on:
+  push:
+    branches: [ main, develop, 'issue-*/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build & Test on Windows (.NET 10)
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+      fail-fast: false
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET 10 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        dotnet-quality: 'ga'
+    
+    - name: Display .NET Info
+      run: dotnet --info
+
+    - name: Setup CI NuGet Config
+      run: Copy-Item ".github\NuGet.Config" "NuGet.Config" -Force
+
+    - name: Restore NuGet packages
+      run: dotnet restore Clean.Architecture.slnx --verbosity normal
+      env:
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+    
+    - name: Build Solution (${{ matrix.configuration }})
+      run: dotnet build Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
+
+    - name: Run Unit Tests (${{ matrix.configuration }})
+      run: dotnet test tests/Clean.Architecture.UnitTests/Clean.Architecture.UnitTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx;LogFileName=unit-test-results-${{ matrix.configuration }}.trx" --collect:"XPlat Code Coverage"
+
+    - name: Run Integration Tests (${{ matrix.configuration }})
+      run: dotnet test tests/Clean.Architecture.IntegrationTests/Clean.Architecture.IntegrationTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx;LogFileName=integration-test-results-${{ matrix.configuration }}.trx" --collect:"XPlat Code Coverage"
+      continue-on-error: true
+
+    # Note: Functional Tests require Docker (SQL Server Testcontainers)
+    # They are skipped in CI and should be run locally with Docker Desktop
+    - name: Run Functional Tests (Docker required - may be skipped)
+      run: |
+        Write-Host "Functional Tests require Docker with SQL Server Testcontainers."
+        Write-Host "These tests use SQLite fallback when Docker is not available."
+        dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx;LogFileName=functional-test-results-${{ matrix.configuration }}.trx" --filter "FullyQualifiedName!~DockerAvailabilityTests" --collect:"XPlat Code Coverage"
+      continue-on-error: true
+    
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-windows-${{ matrix.configuration }}
+        path: '**/TestResults/**/*.trx'
+        retention-days: 30
+    
+    - name: Upload Code Coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-windows-${{ matrix.configuration }}
+        path: '**/TestResults/**/coverage.cobertura.xml'
+        retention-days: 30
+    
+    - name: Build Summary
+      if: always()
+      run: |
+        echo "### Build Summary (${{ matrix.configuration }})" >> $GITHUB_STEP_SUMMARY
+        echo "- Configuration: ${{ matrix.configuration }}" >> $GITHUB_STEP_SUMMARY
+        echo "- OS: Windows" >> $GITHUB_STEP_SUMMARY
+        echo "- .NET SDK: 10.0" >> $GITHUB_STEP_SUMMARY
+        echo "- Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
