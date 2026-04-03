@@ -10,6 +10,7 @@
     <File Path="CleanArchitecture.nuspec" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
     <File Path="nuget.config" />
   </Folder>
   <Folder Name="/Solution Items/">

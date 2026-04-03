@@ -15,8 +15,8 @@
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="7.1.1" />
     <PackageVersion Include="MailKit" Version="4.15.1" />
-    <PackageVersion Include="Mediator.Abstractions" Version="3.0.1" />
-    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.1" />
+    <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
