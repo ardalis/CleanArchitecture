@@ -6,7 +6,7 @@ on:
   pull_request:
   schedule:
     - cron: '0 8 * * *'
-
+  workflow_dispatch:
 jobs:
   analyze:
     name: CodeQL Analysis
@@ -29,4 +29,4 @@ jobs:
         id: analyze_codeql
         uses: github/codeql-action/analyze@v3
 
-# Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
+# Built with ? by [Pipeline Foundation](https://pipeline.foundation)

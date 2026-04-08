@@ -42,3 +42,4 @@ jobs:
           cd /dev/shm/ramdisk/project
           dotnet build Clean.Architecture.slnx --configuration Debug
           dotnet test Clean.Architecture.slnx --
+
