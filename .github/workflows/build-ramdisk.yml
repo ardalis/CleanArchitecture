@@ -19,10 +19,7 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '10.0.x'
-          dotnet-quality: 'ga'
-
-      - name: Setup CI NuGet Config
-        run: cp .github/NuGet.Config NuGet.Config
+          
 
       - name: Set up Ramdisk Directory
         run: mkdir -p /dev/shm/ramdisk/project
