@@ -68,7 +68,7 @@ jobs:
       # Retention 30 days balances storage costs and debugging needs
       - name: Upload Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-results-${{ matrix.os }}-${{ matrix.configuration }}
           path: '**/TestResults/**/*.trx'
@@ -77,7 +77,7 @@ jobs:
       # Code coverage reports for quality tracking
       - name: Upload Coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coverage-${{ matrix.os }}-${{ matrix.configuration }}
           path: '**/TestResults/**/coverage.cobertura.xml'
