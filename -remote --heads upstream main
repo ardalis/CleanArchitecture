@@ -1,0 +1,63 @@
+name: Publish to Nuget
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+
+env:
+  SOLUTION_FILE: Clean.Architecture.slnx
+  NUSPEC_FILE: CleanArchitecture.nuspec
+  PACK_OUTPUT: artifacts/package/release
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build
+        run: dotnet build "${{ env.SOLUTION_FILE }}" --configuration Release
+
+      - name: Test
+        run: dotnet test "${{ env.SOLUTION_FILE }}" --configuration Release --no-build --no-restore
+
+      - uses: nuget/setup-nuget@v2
+        name: Setup NuGet
+        with:
+          nuget-version: 'latest'
+
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete
+
+      - name: Pack (nuspec)
+        run: nuget pack "${{ env.NUSPEC_FILE }}" -OutputDirectory "${{ env.PACK_OUTPUT }}" -NoDefaultExcludes
+
+      - name: NuGet login (OIDC -> temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push to NuGet
+        #if: ${{ github.event_name == 'release' && github.event.action == 'published' && github.event.release.tag_name != '' }}
+        shell: pwsh
+        run: |
+          Get-ChildItem "${{ env.PACK_OUTPUT }}" -Filter *.nupkg | ForEach-Object {
+            dotnet nuget push $_.FullName `
+              --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" `
+              --source https://api.nuget.org/v3/index.json
+          }

@@ -1,9 +1,9 @@
 name: Publish Templates to NuGet
 
+# Publish on release, tags, or manual trigger only
+# Does NOT run on regular branch pushes (requires NUGET_USER secret)
 on:
   push:
-    branches:
-      - '**'
     tags:
       - 'v*'
   workflow_dispatch:

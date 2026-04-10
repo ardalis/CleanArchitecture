@@ -1,10 +1,9 @@
 name: Publish to Nuget
 
-# Publish on release, tags, or manual trigger - plus all branches for build validation
+# Publish on release, tags, or manual trigger only
+# Does NOT run on regular branch pushes (requires NUGET_USER secret)
 on:
   push:
-    branches:
-      - '**'  # All branches - validates build but only publishes on release/tag
     tags:
       - 'v*'  # Version tags trigger actual publish
   workflow_dispatch:  # Manual trigger for on-demand publishing
