@@ -1,0 +1,84 @@
+name: Cross-Platform Build & Test
+
+# Comprehensive CI across all platforms and configurations
+on:
+  push:
+    branches:
+      - '**'  # All branches - enables cross-platform testing for feature branches
+  pull_request:
+    branches:
+      - '**'  # All branches - PR checks for any target
+  workflow_dispatch:  # Manual trigger for on-demand cross-platform tests
+
+jobs:
+  build-and-test:
+    name: Build & Test (.NET 10)
+    runs-on: ${{ matrix.os }}
+    
+    # Matrix strategy tests all OS + configuration combinations
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]  # All major platforms
+        configuration: [Debug, Release]  # Both build configurations
+      fail-fast: false  # Continue other jobs if one fails - get full picture
+
+    steps:
+      # v6 uses Node.js 24 (v4 uses deprecated Node.js 20)
+      # fetch-depth: 0 gets full history (needed for some versioning tools)
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # v5 uses Node.js 24, 'ga' ensures stable .NET 10 release
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'ga'  # General Availability - stable release
+
+      # Explicit restore with environment vars for faster first-run
+      - name: Restore dependencies
+        run: dotnet restore Clean.Architecture.slnx --verbosity normal
+        env:
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true  # Skip .NET welcome message
+          DOTNET_CLI_TELEMETRY_OPTOUT: true  # Disable telemetry for faster CI
+
+      # --no-restore skips redundant package restore
+      - name: Build (${{ matrix.configuration }})
+        run: dotnet build Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
+
+      # Unit tests - fast, no external dependencies
+      # TRX logger + code coverage for detailed reports
+      - name: Run Unit Tests (${{ matrix.configuration }})
+        run: dotnet test tests/Clean.Architecture.UnitTests/Clean.Architecture.UnitTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
+
+      # Integration tests - may have external dependencies
+      # continue-on-error: true allows workflow to complete even if tests fail
+      - name: Run Integration Tests (${{ matrix.configuration }})
+        run: dotnet test tests/Clean.Architecture.IntegrationTests/Clean.Architecture.IntegrationTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
+        continue-on-error: true  # Don't fail entire workflow on integration test issues
+
+      # Functional tests - filter excludes Docker-dependent tests in CI
+      - name: Run Functional Tests
+        run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName!~DockerAvailabilityTests" --collect:"XPlat Code Coverage"
+        continue-on-error: true  # Don't fail entire workflow on functional test issues
+
+      # Upload test results even if tests failed (if: always())
+      # Retention 30 days balances storage costs and debugging needs
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.configuration }}
+          path: '**/TestResults/**/*.trx'
+          retention-days: 30
+
+      # Code coverage reports for quality tracking
+      - name: Upload Coverage
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: coverage-${{ matrix.os }}-${{ matrix.configuration }}
+          path: '**/TestResults/**/coverage.cobertura.xml'
+          retention-days: 30

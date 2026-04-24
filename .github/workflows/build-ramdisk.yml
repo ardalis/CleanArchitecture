@@ -1,44 +1,43 @@
 name: Build and Test with Ramdisk
 
+# Trigger on all branches for early feedback, plus manual trigger
 on:
   push:
     branches:
-      - main
+      - '**'  # All branches - enables CI for feature branches
   pull_request:
+  workflow_dispatch:  # Manual trigger for on-demand runs
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # v6 uses Node.js 24 (v4 uses deprecated Node.js 20)
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
-      # Step 2: Set up .NET environment
+      # v5 uses Node.js 24, 'ga' ensures stable .NET 10 release
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'ga'  # General Availability - stable release
 
-      # Step 3: Prepare a directory in /dev/shm
+      # Ramdisk (/dev/shm) provides faster I/O for build operations
       - name: Set up Ramdisk Directory
-        run: |
-          mkdir -p /dev/shm/ramdisk/project
+        run: mkdir -p /dev/shm/ramdisk/project
 
-      # Step 4: Copy source code to the ramdisk
+      # -a flag preserves permissions, symlinks, and includes hidden files
+      # Quotes around $GITHUB_WORKSPACE handle paths with spaces
       - name: Copy Code to Ramdisk
-        run: |
-          cp -r $GITHUB_WORKSPACE/* /dev/shm/ramdisk/project
+        run: cp -a "$GITHUB_WORKSPACE"/. /dev/shm/ramdisk/project/
 
-      # Step 5: Debug Directory Contents
-      - name: Debug Directory
-        run: |
-          ls -R /dev/shm/ramdisk/project
-
-      # Step 6: Build and Test from the ramdisk
+      # Explicit restore + --no-restore prevents redundant package downloads
+      # --no-build in test step avoids rebuilding (faster CI)
       - name: Build and Test
         run: |
           cd /dev/shm/ramdisk/project
-          dotnet build Clean.Architecture.slnx --configuration Debug
-          dotnet test Clean.Architecture.slnx --
+          dotnet restore Clean.Architecture.slnx
+          dotnet build Clean.Architecture.slnx --configuration Debug --no-restore
+          dotnet test Clean.Architecture.slnx --configuration Debug --no-build --verbosity normal
