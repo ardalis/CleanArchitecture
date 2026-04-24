@@ -27,7 +27,8 @@ public class ItemCompletedEmailNotificationHandlerHandle
   [Fact]
   public async Task SendsEmailGivenEventInstance()
   {
-    await _handler.Handle(new ToDoItemCompletedEvent(new ToDoItem()), CancellationToken.None);
+    var item = new ToDoItemBuilder().WithDefaultValues().Build();
+    await _handler.Handle(new ToDoItemCompletedEvent(item), CancellationToken.None);
 
     await _emailSender.Received().SendEmailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
   }
