@@ -3,8 +3,9 @@
     "allow": [
       "Bash(git check-ignore *)",
       "Bash(git worktree *)",
-      "Bash(dotnet restore *)",
-      "Bash(dotnet package *)"
+      "Bash(dotnet ef *)",
+      "Bash(git stash *)",
+      "Bash(dotnet outdated *)"
     ]
   }
 }

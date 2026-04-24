@@ -7,7 +7,7 @@ public class ContributorConfiguration : IEntityTypeConfiguration<Contributor>
   public void Configure(EntityTypeBuilder<Contributor> builder)
   {
     builder.Property(entity => entity.Id)
-      .HasValueGenerator<VogenIdValueGenerator<AppDbContext, Contributor, ContributorId>>()
+      .ValueGeneratedOnAdd()
       .HasVogenConversion()
       .IsRequired();
 
