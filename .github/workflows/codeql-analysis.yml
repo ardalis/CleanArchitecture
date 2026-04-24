@@ -1,32 +1,53 @@
 name: CodeQL Analysis
 
+# Security scanning should run on all branches and on schedule
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '**'  # All branches - security issues can be on any branch
   pull_request:
+  workflow_dispatch:  # Manual trigger for on-demand security scans
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 8 * * *'  # Daily at 8 AM UTC - catches new vulnerabilities
 
 jobs:
   analyze:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
+    
+    # Required permissions for CodeQL to read code and write security alerts
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
     steps:
+      # v6 uses Node.js 24 (v4 uses deprecated Node.js 20)
       - name: Checkout repository
-        id: checkout_repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Initialize CodeQL
-        id: init_codeql
-        uses: github/codeql-action/init@v3
+      # v5 uses Node.js 24, 'ga' ensures stable .NET 10 release
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
         with:
-          queries: security-and-quality
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'ga'  # General Availability - stable release
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
+      # v4 uses Node.js 24, security-and-quality includes more checks
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: csharp
+          queries: security-and-quality  # Extended query suite for better coverage
 
+      # Manual build gives more control than autobuild
+      - name: Restore dependencies
+        run: dotnet restore ./Clean.Architecture.slnx
+
+      # Release config for production-like analysis
+      - name: Build
+        run: dotnet build ./Clean.Architecture.slnx --configuration Release --no-restore
+
+      # v4 uses Node.js 24 - performs the actual security analysis
       - name: Perform CodeQL Analysis
-        id: analyze_codeql
-        uses: github/codeql-action/analyze@v3
-
-# Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
+        uses: github/codeql-action/analyze@v4
