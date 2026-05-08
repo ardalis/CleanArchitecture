@@ -13,8 +13,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
   {
     try
     {
-      _dbContainer = new MsSqlBuilder()
-        .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
+      _dbContainer = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2022-latest")
         .WithPassword("Your_password123!")
         .Build();
       await _dbContainer.StartAsync();
@@ -63,25 +62,17 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
       try
       {
-        if (_dbContainer != null)
-        {
-          // SQL Server via Testcontainers: apply migrations to create the schema
-          db.Database.Migrate();
-        }
-        else
-        {
-          // SQLite fallback: EnsureCreated is used because the migrations use SQL Server syntax
-          db.Database.EnsureCreated();
-        }
+        // Functional tests use EnsureCreated to avoid migration-script coupling.
+        db.Database.EnsureCreated();
 
         // Seed the database with test data only if it has not been seeded yet.
         // This is safe for container reuse across test runs and multiple fixture instances.
-        SeedData.InitializeAsync(db).Wait();
+        SeedData.InitializeAsync(db).GetAwaiter().GetResult();
       }
       catch (Exception ex)
       {
-        logger.LogError(ex, "An error occurred seeding the " +
-                            "database with test messages. Error: {exceptionMessage}", ex.Message);
+        logger.LogError(ex, "An error occurred seeding the database with test messages. Error: {exceptionMessage}", ex.Message);
+        throw;
       }
     }
 

@@ -22,4 +22,21 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
     testContributorStatus.ShouldBe(newContributor.Status);
     newContributor.Id.Value.ShouldBeGreaterThan(0);
   }
+
+  [Fact]
+  public async Task AddsTwoContributorsWithDistinctDbGeneratedIds()
+  {
+    var repository = GetRepository();
+    var first = new Contributor(ContributorName.From("first"));
+    var second = new Contributor(ContributorName.From("second"));
+
+    await repository.AddAsync(first);
+    await repository.AddAsync(second);
+
+    var all = await repository.ListAsync();
+    all.Count.ShouldBe(2);
+    all[0].Id.Value.ShouldBeGreaterThan(0);
+    all[1].Id.Value.ShouldBeGreaterThan(0);
+    all[0].Id.ShouldNotBe(all[1].Id);
+  }
 }

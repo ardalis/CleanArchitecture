@@ -1,6 +1,11 @@
 name: Publish Templates to NuGet
 
+# Publish on release, tags, or manual trigger only
+# Does NOT run on regular branch pushes (requires NUGET_USER secret)
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       publish-full:
@@ -13,28 +18,29 @@ on:
         required: true
         type: boolean
         default: false
-  push:
-    tags:
-      - 'v*'
   release:
     types: [published]
 
 env:
   DOTNET_VERSION: '10.0.x'
+  DOTNET_QUALITY: 'ga'
   PACK_OUTPUT: artifacts/packages
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
+    steps:
+      # v6 uses Node.js 24 (v5 uses deprecated Node.js 20)
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # v5 uses Node.js 24
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: Build Full Template Solution
         run: dotnet build ./Clean.Architecture.slnx -c Release
@@ -67,10 +73,11 @@ jobs:
   package:
     needs: build-and-test
     runs-on: ubuntu-latest
-    
+
     steps:
+      # v6 uses Node.js 24 (v5 uses deprecated Node.js 20)
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
@@ -91,8 +98,10 @@ jobs:
         if: ${{ github.event_name == 'release' || github.event.inputs.publish-minimal == 'true' }}
         run: nuget pack MinimalClean.nuspec -OutputDirectory ${{ env.PACK_OUTPUT }} -NoDefaultExcludes
 
+      # v5 uses Node.js 24 (v4 uses deprecated Node.js 20)
       - name: Upload packages as artifacts
-        uses: actions/upload-artifact@v4
+        if: ${{ github.event_name == 'release' || github.event.inputs.publish-full == 'true' || github.event.inputs.publish-minimal == 'true' }}
+        uses: actions/upload-artifact@v5
         with:
           name: nuget-packages
           path: ${{ env.PACK_OUTPUT }}/*.nupkg
@@ -100,22 +109,24 @@ jobs:
   publish:
     needs: package
     runs-on: ubuntu-latest
-    #if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    if: ${{ github.event_name == 'release' || github.event.inputs.publish-full == 'true' || github.event.inputs.publish-minimal == 'true' }}
     permissions:
       contents: read
       id-token: write
     
     steps:
+      # v5 uses Node.js 24 (v4 uses deprecated Node.js 20)
       - name: Download packages
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: nuget-packages
           path: ${{ env.PACK_OUTPUT }}
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: ${{ env.DOTNET_QUALITY }}
 
       - name: NuGet login (OIDC)
         uses: NuGet/login@v1

@@ -9,7 +9,6 @@ public class ToDoItemMarkComplete
   {
     var item = new ToDoItemBuilder()
         .WithDefaultValues()
-        .Description("")
         .Build();
 
     item.MarkComplete();

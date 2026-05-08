@@ -11,8 +11,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
     var repository = GetRepository();
     var project = new Project(testProjectName);
 
-    var item = new ToDoItem();
-    item.UpdateTitle(ToDoItemTitle.From("test item title"));
+    var item = new ToDoItem(ToDoItemTitle.From("test item title"), ToDoItemDescription.From("test description"));
     project.AddItem(item);
 
     await repository.AddAsync(project);

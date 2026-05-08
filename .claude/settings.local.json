@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git check-ignore *)",
+      "Bash(git worktree *)",
+      "Bash(dotnet ef *)",
+      "Bash(git stash *)",
+      "Bash(dotnet outdated *)"
+    ]
+  }
+}
