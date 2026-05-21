@@ -10,11 +10,10 @@ public class SmtpServerFixture : IAsyncLifetime
 
   private IContainer? _container;
 
-  public async Task InitializeAsync()
+  public async ValueTask InitializeAsync()
   {
-    _container = new ContainerBuilder()
+    _container = new ContainerBuilder(SmtpServerImageName)
         .WithName(Guid.NewGuid().ToString("D"))
-        .WithImage(SmtpServerImageName)
         .WithPortBinding(SmtpServerListenPort, SmtpServerListenPort)
         .WithWaitStrategy(
           Wait
@@ -25,7 +24,7 @@ public class SmtpServerFixture : IAsyncLifetime
     await _container.StartAsync().ConfigureAwait(false);
   }
 
-  public async Task DisposeAsync()
+  public async ValueTask DisposeAsync()
   {
     if (_container != null)
     {

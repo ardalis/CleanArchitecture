@@ -26,6 +26,7 @@ public class ProjectItemMarkComplete :
   [Fact]
   public async Task MarksIncompleteItemComplete()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     // TODO: Arrange to use a fake mail server for this test
     var projectId = 1;
     var itemId = 1;
@@ -33,10 +34,10 @@ public class ProjectItemMarkComplete :
     var jsonContent = new StringContent(JsonConvert.SerializeObject(null), Encoding.UTF8, "application/json");
 
     var route = MarkItemCompleteRequest.BuildRoute(projectId, itemId);
-    var response = await _client.PostAsync(route, jsonContent);
+    var response = await _client.PostAsync(route, jsonContent, cancellationToken);
     response.EnsureSuccessStatusCode();
 
-    var stringResponse = await response.Content.ReadAsStringAsync();
+    var stringResponse = await response.Content.ReadAsStringAsync(cancellationToken);
     stringResponse.ShouldBeEmpty();
 
     // confirm item is complete

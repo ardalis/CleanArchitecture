@@ -7,18 +7,19 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
   [Fact]
   public async Task UpdatesItemAfterAddingIt()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     // add a project
     var repository = GetRepository();
     var initialName = Guid.NewGuid().ToString();
     var project = new Project(ProjectName.From(initialName));
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(project, cancellationToken);
 
     // detach the item so we get a different instance
     _dbContext.Entry(project).State = EntityState.Detached;
 
     // fetch the item and update its title
-    var newProject = (await repository.ListAsync())
+    var newProject = (await repository.ListAsync(cancellationToken))
         .FirstOrDefault(project => project.Name == initialName);
     if (newProject == null)
     {
@@ -30,10 +31,10 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     newProject.UpdateName(ProjectName.From(newName));
 
     // Update the item
-    await repository.UpdateAsync(newProject);
+    await repository.UpdateAsync(newProject, cancellationToken);
 
     // Fetch the updated item
-    var updatedItem = (await repository.ListAsync())
+    var updatedItem = (await repository.ListAsync(cancellationToken))
         .FirstOrDefault(project => project.Name == newName);
 
     Assert.NotNull(updatedItem);

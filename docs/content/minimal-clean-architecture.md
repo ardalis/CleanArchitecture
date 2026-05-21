@@ -1,3 +1,8 @@
+---
+title: "Minimal Clean Architecture"
+weight: 30
+---
+
 # Minimal Clean Architecture
 
 ## Overview

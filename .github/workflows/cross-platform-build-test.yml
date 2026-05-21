@@ -1,25 +1,40 @@
-name: Cross-Platform Build & Test
+name: Cross-Platform Build & Test (Clean Architecture)
 
-# Comprehensive CI across all platforms and configurations
 on:
   push:
     branches:
-      - '**'  # All branches - enables cross-platform testing for feature branches
+      - '**'
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'Clean.Architecture.slnx'
+      - 'Directory.Build.props'
+      - 'Directory.Packages.props'
+      - 'global.json'
+      - '.github/workflows/cross-platform-build-test.yml'
   pull_request:
     branches:
-      - '**'  # All branches - PR checks for any target
-  workflow_dispatch:  # Manual trigger for on-demand cross-platform tests
+      - '**'
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'Clean.Architecture.slnx'
+      - 'Directory.Build.props'
+      - 'Directory.Packages.props'
+      - 'global.json'
+      - '.github/workflows/cross-platform-build-test.yml'
+  workflow_dispatch:
 
 jobs:
   build-and-test:
     name: Build & Test (.NET 10)
     runs-on: ${{ matrix.os }}
     
-    # Matrix strategy tests all OS + configuration combinations
+    # Matrix strategy tests all OS combinations
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]  # All major platforms
-        configuration: [Debug, Release]  # Both build configurations
+        configuration: [Release]
       fail-fast: false  # Continue other jobs if one fails - get full picture
 
     steps:

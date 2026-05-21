@@ -5,8 +5,8 @@ namespace Clean.Architecture.Infrastructure.Data;
 public static class SeedData
 {
   public const int NUMBER_OF_CONTRIBUTORS = 27; // including the 2 below
-  public static readonly Contributor Contributor1 = new(ContributorName.From("Ardalis"));
-  public static readonly Contributor Contributor2 = new(ContributorName.From("Ilyana"));
+  public static readonly ContributorName Contributor1Name = ContributorName.From("Ardalis");
+  public static readonly ContributorName Contributor2Name = ContributorName.From("Ilyana");
 
   public static async Task InitializeAsync(AppDbContext dbContext)
   {
@@ -17,14 +17,14 @@ public static class SeedData
 
   public static async Task PopulateTestDataAsync(AppDbContext dbContext)
   {
-    dbContext.Contributors.AddRange([Contributor1, Contributor2]);
-    await dbContext.SaveChangesAsync();
+    // Use SQL inserts to avoid key generation/conversion issues with value object IDs.
+    await dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({Contributor1Name.Value}, {ContributorStatus.NotSet.Value})");
+    await dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({Contributor2Name.Value}, {ContributorStatus.NotSet.Value})");
 
-    // add a bunch more contributors to support demonstrating paging
-    for (int i = 1; i <= NUMBER_OF_CONTRIBUTORS-2; i++)
+    // Add a bunch more contributors to support demonstrating paging.
+    for (int i = 1; i <= NUMBER_OF_CONTRIBUTORS - 2; i++)
     {
-      dbContext.Contributors.Add(new Contributor(ContributorName.From($"Contributor {i}")));
+      await dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({$"Contributor {i}"}, {ContributorStatus.NotSet.Value})");
     }
-    await dbContext.SaveChangesAsync();
   }
 }

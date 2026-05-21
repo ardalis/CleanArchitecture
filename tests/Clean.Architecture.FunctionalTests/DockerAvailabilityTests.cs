@@ -7,12 +7,13 @@ public class DockerAvailabilityTests
   [Fact]
   public async Task Docker_ShouldBeRunning_ForFullFunctionalTestCoverage()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     try
     {
       // Ping the Docker daemon directly using the Docker client.
       // This has no side effects on container lifecycle or Testcontainers internals.
       using var client = new DockerClientConfiguration().CreateClient();
-      await client.System.PingAsync();
+      await client.System.PingAsync(cancellationToken);
     }
     catch (Exception)
     {

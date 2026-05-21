@@ -113,6 +113,7 @@ public class ProjectAddToDoItem : TestBase
   [Fact]
   public async Task AddsItemWithValidContributor()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     // Arrange
     var uniqueId = Guid.NewGuid().ToString();
     var toDoTitle = $"WithContributor-{uniqueId}";
@@ -126,7 +127,7 @@ public class ProjectAddToDoItem : TestBase
 
     // Act
     var result = await _client.PostAsync(
-      CreateToDoItemRequest.BuildRoute(request.ProjectId), content);
+      CreateToDoItemRequest.BuildRoute(request.ProjectId), content, cancellationToken);
 
     // Assert
     result.EnsureSuccessStatusCode();
@@ -285,6 +286,7 @@ public class ProjectAddToDoItem : TestBase
   [Fact]
   public async Task ReturnsCorrectStatusCodeAndContentType()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     // Arrange
     var request = CreateToDoItemRequestBuilder.Create()
       .WithValidDefaults()
@@ -294,7 +296,7 @@ public class ProjectAddToDoItem : TestBase
 
     // Act
     var result = await _client.PostAsync(
-      CreateToDoItemRequest.BuildRoute(request.ProjectId), content);
+      CreateToDoItemRequest.BuildRoute(request.ProjectId), content, cancellationToken);
 
     // Assert
     result.StatusCode.ShouldBe(System.Net.HttpStatusCode.Created);
@@ -308,6 +310,7 @@ public class ProjectAddToDoItem : TestBase
   [Fact]
   public async Task DoesNotReturnResponseBodyOnSuccess()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     // Arrange
     var request = CreateToDoItemRequestBuilder.Create()
       .WithValidDefaults()
@@ -317,14 +320,14 @@ public class ProjectAddToDoItem : TestBase
 
     // Act
     var result = await _client.PostAsync(
-      CreateToDoItemRequest.BuildRoute(request.ProjectId), content);
+      CreateToDoItemRequest.BuildRoute(request.ProjectId), content, cancellationToken);
 
     // Assert
     result.EnsureSuccessStatusCode();
     
     // According to REST conventions, POST should return 201 Created with Location header
     // but no response body for this endpoint
-    var responseContent = await result.Content.ReadAsStringAsync();
+    var responseContent = await result.Content.ReadAsStringAsync(cancellationToken);
     responseContent.ShouldBeNullOrEmpty();
   }
 

@@ -7,6 +7,7 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
   [Fact]
   public async Task AddsProjectAndSetsId()
   {
+    var cancellationToken = TestContext.Current.CancellationToken;
     var testProjectName = ProjectName.From("testProject");
     var repository = GetRepository();
     var project = new Project(testProjectName);
@@ -14,9 +15,9 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
     var item = new ToDoItem(ToDoItemTitle.From("test item title"), ToDoItemDescription.From("test description"));
     project.AddItem(item);
 
-    await repository.AddAsync(project);
+    await repository.AddAsync(project, cancellationToken);
 
-    var newProject = (await repository.ListAsync())
+    var newProject = (await repository.ListAsync(cancellationToken))
                     .FirstOrDefault();
 
     Assert.Equal(testProjectName, newProject?.Name);

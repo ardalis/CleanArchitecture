@@ -18,13 +18,13 @@ public abstract class TestBase : IClassFixture<CustomWebApplicationFactory<Progr
     _client = factory.CreateClient();
   }
 
-  public virtual Task InitializeAsync()
+  public virtual ValueTask InitializeAsync()
   {
     // Override in derived classes if needed for test-specific setup
-    return Task.CompletedTask;
+    return ValueTask.CompletedTask;
   }
 
-  public virtual async Task DisposeAsync()
+  public virtual async ValueTask DisposeAsync()
   {
     // Reset database to clean seed state after each test
     await ResetDatabaseAsync();

@@ -1,3 +1,8 @@
+---
+title: "ADR 001: Replace Autofac with .NET DI"
+weight: 10
+---
+
 # ADR 001: Replace Autofac with .NET Core Dependency Injection
 
 ## Status
