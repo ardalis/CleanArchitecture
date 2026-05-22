@@ -1,0 +1,175 @@
+name: Bug Reproduction Video
+
+on:
+  pull_request:
+    types:
+      - labeled
+
+permissions:
+  contents: read
+  issues: write
+  actions: read
+
+env:
+  DOTNET_VERSION: 10.0.x
+
+  # Set one or both.
+  SOLUTION_FILE: Ardalis.CleanArchitecture.slnx
+  PROJECT_FILE: src/Clean.Architecture.Web/Clean.Architecture.Web.csproj
+
+  APP_URL: http://127.0.0.1:5010
+  APP_STARTUP_COMMAND: dotnet run --project src/DevBetterWeb.Web/DevBetterWeb.Web.csproj --no-build --launch-profile "DevBetterWeb.Web - DEV"
+
+jobs:
+  reproduce-bug:
+    if: github.event.label.name == 'bug'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: repro-bug-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+
+    env:
+      ISSUE_TITLE: ${{ github.event.pull_request.title }}
+      ISSUE_BODY: ${{ github.event.pull_request.body }}
+      ISSUE_NUMBER: ${{ github.event.pull_request.number }}
+      ISSUE_URL: ${{ github.event.pull_request.html_url }}
+      REPO_NAME: ${{ github.repository }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Initialize Playwright project
+        run: |
+          npm init -y
+          npm install @playwright/test wait-on
+          npx playwright install --with-deps
+
+      - name: Restore .NET dependencies
+        run: |
+          if [ -n "${SOLUTION_FILE}" ] && [ -f "${SOLUTION_FILE}" ]; then
+            dotnet restore "${SOLUTION_FILE}"
+          elif [ -n "${PROJECT_FILE}" ] && [ -f "${PROJECT_FILE}" ]; then
+            dotnet restore "${PROJECT_FILE}"
+          else
+            dotnet restore
+          fi
+
+      - name: Build application
+        run: |
+          if [ -n "${SOLUTION_FILE}" ] && [ -f "${SOLUTION_FILE}" ]; then
+            dotnet build "${SOLUTION_FILE}" --no-restore
+          elif [ -n "${PROJECT_FILE}" ] && [ -f "${PROJECT_FILE}" ]; then
+            dotnet build "${PROJECT_FILE}" --no-restore
+          else
+            dotnet build --no-restore
+          fi
+
+      - name: Start application
+        run: |
+          ${APP_STARTUP_COMMAND} > app.log 2>&1 &
+          echo $! > app.pid
+
+      - name: Wait for application startup
+        run: |
+          npx wait-on "${APP_URL}" --timeout 120000
+
+      - name: Generate reproduction script
+        run: |
+          mkdir -p tests
+
+          cat << 'EOF' > tests/repro.spec.js
+          const { test } = require('@playwright/test');
+
+          test.use({
+            video: 'on',
+            trace: 'on',
+            screenshot: 'only-on-failure'
+          });
+
+          test('attempt reproduction from github pull request', async ({ page }) => {
+            await page.goto(process.env.APP_URL, {
+              waitUntil: 'networkidle'
+            });
+
+            await page.waitForTimeout(5000);
+
+            console.log('Issue Title:');
+            console.log(process.env.ISSUE_TITLE);
+
+            console.log('Issue Body:');
+            console.log(process.env.ISSUE_BODY);
+          });
+          EOF
+
+      - name: Run Playwright reproduction
+        run: |
+          npx playwright test --reporter=list
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repro-artifacts-pr-${{ github.event.pull_request.number }}
+          path: |
+            app.log
+            test-results
+            playwright-report
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Comment on PR with artifact link
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl =
+              `https://github.com/${context.repo.owner}/${context.repo.repo}` +
+              `/actions/runs/${context.runId}`;
+
+            const body = `
+            🤖 Automated reproduction attempt completed.
+
+            ## Pull Request
+            #${process.env.ISSUE_NUMBER}
+
+            ## Configuration
+            - Solution: \`${process.env.SOLUTION_FILE || '(not set)'}\`
+            - Project: \`${process.env.PROJECT_FILE || '(not set)'}\`
+            - App URL: \`${process.env.APP_URL}\`
+
+            ## Artifacts
+            - 🎥 Playwright video
+            - 📷 Screenshots
+            - 🧭 Trace files
+            - 📄 Console output
+
+            Download artifacts from the workflow run:
+
+            ${runUrl}
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body
+            });
+
+      - name: Cleanup app
+        if: always()
+        run: |
+          if [ -f app.pid ]; then
+            kill $(cat app.pid) || true
+          fi
