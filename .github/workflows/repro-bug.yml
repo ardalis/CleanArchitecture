@@ -14,7 +14,7 @@ env:
   DOTNET_VERSION: 10.0.x
 
   # Set one or both.
-  SOLUTION_FILE: Ardalis.CleanArchitecture.slnx
+  SOLUTION_FILE: Clean.Architecture.slnx
   PROJECT_FILE: src/Clean.Architecture.Web/Clean.Architecture.Web.csproj
 
   APP_URL: http://127.0.0.1:5010
