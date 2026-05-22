@@ -1,6 +1,9 @@
 name: Bug Reproduction Video
 
 on:
+  issues:
+    types:
+      - labeled
   pull_request:
     types:
       - labeled
