@@ -27,35 +27,56 @@ permissions:
   actions: read
   pull-requests: read
 
+defaults:
+  run:
+    shell: bash
+
 env:
   DOTNET_VERSION: 10.0.x
+  DOTNET_CONFIGURATION: Release
 
   # Set one or both.
   SOLUTION_FILE: Clean.Architecture.slnx
   PROJECT_FILE: src/Clean.Architecture.Web/Clean.Architecture.Web.csproj
 
   APP_URL: http://127.0.0.1:5010
-  APP_STARTUP_COMMAND: dotnet run --project src/DevBetterWeb.Web/DevBetterWeb.Web.csproj --no-build --launch-profile "DevBetterWeb.Web - DEV"
+  APP_HEALTH_PATH: /health
+  APP_STARTUP_COMMAND: dotnet run --project src/Clean.Architecture.Web/Clean.Architecture.Web.csproj --configuration Release --no-build --no-launch-profile
 
 jobs:
   reproduce-bug:
+    # Only run on:
+    #  - workflow_dispatch (maintainer-initiated), OR
+    #  - pull_request labeled 'bug' from a branch in THIS repo (never a fork —
+    #    we build & run PR code, so external PRs would be a code-execution risk).
     if: >
-      (github.event_name == 'pull_request' && github.event.label.name == 'bug') ||
-      github.event_name == 'workflow_dispatch'
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' &&
+        github.event.label.name == 'bug' &&
+        github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
-      group: repro-bug-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.inputs.issue_number || github.run_id }}
+      group: repro-bug-${{ github.event.pull_request.number || github.event.inputs.issue_number }}
       cancel-in-progress: true
 
     steps:
       - name: Resolve target context
         id: target
-        uses: actions/github-script@v7
+        # Pinned to v7.0.1 commit SHA for supply-chain safety.
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
           script: |
             const isDispatch = context.eventName === 'workflow_dispatch';
             const inputs = context.payload.inputs || {};
+
+            // Truncate untrusted text so it can't blow past env-var size limits
+            // or overwhelm downstream consumers.
+            const MAX_LEN = 8000;
+            const truncate = (s) => {
+              const v = (s || '').toString();
+              return v.length > MAX_LEN ? v.slice(0, MAX_LEN) + '\n…[truncated]' : v;
+            };
 
             let issueNumber;
             let issueTitle;
@@ -91,6 +112,12 @@ jobs:
                   repo: context.repo.repo,
                   pull_number: issueNumber
                 });
+                // Refuse to build code from a fork via dispatch as well.
+                const expected = `${context.repo.owner}/${context.repo.repo}`;
+                if (prResponse.data.head.repo.full_name !== expected) {
+                  core.setFailed(`PR #${issueNumber} is from a fork; refusing to check out and build untrusted code.`);
+                  return;
+                }
                 checkoutRef = prResponse.data.head.sha;
               } else {
                 checkoutRef = inputs.target_ref || 'main';
@@ -117,36 +144,53 @@ jobs:
             }
 
             core.exportVariable('ISSUE_NUMBER', String(issueNumber));
-            core.exportVariable('ISSUE_TITLE', issueTitle);
-            core.exportVariable('ISSUE_BODY', issueBody);
+            core.exportVariable('ISSUE_TITLE', truncate(issueTitle));
+            core.exportVariable('ISSUE_BODY', truncate(issueBody));
             core.exportVariable('ISSUE_URL', issueUrl);
             core.exportVariable('REPO_NAME', context.repo.owner + '/' + context.repo.repo);
             core.setOutput('checkout_ref', checkoutRef);
             core.setOutput('issue_number', String(issueNumber));
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: ${{ steps.target.outputs.checkout_ref }}
+          # Don't leave the GITHUB_TOKEN in .git/config — we only need to read.
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
         with:
           node-version: 22
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-v1
+
       - name: Initialize Playwright project
+        timeout-minutes: 5
         run: |
-          npm init -y
-          npm install @playwright/test wait-on
-          npx playwright install --with-deps
+          set -euo pipefail
+          npm init -y >/dev/null
+          npm install --no-fund --no-audit @playwright/test wait-on
+          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" = "true" ]; then
+            npx playwright install-deps
+          else
+            npx playwright install --with-deps
+          fi
 
       - name: Restore .NET dependencies
+        timeout-minutes: 10
         run: |
+          set -euo pipefail
           if [ -n "${SOLUTION_FILE}" ] && [ -f "${SOLUTION_FILE}" ]; then
             dotnet restore "${SOLUTION_FILE}"
           elif [ -n "${PROJECT_FILE}" ] && [ -f "${PROJECT_FILE}" ]; then
@@ -156,28 +200,56 @@ jobs:
           fi
 
       - name: Build application
+        timeout-minutes: 15
         run: |
+          set -euo pipefail
           if [ -n "${SOLUTION_FILE}" ] && [ -f "${SOLUTION_FILE}" ]; then
-            dotnet build "${SOLUTION_FILE}" --no-restore
+            dotnet build "${SOLUTION_FILE}" --configuration "${DOTNET_CONFIGURATION}" --no-restore
           elif [ -n "${PROJECT_FILE}" ] && [ -f "${PROJECT_FILE}" ]; then
-            dotnet build "${PROJECT_FILE}" --no-restore
+            dotnet build "${PROJECT_FILE}" --configuration "${DOTNET_CONFIGURATION}" --no-restore
           else
-            dotnet build --no-restore
+            dotnet build --configuration "${DOTNET_CONFIGURATION}" --no-restore
           fi
 
       - name: Start application
         run: |
-          ${APP_STARTUP_COMMAND} > app.log 2>&1 &
+          set -euo pipefail
+          export ASPNETCORE_URLS="${APP_URL}"
+          export ASPNETCORE_ENVIRONMENT="Development"
+          # setsid puts the app in its own process group so cleanup can kill
+          # the whole tree (dotnet often spawns child processes).
+          setsid bash -c "${APP_STARTUP_COMMAND} > app.log 2>&1" &
           echo $! > app.pid
+          echo "Started app with PGID $(cat app.pid)"
 
       - name: Wait for application startup
+        timeout-minutes: 3
         run: |
-          npx wait-on "${APP_URL}" --timeout 120000
+          set -uo pipefail
+          # Prefer a real health endpoint over a bare HTTP check; wait-on with
+          # http-get:// considers only 2xx as ready.
+          TARGET="http-get://127.0.0.1:5010${APP_HEALTH_PATH}"
+          if ! npx wait-on "${TARGET}" --timeout 120000 --interval 1000; then
+            echo "::warning::Health endpoint not ready at ${TARGET}; falling back to base URL."
+            if ! npx wait-on "http-get://127.0.0.1:5010/" --timeout 30000 --interval 1000; then
+              echo "::error::Application failed to become ready."
+              if [ -f app.pid ]; then
+                echo "Process status:"
+                ps -p "$(cat app.pid)" -f || true
+              fi
+              echo "Last 200 lines of app.log:"
+              tail -n 200 app.log || true
+              exit 1
+            fi
+          fi
 
       - name: Generate reproduction script
         run: |
+          set -euo pipefail
           mkdir -p tests
 
+          # NOTE: ISSUE_TITLE / ISSUE_BODY are UNTRUSTED user input.
+          # Only log them — never pass them to page.goto(), eval(), or shell.
           cat << 'EOF' > tests/repro.spec.js
           const { test } = require('@playwright/test');
 
@@ -203,12 +275,12 @@ jobs:
           EOF
 
       - name: Run Playwright reproduction
-        run: |
-          npx playwright test --reporter=list
+        timeout-minutes: 10
+        run: npx playwright test --reporter=list
 
       - name: Upload Playwright artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: repro-artifacts-${{ steps.target.outputs.issue_number }}
           path: |
@@ -219,35 +291,35 @@ jobs:
           retention-days: 14
 
       - name: Comment on issue or PR with artifact link
-        if: always()
-        uses: actions/github-script@v7
+        if: always() && env.ISSUE_NUMBER != ''
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const runUrl =
               `https://github.com/${context.repo.owner}/${context.repo.repo}` +
               `/actions/runs/${context.runId}`;
 
-            const body = `
-            🤖 Automated reproduction attempt completed.
-
-            ## Target
-            #${process.env.ISSUE_NUMBER}
-
-            ## Configuration
-            - Solution: \`${process.env.SOLUTION_FILE || '(not set)'}\`
-            - Project: \`${process.env.PROJECT_FILE || '(not set)'}\`
-            - App URL: \`${process.env.APP_URL}\`
-
-            ## Artifacts
-            - 🎥 Playwright video
-            - 📷 Screenshots
-            - 🧭 Trace files
-            - 📄 Console output
-
-            Download artifacts from the workflow run:
-
-            ${runUrl}
-            `;
+            const body = [
+              '🤖 Automated reproduction attempt completed.',
+              '',
+              '## Target',
+              `#${process.env.ISSUE_NUMBER}`,
+              '',
+              '## Configuration',
+              `- Solution: \`${process.env.SOLUTION_FILE || '(not set)'}\``,
+              `- Project: \`${process.env.PROJECT_FILE || '(not set)'}\``,
+              `- App URL: \`${process.env.APP_URL}\``,
+              '',
+              '## Artifacts',
+              '- 🎥 Playwright video',
+              '- 📷 Screenshots',
+              '- 🧭 Trace files',
+              '- 📄 Console output',
+              '',
+              'Download artifacts from the workflow run:',
+              '',
+              runUrl
+            ].join('\n');
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -260,5 +332,9 @@ jobs:
         if: always()
         run: |
           if [ -f app.pid ]; then
-            kill $(cat app.pid) || true
+            PGID="$(cat app.pid)"
+            # Kill the entire process group started via setsid.
+            kill -TERM -"${PGID}" 2>/dev/null || true
+            sleep 2
+            kill -KILL -"${PGID}" 2>/dev/null || true
           fi
