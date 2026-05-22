@@ -1,17 +1,31 @@
 name: Bug Reproduction Video
 
 on:
-  issues:
-    types:
-      - labeled
   pull_request:
     types:
       - labeled
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue or PR number to reproduce against
+        required: true
+        type: number
+      require_bug_label:
+        description: Fail run if target does not have bug label
+        required: true
+        default: true
+        type: boolean
+      target_ref:
+        description: Git ref to checkout when issue_number is not a PR
+        required: false
+        default: main
+        type: string
 
 permissions:
   contents: read
   issues: write
   actions: read
+  pull-requests: read
 
 env:
   DOTNET_VERSION: 10.0.x
@@ -25,23 +39,95 @@ env:
 
 jobs:
   reproduce-bug:
-    if: github.event.label.name == 'bug'
+    if: >
+      (github.event_name == 'pull_request' && github.event.label.name == 'bug') ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
-      group: repro-bug-pr-${{ github.event.pull_request.number }}
+      group: repro-bug-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.inputs.issue_number || github.run_id }}
       cancel-in-progress: true
 
-    env:
-      ISSUE_TITLE: ${{ github.event.pull_request.title }}
-      ISSUE_BODY: ${{ github.event.pull_request.body }}
-      ISSUE_NUMBER: ${{ github.event.pull_request.number }}
-      ISSUE_URL: ${{ github.event.pull_request.html_url }}
-      REPO_NAME: ${{ github.repository }}
-
     steps:
+      - name: Resolve target context
+        id: target
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const isDispatch = context.eventName === 'workflow_dispatch';
+            const inputs = context.payload.inputs || {};
+
+            let issueNumber;
+            let issueTitle;
+            let issueBody;
+            let issueUrl;
+            let checkoutRef = context.ref;
+            let labels = [];
+
+            if (isDispatch) {
+              issueNumber = Number(inputs.issue_number);
+              if (!Number.isFinite(issueNumber) || issueNumber <= 0) {
+                core.setFailed('workflow_dispatch requires a valid issue_number input.');
+                return;
+              }
+
+              const issueResponse = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber
+              });
+
+              const issue = issueResponse.data;
+              issueTitle = issue.title || '';
+              issueBody = issue.body || '';
+              issueUrl = issue.html_url;
+              labels = (issue.labels || [])
+                .map((label) => typeof label === 'string' ? label : label.name)
+                .filter(Boolean);
+
+              if (issue.pull_request) {
+                const prResponse = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: issueNumber
+                });
+                checkoutRef = prResponse.data.head.sha;
+              } else {
+                checkoutRef = inputs.target_ref || 'main';
+              }
+
+              const requireBugLabel = String(inputs.require_bug_label).toLowerCase() === 'true';
+              if (requireBugLabel && !labels.includes('bug')) {
+                core.setFailed(`Issue/PR #${issueNumber} is missing bug label.`);
+                return;
+              }
+            } else {
+              const pr = context.payload.pull_request;
+              issueNumber = pr.number;
+              issueTitle = pr.title || '';
+              issueBody = pr.body || '';
+              issueUrl = pr.html_url;
+              checkoutRef = pr.head.sha;
+              labels = (pr.labels || []).map((label) => label.name).filter(Boolean);
+
+              if (!labels.includes('bug')) {
+                core.setFailed(`PR #${issueNumber} is missing bug label.`);
+                return;
+              }
+            }
+
+            core.exportVariable('ISSUE_NUMBER', String(issueNumber));
+            core.exportVariable('ISSUE_TITLE', issueTitle);
+            core.exportVariable('ISSUE_BODY', issueBody);
+            core.exportVariable('ISSUE_URL', issueUrl);
+            core.exportVariable('REPO_NAME', context.repo.owner + '/' + context.repo.repo);
+            core.setOutput('checkout_ref', checkoutRef);
+            core.setOutput('issue_number', String(issueNumber));
+
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.target.outputs.checkout_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -124,7 +210,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: repro-artifacts-pr-${{ github.event.pull_request.number }}
+          name: repro-artifacts-${{ steps.target.outputs.issue_number }}
           path: |
             app.log
             test-results
@@ -132,7 +218,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Comment on PR with artifact link
+      - name: Comment on issue or PR with artifact link
         if: always()
         uses: actions/github-script@v7
         with:
@@ -144,7 +230,7 @@ jobs:
             const body = `
             🤖 Automated reproduction attempt completed.
 
-            ## Pull Request
+            ## Target
             #${process.env.ISSUE_NUMBER}
 
             ## Configuration
@@ -166,7 +252,7 @@ jobs:
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
+              issue_number: Number(process.env.ISSUE_NUMBER),
               body
             });
 
