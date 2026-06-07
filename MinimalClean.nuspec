@@ -28,6 +28,7 @@
   <files>
     <file src="MinimalClean\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.vs\**;**\.vscode\**;**\*.user" />
     <file src="README.md" />
+    <file src="nuget.config" />
     <file src="icon.png" target="content" />
   </files>
 </package>
