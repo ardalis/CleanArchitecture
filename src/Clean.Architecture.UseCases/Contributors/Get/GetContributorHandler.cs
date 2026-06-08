@@ -1,5 +1,6 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.ContributorAggregate.Specifications;
+using Clean.Architecture.UseCases.Contributors.GetContributor;
 
 namespace Clean.Architecture.UseCases.Contributors.Get;
 
