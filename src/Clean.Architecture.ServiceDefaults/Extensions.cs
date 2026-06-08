@@ -33,12 +33,13 @@ public static class Extensions
       // Turn on service discovery by default
       http.AddServiceDiscovery();
     });
-
+#pragma warning disable S125 // This template intentionally contains commented sample configuration.
     // Uncomment the following to restrict the allowed schemes for service discovery.
     // builder.Services.Configure<ServiceDiscoveryOptions>(options =>
     // {
     //     options.AllowedSchemes = ["https"];
     // });
+#pragma warning restore S125
 
     return builder;
   }
@@ -85,13 +86,14 @@ public static class Extensions
     {
       builder.Services.AddOpenTelemetry().UseOtlpExporter();
     }
-
+#pragma warning disable S125   //this is there on purpose to show how to conditionally add exporters based on configuration, and to avoid confusion about the presence of multiple exporters in this template.
     // Uncomment the following lines to enable the Azure Monitor exporter (requires the Azure.Monitor.OpenTelemetry.AspNetCore package)
     //if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
     //{
     //    builder.Services.AddOpenTelemetry()
     //       .UseAzureMonitor();
     //}
+#pragma warning  restore
 
     return builder;
   }
