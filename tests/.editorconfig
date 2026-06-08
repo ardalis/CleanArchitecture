@@ -145,7 +145,7 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 
 dotnet_diagnostic.CA1707.severity = none
-otnet_diagnostic.CA1404.severity = none
+
 
 ###############################
 # VB Coding Conventions       #
