@@ -14,7 +14,7 @@ public static class MiddlewareConfig
       app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
     }
     else
-    {   
+    {
       app.UseDefaultExceptionHandler(); // from FastEndpoints
       app.UseHsts();
     }
@@ -32,7 +32,7 @@ public static class MiddlewareConfig
         settings.Path = "/swagger";
         settings.DocumentPath = "/openapi/{documentName}.json";
       });
-  
+
       app.MapScalarApiReference(options =>
       {
         options.WithTitle("Clean Architecture API");
@@ -43,9 +43,9 @@ public static class MiddlewareConfig
     app.UseHttpsRedirection(); // Note this will drop Authorization headers
 
     // Run migrations and seed in Development or when explicitly requested via environment variable
-    var shouldMigrate = app.Environment.IsDevelopment() || 
+    var shouldMigrate = app.Environment.IsDevelopment() ||
                         app.Configuration.GetValue<bool>("Database:ApplyMigrationsOnStartup");
-    
+
     if (shouldMigrate)
     {
       await MigrateDatabaseAsync(app);
@@ -65,7 +65,7 @@ public static class MiddlewareConfig
     {
       logger.LogInformation("Applying database migrations...");
       var context = services.GetRequiredService<AppDbContext>();
-      
+
       // For SQLite, use EnsureCreated instead of migrations (common for dev/local scenarios)
       // For SQL Server, use migrations (production scenario)
       if (context.Database.IsSqlite())

@@ -49,9 +49,9 @@ public class Create(IMediator mediator)
   }
 
   public override async Task<Results<Created<CreateContributorResponse>, ValidationProblem, ProblemHttpResult>>
-    ExecuteAsync(CreateContributorRequest request, CancellationToken cancellationToken)
+    ExecuteAsync(CreateContributorRequest request, CancellationToken ct)
   {
-    var result = await _mediator.Send(new CreateContributorCommand(ContributorName.From(request.Name!), request.PhoneNumber));
+    var result = await _mediator.Send(new CreateContributorCommand(ContributorName.From(request.Name!), request.PhoneNumber), ct);
 
     return result.ToCreatedResult(
       id => $"/Contributors/{id}",

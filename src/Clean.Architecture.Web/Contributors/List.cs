@@ -46,12 +46,12 @@ public class List(IMediator mediator) : Endpoint<ListContributorsRequest, Contri
       .ProducesProblem(400));
   }
 
-  public override async Task HandleAsync(ListContributorsRequest request, CancellationToken cancellationToken)
+  public override async Task HandleAsync(ListContributorsRequest request, CancellationToken ct)
   {
-    var result = await _mediator.Send(new ListContributorsQuery(request.Page, request.PerPage));
+    var result = await _mediator.Send(new ListContributorsQuery(request.Page, request.PerPage), ct);
     if (!result.IsSuccess)
     {
-      await Send.ErrorsAsync(statusCode: 400, cancellationToken);
+      await Send.ErrorsAsync(statusCode: 400, ct);
       return;
     }
 
@@ -59,7 +59,7 @@ public class List(IMediator mediator) : Endpoint<ListContributorsRequest, Contri
     AddLinkHeader(pagedResult.Page, pagedResult.PerPage, pagedResult.TotalPages);
 
     var response = Map.FromEntity(pagedResult);
-    await Send.OkAsync(response, cancellationToken);
+    await Send.OkAsync(response, ct);
   }
 
   private void AddLinkHeader(int page, int perPage, int totalPages)
