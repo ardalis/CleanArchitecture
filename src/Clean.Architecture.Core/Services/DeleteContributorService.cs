@@ -5,9 +5,14 @@ using Clean.Architecture.Core.Interfaces;
 namespace Clean.Architecture.Core.Services;
 
 /// <summary>
-/// This is here mainly so there's an example of a domain service
+/// This service is here mainly so there's an example of a domain service
 /// and also to demonstrate how to fire domain events from a service.
 /// </summary>
+/// <remarks>
+/// The logging call intentionally uses a precompiled <see cref="LoggerMessage" /> delegate.
+/// This avoids analyzer warning CA1848 and demonstrates the recommended high-performance
+/// logging pattern without using <c>LoggerExtensions.LogInformation</c> directly.
+/// </remarks>
 /// <param name="repository">The repository used to load and delete contributors.</param>
 /// <param name="mediator">The mediator used to publish domain events.</param>
 /// <param name="logger">The logger used by the service.</param>
@@ -37,6 +42,7 @@ public class DeleteContributorService(
 
     var domainEvent = new ContributorDeletedEvent(contributorId);
     await _mediator.Publish(domainEvent);
+
     return Result.Success();
   }
 }
