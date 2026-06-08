@@ -3,9 +3,11 @@ using Clean.Architecture.Infrastructure.Data;
 
 namespace Clean.Architecture.IntegrationTests.Data;
 
-public abstract class BaseEfRepoTestFixture
+public abstract class BaseEfRepoTestFixture : IDisposable, IAsyncDisposable
 {
-  protected AppDbContext _dbContext;
+  private readonly AppDbContext _dbContext;
+
+  protected AppDbContext DbContext => _dbContext;
 
   protected BaseEfRepoTestFixture()
   {
@@ -39,5 +41,17 @@ public abstract class BaseEfRepoTestFixture
   protected EfRepository<Contributor> GetRepository()
   {
     return new EfRepository<Contributor>(_dbContext);
+  }
+
+  public void Dispose()
+  {
+    GC.SuppressFinalize(this);
+    _dbContext.Dispose();
+  }
+
+  public async ValueTask DisposeAsync()
+  {
+    GC.SuppressFinalize(this);
+    await _dbContext.DisposeAsync();
   }
 }

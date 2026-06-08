@@ -16,7 +16,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
     await repository.AddAsync(Contributor, cancellationToken);
 
     // detach the item so we get a different instance
-    _dbContext.Entry(Contributor).State = EntityState.Detached;
+    DbContext.Entry(Contributor).State = EntityState.Detached;
 
     // fetch the item and update its title
     var newContributor = (await repository.ListAsync(cancellationToken))
