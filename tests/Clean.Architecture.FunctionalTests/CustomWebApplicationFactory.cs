@@ -25,7 +25,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     }
   }
 
-  public new async ValueTask DisposeAsync()
+  public override async ValueTask DisposeAsync()
   {
     // Clean up environment variable
     Environment.SetEnvironmentVariable("USE_SQL_SERVER", null);
@@ -33,6 +33,9 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     {
       await _dbContainer.DisposeAsync();
     }
+
+    await base.DisposeAsync();
+    GC.SuppressFinalize(this);
   }
 
   /// <summary>
