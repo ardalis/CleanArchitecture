@@ -149,7 +149,9 @@ dotnet_diagnostic.CA1707.severity = none
 dotnet_diagnostic.CA1014.severity = none
 // CA1848: Use 'LoggerMessage.Define' instead of 'LoggerMessage.Define<T>' 
 // DO not force Logger Massages Delegates all everywhere 
-dotnet_diagnostic.CA1848.severity= suggestion
+dotnet_diagnostic.CA1848.severity= none
+# Avoid forcing LoggerMessage-style logging everywhere in this template/sample repository.
+dotnet_diagnostic.CA1873.severity = none
 
 ###############################
 # VB Coding Conventions       #

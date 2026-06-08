@@ -13,6 +13,7 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/src/">
+    <File Path=".editorconfig" />
     <Project Path="src/Clean.Architecture.Core/Clean.Architecture.Core.csproj" />
     <Project Path="src/Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj" />
     <Project Path="src/Clean.Architecture.UseCases/Clean.Architecture.UseCases.csproj" />
