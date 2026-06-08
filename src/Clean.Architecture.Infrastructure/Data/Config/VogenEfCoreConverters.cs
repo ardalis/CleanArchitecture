@@ -5,4 +5,4 @@ namespace Clean.Architecture.Infrastructure.Data.Config;
 
 [EfCoreConverter<ContributorId>]
 [EfCoreConverter<ContributorName>]
-internal partial class VogenEfCoreConverters;
+internal sealed partial class VogenEfCoreConverters;
