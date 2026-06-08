@@ -8,20 +8,27 @@ namespace Clean.Architecture.Core.Services;
 /// This is here mainly so there's an example of a domain service
 /// and also to demonstrate how to fire domain events from a service.
 /// </summary>
-/// <param name="_repository"></param>
-/// <param name="_mediator"></param>
-/// <param name="_logger"></param>
-public class DeleteContributorService(IRepository<Contributor> _repository,
-  IMediator _mediator,
-  ILogger<DeleteContributorService> _logger) : IDeleteContributorService
+/// <param name="repository">The repository used to load and delete contributors.</param>
+/// <param name="mediator">The mediator used to publish domain events.</param>
+/// <param name="logger">The logger used by the service.</param>
+public class DeleteContributorService(
+  IRepository<Contributor> repository,
+  IMediator mediator,
+  ILogger<DeleteContributorService> logger) : IDeleteContributorService
 {
+  private readonly IRepository<Contributor> _repository = repository;
+  private readonly IMediator _mediator = mediator;
+  private readonly ILogger<DeleteContributorService> _logger = logger;
+
   public async ValueTask<Result> DeleteContributor(ContributorId contributorId)
   {
-    _logger.LogInformation("Deleting Contributor {contributorId}", contributorId);
+    _logger.LogInformation("Deleting Contributor {ContributorId}", contributorId);
+
     Contributor? aggregateToDelete = await _repository.GetByIdAsync(contributorId);
     if (aggregateToDelete == null) return Result.NotFound();
 
     await _repository.DeleteAsync(aggregateToDelete);
+
     var domainEvent = new ContributorDeletedEvent(contributorId);
     await _mediator.Publish(domainEvent);
 
