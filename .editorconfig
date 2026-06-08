@@ -145,7 +145,11 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 
 dotnet_diagnostic.CA1707.severity = none
+
 dotnet_diagnostic.CA1014.severity = none
+// CA1848: Use 'LoggerMessage.Define' instead of 'LoggerMessage.Define<T>' 
+// DO not force Logger Massages Delegates all everywhere 
+dotnet_diagnostic.CA1848.severity= suggestion
 
 ###############################
 # VB Coding Conventions       #

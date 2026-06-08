@@ -16,13 +16,19 @@ public class DeleteContributorService(
   IMediator mediator,
   ILogger<DeleteContributorService> logger) : IDeleteContributorService
 {
+  private static readonly Action<ILogger, ContributorId, Exception?> LogDeletingContributor =
+    LoggerMessage.Define<ContributorId>(
+      LogLevel.Information,
+      new EventId(1, nameof(DeleteContributor)),
+      "Deleting Contributor {ContributorId}");
+
   private readonly IRepository<Contributor> _repository = repository;
   private readonly IMediator _mediator = mediator;
   private readonly ILogger<DeleteContributorService> _logger = logger;
 
   public async ValueTask<Result> DeleteContributor(ContributorId contributorId)
   {
-    _logger.LogInformation("Deleting Contributor {ContributorId}", contributorId);
+    LogDeletingContributor(_logger, contributorId, null);
 
     Contributor? aggregateToDelete = await _repository.GetByIdAsync(contributorId);
     if (aggregateToDelete == null) return Result.NotFound();
@@ -31,7 +37,6 @@ public class DeleteContributorService(
 
     var domainEvent = new ContributorDeletedEvent(contributorId);
     await _mediator.Publish(domainEvent);
-
     return Result.Success();
   }
 }
