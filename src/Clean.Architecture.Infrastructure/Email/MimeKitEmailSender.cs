@@ -8,16 +8,16 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
   private readonly ILogger<MimeKitEmailSender> _logger = logger;
   private readonly MailserverConfiguration _mailserverConfiguration = mailserverOptions.Value!;
 
-  public async Task SendEmailAsync(string to, string from, string subject, string body)
+  public async Task SendEmailAsync(string recipientEmail, string senderEmail, string subject, string body)
   {
-    _logger.LogWarning("Sending email to {To} from {From} with subject {Subject} using {Type}.", to, from, subject, this.ToString());
+    _logger.LogWarning("Sending email to {To} from {From} with subject {Subject} using {Type}.", recipientEmail, senderEmail, subject, this.ToString());
 
     using var client = new MailKit.Net.Smtp.SmtpClient();
     await client.ConnectAsync(_mailserverConfiguration.Hostname,
       _mailserverConfiguration.Port, false);
     var message = new MimeMessage();
-    message.From.Add(new MailboxAddress(from, from));
-    message.To.Add(new MailboxAddress(to, to));
+    message.From.Add(new MailboxAddress(senderEmail, senderEmail));
+    message.To.Add(new MailboxAddress(recipientEmail, recipientEmail));
     message.Subject = subject;
     message.Body = new TextPart("plain") { Text = body };
 
