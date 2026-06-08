@@ -29,7 +29,7 @@ public class List(IMediator mediator) : Endpoint<ListContributorsRequest, Contri
 
       // Document pagination parameters
       s.Params["page"] = "1-based page index (default 1)";
-      s.Params["per_page"] = $"Page size 1–{UseCases.Constants.MAX_PAGE_SIZE} (default {UseCases.Constants.DEFAULT_PAGE_SIZE})";
+      s.Params["per_page"] = $"Page size 1–{UseCases.Constants.MaxPageSize} (default {UseCases.Constants.DefaultPageSize})";
 
       // Document possible responses
       s.Responses[200] = "Paginated list of contributors returned successfully";
@@ -92,7 +92,7 @@ public sealed class ListContributorsRequest
 
   // Bind to ?per_page=
   [BindFrom("per_page")]
-  public int PerPage { get; init; } = UseCases.Constants.DEFAULT_PAGE_SIZE;
+  public int PerPage { get; init; } = UseCases.Constants.DefaultPageSize;
 }
 
 public record ContributorListResponse : UseCases.PagedResult<ContributorRecord>
@@ -113,8 +113,8 @@ public sealed class ListContributorsValidator : Validator<ListContributorsReques
       .WithMessage("page must be >= 1");
 
     RuleFor(x => x.PerPage)
-      .InclusiveBetween(1, UseCases.Constants.MAX_PAGE_SIZE)
-      .WithMessage($"per_page must be between 1 and {UseCases.Constants.MAX_PAGE_SIZE}");
+      .InclusiveBetween(1, UseCases.Constants.MaxPageSize)
+      .WithMessage($"per_page must be between 1 and {UseCases.Constants.MaxPageSize}");
   }
 }
 

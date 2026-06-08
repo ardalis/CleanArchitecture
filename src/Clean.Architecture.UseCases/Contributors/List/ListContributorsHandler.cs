@@ -13,7 +13,7 @@ public class ListContributorsHandler : IQueryHandler<ListContributorsQuery, Resu
                                                                      CancellationToken cancellationToken)
   {
 
-    var result = await _query.ListAsync(request.Page ?? 1, request.PerPage ?? Constants.DEFAULT_PAGE_SIZE);
+    var result = await _query.ListAsync(request.Page ?? 1, request.PerPage ?? Constants.DefaultPageSize);
 
     return Result.Success(result);
   }
