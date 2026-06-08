@@ -65,7 +65,7 @@ public class CreateContributorRequest
 
   [Required]
   public string Name { get; set; } = String.Empty;
-  public string? PhoneNumber { get; set; } = null;
+  public string? PhoneNumber { get; set; }
 }
 
 public class CreateContributorValidator : Validator<CreateContributorRequest>
