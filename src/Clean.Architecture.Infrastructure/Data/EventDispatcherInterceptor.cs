@@ -20,7 +20,7 @@ public class EventDispatchInterceptor(IDomainEventDispatcher domainEventDispatch
     // Retrieve all tracked entities that have domain events
     var entitiesWithEvents = appDbContext.ChangeTracker.Entries<HasDomainEventsBase>()
       .Select(e => e.Entity)
-      .Where(e => e.DomainEvents.Any())
+      .Where(e => e.DomainEvents.Count != 0)
       .ToArray();
 
     // Dispatch and clear domain events
