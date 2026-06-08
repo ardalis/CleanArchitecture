@@ -81,7 +81,7 @@ public static class MiddlewareConfig
     }
     catch (Exception ex)
     {
-      logger.LogError(ex, "An error occurred migrating the DB. {exceptionMessage}", ex.Message);
+      logger.LogError(ex, "An error occurred migrating the DB. {ExceptionMessage}", ex.Message);
       throw; // Re-throw to make startup fail if migrations fail
     }
   }
@@ -101,7 +101,7 @@ public static class MiddlewareConfig
     }
     catch (Exception ex)
     {
-      logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+      logger.LogError(ex, "An error occurred seeding the DB. {ExceptionMessage}", ex.Message);
       // Don't re-throw for seeding errors - it's not critical
     }
   }

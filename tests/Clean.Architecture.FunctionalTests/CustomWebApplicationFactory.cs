@@ -74,7 +74,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
       }
       catch (Exception ex)
       {
-        logger.LogError(ex, "An error occurred seeding the database with test messages. Error: {exceptionMessage}", ex.Message);
+        logger.LogError(ex, "An error occurred seeding the database with test messages. Error: {ExceptionMessage}", ex.Message);
         throw;
       }
     }
