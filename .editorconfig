@@ -152,3 +152,5 @@ visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public
 # Test projects often use underscores in test method/class names for readability.
 [tests/**/*.cs]
 dotnet_diagnostic.CA1707.severity = none
+# CLS compliance is not required for this application/template repository.
+dotnet_diagnostic.CA1014.severity = none
