@@ -9,7 +9,7 @@ public class ContributorNameUpdatedEmailNotificationHandler(
 {
   public async ValueTask Handle(ContributorNameUpdatedEvent domainEvent, CancellationToken cancellationToken)
   {
-    logger.LogInformation("Handling Contributor Name Updated event for {contributorId}", domainEvent.Contributor.Id);
+    logger.LogInformation("Handling Contributor Name Updated event for {ContributorId}", domainEvent.Contributor.Id);
 
     await emailSender.SendEmailAsync("to@test.com",
                                      "from@test.com",

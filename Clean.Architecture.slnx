@@ -6,12 +6,14 @@
   </Configurations>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path=".gitignore" />
     <File Path=".template.config/template.json" />
     <File Path="CleanArchitecture.nuspec" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/src/">
+    <File Path=".editorconfig" />
     <Project Path="src/Clean.Architecture.Core/Clean.Architecture.Core.csproj" />
     <Project Path="src/Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj" />
     <Project Path="src/Clean.Architecture.UseCases/Clean.Architecture.UseCases.csproj" />
@@ -22,6 +24,7 @@
     <Project Path="src/Clean.Architecture.ServiceDefaults/Clean.Architecture.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <File Path="tests/.editorconfig" />
     <Project Path="tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj">
       <BuildDependency Project="src/Clean.Architecture.Web/Clean.Architecture.Web.csproj" />
     </Project>

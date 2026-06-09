@@ -8,7 +8,7 @@ public class ContributorDeletedHandler(ILogger<ContributorDeletedHandler> logger
 {
   public async ValueTask Handle(ContributorDeletedEvent domainEvent, CancellationToken cancellationToken)
   {
-    logger.LogInformation("Handling Contributed Deleted event for {contributorId}", domainEvent.ContributorId);
+    logger.LogInformation("Handling Contributed Deleted event for {ContributorId}", domainEvent.ContributorId);
 
     await emailSender.SendEmailAsync("to@test.com",
                                      "from@test.com",
