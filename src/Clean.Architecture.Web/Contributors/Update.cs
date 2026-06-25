@@ -1,6 +1,5 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.UseCases.Contributors;
-using Clean.Architecture.UseCases.Contributors.Get;
 using Clean.Architecture.UseCases.Contributors.Update;
 using Clean.Architecture.Web.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
