@@ -1,8 +1,7 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.Core.ContributorAggregate.Specifications;
-using Clean.Architecture.UseCases.Contributors.GetContributor;
 
-namespace Clean.Architecture.UseCases.Contributors.Get;
+namespace Clean.Architecture.UseCases.Contributors.GetContributor;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient

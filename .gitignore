@@ -277,5 +277,5 @@ log*.txt
 /sample/src/NimblePros.SampleToDo.Web/appsettings.Development.json
 
 .localpilot/
-
+.claude/
 
