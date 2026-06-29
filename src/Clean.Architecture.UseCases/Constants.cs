@@ -1,7 +1,7 @@
 ﻿namespace Clean.Architecture.UseCases;
 
-public class Constants
+public static class Constants
 {
-  public const int DEFAULT_PAGE_SIZE = 10;
-  public const int MAX_PAGE_SIZE = 100;
+  public const int DefaultPageSize = 10;
+  public const int MaxPageSize = 100;
 }

@@ -2,9 +2,9 @@
 
 public class NoOpMediator : IMediator
 {
-  public async Task<IAsyncEnumerable<TResponse>> CreateStream<TResponse>(IStreamQuery<TResponse> query, CancellationToken cancellationToken = default)
+  public static async Task<IAsyncEnumerable<TResponse>> CreateStream<TResponse>(IStreamQuery<TResponse> query, CancellationToken cancellationToken = default)
   {
-    await Task.Delay(1);
+    await Task.Delay(1, cancellationToken);
     return AsyncEnumerable.Empty<TResponse>();
   }
 
