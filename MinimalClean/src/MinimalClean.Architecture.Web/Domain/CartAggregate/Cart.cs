@@ -14,5 +14,14 @@ public class Cart : EntityBase<Cart, CartId>, IAggregateRoot
     _items.Add(item);
   }
 
+  public void UpdateItemQuantity(int productId, int quantity)
+  {
+    var item = _items.FirstOrDefault(i => i.ProductId == productId);
+    if (item != null)
+    {
+      item.SetQuantity(quantity);
+    }
+  }
+
     public void MarkAsDeleted() => Deleted = true;
 }
