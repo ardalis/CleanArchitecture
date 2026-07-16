@@ -19,7 +19,7 @@ public class Cart : EntityBase<Cart, CartId>, IAggregateRoot
     var item = _items.FirstOrDefault(i => i.ProductId == productId);
     if (item != null)
     {
-      item.SetQuantity(quantity);
+      item.Quantity = quantity;
     }
   }
 

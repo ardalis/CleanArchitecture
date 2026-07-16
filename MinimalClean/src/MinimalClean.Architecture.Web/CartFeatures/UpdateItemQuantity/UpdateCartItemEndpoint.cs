@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalClean.Architecture.Web.Domain.CartAggregate;
+using MinimalClean.Architecture.Web.Domain.CartAggregate.Specifications;
 
 namespace MinimalClean.Architecture.Web.CartFeatures.UpdateItemQuantity;
 
@@ -13,7 +14,7 @@ public sealed class UpdateCartItemRequest
   public int Quantity { get; init; }
 }
 
-public class UpdateCartItemEndpoint(IMediator mediator)
+public class UpdateCartItemEndpoint(IMediator mediator, IRepository<Cart> cartRepository)
   : FastEndpoints.Endpoint<UpdateCartItemRequest,
              Results<Ok<CartResponse>,
                      NotFound,
@@ -64,7 +65,37 @@ public class UpdateCartItemEndpoint(IMediator mediator)
   public override async Task<Results<Ok<CartResponse>, NotFound, ValidationProblem, ProblemHttpResult>>
     ExecuteAsync(UpdateCartItemRequest request, CancellationToken ct)
   {
-    var command = new UpdateCartItemCommand(CartId.From(request.CartId), request.ProductId, request.Quantity);
+    var cartId = CartId.From(request.CartId);
+
+    // Check the cart exists before sending the command
+    var cart = await cartRepository.FirstOrDefaultAsync(new CartByIdSpec(cartId), ct);
+    if (cart == null)
+    {
+      return TypedResults.NotFound();
+    }
+
+    // Quantity of 0 means the customer is removing the item, so we can just
+    // update it directly here instead of going through the command pipeline
+    if (request.Quantity == 0)
+    {
+      var item = cart.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
+      if (item != null)
+      {
+        item.Quantity = 0;
+        await cartRepository.UpdateAsync(cart, ct);
+      }
+
+      var itemResponses = cart.Items.Select(i => new CartItemResponse(
+        i.ProductId,
+        i.Quantity,
+        i.UnitPrice,
+        i.Quantity * i.UnitPrice
+      )).ToList();
+
+      return TypedResults.Ok(new CartResponse(cart.Id.Value, itemResponses, itemResponses.Sum(i => i.TotalPrice)));
+    }
+
+    var command = new UpdateCartItemCommand(cartId, request.ProductId, request.Quantity);
     var result = await mediator.Send(command, ct);
 
     if (result.Status == ResultStatus.NotFound)
