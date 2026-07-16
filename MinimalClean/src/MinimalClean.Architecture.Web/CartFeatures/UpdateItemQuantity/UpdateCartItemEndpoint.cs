@@ -81,8 +81,15 @@ public class UpdateCartItemEndpoint(IMediator mediator, IRepository<Cart> cartRe
       var item = cart.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
       if (item != null)
       {
-        item.Quantity = 0;
-        await cartRepository.UpdateAsync(cart, ct);
+        try
+        {
+          item.Quantity = 0;
+          await cartRepository.UpdateAsync(cart, ct);
+        }
+        catch (Exception)
+        {
+          // ignore
+        }
       }
 
       var itemResponses = cart.Items.Select(i => new CartItemResponse(
