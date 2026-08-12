@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.SqlServer" />
+    <PackageReference Include="MessagePack" />
   </ItemGroup>
 
   <ItemGroup>
