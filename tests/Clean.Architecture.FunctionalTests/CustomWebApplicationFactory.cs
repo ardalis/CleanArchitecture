@@ -1,79 +1,132 @@
 ﻿using Clean.Architecture.Infrastructure.Data;
+using DotNet.Testcontainers.Builders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Testcontainers.MsSql;
 
 namespace Clean.Architecture.FunctionalTests;
 
-public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime where TProgram : class
+public class CustomWebApplicationFactory<TProgram> :
+  WebApplicationFactory<TProgram>,
+  IAsyncLifetime
+  where TProgram : class
 {
+  private TestDatabaseProvider _requestedDatabaseProvider =
+    TestDatabaseProvider.Auto;
+
+  private readonly string _sqliteDatabasePath = Path.Combine(
+    Path.GetTempPath(),
+    $"clean-architecture-functional-tests-{Guid.NewGuid():N}.db");
+
   private MsSqlContainer? _dbContainer;
+
+  public CustomWebApplicationFactory()
+  {
+    ActiveDatabaseProvider = TestDatabaseProvider.Auto;
+  }
+
+  public TestDatabaseProvider ActiveDatabaseProvider { get; private set; }
+
+  internal static CustomWebApplicationFactory<TProgram> CreateWithProvider(
+    TestDatabaseProvider databaseProvider)
+  {
+    return new CustomWebApplicationFactory<TProgram>
+    {
+      _requestedDatabaseProvider = databaseProvider,
+      ActiveDatabaseProvider = databaseProvider == TestDatabaseProvider.Sqlite
+        ? TestDatabaseProvider.Sqlite
+        : TestDatabaseProvider.Auto
+    };
+  }
 
   public async ValueTask InitializeAsync()
   {
+    if (_requestedDatabaseProvider == TestDatabaseProvider.Sqlite)
+    {
+      ActiveDatabaseProvider = TestDatabaseProvider.Sqlite;
+      return;
+    }
+
+    MsSqlContainer? container = null;
+
     try
     {
-      _dbContainer = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2025-latest")
+      container = new MsSqlBuilder(
+          "mcr.microsoft.com/mssql/server:2025-latest")
         .WithPassword("Your_password123!")
         .Build();
-      await _dbContainer.StartAsync();
+
+      await container.StartAsync();
+      _dbContainer = container;
+      ActiveDatabaseProvider = TestDatabaseProvider.SqlServer;
     }
-    catch (ArgumentException)
+    catch (DockerUnavailableException) when (
+      _requestedDatabaseProvider == TestDatabaseProvider.Auto)
     {
-      // Docker is not available; fall back to SQLite (configured via appsettings.Testing.json)
-      _dbContainer = null;
+      await DisposeContainerAfterFailedStartAsync(container);
+      ActiveDatabaseProvider = TestDatabaseProvider.Sqlite;
+    }
+    catch
+    {
+      await DisposeContainerAfterFailedStartAsync(container);
+      throw;
     }
   }
 
-  public new async ValueTask DisposeAsync()
+  public override async ValueTask DisposeAsync()
   {
-    // Clean up environment variable
     Environment.SetEnvironmentVariable("USE_SQL_SERVER", null);
+
     if (_dbContainer != null)
     {
       await _dbContainer.DisposeAsync();
     }
+
+    await base.DisposeAsync();
+
+    if (File.Exists(_sqliteDatabasePath))
+    {
+      File.Delete(_sqliteDatabasePath);
+    }
+
+    GC.SuppressFinalize(this);
   }
 
   /// <summary>
   /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
   /// https://github.com/dotnet-architecture/eShopOnWeb/issues/465
   /// </summary>
-  /// <param name="builder"></param>
-  /// <returns></returns>
   protected override IHost CreateHost(IHostBuilder builder)
   {
-    builder.UseEnvironment("Testing"); // will not send real emails
+    builder.UseEnvironment("Testing");
+
     var host = builder.Build();
     host.Start();
 
-    // Get service provider.
-    var serviceProvider = host.Services;
+    using var scope = host.Services.CreateScope();
 
-    // Create a scope to obtain a reference to the database
-    // context (AppDbContext).
-    using (var scope = serviceProvider.CreateScope())
+    var scopedServices = scope.ServiceProvider;
+    var db = scopedServices.GetRequiredService<AppDbContext>();
+    var logger = scopedServices.GetRequiredService<
+      ILogger<CustomWebApplicationFactory<TProgram>>>();
+
+    try
     {
-      var scopedServices = scope.ServiceProvider;
-      var db = scopedServices.GetRequiredService<AppDbContext>();
+      logger.LogInformation(
+        "Functional tests are using the {DatabaseProvider} database provider.",
+        ActiveDatabaseProvider);
 
-      var logger = scopedServices
-          .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
+      db.Database.EnsureCreated();
 
-      try
-      {
-        // Functional tests use EnsureCreated to avoid migration-script coupling.
-        db.Database.EnsureCreated();
-
-        // Seed the database with test data only if it has not been seeded yet.
-        // This is safe for container reuse across test runs and multiple fixture instances.
-        SeedData.InitializeAsync(db).GetAwaiter().GetResult();
-      }
-      catch (Exception ex)
-      {
-        logger.LogError(ex, "An error occurred seeding the database with test messages. Error: {exceptionMessage}", ex.Message);
-        throw;
-      }
+      SeedData.InitializeAsync(db).GetAwaiter().GetResult();
+    }
+    catch (Exception ex)
+    {
+      logger.LogError(
+        ex,
+        "An error occurred seeding the database with test messages. Error: {ExceptionMessage}",
+        ex.Message);
+      throw;
     }
 
     return host;
@@ -81,47 +134,86 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
   protected override void ConfigureWebHost(IWebHostBuilder builder)
   {
-    if (_dbContainer != null)
+    var useSqlServer = _dbContainer != null;
+
+    if (_requestedDatabaseProvider == TestDatabaseProvider.SqlServer &&
+        !useSqlServer)
     {
-      // Force SQL Server mode even on non-Windows platforms for functional tests
-      Environment.SetEnvironmentVariable("USE_SQL_SERVER", "true");
+      throw new InvalidOperationException(
+        "SQL Server was explicitly selected, but the test container has not " +
+        "been initialized. Use the factory as an xUnit fixture or call " +
+        "InitializeAsync before creating the client.");
     }
 
+    ActiveDatabaseProvider = useSqlServer
+      ? TestDatabaseProvider.SqlServer
+      : TestDatabaseProvider.Sqlite;
+
+    var connectionString = useSqlServer
+      ? _dbContainer!.GetConnectionString()
+      : $"Data Source={_sqliteDatabasePath}";
+
     builder
-        .ConfigureAppConfiguration((context, config) =>
-        {
-          if (_dbContainer != null)
+      .ConfigureAppConfiguration((_, config) =>
+      {
+        config.AddInMemoryCollection(
+          new Dictionary<string, string?>
           {
-            // Set the connection string to use the Testcontainer
-            config.AddInMemoryCollection(new Dictionary<string, string?>
-            {
-              ["ConnectionStrings:DefaultConnection"] = _dbContainer.GetConnectionString()
-            });
-          }
-        })
-        .ConfigureServices(services =>
+            ["ConnectionStrings:DefaultConnection"] =
+              useSqlServer ? connectionString : null,
+            ["ConnectionStrings:SqliteConnection"] =
+              useSqlServer ? null : connectionString
+          });
+      })
+      .ConfigureServices(services =>
+      {
+        var descriptors = services
+          .Where(
+            descriptor =>
+              descriptor.ServiceType == typeof(AppDbContext) ||
+              descriptor.ServiceType ==
+                typeof(DbContextOptions<AppDbContext>))
+          .ToList();
+
+        foreach (var descriptor in descriptors)
         {
-          if (_dbContainer != null)
+          services.Remove(descriptor);
+        }
+
+        services.AddDbContext<AppDbContext>((provider, options) =>
+        {
+          if (useSqlServer)
           {
-            // Remove the app's ApplicationDbContext registration
-            var descriptors = services.Where(
-              d => d.ServiceType == typeof(AppDbContext) ||
-                   d.ServiceType == typeof(DbContextOptions<AppDbContext>))
-                  .ToList();
-
-            foreach (var descriptor in descriptors)
-            {
-              services.Remove(descriptor);
-            }
-
-            // Add ApplicationDbContext using the Testcontainers SQL Server instance
-            services.AddDbContext<AppDbContext>((provider, options) =>
-            {
-              options.UseSqlServer(_dbContainer.GetConnectionString());
-              var interceptor = provider.GetRequiredService<EventDispatchInterceptor>();
-              options.AddInterceptors(interceptor);
-            });
+            options.UseSqlServer(connectionString);
           }
+          else
+          {
+            options.UseSqlite(connectionString);
+          }
+
+          var interceptor =
+            provider.GetRequiredService<EventDispatchInterceptor>();
+
+          options.AddInterceptors(interceptor);
         });
+      });
+  }
+
+  private static async ValueTask DisposeContainerAfterFailedStartAsync(
+    MsSqlContainer? container)
+  {
+    if (container == null)
+    {
+      return;
+    }
+
+    try
+    {
+      await container.DisposeAsync();
+    }
+    catch
+    {
+      // Preserve the original container-start exception or continue with SQLite.
+    }
   }
 }
