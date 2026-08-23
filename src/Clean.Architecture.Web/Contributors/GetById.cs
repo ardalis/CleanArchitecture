@@ -44,7 +44,11 @@ public class GetById(IMediator mediator)
   public override async Task<Results<Ok<ContributorRecord>, NotFound, ProblemHttpResult>>
     ExecuteAsync(GetContributorByIdRequest request, CancellationToken ct)
   {
-    var result = await mediator.Send(new GetContributorQuery(ContributorId.From(request.ContributorId)), ct);
+    ArgumentNullException.ThrowIfNull(request);
+
+    var result = await mediator
+      .Send(new GetContributorQuery(ContributorId.From(request.ContributorId)), ct)
+      .ConfigureAwait(false);
 
     return result.ToGetByIdResult(Map.FromEntity);
   }
@@ -53,5 +57,12 @@ public sealed class GetContributorByIdMapper
   : Mapper<GetContributorByIdRequest, ContributorRecord, ContributorDto>
 {
   public override ContributorRecord FromEntity(ContributorDto e)
-    => new(e.Id.Value, e.Name.Value, e.PhoneNumber.ToString());
+  {
+    ArgumentNullException.ThrowIfNull(e);
+
+    return new ContributorRecord(
+      e.Id.Value,
+      e.Name.Value,
+      e.PhoneNumber.ToString());
+  }
 }

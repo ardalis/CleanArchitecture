@@ -1,37 +1,49 @@
-﻿using Ardalis.ListStartupServices;
+using Ardalis.ListStartupServices;
 using Clean.Architecture.Infrastructure.Email;
 
 namespace Clean.Architecture.Web.Configurations;
 
-public static class OptionConfigs
+public static partial class OptionConfigs
 {
-  public static IServiceCollection AddOptionConfigs(this IServiceCollection services,
-                                                    IConfiguration configuration,
-                                                    Microsoft.Extensions.Logging.ILogger logger,
-                                                    WebApplicationBuilder builder)
+  public static IServiceCollection AddOptionConfigs(
+    this IServiceCollection services,
+    IConfiguration configuration,
+    Microsoft.Extensions.Logging.ILogger logger,
+    WebApplicationBuilder builder)
   {
-    services.Configure<MailserverConfiguration>(configuration.GetSection("Mailserver"))
-    // Configure Web Behavior
-    .Configure<CookiePolicyOptions>(options =>
-    {
-      options.CheckConsentNeeded = context => true;
-      options.MinimumSameSitePolicy = SameSiteMode.None;
-    });
+    ArgumentNullException.ThrowIfNull(services);
+    ArgumentNullException.ThrowIfNull(configuration);
+    ArgumentNullException.ThrowIfNull(logger);
+    ArgumentNullException.ThrowIfNull(builder);
+
+    services
+      .Configure<MailserverConfiguration>(
+        configuration.GetSection("Mailserver"))
+      .Configure<CookiePolicyOptions>(options =>
+      {
+        options.CheckConsentNeeded = context => true;
+        options.MinimumSameSitePolicy = SameSiteMode.None;
+      });
 
     if (builder.Environment.IsDevelopment())
     {
-      // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
+      // Add list services for diagnostic purposes.
       services.Configure<ServiceConfig>(config =>
       {
         config.Services = new List<ServiceDescriptor>(builder.Services);
-
-        // optional - default path to view services is /listallservices - recommended to choose your own path
         config.Path = "/listservices";
       });
     }
 
-    logger.LogInformation("{Project} were configured", "Options");
+    LogOptionsConfigured(logger);
 
     return services;
   }
+
+  [LoggerMessage(
+    EventId = 1,
+    Level = LogLevel.Information,
+    Message = "Options were configured")]
+  private static partial void LogOptionsConfigured(
+    Microsoft.Extensions.Logging.ILogger logger);
 }

@@ -22,9 +22,9 @@ public class ListContributorsQueryService : IListContributorsQueryService
       .Take(perPage)
       .Select(c => new ContributorDto(c.Id, c.Name, c.PhoneNumber ?? PhoneNumber.Unknown))
       .AsNoTracking()
-      .ToListAsync();
+      .ToListAsync().ConfigureAwait(false);
 
-    int totalCount = await _db.Contributors.CountAsync();
+    int totalCount = await _db.Contributors.CountAsync().ConfigureAwait(false);
     int totalPages = (int)Math.Ceiling(totalCount / (double)perPage);
     var result = new UseCases.PagedResult<ContributorDto>(items, page, perPage, totalCount, totalPages);
 

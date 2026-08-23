@@ -1,0 +1,7 @@
+# Public test and fixture types are required for test discovery and shared fixtures.
+# Test names intentionally use underscores for readability.
+# Example: Method_Scenario_ExpectedResult
+
+[*.cs]
+dotnet_diagnostic.CA1515.severity = none
+dotnet_diagnostic.CA1707.severity = none
