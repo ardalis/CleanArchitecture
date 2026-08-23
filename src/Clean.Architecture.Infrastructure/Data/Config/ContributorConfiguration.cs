@@ -6,6 +6,8 @@ public class ContributorConfiguration : IEntityTypeConfiguration<Contributor>
 {
   public void Configure(EntityTypeBuilder<Contributor> builder)
   {
+    Guard.Against.Null(builder);
+
     builder.Property(entity => entity.Id)
       .ValueGeneratedOnAdd()
       .HasVogenConversion()
@@ -18,9 +20,9 @@ public class ContributorConfiguration : IEntityTypeConfiguration<Contributor>
 
     builder.OwnsOne(builder => builder.PhoneNumber);
 
-    builder.Property(x => x.Status)
+    builder.Property(entity => entity.Status)
       .HasConversion(
-          x => x.Value,
-          x => ContributorStatus.FromValue(x));
+        status => status.Value,
+        value => ContributorStatus.FromValue(value));
   }
 }

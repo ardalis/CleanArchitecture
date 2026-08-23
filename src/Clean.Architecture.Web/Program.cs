@@ -1,37 +1,61 @@
-﻿using Clean.Architecture.Web.Configurations;
+using Clean.Architecture.Web.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults()    // This sets up OpenTelemetry logging
-       .AddLoggerConfigs();     // This adds Serilog for console formatting
+builder
+  .AddServiceDefaults()
+  .AddLoggerConfigs();
 
-using var loggerFactory = LoggerFactory.Create(config => config.AddConsole());
+using var loggerFactory = LoggerFactory.Create(
+  config => config.AddConsole());
+
 var startupLogger = loggerFactory.CreateLogger<Program>();
 
-startupLogger.LogInformation("Starting web host");
+LogStartingWebHost(startupLogger);
 
-builder.Services.AddOptionConfigs(builder.Configuration, startupLogger, builder);
-builder.Services.AddServiceConfigs(startupLogger, builder);
+builder.Services.AddOptionConfigs(
+  builder.Configuration,
+  startupLogger,
+  builder);
 
-builder.Services.AddFastEndpoints()
-                .SwaggerDocument(o =>
-                {
-                  o.DocumentSettings = s =>
-                  {
-                    s.Title = "Clean Architecture API";
-                    s.Version = "v1";
-                    s.Description = "HTTP endpoints for the Clean Architecture sample application.";
-                  };
-                  o.ShortSchemaNames = true;
-                });
+builder.Services.AddServiceConfigs(
+  startupLogger,
+  builder);
+
+builder.Services
+  .AddFastEndpoints()
+  .SwaggerDocument(options =>
+  {
+    options.DocumentSettings = settings =>
+    {
+      settings.Title = "Clean Architecture API";
+      settings.Version = "v1";
+      settings.Description =
+        "HTTP endpoints for the Clean Architecture sample application.";
+    };
+
+    options.ShortSchemaNames = true;
+  });
 
 var app = builder.Build();
 
-await app.UseAppMiddlewareAndSeedDatabase();
+await app
+  .UseAppMiddlewareAndSeedDatabase()
+  .ConfigureAwait(false);
 
-app.MapDefaultEndpoints(); // Aspire health checks and metrics
+app.MapDefaultEndpoints();
 
-app.Run();
+await app
+  .RunAsync()
+  .ConfigureAwait(false);
 
-// Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building
-public partial class Program { }
+// Make the implicit Program class public so integration tests can reference it.
+public partial class Program
+{
+  [Microsoft.Extensions.Logging.LoggerMessage(
+    EventId = 1,
+    Level = Microsoft.Extensions.Logging.LogLevel.Information,
+    Message = "Starting web host")]
+  private static partial void LogStartingWebHost(
+    Microsoft.Extensions.Logging.ILogger logger);
+}
