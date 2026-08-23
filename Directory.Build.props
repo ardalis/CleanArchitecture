@@ -8,7 +8,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>1591</NoWarn> <!-- Remove this to turn on warnings for missing XML Comments -->
-  </PropertyGroup>
-</Project>
+    <ItemGroup>
+      <!-- Temporary suppression until SQLitePCLRaw publishes a patched package for GHSA-2m69-gcr7-jv3q. -->
+      <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-2m69-gcr7-jv3q" />
+    </ItemGroup>
+    <PropertyGroup>
+      <NoWarn>1591</NoWarn> <!-- Remove this to turn on warnings for missing XML Comments -->
+    </PropertyGroup>
+  </Project>
