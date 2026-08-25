@@ -7,7 +7,7 @@ public class ContributorNameFrom
   {
     string validValue = "ardalis";
     var contributorName = ContributorName.From(validValue);
-    Assert.Equal(validValue, contributorName.Value);
+    contributorName.Value.ShouldBe(validValue);
   }
 
   [Theory]
