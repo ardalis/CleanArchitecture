@@ -7,7 +7,7 @@ public class ContributorIdFrom
   {
     int validValue = 1;
     var contributorId = ContributorId.From(validValue);
-    Assert.Equal(validValue, contributorId.Value);
+    contributorId.Value.ShouldBe(validValue);
   }
 
   [Theory]
