@@ -5,3 +5,37 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  groups:
+    microsoft-packages:
+      patterns:
+      - "Microsoft.*"
+      exclude-patterns:
+      - "Microsoft.NET.Test.Sdk"
+      update-types:
+      - minor
+      - patch
+
+    test-packages:
+      patterns:
+      - "Microsoft.NET.Test.Sdk"
+      - "xunit*"
+      - "NUnit*"
+      - "coverlet*"
+      - "FluentAssertions"
+      update-types:
+      - minor
+      - patch
+
+    all-other-non-major:
+      patterns:
+      - "*"
+      exclude-patterns:
+      - "Microsoft.*"
+      - "Microsoft.NET.Test.Sdk"
+      - "xunit*"
+      - "NUnit*"
+      - "coverlet*"
+      - "FluentAssertions"
+      update-types:
+      - minor
+      - patch
