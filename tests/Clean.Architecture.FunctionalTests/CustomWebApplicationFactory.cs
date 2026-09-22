@@ -1,12 +1,21 @@
 ﻿using Clean.Architecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Testcontainers.MsSql;
 
 namespace Clean.Architecture.FunctionalTests;
 
-public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime where TProgram : class
+public class CustomWebApplicationFactory<TProgram>
+  : WebApplicationFactory<TProgram>, IAsyncLifetime
+  where TProgram : class
 {
+  private static readonly Action<ILogger, string, Exception?> _logDatabaseSeedingError =
+    LoggerMessage.Define<string>(
+      LogLevel.Error,
+      new EventId(1, "DatabaseSeeding"),
+      "An error occurred seeding the database with test messages. Error: {ExceptionMessage}");
+
   private MsSqlContainer? _dbContainer;
 
   public async ValueTask InitializeAsync()
@@ -16,64 +25,64 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
       _dbContainer = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2025-latest")
         .WithPassword("Your_password123!")
         .Build();
-      await _dbContainer.StartAsync();
+
+      await _dbContainer.StartAsync().ConfigureAwait(false);
     }
     catch (ArgumentException)
     {
-      // Docker is not available; fall back to SQLite (configured via appsettings.Testing.json)
+      // Docker is unavailable; use the SQLite configuration.
       _dbContainer = null;
     }
   }
 
-  public new async ValueTask DisposeAsync()
+  public override async ValueTask DisposeAsync()
   {
-    // Clean up environment variable
     Environment.SetEnvironmentVariable("USE_SQL_SERVER", null);
-    if (_dbContainer != null)
+
+    if (_dbContainer is not null)
     {
-      await _dbContainer.DisposeAsync();
+      await _dbContainer.DisposeAsync().ConfigureAwait(false);
     }
+
+    await base.DisposeAsync().ConfigureAwait(false);
+    GC.SuppressFinalize(this);
   }
 
   /// <summary>
-  /// Overriding CreateHost to avoid creating a separate ServiceProvider per this thread:
-  /// https://github.com/dotnet-architecture/eShopOnWeb/issues/465
+  /// Overrides CreateHost to avoid creating a separate service provider.
   /// </summary>
-  /// <param name="builder"></param>
-  /// <returns></returns>
   protected override IHost CreateHost(IHostBuilder builder)
   {
-    builder.UseEnvironment("Testing"); // will not send real emails
+    ArgumentNullException.ThrowIfNull(builder);
+
+    builder.UseEnvironment("Testing");
+
     var host = builder.Build();
     host.Start();
 
-    // Get service provider.
     var serviceProvider = host.Services;
 
-    // Create a scope to obtain a reference to the database
-    // context (AppDbContext).
-    using (var scope = serviceProvider.CreateScope())
+    using var scope = serviceProvider.CreateScope();
+    var scopedServices = scope.ServiceProvider;
+    var db = scopedServices.GetRequiredService<AppDbContext>();
+
+    var logger = scopedServices
+      .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
+
+    try
     {
-      var scopedServices = scope.ServiceProvider;
-      var db = scopedServices.GetRequiredService<AppDbContext>();
+      // Functional tests use EnsureCreated to avoid migration-script coupling.
+      db.Database.EnsureCreated();
 
-      var logger = scopedServices
-          .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
-
-      try
-      {
-        // Functional tests use EnsureCreated to avoid migration-script coupling.
-        db.Database.EnsureCreated();
-
-        // Seed the database with test data only if it has not been seeded yet.
-        // This is safe for container reuse across test runs and multiple fixture instances.
-        SeedData.InitializeAsync(db).GetAwaiter().GetResult();
-      }
-      catch (Exception ex)
-      {
-        logger.LogError(ex, "An error occurred seeding the database with test messages. Error: {exceptionMessage}", ex.Message);
-        throw;
-      }
+      // CreateHost is synchronous, so wait for seeding before disposing the scope.
+#pragma warning disable CA2025
+      SeedData.InitializeAsync(db).GetAwaiter().GetResult();
+#pragma warning restore CA2025
+    }
+    catch (Exception exception)
+    {
+      _logDatabaseSeedingError(logger, exception.Message, exception);
+      throw;
     }
 
     return host;
@@ -81,47 +90,51 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
   protected override void ConfigureWebHost(IWebHostBuilder builder)
   {
-    if (_dbContainer != null)
+    ArgumentNullException.ThrowIfNull(builder);
+
+    if (_dbContainer is not null)
     {
-      // Force SQL Server mode even on non-Windows platforms for functional tests
       Environment.SetEnvironmentVariable("USE_SQL_SERVER", "true");
     }
 
     builder
-        .ConfigureAppConfiguration((context, config) =>
+      .ConfigureAppConfiguration((context, config) =>
+      {
+        if (_dbContainer is not null)
         {
-          if (_dbContainer != null)
+          config.AddInMemoryCollection(new Dictionary<string, string?>
           {
-            // Set the connection string to use the Testcontainer
-            config.AddInMemoryCollection(new Dictionary<string, string?>
-            {
-              ["ConnectionStrings:DefaultConnection"] = _dbContainer.GetConnectionString()
-            });
-          }
-        })
-        .ConfigureServices(services =>
+            ["ConnectionStrings:DefaultConnection"] = _dbContainer.GetConnectionString()
+          });
+        }
+      })
+      .ConfigureServices(services =>
+      {
+        if (_dbContainer is null)
         {
-          if (_dbContainer != null)
-          {
-            // Remove the app's ApplicationDbContext registration
-            var descriptors = services.Where(
-              d => d.ServiceType == typeof(AppDbContext) ||
-                   d.ServiceType == typeof(DbContextOptions<AppDbContext>))
-                  .ToList();
+          return;
+        }
 
-            foreach (var descriptor in descriptors)
-            {
-              services.Remove(descriptor);
-            }
+        var descriptors = services.Where(
+          descriptor =>
+            descriptor.ServiceType == typeof(AppDbContext) ||
+            descriptor.ServiceType == typeof(DbContextOptions<AppDbContext>))
+          .ToList();
 
-            // Add ApplicationDbContext using the Testcontainers SQL Server instance
-            services.AddDbContext<AppDbContext>((provider, options) =>
-            {
-              options.UseSqlServer(_dbContainer.GetConnectionString());
-              var interceptor = provider.GetRequiredService<EventDispatchInterceptor>();
-              options.AddInterceptors(interceptor);
-            });
-          }
+        foreach (var descriptor in descriptors)
+        {
+          services.Remove(descriptor);
+        }
+
+        services.AddDbContext<AppDbContext>((provider, options) =>
+        {
+          options.UseSqlServer(_dbContainer.GetConnectionString());
+
+          var interceptor =
+            provider.GetRequiredService<EventDispatchInterceptor>();
+
+          options.AddInterceptors(interceptor);
         });
+      });
   }
 }

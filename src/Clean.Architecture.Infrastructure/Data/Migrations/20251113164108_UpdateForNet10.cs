@@ -10,6 +10,8 @@ namespace Clean.Architecture.Infrastructure.Data.Migrations;
       /// <inheritdoc />
       protected override void Up(MigrationBuilder migrationBuilder)
       {
+          Guard.Against.Null(migrationBuilder);
+
           // Only alter columns if using SQL Server
           // SQLite uses dynamic typing so these changes aren't necessary
           if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
@@ -73,6 +75,8 @@ namespace Clean.Architecture.Infrastructure.Data.Migrations;
       /// <inheritdoc />
       protected override void Down(MigrationBuilder migrationBuilder)
       {
+          Guard.Against.Null(migrationBuilder);
+
           if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
           {
               migrationBuilder.AlterColumn<int>(

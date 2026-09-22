@@ -9,7 +9,7 @@ namespace Clean.Architecture.Web.Contributors;
 
 // This shows an example of having all related types in one file for simplicity.
 // Fast-Endpoints generally uses one file per class for larger projects, which
-// is the recommended approach. More files, but fewer merge conflicts and easier to 
+// is the recommended approach. More files, but fewer merge conflicts and easier to
 // see what changed in a given commit or PR.
 
 public class Create(IMediator mediator)
@@ -48,15 +48,25 @@ public class Create(IMediator mediator)
       .ProducesProblem(500));
   }
 
+#pragma warning disable CA1725 // Keep descriptive parameter names used by this endpoint.
   public override async Task<Results<Created<CreateContributorResponse>, ValidationProblem, ProblemHttpResult>>
     ExecuteAsync(CreateContributorRequest request, CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new CreateContributorCommand(ContributorName.From(request.Name!), request.PhoneNumber));
+    ArgumentNullException.ThrowIfNull(request);
+
+    var command = new CreateContributorCommand(
+      ContributorName.From(request.Name!),
+      request.PhoneNumber);
+
+    var result = await _mediator
+      .Send(command, cancellationToken)
+      .ConfigureAwait(false);
 
     return result.ToCreatedResult(
       id => $"/Contributors/{id}",
       id => new CreateContributorResponse(id.Value, request.Name!));
   }
+#pragma warning restore CA1725
 }
 
 public class CreateContributorRequest
@@ -65,7 +75,7 @@ public class CreateContributorRequest
 
   [Required]
   public string Name { get; set; } = String.Empty;
-  public string? PhoneNumber { get; set; } = null;
+  public string? PhoneNumber { get; set; }
 }
 
 public class CreateContributorValidator : Validator<CreateContributorRequest>

@@ -1,0 +1,8 @@
+# CA1515 is not appropriate for this executable web project.
+# Public types are required for framework discovery and functional tests.
+
+[*.cs]
+dotnet_diagnostic.CA1515.severity = none
+
+# Endpoint type names intentionally match their vertical-slice operations.
+dotnet_diagnostic.CA1724.severity = none

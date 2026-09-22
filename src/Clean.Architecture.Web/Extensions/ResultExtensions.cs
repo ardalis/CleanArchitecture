@@ -12,6 +12,10 @@ public static class ResultExtensions
     Func<TValue, string> locationBuilder,
     Func<TValue, TResponse> mapResponse)
   {
+    ArgumentNullException.ThrowIfNull(result);
+    ArgumentNullException.ThrowIfNull(locationBuilder);
+    ArgumentNullException.ThrowIfNull(mapResponse);
+
     return result.Status switch
     {
       ResultStatus.Ok => TypedResults.Created(locationBuilder(result.Value), mapResponse(result.Value)),
@@ -47,6 +51,9 @@ public static class ResultExtensions
     this Result<TValue> result,
     Func<TValue, TResponse> mapResponse)
   {
+    ArgumentNullException.ThrowIfNull(result);
+    ArgumentNullException.ThrowIfNull(mapResponse);
+
     return ToOkOrNotFoundResult(result, mapResponse, "Update");
   }
 
@@ -56,6 +63,8 @@ public static class ResultExtensions
   public static Results<NoContent, NotFound, ProblemHttpResult> ToDeleteResult(
     this Result result)
   {
+    ArgumentNullException.ThrowIfNull(result);
+
     return result.Status switch
     {
       ResultStatus.Ok => TypedResults.NoContent(),
@@ -75,6 +84,9 @@ public static class ResultExtensions
     Func<TValue, TResponse> mapResponse,
     string operationName)
   {
+    ArgumentNullException.ThrowIfNull(result);
+    ArgumentNullException.ThrowIfNull(mapResponse);
+
     return result.Status switch
     {
       ResultStatus.Ok => TypedResults.Ok(mapResponse(result.Value)),
@@ -93,6 +105,9 @@ public static class ResultExtensions
     this Result<TValue> result,
     Func<TValue, TResponse> mapResponse)
   {
+    ArgumentNullException.ThrowIfNull(result);
+    ArgumentNullException.ThrowIfNull(mapResponse);
+
     return TypedResults.Ok(mapResponse(result.Value));
   }
 }

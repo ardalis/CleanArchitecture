@@ -5,7 +5,7 @@ using Clean.Architecture.Infrastructure.Data.Queries;
 using Clean.Architecture.UseCases.Contributors.List;
 
 namespace Clean.Architecture.Infrastructure;
-public static class InfrastructureServiceExtensions
+public static partial class InfrastructureServiceExtensions
 {
   public static IServiceCollection AddInfrastructureServices(
     this IServiceCollection services,
@@ -18,7 +18,7 @@ public static class InfrastructureServiceExtensions
     // 3. "SqliteConnection" - fallback to SQLite
     bool isWindows = OperatingSystem.IsWindows();
     bool forceSqlServer = Environment.GetEnvironmentVariable("USE_SQL_SERVER") == "true";
-    
+
     string? connectionString = config.GetConnectionString("cleanarchitecture")
                                ?? ((isWindows || forceSqlServer) ? config.GetConnectionString("DefaultConnection") : null)
                                ?? config.GetConnectionString("SqliteConnection");
@@ -30,9 +30,9 @@ public static class InfrastructureServiceExtensions
     services.AddDbContext<AppDbContext>((provider, options) =>
     {
       var eventDispatchInterceptor = provider.GetRequiredService<EventDispatchInterceptor>();
-      
+
       // Use SQL Server if Aspire or DefaultConnection (on Windows or forced) is available, otherwise use SQLite
-      if (config.GetConnectionString("cleanarchitecture") != null || 
+      if (config.GetConnectionString("cleanarchitecture") != null ||
           ((isWindows || forceSqlServer) && config.GetConnectionString("DefaultConnection") != null))
       {
         options.UseSqlServer(connectionString);
@@ -41,7 +41,7 @@ public static class InfrastructureServiceExtensions
       {
         options.UseSqlite(connectionString);
       }
-      
+
       options.AddInterceptors(eventDispatchInterceptor);
     });
 
@@ -50,8 +50,15 @@ public static class InfrastructureServiceExtensions
            .AddScoped<IListContributorsQueryService, ListContributorsQueryService>()
            .AddScoped<IDeleteContributorService, DeleteContributorService>();
 
-    logger.LogInformation("{Project} services registered", "Infrastructure");
+    LogInfrastructureServicesRegistered(logger);
 
     return services;
   }
+
+  [LoggerMessage(
+    EventId = 3,
+    Level = LogLevel.Information,
+    Message = "Infrastructure services registered")]
+  private static partial void LogInfrastructureServicesRegistered(
+    ILogger logger);
 }

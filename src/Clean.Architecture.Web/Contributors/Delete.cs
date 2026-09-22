@@ -44,8 +44,14 @@ public class Delete
   public override async Task<Results<NoContent, NotFound, ProblemHttpResult>>
     ExecuteAsync(DeleteContributorRequest req, CancellationToken ct)
   {
-    var cmd = new DeleteContributorCommand(ContributorId.From(req.ContributorId));
-    var result = await _mediator.Send(cmd, ct);
+    ArgumentNullException.ThrowIfNull(req);
+
+    var command = new DeleteContributorCommand(
+      ContributorId.From(req.ContributorId));
+
+    var result = await _mediator
+      .Send(command, ct)
+      .ConfigureAwait(false);
 
     return result.ToDeleteResult();
   }

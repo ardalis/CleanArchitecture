@@ -1,24 +1,35 @@
-﻿using Clean.Architecture.Core.ContributorAggregate;
+using Clean.Architecture.Core.ContributorAggregate;
 
 namespace Clean.Architecture.UseCases.Contributors.Update;
 
-public class UpdateContributorHandler(IRepository<Contributor> _repository)
+public class UpdateContributorHandler(
+  IRepository<Contributor> repository)
   : ICommandHandler<UpdateContributorCommand, Result<ContributorDto>>
 {
-  public async ValueTask<Result<ContributorDto>> Handle(UpdateContributorCommand command, 
-    CancellationToken ct)
+  public async ValueTask<Result<ContributorDto>> Handle(
+    UpdateContributorCommand command,
+    CancellationToken cancellationToken)
   {
-    var existingContributor = await _repository.GetByIdAsync(command.ContributorId, ct);
-    if (existingContributor == null)
+    ArgumentNullException.ThrowIfNull(command);
+
+    var existingContributor = await repository
+      .GetByIdAsync(command.ContributorId, cancellationToken)
+      .ConfigureAwait(false);
+
+    if (existingContributor is null)
     {
       return Result.NotFound();
     }
 
     existingContributor.UpdateName(command.NewName);
 
-    await _repository.UpdateAsync(existingContributor, ct);
+    await repository
+      .UpdateAsync(existingContributor, cancellationToken)
+      .ConfigureAwait(false);
 
-    return new ContributorDto(existingContributor.Id,
-      existingContributor.Name, existingContributor.PhoneNumber ?? PhoneNumber.Unknown);
+    return new ContributorDto(
+      existingContributor.Id,
+      existingContributor.Name,
+      existingContributor.PhoneNumber ?? PhoneNumber.Unknown);
   }
 }

@@ -1,13 +1,31 @@
-﻿using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.Interfaces;
 
 namespace Clean.Architecture.Infrastructure.Email;
 
-public class FakeEmailSender(ILogger<FakeEmailSender> logger) : IEmailSender
+public partial class FakeEmailSender(
+  ILogger<FakeEmailSender> logger)
+  : IEmailSender
 {
   private readonly ILogger<FakeEmailSender> _logger = logger;
-  public Task SendEmailAsync(string to, string from, string subject, string body)
+
+  public Task SendEmailAsync(
+    string recipient,
+    string from,
+    string subject,
+    string body)
   {
-    _logger.LogInformation("Not actually sending an email to {to} from {from} with subject {subject}", to, from, subject);
+    LogEmailNotSent(_logger, recipient, from, subject);
+
     return Task.CompletedTask;
   }
+
+  [LoggerMessage(
+    EventId = 1,
+    Level = LogLevel.Information,
+    Message = "Not actually sending an email to {Recipient} from {From} with subject {Subject}")]
+  private static partial void LogEmailNotSent(
+    ILogger logger,
+    string recipient,
+    string from,
+    string subject);
 }
