@@ -5,3 +5,15 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+
+- package-ecosystem: nuget
+  directory: "/MinimalClean"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+
+- package-ecosystem: nuget
+  directory: "/sample"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
