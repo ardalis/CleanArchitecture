@@ -51,7 +51,7 @@
     <PackageVersion Include="Testcontainers" Version="4.11.0" />
     <PackageVersion Include="Vogen" Version="8.0.7" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.2.3" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.5.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.5.0" />
