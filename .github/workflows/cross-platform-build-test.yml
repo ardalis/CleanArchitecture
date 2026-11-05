@@ -7,6 +7,8 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
+      - 'sample/**'
+      - 'MinimalClean/**'
       - 'Clean.Architecture.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
@@ -19,6 +21,8 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
+      - 'sample/**'
+      - 'MinimalClean/**'
       - 'Clean.Architecture.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
