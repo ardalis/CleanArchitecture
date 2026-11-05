@@ -25,7 +25,7 @@
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
     <PackageVersion Include="MimeKit" Version="4.17.0" />
     <PackageVersion Include="NimblePros.Metronome" Version="0.4.1" />
-    <PackageVersion Include="NsDepCop" Version="3.1.0" />
+    <PackageVersion Include="NsDepCop" Version="3.3.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
