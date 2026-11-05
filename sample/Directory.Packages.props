@@ -15,7 +15,7 @@
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.3.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="8.1.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.3.0" />
-    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <PackageVersion Include="FluentValidation" Version="12.2.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageVersion Include="MailKit" Version="4.16.0" />
     <PackageVersion Include="MessagePack" Version="2.5.303" />
