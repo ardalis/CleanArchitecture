@@ -18,7 +18,9 @@
     <PackageVersion Include="FluentValidation" Version="12.2.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.2.0" />
     <PackageVersion Include="MailKit" Version="4.18.2" />
-    <PackageVersion Include="MessagePack" Version="2.5.303" />
+    <PackageVersion Include="MessagePack" Version="2.5.307" />
+    <PackageVersion Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
+    <PackageVersion Include="SSH.NET" Version="2026.0.0" />
     <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.7" />
@@ -32,7 +34,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Localization" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.7" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
