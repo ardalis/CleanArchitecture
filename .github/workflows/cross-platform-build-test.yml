@@ -7,10 +7,13 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
+      - 'sample/**'
+      - 'MinimalClean/**'
       - 'Clean.Architecture.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
       - 'global.json'
+      - '.github/dependabot.yml'
       - '.github/workflows/cross-platform-build-test.yml'
   pull_request:
     branches:
@@ -18,10 +21,13 @@ on:
     paths:
       - 'src/**'
       - 'tests/**'
+      - 'sample/**'
+      - 'MinimalClean/**'
       - 'Clean.Architecture.slnx'
       - 'Directory.Build.props'
       - 'Directory.Packages.props'
       - 'global.json'
+      - '.github/dependabot.yml'
       - '.github/workflows/cross-platform-build-test.yml'
   workflow_dispatch:
 

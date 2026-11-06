@@ -14,6 +14,7 @@
     <PackageVersion Include="FastEndpoints" Version="8.2.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="8.2.0" />
     <PackageVersion Include="MailKit" Version="4.17.0" />
+    <PackageVersion Include="MessagePack" Version="2.5.303" />
     <PackageVersion Include="Mediator.Abstractions" Version="3.0.2" />
     <PackageVersion Include="Mediator.SourceGenerator" Version="3.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11" />
@@ -21,6 +22,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.9.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.9.0" />
+    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
     <PackageVersion Include="MimeKit" Version="4.17.0" />
     <PackageVersion Include="NimblePros.Metronome" Version="0.4.1" />
     <PackageVersion Include="NsDepCop" Version="3.1.0" />
