@@ -82,9 +82,13 @@ jobs:
 
       # Functional tests - filter excludes Docker-dependent tests in CI
       - name: Run Functional Tests
-        run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName!~DockerAvailabilityTests" --collect:"XPlat Code Coverage"
+        run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName!~DockerAvailabilityTests&FullyQualifiedName!~SqlServerOnLinuxTests" --collect:"XPlat Code Coverage"
         continue-on-error: true  # Don't fail entire workflow on functional test issues
 
+      # Required Linux SQL Server container smoke test; never fall back to SQLite.
+      - name: Verify SQL Server container on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName~SqlServerOnLinuxTests"
       # Upload test results even if tests failed (if: always())
       # Retention 30 days balances storage costs and debugging needs
       - name: Upload Test Results
