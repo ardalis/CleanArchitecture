@@ -69,6 +69,10 @@ jobs:
       - name: Build (${{ matrix.configuration }})
         run: dotnet build Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
 
+      # Validate the sample solution as well; sample/** changes must not pass unchecked.
+      - name: Build sample solution
+        run: dotnet build sample/NimblePros.SampleToDo.slnx --configuration ${{ matrix.configuration }} --verbosity minimal
+
       # Unit tests - fast, no external dependencies
       # TRX logger + code coverage for detailed reports
       - name: Run Unit Tests (${{ matrix.configuration }})

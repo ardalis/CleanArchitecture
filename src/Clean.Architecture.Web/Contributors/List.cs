@@ -3,6 +3,7 @@ using Clean.Architecture.UseCases.Contributors;
 using Clean.Architecture.UseCases.Contributors.List;
 using FluentValidation;
 
+#pragma warning disable CA1724 // Endpoint name intentionally follows the project naming convention.
 namespace Clean.Architecture.Web.Contributors;
 
 public class List(IMediator mediator) : Endpoint<ListContributorsRequest, ContributorListResponse, ListContributorsMapper>
@@ -46,12 +47,18 @@ public class List(IMediator mediator) : Endpoint<ListContributorsRequest, Contri
       .ProducesProblem(400));
   }
 
+  #pragma warning disable CA1725 // Keep the descriptive cancellationToken parameter name.
   public override async Task HandleAsync(ListContributorsRequest request, CancellationToken cancellationToken)
   {
-    var result = await _mediator.Send(new ListContributorsQuery(request.Page, request.PerPage));
+    ArgumentNullException.ThrowIfNull(request);
+
+    var result = await _mediator
+      .Send(new ListContributorsQuery(request.Page, request.PerPage), cancellationToken)
+      .ConfigureAwait(false);
     if (!result.IsSuccess)
     {
-      await Send.ErrorsAsync(statusCode: 400, cancellationToken);
+      await Send.ErrorsAsync(statusCode: 400, cancellationToken)
+        .ConfigureAwait(false);
       return;
     }
 
@@ -59,8 +66,11 @@ public class List(IMediator mediator) : Endpoint<ListContributorsRequest, Contri
     AddLinkHeader(pagedResult.Page, pagedResult.PerPage, pagedResult.TotalPages);
 
     var response = Map.FromEntity(pagedResult);
-    await Send.OkAsync(response, cancellationToken);
+    await Send.OkAsync(response, cancellationToken)
+      .ConfigureAwait(false);
   }
+
+  #pragma warning restore CA1725
 
   private void AddLinkHeader(int page, int perPage, int totalPages)
   {
@@ -123,6 +133,8 @@ public sealed class ListContributorsMapper
 {
   public override ContributorListResponse FromEntity(UseCases.PagedResult<ContributorDto> e)
   {
+    ArgumentNullException.ThrowIfNull(e);
+
     var items = e.Items
       .Select(c => new ContributorRecord(c.Id.Value, c.Name.Value, c.PhoneNumber.ToString()))
       .ToList();
@@ -130,3 +142,5 @@ public sealed class ListContributorsMapper
     return new ContributorListResponse(items, e.Page, e.PerPage, e.TotalCount, e.TotalPages);
   }
 }
+
+#pragma warning restore CA1724

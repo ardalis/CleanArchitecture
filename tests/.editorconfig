@@ -1,0 +1,27 @@
+# Public test and fixture types are required for test discovery and shared fixtures.
+# Test names intentionally use underscores for readability.
+# Example: Method_Scenario_ExpectedResult
+
+[*.cs]
+dotnet_diagnostic.CA1515.severity = none
+dotnet_diagnostic.CA1707.severity = none
+
+# PR #1052 only tightens analyzer policy. Preserve existing functional-test
+# factory and Docker-check behavior; their lifecycle/provider redesign belongs
+# to PR #1073. These exceptions apply only to the legacy test files.
+[Clean.Architecture.FunctionalTests/CustomWebApplicationFactory.cs]
+dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.CA1816.severity = none
+dotnet_diagnostic.CA2025.severity = none
+dotnet_diagnostic.CA1848.severity = none
+dotnet_diagnostic.CA1727.severity = none
+dotnet_diagnostic.CA1062.severity = none
+
+[Clean.Architecture.FunctionalTests/DockerAvailabilityTests.cs]
+dotnet_diagnostic.CA1031.severity = none
+
+# The existing integration fixture is not refactored as part of analyzer policy.
+[Clean.Architecture.IntegrationTests/Data/BaseEfRepoTestFixture.cs]
+dotnet_diagnostic.CA1024.severity = none
+dotnet_diagnostic.CA1051.severity = none
+dotnet_diagnostic.CA1001.severity = none

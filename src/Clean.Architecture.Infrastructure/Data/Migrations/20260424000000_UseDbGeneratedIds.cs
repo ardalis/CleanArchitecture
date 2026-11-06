@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,6 +10,8 @@ public partial class UseDbGeneratedIds : Migration
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
+        Guard.Against.Null(migrationBuilder);
+
         if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
         {
             // SQL Server requires drop/recreate to add IDENTITY to an existing column.
@@ -48,6 +50,8 @@ public partial class UseDbGeneratedIds : Migration
     /// <inheritdoc />
     protected override void Down(MigrationBuilder migrationBuilder)
     {
+        Guard.Against.Null(migrationBuilder);
+
         if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
         {
             migrationBuilder.Sql("EXEC sp_rename N'[Contributors]', N'[Contributors_old]'");

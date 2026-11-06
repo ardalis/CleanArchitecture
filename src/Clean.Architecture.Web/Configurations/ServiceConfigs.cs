@@ -1,34 +1,43 @@
-﻿using Clean.Architecture.Core.Interfaces;
+using Clean.Architecture.Core.Interfaces;
 using Clean.Architecture.Infrastructure;
 using Clean.Architecture.Infrastructure.Email;
 
 namespace Clean.Architecture.Web.Configurations;
 
-public static class ServiceConfigs
+public static partial class ServiceConfigs
 {
-  public static IServiceCollection AddServiceConfigs(this IServiceCollection services, Microsoft.Extensions.Logging.ILogger logger, WebApplicationBuilder builder)
+  public static IServiceCollection AddServiceConfigs(
+    this IServiceCollection services,
+    Microsoft.Extensions.Logging.ILogger logger,
+    WebApplicationBuilder builder)
   {
-    services.AddInfrastructureServices(builder.Configuration, logger)
-            .AddMediatorSourceGen(logger);
+    ArgumentNullException.ThrowIfNull(services);
+    ArgumentNullException.ThrowIfNull(logger);
+    ArgumentNullException.ThrowIfNull(builder);
+
+    services
+      .AddInfrastructureServices(builder.Configuration, logger)
+      .AddMediatorSourceGen(logger);
 
     if (builder.Environment.IsDevelopment())
     {
-      // Use a local test email server - configured in Aspire
-      // See: https://ardalis.com/configuring-a-local-test-email-server/
+      // Use a local test email server configured in Aspire.
       services.AddScoped<IEmailSender, MimeKitEmailSender>();
-
-      // Otherwise use this:
-      //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
     }
     else
     {
       services.AddScoped<IEmailSender, MimeKitEmailSender>();
     }
 
-    logger.LogInformation("{Project} services registered", "Mediator Source Generator and Email Sender");
+    LogServicesRegistered(logger);
 
     return services;
   }
 
-
+  [LoggerMessage(
+    EventId = 1,
+    Level = LogLevel.Information,
+    Message = "Mediator source generator and email sender services registered")]
+  private static partial void LogServicesRegistered(
+    Microsoft.Extensions.Logging.ILogger logger);
 }

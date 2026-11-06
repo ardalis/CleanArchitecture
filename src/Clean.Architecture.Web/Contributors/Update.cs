@@ -48,11 +48,15 @@ public class Update(IMediator mediator)
   public override async Task<Results<Ok<UpdateContributorResponse>, NotFound, ProblemHttpResult>>
     ExecuteAsync(UpdateContributorRequest request, CancellationToken ct)
   {
-    var cmd = new UpdateContributorCommand(
+    ArgumentNullException.ThrowIfNull(request);
+
+    var command = new UpdateContributorCommand(
       ContributorId.From(request.Id),
       ContributorName.From(request.Name!));
 
-    var result = await _mediator.Send(cmd, ct);
+    var result = await _mediator
+      .Send(command, ct)
+      .ConfigureAwait(false);
 
     return result.ToUpdateResult(Map.FromEntity);
   }
@@ -62,5 +66,13 @@ public sealed class UpdateContributorMapper
   : Mapper<UpdateContributorRequest, UpdateContributorResponse, ContributorDto>
 {
   public override UpdateContributorResponse FromEntity(ContributorDto e)
-    => new(new ContributorRecord(e.Id.Value, e.Name.Value, ""));
+  {
+    ArgumentNullException.ThrowIfNull(e);
+
+    return new UpdateContributorResponse(
+      new ContributorRecord(
+        e.Id.Value,
+        e.Name.Value,
+        ""));
+  }
 }

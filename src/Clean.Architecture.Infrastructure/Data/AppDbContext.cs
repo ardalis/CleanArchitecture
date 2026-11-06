@@ -7,6 +7,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    Guard.Against.Null(modelBuilder);
+
     base.OnModelCreating(modelBuilder);
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
   }

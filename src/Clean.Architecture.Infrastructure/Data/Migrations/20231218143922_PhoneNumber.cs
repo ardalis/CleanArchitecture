@@ -10,6 +10,8 @@ public partial class PhoneNumber : Migration
   /// <inheritdoc />
   protected override void Up(MigrationBuilder migrationBuilder)
   {
+    Guard.Against.Null(migrationBuilder);
+
     migrationBuilder.CreateTable(
         name: "Contributors",
         columns: table => new
@@ -31,6 +33,8 @@ public partial class PhoneNumber : Migration
   /// <inheritdoc />
   protected override void Down(MigrationBuilder migrationBuilder)
   {
+    Guard.Against.Null(migrationBuilder);
+
     migrationBuilder.DropTable(
         name: "Contributors");
   }
