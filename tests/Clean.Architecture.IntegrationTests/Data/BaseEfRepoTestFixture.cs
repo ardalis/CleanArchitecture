@@ -3,63 +3,40 @@ using Clean.Architecture.Infrastructure.Data;
 
 namespace Clean.Architecture.IntegrationTests.Data;
 
-public abstract class BaseEfRepoTestFixture : IDisposable
+public abstract class BaseEfRepoTestFixture
 {
-  private readonly ServiceProvider _serviceProvider;
-  private readonly AppDbContext _dbContext;
-  private bool _disposed;
-
-  protected AppDbContext TestDbContext => _dbContext;
+  protected AppDbContext _dbContext;
 
   protected BaseEfRepoTestFixture()
   {
-    var fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
-
-    _serviceProvider = new ServiceCollection()
-      .AddEntityFrameworkInMemoryDatabase()
-      .AddScoped<IDomainEventDispatcher>(_ => fakeEventDispatcher)
-      .AddScoped<EventDispatchInterceptor>()
-      .BuildServiceProvider();
-
-    var interceptor =
-      _serviceProvider.GetRequiredService<EventDispatchInterceptor>();
-
-    var options = new DbContextOptionsBuilder<AppDbContext>()
-      .UseInMemoryDatabase("cleanarchitecture")
-      .UseInternalServiceProvider(_serviceProvider)
-      .AddInterceptors(interceptor)
-      .Options;
-
+    var options = CreateNewContextOptions();
     _dbContext = new AppDbContext(options);
   }
 
-  public void Dispose()
+  protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
   {
-    Dispose(disposing: true);
-    GC.SuppressFinalize(this);
+    var fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
+    // Create a fresh service provider, and therefore a fresh
+    // InMemory database instance.
+    var serviceProvider = new ServiceCollection()
+        .AddEntityFrameworkInMemoryDatabase()
+        .AddScoped<IDomainEventDispatcher>(_ => fakeEventDispatcher)
+        .AddScoped<EventDispatchInterceptor>()
+        .BuildServiceProvider();
+
+    // Create a new options instance telling the context to use an
+    // InMemory database and the new service provider.
+    var interceptor = serviceProvider.GetRequiredService<EventDispatchInterceptor>();
+
+    var builder = new DbContextOptionsBuilder<AppDbContext>();
+    builder.UseInMemoryDatabase("cleanarchitecture")
+           .UseInternalServiceProvider(serviceProvider)
+           .AddInterceptors(interceptor);
+
+    return builder.Options;
   }
 
-  protected virtual void Dispose(bool disposing)
-  {
-    if (_disposed)
-    {
-      return;
-    }
-
-    if (disposing)
-    {
-      _dbContext.Dispose();
-      _serviceProvider.Dispose();
-    }
-
-    _disposed = true;
-  }
-
-  // This is intentionally a factory method because every call creates
-  // a new repository instance.
-#pragma warning disable CA1024
   protected EfRepository<Contributor> GetRepository()
-#pragma warning restore CA1024
   {
     return new EfRepository<Contributor>(_dbContext);
   }
