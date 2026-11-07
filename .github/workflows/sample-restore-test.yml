@@ -1,0 +1,19 @@
+﻿name: Sample restore and tests (NU1109 regression)
+on:
+  push:
+    branches: ['fix/sample-logging-abstractions-nu1109']
+  workflow_dispatch:
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore sample (isolate NU1109 from tracked advisories)
+        run: dotnet restore sample/NimblePros.SampleToDo.slnx -p:NuGetAudit=false
+      - name: Build sample
+        run: dotnet build sample/NimblePros.SampleToDo.slnx --no-restore -p:NuGetAudit=false
+      - name: Test sample (Docker available on hosted Linux)
+        run: dotnet test sample/NimblePros.SampleToDo.slnx --no-build --no-restore -p:NuGetAudit=false
