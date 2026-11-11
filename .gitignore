@@ -271,3 +271,9 @@ Packages.props
 #Local Log Files
 log*.txt
 /sample/src/NimblePros.SampleToDo.Web/appsettings.Development.json
+
+# C# Dev Kit language service cache
+*.lscache
+
+# Personal VS Code workspace settings (launch.json/tasks.json stay shared)
+.vscode/settings.json
