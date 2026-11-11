@@ -33,7 +33,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build & Test (.NET 11)
+    name: Build & Test
     runs-on: ${{ matrix.os }}
     
     # Matrix strategy tests all OS combinations
