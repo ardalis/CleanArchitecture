@@ -59,6 +59,7 @@ jobs:
 
       # --no-restore skips redundant package restore
       - name: Build (${{ matrix.configuration }})
+        id: build
         run: dotnet build Clean.Architecture.slnx --configuration ${{ matrix.configuration }} --no-restore --verbosity minimal
 
       # Unit tests - fast, no external dependencies
@@ -66,20 +67,23 @@ jobs:
       - name: Run Unit Tests (${{ matrix.configuration }})
         run: dotnet test tests/Clean.Architecture.UnitTests/Clean.Architecture.UnitTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
 
-      # Integration tests - may have external dependencies
-      # continue-on-error: true allows workflow to complete even if tests fail
+      # Integration and functional tests run even if an earlier test step failed
+      # (as long as the build succeeded), so one run reports every failing suite. A failing test
+      # fails the job - these are required status checks on main.
       - name: Run Integration Tests (${{ matrix.configuration }})
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: dotnet test tests/Clean.Architecture.IntegrationTests/Clean.Architecture.IntegrationTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --collect:"XPlat Code Coverage"
-        continue-on-error: true  # Don't fail entire workflow on integration test issues
 
-      # Functional tests - filter excludes Docker-dependent tests in CI
+      # Functional tests use SQL Server via Testcontainers when Docker can run Linux
+      # containers, otherwise SQLite (e.g. Windows runners, which use Windows containers).
+      # The Docker-specific tests are excluded here and covered by the Ubuntu step below.
       - name: Run Functional Tests
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName!~DockerAvailabilityTests&FullyQualifiedName!~SqlServerOnLinuxTests" --collect:"XPlat Code Coverage"
-        continue-on-error: true  # Don't fail entire workflow on functional test issues
 
       # Required Linux SQL Server container smoke test; never fall back to SQLite.
       - name: Verify SQL Server container on Ubuntu
-        if: matrix.os == 'ubuntu-latest'
+        if: ${{ !cancelled() && steps.build.outcome == 'success' && matrix.os == 'ubuntu-latest' }}
         env:
           REQUIRE_SQL_SERVER_TESTS: 'true'
         run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName~SqlServerOnLinuxTests"
@@ -88,6 +92,7 @@ jobs:
       # Retention 30 days balances storage costs and debugging needs
       - name: Upload Test Results
         if: always()
+        continue-on-error: true  # an artifact-service outage shouldn't fail the build
         uses: actions/upload-artifact@v5
         with:
           name: test-results-${{ matrix.os }}-${{ matrix.configuration }}
@@ -97,8 +102,54 @@ jobs:
       # Code coverage reports for quality tracking
       - name: Upload Coverage
         if: always()
+        continue-on-error: true  # an artifact-service outage shouldn't fail the build
         uses: actions/upload-artifact@v5
         with:
           name: coverage-${{ matrix.os }}-${{ matrix.configuration }}
           path: '**/TestResults/**/coverage.cobertura.xml'
+          retention-days: 30
+
+  # The NimblePros.SampleToDo sample is a separate solution with its own
+  # Directory.Packages.props, so dependency updates under sample/ are only
+  # validated here. Ubuntu only: the sample's functional tests start a Linux
+  # SMTP container (Testcontainers), which needs Docker with Linux containers.
+  build-and-test-sample:
+    name: Build & Test Sample
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 11 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '11.0.x'
+          dotnet-quality: 'ga'
+
+      - name: Restore dependencies
+        run: dotnet restore sample/NimblePros.SampleToDo.slnx
+        env:
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+          DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+      - name: Build (Release)
+        run: dotnet build sample/NimblePros.SampleToDo.slnx --configuration Release --no-restore --verbosity minimal
+
+      - name: Run Unit Tests
+        run: dotnet test sample/tests/NimblePros.SampleToDo.UnitTests/NimblePros.SampleToDo.UnitTests.csproj --configuration Release --no-build --logger "trx"
+
+      - name: Run Integration Tests
+        run: dotnet test sample/tests/NimblePros.SampleToDo.IntegrationTests/NimblePros.SampleToDo.IntegrationTests.csproj --configuration Release --no-build --logger "trx"
+
+      - name: Run Functional Tests
+        run: dotnet test sample/tests/NimblePros.SampleToDo.FunctionalTests/NimblePros.SampleToDo.FunctionalTests.csproj --configuration Release --no-build --logger "trx"
+
+      - name: Upload Test Results
+        if: always()
+        continue-on-error: true  # an artifact-service outage shouldn't fail the build
+        uses: actions/upload-artifact@v5
+        with:
+          name: test-results-sample
+          path: 'sample/**/TestResults/**/*.trx'
           retention-days: 30

@@ -12,6 +12,8 @@ public class DockerAvailabilityTests
 
     try
     {
+      await DockerEnvironment.EnsureLinuxContainersAvailableAsync(cancellationToken);
+
       await using var container = new MsSqlBuilder(
           "mcr.microsoft.com/mssql/server:2025-latest")
         .WithPassword("Your_password123!")

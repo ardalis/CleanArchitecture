@@ -70,6 +70,10 @@ public class CustomWebApplicationFactory<TProgram> :
         throw simulatedFailure;
       }
 
+      // Treat "Docker can't run Linux containers" (e.g. Windows-container mode)
+      // the same as Docker being unavailable.
+      await DockerEnvironment.EnsureLinuxContainersAvailableAsync();
+
       container = new MsSqlBuilder(
           "mcr.microsoft.com/mssql/server:2025-latest")
         .WithPassword("Your_password123!")
