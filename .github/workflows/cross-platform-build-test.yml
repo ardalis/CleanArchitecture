@@ -108,3 +108,48 @@ jobs:
           name: coverage-${{ matrix.os }}-${{ matrix.configuration }}
           path: '**/TestResults/**/coverage.cobertura.xml'
           retention-days: 30
+
+  # The NimblePros.SampleToDo sample is a separate solution with its own
+  # Directory.Packages.props, so dependency updates under sample/ are only
+  # validated here. Ubuntu only: the sample's functional tests start a Linux
+  # SMTP container (Testcontainers), which needs Docker with Linux containers.
+  build-and-test-sample:
+    name: Build & Test Sample
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 11 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '11.0.x'
+          dotnet-quality: 'ga'
+
+      - name: Restore dependencies
+        run: dotnet restore sample/NimblePros.SampleToDo.slnx
+        env:
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+          DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+      - name: Build (Release)
+        run: dotnet build sample/NimblePros.SampleToDo.slnx --configuration Release --no-restore --verbosity minimal
+
+      - name: Run Unit Tests
+        run: dotnet test sample/tests/NimblePros.SampleToDo.UnitTests/NimblePros.SampleToDo.UnitTests.csproj --configuration Release --no-build --logger "trx"
+
+      - name: Run Integration Tests
+        run: dotnet test sample/tests/NimblePros.SampleToDo.IntegrationTests/NimblePros.SampleToDo.IntegrationTests.csproj --configuration Release --no-build --logger "trx"
+
+      - name: Run Functional Tests
+        run: dotnet test sample/tests/NimblePros.SampleToDo.FunctionalTests/NimblePros.SampleToDo.FunctionalTests.csproj --configuration Release --no-build --logger "trx"
+
+      - name: Upload Test Results
+        if: always()
+        continue-on-error: true  # an artifact-service outage shouldn't fail the build
+        uses: actions/upload-artifact@v5
+        with:
+          name: test-results-sample
+          path: 'sample/**/TestResults/**/*.trx'
+          retention-days: 30
