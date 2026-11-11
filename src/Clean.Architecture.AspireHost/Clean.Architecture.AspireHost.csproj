@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <IsAspireHost>true</IsAspireHost>
     <UserSecretsId>c540eeb6-e06b-4456-a539-be58dd8b88c7</UserSecretsId>
+    <!-- ASPIRE010: we intentionally use the DCP/Dashboard NuGet packages (AspireUseCliBundle=false) so F5 and dotnet run work without the Aspire CLI -->
+    <NoWarn>$(NoWarn);ASPIRE010</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

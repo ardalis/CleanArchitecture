@@ -13,7 +13,7 @@ public static class ProjectErrorMessages
   // -----------------------------------------------------------------
   public static string CoreProjectNameEmpty => Get(nameof(CoreProjectNameEmpty));
   public static string CoreProjectNameTooLong(int maxLength) => Get(nameof(CoreProjectNameTooLong), maxLength);
-  public static string CoreToDoItemDescriptionEmpty => Get(nameof(CoreToDoItemDescriptionEmpty));
+  public static string CoreToDoItemDescriptionNull => Get(nameof(CoreToDoItemDescriptionNull));
   public static string CoreToDoItemDescriptionTooLong(int maxLength) => Get(nameof(CoreToDoItemDescriptionTooLong), maxLength);
   public static string CoreToDoItemTitleEmpty => Get(nameof(CoreToDoItemTitleEmpty));
   public static string CoreToDoItemTitleTooLong(int maxLength) => Get(nameof(CoreToDoItemTitleTooLong), maxLength);
@@ -44,7 +44,7 @@ public static class ProjectErrorMessages
   {
     nameof(CoreProjectNameEmpty) => "Name cannot be empty",
     nameof(CoreProjectNameTooLong) => FormattableString.Invariant($"Name cannot be longer than {args[0]} characters"),
-    nameof(CoreToDoItemDescriptionEmpty) => "Description cannot be empty",
+    nameof(CoreToDoItemDescriptionNull) => "Description cannot be null",
     nameof(CoreToDoItemDescriptionTooLong) => FormattableString.Invariant($"Description cannot be longer than {args[0]} characters"),
     nameof(CoreToDoItemTitleEmpty) => "Title cannot be empty",
     nameof(CoreToDoItemTitleTooLong) => FormattableString.Invariant($"Title cannot be longer than {args[0]} characters"),
