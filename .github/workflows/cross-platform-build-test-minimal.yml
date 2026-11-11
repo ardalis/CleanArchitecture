@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    name: Build (.NET 11)
+    name: Build
     runs-on: ${{ matrix.os }}
 
     strategy:

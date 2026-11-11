@@ -15,25 +15,17 @@ on:
       - 'global.json'
       - '.github/dependabot.yml'
       - '.github/workflows/cross-platform-build-test.yml'
+  # No path filter on pull_request: the "Build & Test (<os>, Release)" jobs are
+  # required status checks on main, and a check that never runs blocks the PR.
+  # Filtering here would leave docs-only or workflow-only PRs unmergeable.
   pull_request:
     branches:
       - '**'
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'sample/**'
-      - 'MinimalClean/**'
-      - 'Clean.Architecture.slnx'
-      - 'Directory.Build.props'
-      - 'Directory.Packages.props'
-      - 'global.json'
-      - '.github/dependabot.yml'
-      - '.github/workflows/cross-platform-build-test.yml'
   workflow_dispatch:
 
 jobs:
   build-and-test:
-    name: Build & Test (.NET 11)
+    name: Build & Test
     runs-on: ${{ matrix.os }}
     
     # Matrix strategy tests all OS combinations
