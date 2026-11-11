@@ -22,7 +22,7 @@ on:
     types: [published]
 
 env:
-  DOTNET_VERSION: '10.0.x'
+  DOTNET_VERSION: '11.0.x'
   DOTNET_QUALITY: 'ga'
   PACK_OUTPUT: artifacts/packages
 

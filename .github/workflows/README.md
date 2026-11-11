@@ -6,7 +6,7 @@ This directory contains CI/CD workflows for the Clean Architecture template.
 
 ### 🪟 Windows Build & Test (`windows-build-test.yml`)
 
-**Purpose**: Windows-specific build and test pipeline for .NET 10
+**Purpose**: Windows-specific build and test pipeline for .NET 11
 
 **Triggers**:
 - Push to `main`, `develop`, or `issue-*/**` branches
@@ -19,7 +19,7 @@ This directory contains CI/CD workflows for the Clean Architecture template.
 
 **Steps**:
 1. Checkout code
-2. Setup .NET 10 SDK (preview)
+2. Setup .NET 11 SDK
 3. Use CI-specific NuGet.Config (nuget.org only, no Nexus)
 4. Restore dependencies
 5. Build solution (Debug & Release)
@@ -48,7 +48,7 @@ This directory contains CI/CD workflows for the Clean Architecture template.
 
 **Steps**:
 1. Checkout code
-2. Setup .NET 10 SDK (preview)
+2. Setup .NET 11 SDK
 3. Restore dependencies
 4. Build solution
 5. Run tests with coverage
@@ -79,18 +79,18 @@ The workflows automatically copy `.github/NuGet.Config` to the root during the b
 
 ---
 
-## .NET 10 SDK
+## .NET 11 SDK
 
 All workflows use:
 ```yaml
-- name: Setup .NET 10 SDK
-  uses: actions/setup-dotnet@v4
+- name: Setup .NET 11 SDK
+  uses: actions/setup-dotnet@v5
   with:
-    dotnet-version: '10.0.x'
-    dotnet-quality: 'preview'
+    dotnet-version: '11.0.x'
+    dotnet-quality: 'ga'
 ```
 
-**Note**: .NET 10 is in preview. Update `dotnet-quality` to `ga` when it reaches General Availability.
+**Note**: The SDK version is also pinned in `global.json` (`11.0.100`, `rollForward: latestMajor`).
 
 ---
 
@@ -138,7 +138,7 @@ Test results and code coverage are available as downloadable artifacts for 30 da
 ### Restore Fails with HTTP Error
 
 The workflows use only `nuget.org`. If restore fails:
-1. Check if .NET 10 SDK packages are available
+1. Check if .NET 11 SDK packages are available
 2. Verify no local `NuGet.Config` overrides CI config
 3. Check GitHub Actions logs for detailed errors
 
@@ -174,6 +174,6 @@ Check individual job logs to identify OS-specific issues.
 ## Related Documentation
 
 - [GitHub Actions Docs](https://docs.github.com/en/actions)
-- [.NET 10 Preview](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [.NET 11 Download](https://dotnet.microsoft.com/download/dotnet/11.0)
 - [Clean Architecture Template](../../README.md)
 - [Copilot Instructions](../copilot-instructions.md)

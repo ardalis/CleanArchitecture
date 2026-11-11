@@ -26,7 +26,7 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
     message.Subject = subject;
     message.Body = new TextPart("plain") { Text = body };
 
-    await client.SendAsync(message);
+    await client.SendAsync(new MailKit.SendRequest(message));
 
     await client.DisconnectAsync(true,
       new CancellationToken(canceled: true));

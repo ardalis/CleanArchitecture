@@ -82,7 +82,7 @@ By default the site uses HTTPS and expects you to have a self-signed developer c
 
 ## Versions
 
-The main branch is now using **.NET 9**. This corresponds with NuGet package version 10.x. Previous versions are available - see our [Releases](https://github.com/ardalis/CleanArchitecture/releases).
+The main branch is now using **.NET 10**. This corresponds with NuGet package version 10.x. Previous versions are available - see our [Releases](https://github.com/ardalis/CleanArchitecture/releases).
 
 ## Learn More
 

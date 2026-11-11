@@ -16,6 +16,14 @@
   "sourceName": "Clean.Architecture",
   "templateFileExtensions": [ ".cs", ".csproj", ".slnx" ],
   "preferNameDirectory": true,
+  "symbols": {
+    "safeSourceName": {
+      "type": "derived",
+      "valueSource": "name",
+      "valueTransform": "safe_namespace",
+      "fileRename": "Clean.Architecture"
+    }
+  },
   "sources": [
     {
       "include": [

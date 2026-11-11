@@ -108,7 +108,7 @@ This minimal template simplifies the full Clean Architecture template:
 
 ## Technology Stack
 
-- **.NET 10**: Latest LTS framework
+- **.NET 11**: Latest framework
 - **FastEndpoints**: REPR pattern for API endpoints
 - **Entity Framework Core**: Data access with migrations
 - **SQL Server**: Containerized database via Aspire (easily switched to PostgreSQL, SQLite, etc.)

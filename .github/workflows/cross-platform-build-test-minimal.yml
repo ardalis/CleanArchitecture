@@ -6,18 +6,20 @@ on:
       - '**'
     paths:
       - 'MinimalClean/**'
+      - '.github/dependabot.yml'
       - '.github/workflows/cross-platform-build-test-minimal.yml'
   pull_request:
     branches:
       - '**'
     paths:
       - 'MinimalClean/**'
+      - '.github/dependabot.yml'
       - '.github/workflows/cross-platform-build-test-minimal.yml'
   workflow_dispatch:
 
 jobs:
   build:
-    name: Build (.NET 10)
+    name: Build (.NET 11)
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -29,10 +31,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup .NET 10 SDK
+      - name: Setup .NET 11 SDK
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '11.0.x'
           dotnet-quality: 'ga'
 
       - name: Restore dependencies
