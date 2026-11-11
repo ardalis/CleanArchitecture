@@ -187,6 +187,15 @@ You should **fork this repository** only if you plan on submitting a pull reques
 
 You should **clone this repository** if you're one of the contributors and you have commit access to it. Otherwise you probably want one of the other options.
 
+## Seed Data
+
+Both the template and the sample seed the database at startup (`SeedData.InitializeAsync`, called from `MiddlewareConfig`) so you have data to work with right away. This seeding is meant for local development and demos only:
+
+- The **template** (`clean-arch`) seeds only in the Development environment or when `Database:ApplyMigrationsOnStartup` is `true`, and it only inserts sample contributors when the `Contributors` table is empty.
+- The **sample** (`NimblePros.SampleToDo`) seeds in every environment, after `EnsureCreated`. If the `ToDoItems` table is empty, `PopulateTestDataAsync` **deletes all Projects, ToDoItems and Contributors** before inserting sample data. If you point a development build at a shared or production database, or someone empties that table, you can lose real data.
+
+Before using either solution as the basis for a real application, replace the sample seeding with seeding based on your own data, or remove it. If you build on the sample, at minimum restrict seeding to the Development environment (for example, wrap the call in `if (app.Environment.IsDevelopment())`). See [#953](https://github.com/ardalis/CleanArchitecture/issues/953).
+
 ## Running Migrations
 
 You shouldn't need to do this to use this template, but if you want migrations set up properly in the Infrastructure project, you need to specify that project name when you run the migrations command.

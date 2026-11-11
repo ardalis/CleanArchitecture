@@ -23,6 +23,16 @@ public static class SeedData
 new ToDoItem(title: ToDoItemTitle.From("Run and Review Tests"),
   description: ToDoItemDescription.From("Make sure all the tests run and review what they are doing."));
 
+  /// <summary>
+  /// Seeds sample data if the ToDoItems table is empty.
+  /// WARNING: This is for local development and demos only. If ToDoItems is empty,
+  /// it calls <see cref="PopulateTestDataAsync"/>, which DELETES all Projects, ToDoItems
+  /// and Contributors. Do not run this against a shared or production database
+  /// (e.g. a dev build pointed at a production connection string). Before using this
+  /// sample as the basis for a real application, remove this seeding or restrict it
+  /// to the Development environment and base it on your own data.
+  /// See https://github.com/ardalis/CleanArchitecture/issues/953
+  /// </summary>
   public static async Task InitializeAsync(AppDbContext dbContext)
   {
     if (await dbContext.ToDoItems.AnyAsync())
@@ -33,6 +43,10 @@ new ToDoItem(title: ToDoItemTitle.From("Run and Review Tests"),
     await PopulateTestDataAsync(dbContext);
   }
 
+  /// <summary>
+  /// DESTRUCTIVE: deletes all existing Projects, ToDoItems and Contributors, then inserts
+  /// sample data. Intended for local development and tests only - never for production data.
+  /// </summary>
   public static async Task PopulateTestDataAsync(AppDbContext dbContext)
   {
     foreach (var item in dbContext.Projects)
