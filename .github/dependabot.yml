@@ -1,90 +1,17 @@
 version: 2
 updates:
+# One entry for all three solutions, each with its own Directory.Packages.props.
+# With `directories`, a grouped update that applies to several of them arrives as a
+# single PR, which keeps the template, MinimalClean and the sample on the same versions.
 - package-ecosystem: nuget
-  directory: "/"
+  directories:
+  - "/"
+  - "/MinimalClean"
+  - "/sample"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  groups:
-    microsoft-packages:
-      patterns:
-      - "Microsoft.*"
-      exclude-patterns:
-      - "Microsoft.NET.Test.Sdk"
-      update-types:
-      - minor
-      - patch
-
-    test-packages:
-      patterns:
-      - "Microsoft.NET.Test.Sdk"
-      - "xunit*"
-      - "NUnit*"
-      - "coverlet*"
-      - "FluentAssertions"
-      update-types:
-      - minor
-      - patch
-
-    all-other-non-major:
-      patterns:
-      - "*"
-      exclude-patterns:
-      - "Microsoft.*"
-      - "Microsoft.NET.Test.Sdk"
-      - "xunit*"
-      - "NUnit*"
-      - "coverlet*"
-      - "FluentAssertions"
-      update-types:
-      - minor
-      - patch
-
-- package-ecosystem: nuget
-  directory: "/MinimalClean"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  groups:
-    microsoft-packages:
-      patterns:
-      - "Microsoft.*"
-      exclude-patterns:
-      - "Microsoft.NET.Test.Sdk"
-      update-types:
-      - minor
-      - patch
-
-    test-packages:
-      patterns:
-      - "Microsoft.NET.Test.Sdk"
-      - "xunit*"
-      - "NUnit*"
-      - "coverlet*"
-      - "FluentAssertions"
-      update-types:
-      - minor
-      - patch
-
-    all-other-non-major:
-      patterns:
-      - "*"
-      exclude-patterns:
-      - "Microsoft.*"
-      - "Microsoft.NET.Test.Sdk"
-      - "xunit*"
-      - "NUnit*"
-      - "coverlet*"
-      - "FluentAssertions"
-      update-types:
-      - minor
-      - patch
-
-- package-ecosystem: nuget
-  directory: "/sample"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+  # Major updates are not grouped and still arrive separately for manual review.
   groups:
     microsoft-packages:
       patterns:
