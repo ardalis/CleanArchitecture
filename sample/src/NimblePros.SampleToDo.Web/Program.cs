@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using AspNetCore.Localizer.Json.Extensions;
-using FluentValidation;
 using Microsoft.Extensions.Localization;
 using NimblePros.Metronome;
 using NimblePros.SampleToDo.Core.ProjectAggregate;
@@ -41,7 +40,6 @@ public partial class Program
                     {
                       o.ShortSchemaNames = true;
                     });
-    builder.Services.AddValidatorsFromAssemblyContaining<UpdateProjectRequestValidator>();
 
     if (!builder.Environment.EnvironmentName.Equals("Testing"))
     {
@@ -97,14 +95,6 @@ public partial class Program
         .AddSupportedUICultures(supportedCultures);
     app.UseRequestLocalization(localizationOptions);
 
-    // Verify validators are registered properly in development
-    if (app.Environment.IsDevelopment())
-    {
-      using var scope = app.Services.CreateScope();
-      var validatorsCount = scope.ServiceProvider.GetServices<IValidator<UpdateProjectRequest>>().Count();
-      appLogger.LogInformation("Validators found: {validatorsCount}", validatorsCount);
-    }
-    
     // see Configurations/MiddlewareConfig.cs  
     await app.UseAppMiddleware();
 
