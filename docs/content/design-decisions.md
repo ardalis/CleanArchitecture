@@ -104,6 +104,10 @@ Domain events are a great pattern for decoupling a trigger for an operation from
 
 ![Domain Event Sequence Diagram](https://user-images.githubusercontent.com/782127/75702680-216ce300-5c73-11ea-9187-ec656192ad3b.png)
 
+## Repository, Unit of Work, and Transactions
+
+The sample repository (`EfRepository<T>`) saves changes on every `AddAsync`, `UpdateAsync`, and `DeleteAsync` call. It does not support a unit of work or a transaction that spans several repository calls. Because `AppDbContext` is scoped and shared by all repositories in a request, it's easy to add your own unit of work abstraction that calls `SaveChangesAsync` once, at the end of a use case. See [Unit of Work & Transactions](../unit-of-work-and-transactions/) for details.
+
 ## Related Projects
 
 - [ApiEndpoints](https://github.com/ardalis/apiendpoints)
