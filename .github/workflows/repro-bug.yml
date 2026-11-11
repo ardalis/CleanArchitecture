@@ -32,7 +32,7 @@ defaults:
     shell: bash
 
 env:
-  DOTNET_VERSION: 10.0.x
+  DOTNET_VERSION: 11.0.x
   DOTNET_CONFIGURATION: Release
 
   # Set one or both.
