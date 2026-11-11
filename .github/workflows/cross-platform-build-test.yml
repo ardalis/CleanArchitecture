@@ -88,7 +88,10 @@ jobs:
       # Required Linux SQL Server container smoke test; never fall back to SQLite.
       - name: Verify SQL Server container on Ubuntu
         if: matrix.os == 'ubuntu-latest'
+        env:
+          REQUIRE_SQL_SERVER_TESTS: 'true'
         run: dotnet test tests/Clean.Architecture.FunctionalTests/Clean.Architecture.FunctionalTests.csproj --configuration ${{ matrix.configuration }} --no-build --verbosity normal --logger "trx" --filter "FullyQualifiedName~SqlServerOnLinuxTests"
+
       # Upload test results even if tests failed (if: always())
       # Retention 30 days balances storage costs and debugging needs
       - name: Upload Test Results

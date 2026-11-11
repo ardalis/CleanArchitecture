@@ -20,7 +20,7 @@ public class CustomWebApplicationFactory<TProgram> :
     $"clean-architecture-functional-tests-{Guid.NewGuid():N}.db");
 
   private MsSqlContainer? _dbContainer;
-  private Func<MsSqlContainer, Task>? _startContainerOverride;
+  private Exception? _simulatedContainerStartFailure;
 
   public CustomWebApplicationFactory()
   {
@@ -46,7 +46,7 @@ public class CustomWebApplicationFactory<TProgram> :
     Exception exception)
   {
     var factory = CreateWithProvider(databaseProvider);
-    factory._startContainerOverride = _ => Task.FromException(exception);
+    factory._simulatedContainerStartFailure = exception;
     return factory;
   }
 
@@ -62,19 +62,20 @@ public class CustomWebApplicationFactory<TProgram> :
 
     try
     {
+      // Simulated failures are thrown before Build(), because Testcontainers
+      // throws DockerUnavailableException from Build() when Docker is missing.
+      // This keeps the simulation deterministic whether or not Docker is running.
+      if (_simulatedContainerStartFailure is { } simulatedFailure)
+      {
+        throw simulatedFailure;
+      }
+
       container = new MsSqlBuilder(
           "mcr.microsoft.com/mssql/server:2025-latest")
         .WithPassword("Your_password123!")
         .Build();
 
-      if (_startContainerOverride is { } startContainer)
-      {
-        await startContainer(container);
-      }
-      else
-      {
-        await container.StartAsync();
-      }
+      await container.StartAsync();
       _dbContainer = container;
       ActiveDatabaseProvider = TestDatabaseProvider.SqlServer;
     }
@@ -93,8 +94,6 @@ public class CustomWebApplicationFactory<TProgram> :
 
   public override async ValueTask DisposeAsync()
   {
-    Environment.SetEnvironmentVariable("USE_SQL_SERVER", null);
-
     if (_dbContainer != null)
     {
       await _dbContainer.DisposeAsync();

@@ -1,5 +1,6 @@
 using Clean.Architecture.Infrastructure.Data;
 using Clean.Architecture.Web.Contributors;
+using DotNet.Testcontainers.Builders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clean.Architecture.FunctionalTests;
@@ -12,7 +13,7 @@ public class SqliteFallbackTests
     await using var factory =
       CustomWebApplicationFactory<Program>.CreateWithContainerStartFailure(
         TestDatabaseProvider.Auto,
-        new DotNet.Testcontainers.Builders.DockerUnavailableException("Simulated Docker outage"));
+        new DockerUnavailableException("Simulated Docker outage"));
 
     await factory.InitializeAsync();
     using var client = factory.CreateClient();
@@ -30,9 +31,9 @@ public class SqliteFallbackTests
     await using var factory =
       CustomWebApplicationFactory<Program>.CreateWithContainerStartFailure(
         TestDatabaseProvider.SqlServer,
-        new DotNet.Testcontainers.Builders.DockerUnavailableException("Simulated Docker outage"));
+        new DockerUnavailableException("Simulated Docker outage"));
 
-    await Should.ThrowAsync<DotNet.Testcontainers.Builders.DockerUnavailableException>(
+    await Should.ThrowAsync<DockerUnavailableException>(
       async () => await factory.InitializeAsync());
   }
 
