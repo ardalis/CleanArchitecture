@@ -1,4 +1,5 @@
-﻿using Docker.DotNet;
+﻿using DotNet.Testcontainers.Builders;
+using Testcontainers.MsSql;
 
 namespace Clean.Architecture.FunctionalTests;
 
@@ -8,19 +9,23 @@ public class DockerAvailabilityTests
   public async Task Docker_ShouldBeRunning_ForFullFunctionalTestCoverage()
   {
     var cancellationToken = TestContext.Current.CancellationToken;
+
     try
     {
-      // Ping the Docker daemon directly using the Docker client.
-      // This has no side effects on container lifecycle or Testcontainers internals.
-      using var client = new DockerClientBuilder().Build();
-      await client.System.PingAsync(cancellationToken);
+      await using var container = new MsSqlBuilder(
+          "mcr.microsoft.com/mssql/server:2025-latest")
+        .WithPassword("Your_password123!")
+        .Build();
+
+      await container.StartAsync(cancellationToken);
     }
-    catch (Exception)
+    catch (DockerUnavailableException ex)
     {
-      Assert.Fail(
-        "Docker is not running or is misconfigured. " +
-        "Functional tests that use SQL Server will fall back to SQLite, which may not catch SQL Server-specific issues. " +
-        "For full test coverage, please start Docker Desktop (https://www.docker.com/products/docker-desktop/) and re-run the tests.");
+      Assert.Skip(
+        "Docker is not running or is unavailable. " +
+        "Functional tests can still run with SQLite, " +
+        "but SQL Server-specific behavior is not covered. " +
+        $"Error: {ex.Message}");
     }
   }
 }
