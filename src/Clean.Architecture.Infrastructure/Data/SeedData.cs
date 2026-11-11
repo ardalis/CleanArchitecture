@@ -18,13 +18,13 @@ public static class SeedData
   public static async Task PopulateTestDataAsync(AppDbContext dbContext)
   {
     // Use SQL inserts to avoid key generation/conversion issues with value object IDs.
-    await dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({Contributor1Name.Value}, {ContributorStatus.NotSet.Value})");
-    await dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({Contributor2Name.Value}, {ContributorStatus.NotSet.Value})");
+    await dbContext.Database.ExecuteSqlAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({Contributor1Name.Value}, {ContributorStatus.NotSet.Value})");
+    await dbContext.Database.ExecuteSqlAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({Contributor2Name.Value}, {ContributorStatus.NotSet.Value})");
 
     // Add a bunch more contributors to support demonstrating paging.
     for (int i = 1; i <= NUMBER_OF_CONTRIBUTORS - 2; i++)
     {
-      await dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({$"Contributor {i}"}, {ContributorStatus.NotSet.Value})");
+      await dbContext.Database.ExecuteSqlAsync($"INSERT INTO [Contributors] ([Name], [Status]) VALUES ({$"Contributor {i}"}, {ContributorStatus.NotSet.Value})");
     }
   }
 }

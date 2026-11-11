@@ -9,7 +9,7 @@
       A simplified Clean Architecture template using vertical slice architecture in a single project. 
       Perfect for MVPs, smaller applications, or teams wanting architectural guidance without multi-project complexity.
       Features Domain-Driven Design patterns, FastEndpoints, Entity Framework Core, and optional Aspire support.
-      Built with .NET 10 and C#.
+      Built with .NET 11 and C#.
     </description>
     <language>en-US</language>
     <license type="expression">MIT</license>
