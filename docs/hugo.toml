@@ -1,4 +1,4 @@
-baseURL = 'https://ardalis.github.io/CleanArchitecture/'
+baseURL = 'https://cleanarchitecture.ardalis.com/'
 locale = 'en-us'
 title = 'Ardalis Clean Architecture'
 theme = 'hugo-book' # A popular, clean, and minimal docs theme
