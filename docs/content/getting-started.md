@@ -111,6 +111,7 @@ Perfect for MVPs, smaller applications, or teams that want architectural guidanc
 | **DDD Patterns** | Extensive (Aggregates, Value Objects, Domain Events, Specifications) | Pragmatic (simplified domain model) |
 | **Repository Pattern** | Yes, with Specifications | Optional (direct DbContext or simple repos) |
 | **Mediator/CQRS** | Yes (separate UseCases project) | Optional (can be in endpoints) |
+| **Layer Enforcement** | Project references | Namespace rules via [NsDepCop](../dependency-rules/) |
 | **Complexity** | Higher - more abstractions | Lower - simpler structure |
 | **Best For** | Large enterprise apps, long-term maintenance | MVPs, smaller apps, rapid iteration |
 | **Team Size** | Multiple teams, strict boundaries | Small teams, collaborative |

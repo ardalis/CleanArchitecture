@@ -46,20 +46,29 @@ This template uses a **single Web project** organized by **vertical slices** (fe
 
 ```text
 src/MinimalClean.Architecture.Web/
-├── Domain/                    # Domain entities and aggregates
+├── Domain/                    # Domain entities, aggregates, and interfaces
 │   ├── CartAggregate/
+│   ├── GuestUserAggregate/
 │   ├── OrderAggregate/
-│   └── ProductAggregate/
+│   ├── ProductAggregate/
+│   └── Interfaces/
 ├── Infrastructure/            # Data access and external services
 │   ├── Data/
 │   │   ├── AppDbContext.cs
 │   │   ├── Config/           # EF Core configurations
+│   │   ├── Queries/          # Query service implementations
 │   │   └── Migrations/
 │   └── Email/                # Email services
-├── Endpoints/                 # API endpoints (FastEndpoints)
-│   ├── Cart/
-│   ├── Order/
-│   └── Product/
+├── CartFeatures/              # Vertical slice: endpoints + handlers
+│   ├── AddToCart/
+│   ├── Checkout/
+│   └── GetById/
+├── ProductFeatures/           # Vertical slice: endpoints + handlers
+│   ├── Create/
+│   ├── GetById/
+│   └── List/
+├── Configurations/            # DI, middleware, and Mediator setup
+├── config.nsdepcop            # Namespace dependency rules (NsDepCop)
 └── Program.cs                # Application startup
 ```
 
@@ -75,6 +84,18 @@ Single project vertical slice architecture
 - **FastEndpoints**: REPR pattern for clean, testable API endpoints
 - **Entity Framework Core**: Simple data access with SQLite (easily switched to SQL Server)
 - **Mediator Pattern**: Optional - use for cross-cutting concerns or remove for simplicity
+- **Enforced Boundaries**: [NsDepCop](https://github.com/realvizu/NsDepCop) rules fail the build when code crosses a layer or slice boundary (see below)
+
+### Dependency Rules (NsDepCop)
+
+With everything in one project, project references can't keep layers apart. Instead, `config.nsdepcop` defines namespace rules, and any violation fails the build with error `NSDEPCOP01`:
+
+- `Domain` must not depend on `Infrastructure`, `CartFeatures`, `ProductFeatures`, or `Configurations`
+- Feature slices (`CartFeatures`, `ProductFeatures`) must not depend on `Infrastructure`. Use interfaces defined in `Domain`.
+- Feature slices must not depend on each other. Share code through `Domain`.
+- `Domain.OrderAggregate` must not depend on `Domain.CartAggregate`
+
+Rules match namespaces, not folders, so keep each file's namespace matching its folder. When you add a new feature slice, add matching rules for it in `config.nsdepcop`. See [Enforcing Dependency Rules](https://cleanarchitecture.ardalis.com/dependency-rules/) for details.
 
 ## What's Different from Full Clean Architecture?
 
@@ -123,7 +144,8 @@ This minimal template simplifies the full Clean Architecture template:
 1. **Create Domain Entity**: Add to `Domain/YourFeatureAggregate/`
 2. **Add EF Configuration**: Create config in `Infrastructure/Data/Config/`
 3. **Create Migration**: `dotnet ef migrations add AddYourFeature`
-4. **Create Endpoints**: Add FastEndpoints in `Endpoints/YourFeature/`
+4. **Create Endpoints**: Add FastEndpoints endpoints and handlers in `YourFeatureFeatures/` (one folder per use case)
+5. **Add Dependency Rules**: In `config.nsdepcop`, add `Disallowed` rules so `Domain` can't depend on the new slice, the slice can't depend on `Infrastructure`, and the slice and the existing slices can't depend on each other
 
 ### Switching to SQL Server
 
@@ -159,6 +181,7 @@ Learn more: [Clean Architecture Template](https://github.com/ardalis/CleanArchit
 - [Clean Architecture Template Repository](https://github.com/ardalis/CleanArchitecture)
 - [Vertical Slice Architecture](https://jimmybogard.com/vertical-slice-architecture/)
 - [FastEndpoints Documentation](https://fast-endpoints.com/)
+- [NsDepCop](https://github.com/realvizu/NsDepCop)
 - [Ardalis on YouTube](https://www.youtube.com/@Ardalis)
 
 ## Need Help?
