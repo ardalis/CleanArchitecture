@@ -21,6 +21,7 @@
       * Use Shouldly for all test assertions.
       * Fix file renames for project names that aren't valid namespaces.
       * The package no longer includes a copy of MinimalClean: new solutions no longer get a stray MinimalClean folder, and installing it no longer registers min-clean.
+      * New solutions now include a .gitignore (previously left out of the package, so bin/ and obj/ were committed after git init).
       * New solutions no longer include repository-only files (CODE_OF_CONDUCT.md, CONTRIBUTING.md, icon.png, .claude settings, and two outdated testing notes). Testing guidance now lives at https://cleanarchitecture.ardalis.com/testing/
       * See the v11 to v12 migration guide: https://cleanarchitecture.ardalis.com/migration-guides/v11-to-v12/
     </releaseNotes>
@@ -32,7 +33,7 @@
     <readme>README.md</readme>
   </metadata>
   <files>
-    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore;**\sample\**;**\MinimalClean\**;**\MinimalClean.nuspec;**\.claude\**;**\docs\**" />
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\sample\**;**\MinimalClean\**;**\MinimalClean.nuspec;**\.claude\**;**\docs\**" />
     <file src="README.md" />
   </files>
 </package>
