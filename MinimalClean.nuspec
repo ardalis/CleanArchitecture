@@ -19,6 +19,7 @@
       * Upgrade to .NET 11 and the latest stable NuGet packages, including FastEndpoints 9.
       * Add NsDepCop rules that enforce dependency boundaries between feature slices at build time.
       * Fix file renames for project names that aren't valid namespaces.
+      * New solutions no longer include the package icon (icon.png).
       * See the v11 to v12 migration guide: https://cleanarchitecture.ardalis.com/migration-guides/v11-to-v12/
     </releaseNotes>
     <packageTypes>

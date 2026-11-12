@@ -39,7 +39,8 @@
         ".template.config/**",
         "**/bin/**",
         "**/obj/**",
-        "**/.vs/**"
+        "**/.vs/**",
+        "icon.png"
       ],
       "modifiers": [
         {
