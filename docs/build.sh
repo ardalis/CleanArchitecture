@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Builds the Hugo docs site into ./public.
+#
+# Used by Cloudflare Pages (root directory: docs, build command: bash build.sh,
+# output directory: public). Also works locally from the docs folder.
+#
+# Environment variables:
+#   HUGO_BOOK_REF  hugo-book theme commit/tag to use (default: pinned commit below)
+#   BASE_URL       Absolute site URL for production builds, e.g. https://docs.example.com/
+#                  If unset, Cloudflare's per-deployment CF_PAGES_URL is used, so
+#                  preview deployments get correct links automatically.
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+HUGO_BOOK_REF="${HUGO_BOOK_REF:-7875ae6727c38350ff330d66cb5ee2f70e6cfc54}"
+THEME_DIR="themes/hugo-book"
+
+if [ ! -d "$THEME_DIR/.git" ]; then
+  echo "Fetching hugo-book theme @ $HUGO_BOOK_REF"
+  rm -rf "$THEME_DIR"
+  git init -q "$THEME_DIR"
+  git -C "$THEME_DIR" remote add origin https://github.com/alex-shpak/hugo-book
+fi
+git -C "$THEME_DIR" fetch -q --depth 1 origin "$HUGO_BOOK_REF"
+git -C "$THEME_DIR" checkout -q --detach FETCH_HEAD
+
+hugo version
+
+HUGO_ARGS=(--minify --gc)
+if [ -n "${BASE_URL:-}" ]; then
+  HUGO_ARGS+=(--baseURL "$BASE_URL")
+elif [ -n "${CF_PAGES_URL:-}" ]; then
+  HUGO_ARGS+=(--baseURL "${CF_PAGES_URL%/}/")
+fi
+
+hugo "${HUGO_ARGS[@]}"
