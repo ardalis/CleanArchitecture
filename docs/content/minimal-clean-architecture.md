@@ -42,50 +42,54 @@ MinimalClean.Architecture.Web/
 ├── Domain/                         # Domain Layer
 │   ├── CartAggregate/
 │   │   ├── Cart.cs                 # Aggregate root
-│   │   ├── CartItem.cs            # Entity
-│   │   └── Events/                # Domain events (optional)
+│   │   ├── CartItem.cs             # Entity
+│   │   └── Specifications/
+│   ├── GuestUserAggregate/
 │   ├── OrderAggregate/
-│   └── ProductAggregate/
+│   ├── ProductAggregate/
+│   └── Interfaces/                 # Abstractions implemented by Infrastructure
 ├── Infrastructure/                 # Infrastructure Layer
 │   ├── Data/
-│   │   ├── AppDbContext.cs        # EF Core DbContext
-│   │   ├── Config/                # EF configurations
-│   │   │   ├── CartConfiguration.cs
-│   │   │   └── OrderConfiguration.cs
-│   │   └── Migrations/            # EF migrations
-│   ├── Email/                     # External services
-│   └── Services/                  # Infrastructure services
-├── Endpoints/                      # Presentation Layer
-│   ├── Cart/
-│   │   ├── Create.cs              # Create cart endpoint
-│   │   ├── AddItem.cs             # Add item to cart
-│   │   └── List.cs                # List carts
-│   ├── Order/
-│   └── Product/
-└── Program.cs                     # Application startup
+│   │   ├── AppDbContext.cs         # EF Core DbContext
+│   │   ├── Config/                 # EF configurations
+│   │   ├── Queries/                # Query service implementations
+│   │   └── Migrations/             # EF migrations
+│   └── Email/                      # External services
+├── CartFeatures/                   # Vertical slice: endpoints + handlers
+│   ├── AddToCart/
+│   │   ├── AddToCartEndpoint.cs
+│   │   └── AddToCartHandler.cs
+│   ├── Checkout/
+│   └── GetById/
+├── ProductFeatures/                # Vertical slice: endpoints + handlers
+│   ├── Create/
+│   ├── GetById/
+│   └── List/
+├── Configurations/                 # DI, middleware, and Mediator setup
+├── config.nsdepcop                 # Namespace dependency rules (NsDepCop)
+└── Program.cs                      # Application startup
 ```
 
 ### Vertical Slice Organization
 
-Each feature (Cart, Order, Product) contains:
-
-- **Domain**: Entities and business logic
-- **Infrastructure**: Data configurations for that feature
-- **Endpoints**: API endpoints for that feature
+Each feature folder (`CartFeatures`, `ProductFeatures`) holds everything for that feature's use cases: the FastEndpoints endpoint, its request and response types, and the Mediator handler. Features use the shared `Domain` model, and abstractions defined there are implemented in `Infrastructure`.
 
 This keeps related code together, making it easier to understand and modify features independently.
 
 ### Dependency Flow
 
 ```text
-Endpoints ──→ Domain
-    ↓
-Infrastructure ──→ Domain
+Features ──→ Domain ←── Infrastructure
 ```
 
-- Endpoints can use Domain and Infrastructure
-- Infrastructure depends on Domain (for entity configurations)
-- Domain has no dependencies on other layers
+- Features use Domain types and abstractions, never Infrastructure directly
+- Infrastructure depends on Domain (it implements Domain interfaces and configures entities)
+- Domain has no dependencies on the other folders
+- Feature slices don't depend on each other
+
+### Enforcing the Boundaries
+
+Because everything lives in one project, project references can't enforce these rules. The template uses [NsDepCop](https://github.com/realvizu/NsDepCop) instead. The rules are in `config.nsdepcop`, and any violation fails the build with error `NSDEPCOP01`. See [Enforcing Dependency Rules](../dependency-rules/) for the full rule list and how to add rules for new features.
 
 ## Design Decisions
 
@@ -102,8 +106,7 @@ Infrastructure ──→ Domain
 - ✅ Faster builds (no project-to-project references)
 - ✅ Easier to refactor (no project boundary concerns)
 - ✅ Lower initial complexity
-- ⚠️ Developers must respect folder boundaries (not enforced by compiler)
-- ⚠️ Harder to enforce strict layer separation
+- ⚠️ Layer boundaries are enforced by namespace rules ([NsDepCop](../dependency-rules/)) rather than project references, so namespaces must match folders for the rules to apply
 
 **Migration Path**: Can be extracted into multiple projects later if needed.
 
@@ -273,6 +276,7 @@ dotnet new classlib -n YourProject.UseCases
 - Update project references
 - Keep only endpoints and startup code
 - Reference UseCases or Infrastructure as needed
+- Remove the `config.nsdepcop` rules between layers (project references now enforce them). Keep any rules that apply inside a single project, such as feature slices staying independent, and move them to that project.
 
 ### From Full Clean Architecture to Minimal
 
@@ -427,6 +431,7 @@ public class CartEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
 - [Main Clean Architecture Template](https://github.com/ardalis/CleanArchitecture)
 - [Vertical Slice Architecture](https://jimmybogard.com/vertical-slice-architecture/)
 - [FastEndpoints Documentation](https://fast-endpoints.com/)
+- [NsDepCop](https://github.com/realvizu/NsDepCop)
 - [Domain-Driven Design Fundamentals](https://www.pluralsight.com/courses/fundamentals-domain-driven-design)
 - [Clean Architecture Course](https://academy.nimblepros.com/p/intro-to-clean-architecture)
 
