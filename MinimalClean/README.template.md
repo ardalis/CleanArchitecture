@@ -95,7 +95,7 @@ With everything in one project, project references can't keep layers apart. Inst
 - Feature slices must not depend on each other. Share code through `Domain`.
 - `Domain.OrderAggregate` must not depend on `Domain.CartAggregate`
 
-Rules match namespaces, not folders, so keep each file's namespace matching its folder. When you add a new feature slice, add matching rules for it in `config.nsdepcop`. See [Enforcing Dependency Rules](https://ardalis.github.io/CleanArchitecture/dependency-rules/) for details.
+Rules match namespaces, not folders, so keep each file's namespace matching its folder. When you add a new feature slice, add matching rules for it in `config.nsdepcop`. See [Enforcing Dependency Rules](https://cleanarchitecture.ardalis.com/dependency-rules/) for details.
 
 ## What's Different from Full Clean Architecture?
 
