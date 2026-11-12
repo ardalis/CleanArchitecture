@@ -37,6 +37,7 @@
         ".idea/**",
         ".template.config/**",
         "docs/**",
+        "MinimalClean/**",
         "sample/**"
       ],
       "modifiers": [
