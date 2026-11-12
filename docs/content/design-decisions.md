@@ -94,6 +94,12 @@ If you want to see another [example of a SharedKernel package, the one I use in 
 
 Test projects could be organized based on the kind of test (unit, functional, integration, performance, etc.) or by the project they are testing (Core, Infrastructure, Web), or both. For this simple starter kit, the test projects are organized based on the kind of test, with unit, functional and integration test projects existing in this solution. Functional tests are a special kind of [integration test](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0) that perform [subcutaneous testing](https://martinfowler.com/bliki/SubcutaneousTest.html) of the APIs of the Web project, without actually hosting a real website or going over the network. I've created a bunch of [test helpers](https://github.com/ardalis/HttpClientTestExtensions) to make these kinds of tests shorter and easier to maintain.
 
+## Enforcing Dependencies
+
+In this template, project references enforce the dependency direction. Core doesn't reference UseCases, Infrastructure, or Web, so it can't use their types, and the compiler catches any attempt.
+
+Project references can't control dependencies *within* a project, though. The sample application (`/sample`) adds [NsDepCop](https://github.com/realvizu/NsDepCop) to its Core and UseCases projects for that. For example, it fails the build if an aggregate depends on a domain service, or if the `Contributors` use cases depend on the `Projects` use cases. The Minimal Clean template uses NsDepCop to enforce all of its layer boundaries, since it has only one project. See [Enforcing Dependency Rules](../dependency-rules/) for the rules and how to add your own.
+
 # Patterns Used
 
 This solution template has code built in to support a few common patterns, especially Domain-Driven Design patterns. Here is a brief overview of how a few of them work.
