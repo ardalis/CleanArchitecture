@@ -1,0 +1,2 @@
+# Shell scripts run on Linux build agents (e.g. Cloudflare Pages)
+*.sh text eol=lf

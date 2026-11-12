@@ -1,0 +1,5 @@
+# Cloudflare Pages response headers (copied to the site root by Hugo)
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin

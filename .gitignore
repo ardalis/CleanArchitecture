@@ -32,6 +32,9 @@ bld/
 
 # Hugo generated site output
 docs/public/
+docs/resources/
+docs/themes/
+docs/.hugo_build.lock
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
