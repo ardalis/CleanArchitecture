@@ -14,9 +14,11 @@ public class ListIncompleteItemsQueryService : IListIncompleteItemsQueryService
 
   public async Task<IEnumerable<ToDoItemDto>> ListAsync(int projectId)
   {
-    var projectParameter = new SqlParameter("@projectId", System.Data.SqlDbType.Int);
-    var result = await _db.ToDoItems.FromSqlRaw("SELECT Id, Title, Description, IsDone, ContributorId FROM ToDoItems WHERE ProjectId = @ProjectId",
-      projectParameter) // don't fetch other big columns
+    // FromSql turns the interpolated projectId into a DbParameter for whichever provider
+    // is configured (SQLite or SQL Server), so the query is parameterized and portable.
+    // Only the columns needed for the DTO are selected (don't fetch other big columns).
+    var result = await _db.ToDoItems.FromSql(
+        $"SELECT Id, Title, Description, IsDone, ContributorId FROM ToDoItems WHERE ProjectId = {projectId} AND IsDone = 0")
       .Select(x => new ToDoItemDto(x.Id, x.Title.Value, x.Description.Value, x.IsDone, x.ContributorId))
       .ToListAsync();
 
