@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.MinimalClean.Template</id>
     <title>ASP.NET Minimal Clean Architecture Solution</title>
-    <version>1.1.1</version>
+    <version>12.0.0</version>
     <authors>Steve Smith</authors>
     <description>
       A simplified Clean Architecture template using vertical slice architecture in a single project. 
@@ -15,8 +15,12 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
-      * Add NsDepCop to analyze dependencies and ensure clean architecture boundaries.
-      * Update package versions to latest stable releases.
+      * Version now matches Ardalis.CleanArchitecture.Template; both templates ship together (previously 1.1.1).
+      * Upgrade to .NET 11 and the latest stable NuGet packages, including FastEndpoints 9.
+      * Add NsDepCop rules that enforce dependency boundaries between feature slices at build time.
+      * Fix file renames for project names that aren't valid namespaces.
+      * New solutions no longer include the package icon (icon.png).
+      * See the v11 to v12 migration guide: https://cleanarchitecture.ardalis.com/migration-guides/v11-to-v12/
     </releaseNotes>
     <packageTypes>
       <packageType name="Template" />

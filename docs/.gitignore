@@ -1,0 +1,5 @@
+# Hugo generated site output
+/public/
+/resources/
+/themes/
+/.hugo_build.lock

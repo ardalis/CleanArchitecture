@@ -36,8 +36,13 @@
         ".github/**",
         ".idea/**",
         ".template.config/**",
+        ".claude/**",
         "docs/**",
-        "sample/**"
+        "MinimalClean/**",
+        "sample/**",
+        "CODE_OF_CONDUCT.md",
+        "CONTRIBUTING.md",
+        "icon.png"
       ],
       "modifiers": [
         {
