@@ -6,9 +6,10 @@
 #
 # Environment variables:
 #   HUGO_BOOK_REF  hugo-book theme commit/tag to use (default: pinned commit below)
-#   BASE_URL       Absolute site URL for production builds, e.g. https://docs.example.com/
-#                  If unset, Cloudflare's per-deployment CF_PAGES_URL is used, so
-#                  preview deployments get correct links automatically.
+#   BASE_URL       Optional override for the site URL. Normally leave unset:
+#                  - production (main) builds use baseURL from hugo.toml
+#                  - Cloudflare preview builds (other branches) use CF_PAGES_URL,
+#                    so canonical links/RSS point at the preview deployment.
 set -euo pipefail
 
 cd "$(dirname "$0")"
@@ -30,7 +31,7 @@ hugo version
 HUGO_ARGS=(--minify --gc)
 if [ -n "${BASE_URL:-}" ]; then
   HUGO_ARGS+=(--baseURL "$BASE_URL")
-elif [ -n "${CF_PAGES_URL:-}" ]; then
+elif [ -n "${CF_PAGES_URL:-}" ] && [ "${CF_PAGES_BRANCH:-}" != "main" ]; then
   HUGO_ARGS+=(--baseURL "${CF_PAGES_URL%/}/")
 fi
 

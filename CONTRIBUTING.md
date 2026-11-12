@@ -43,7 +43,7 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 
 ## Contributing to Documentation
 
-The project docs are a [Hugo](https://gohugo.io/) site located in the `/docs` folder and are published to [ardalis.github.io/CleanArchitecture](https://ardalis.github.io/CleanArchitecture/) automatically when changes to `docs/**` are merged to `main`.
+The project docs are a [Hugo](https://gohugo.io/) site located in the `/docs` folder and are published to [cleanarchitecture.ardalis.com](https://cleanarchitecture.ardalis.com/) via [Cloudflare Pages](https://pages.cloudflare.com/) automatically when changes to `docs/**` are merged to `main`. Branches pushed to this repository also get a preview deployment, linked from the Cloudflare check on the pull request.
 
 ### Adding or editing a page
 
@@ -77,10 +77,10 @@ Existing content sections for reference:
 
 **Prerequisites:** [Hugo extended](https://gohugo.io/installation/) v0.158 or higher.
 
-1. Clone the theme alongside the docs (mirrors what CI does):
+1. Run the build script once. It fetches the pinned hugo-book theme into `docs/themes/hugo-book` and builds the site into `docs/public/`, the same way Cloudflare Pages does:
 
    ```bash
-   git clone https://github.com/alex-shpak/hugo-book docs/themes/hugo-book
+   bash docs/build.sh
    ```
 
 2. Start the local dev server from the `docs/` directory:
@@ -90,9 +90,9 @@ Existing content sections for reference:
    hugo server --minify
    ```
 
-3. Open [http://localhost:1313/CleanArchitecture/](http://localhost:1313/CleanArchitecture/) in your browser. The server hot-reloads on file saves.
+3. Open [http://localhost:1313/](http://localhost:1313/) in your browser. The server hot-reloads on file saves.
 
-The generated `docs/public/` output directory is gitignored — do not commit it.
+The theme and the generated `docs/public/` output are gitignored, so don't commit them.
 
 ## Sponsor us
 

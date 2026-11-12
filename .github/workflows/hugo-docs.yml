@@ -1,11 +1,15 @@
-name: Deploy Hugo site to Pages
+# The docs moved to Cloudflare Pages: https://cleanarchitecture.ardalis.com/
+# This workflow replaces the old GitHub Pages site (ardalis.github.io/CleanArchitecture)
+# with a redirect stub so existing links keep working. Every path, including deep
+# links like /CleanArchitecture/migration-guides/, forwards to the same path on the
+# new domain (index.html for the root, 404.html for everything else).
+name: Deploy docs redirect to GitHub Pages
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'docs/**'
       - '.github/workflows/hugo-docs.yml'
 
   workflow_dispatch:
@@ -19,41 +23,46 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  NEW_DOCS_ORIGIN: https://cleanarchitecture.ardalis.com
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      HUGO_VERSION: 0.158.0
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
-
-      - name: Checkout Hugo Book theme
-        uses: actions/checkout@v4
-        with:
-          repository: alex-shpak/hugo-book
-          path: docs/themes/hugo-book
-          fetch-depth: 1
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: ${{ env.HUGO_VERSION }}
-          extended: true
-
-      - name: Build
-        working-directory: ./docs
-        run: hugo --minify
+      - name: Generate redirect site
+        run: |
+          mkdir -p site
+          cat > site/index.html <<EOF
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>Clean Architecture docs have moved</title>
+            <link rel="canonical" href="${NEW_DOCS_ORIGIN}/">
+            <meta name="robots" content="noindex">
+            <script>
+              (function () {
+                var path = location.pathname.replace(/^\/CleanArchitecture/i, '') || '/';
+                location.replace('${NEW_DOCS_ORIGIN}' + path + location.search + location.hash);
+              })();
+            </script>
+            <!-- Fallback when JavaScript is disabled: send to the new site root -->
+            <noscript><meta http-equiv="refresh" content="0; url=${NEW_DOCS_ORIGIN}/"></noscript>
+          </head>
+          <body>
+            <p>The Clean Architecture docs have moved to
+              <a href="${NEW_DOCS_ORIGIN}/">${NEW_DOCS_ORIGIN#https://}</a>.</p>
+          </body>
+          </html>
+          EOF
+          cp site/index.html site/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./docs/public
+          path: ./site
 
   deploy:
     environment:
