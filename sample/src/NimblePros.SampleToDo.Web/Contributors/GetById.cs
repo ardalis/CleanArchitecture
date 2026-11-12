@@ -1,5 +1,5 @@
 ﻿using NimblePros.SampleToDo.Core.ContributorAggregate;
-using NimblePros.SampleToDo.UseCases.Contributors.Queries.Get;
+using NimblePros.SampleToDo.UseCases.Contributors.Queries.GetById;
 using NimblePros.SampleToDo.Web.Extensions;
 
 namespace NimblePros.SampleToDo.Web.Contributors;
@@ -42,7 +42,7 @@ public class GetById(IMediator mediator)
   public override async Task<Results<Ok<ContributorRecord>, NotFound, ProblemHttpResult>>
     ExecuteAsync(GetContributorByIdRequest request, CancellationToken ct)
   {
-    var result = await mediator.Send(new GetContributorQuery(ContributorId.From(request.ContributorId)), ct);
+    var result = await mediator.Send(new GetContributorByIdQuery(ContributorId.From(request.ContributorId)), ct);
 
     return result.ToGetByIdResult(Map.FromEntity);
   }

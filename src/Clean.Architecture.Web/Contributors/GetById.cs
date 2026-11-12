@@ -1,6 +1,6 @@
 ﻿using Clean.Architecture.Core.ContributorAggregate;
 using Clean.Architecture.UseCases.Contributors;
-using Clean.Architecture.UseCases.Contributors.Get;
+using Clean.Architecture.UseCases.Contributors.GetById;
 using Clean.Architecture.Web.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -44,7 +44,7 @@ public class GetById(IMediator mediator)
   public override async Task<Results<Ok<ContributorRecord>, NotFound, ProblemHttpResult>>
     ExecuteAsync(GetContributorByIdRequest request, CancellationToken ct)
   {
-    var result = await mediator.Send(new GetContributorQuery(ContributorId.From(request.ContributorId)), ct);
+    var result = await mediator.Send(new GetContributorByIdQuery(ContributorId.From(request.ContributorId)), ct);
 
     return result.ToGetByIdResult(Map.FromEntity);
   }
