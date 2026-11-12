@@ -1,4 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <WarningsAsErrors>NSDEPCOP01</WarningsAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Projects\AddContributorToItem\**" />
     <EmbeddedResource Remove="Projects\AddContributorToItem\**" />
@@ -9,6 +13,10 @@
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="NimblePros.SharedKernel" />
+    <PackageReference Include="NsDepCop">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

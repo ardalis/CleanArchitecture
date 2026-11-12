@@ -38,6 +38,7 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NimblePros.Metronome" Version="0.4.1" />
     <PackageVersion Include="NimblePros.SharedKernel" Version="3.1.0" />
+    <PackageVersion Include="NsDepCop" Version="3.3.0" />
     <PackageVersion Include="NSubstitute" Version="6.2.0" />
     <PackageVersion Include="ReportGenerator" Version="5.6.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />

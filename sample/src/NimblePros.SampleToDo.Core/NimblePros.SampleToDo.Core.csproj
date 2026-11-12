@@ -1,4 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <WarningsAsErrors>NSDEPCOP01</WarningsAsErrors>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" />
     <PackageReference Include="Ardalis.Result" />
@@ -7,6 +11,10 @@
     <PackageReference Include="Mediator.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Localization" />
     <PackageReference Include="NimblePros.SharedKernel" />
+    <PackageReference Include="NsDepCop">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Vogen" />
   </ItemGroup>
 
