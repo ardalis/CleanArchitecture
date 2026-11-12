@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NsDepCop enforces namespace dependency rules at compile time (https://github.com/realvizu/NsDepCop).
+  Project references already keep Core free of UseCases/Infrastructure/Web; these rules govern
+  dependencies *inside* Core. "Ns.*" matches Ns and all of its child namespaces; a name without ".*"
+  matches only that exact namespace. Disallowed rules always win over Allowed rules.
+-->
+<NsDepCopConfig>
+    <Allowed From="*" To="*" />
+
+    <!--
+      Aggregates (entities, value objects, events, specifications) are the innermost part of Core.
+      They must not depend on domain services or on abstractions of external services (Core.Interfaces).
+      Domain event handlers may use those, so the Handlers namespaces are not restricted here.
+    -->
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate" To="NimblePros.SampleToDo.Core.Services.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate.Events" To="NimblePros.SampleToDo.Core.Services.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate.Specifications" To="NimblePros.SampleToDo.Core.Services.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate" To="NimblePros.SampleToDo.Core.Services.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.Events" To="NimblePros.SampleToDo.Core.Services.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.Specifications" To="NimblePros.SampleToDo.Core.Services.*" />
+
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate" To="NimblePros.SampleToDo.Core.Interfaces.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate.Events" To="NimblePros.SampleToDo.Core.Interfaces.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate.Specifications" To="NimblePros.SampleToDo.Core.Interfaces.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate" To="NimblePros.SampleToDo.Core.Interfaces.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.Events" To="NimblePros.SampleToDo.Core.Interfaces.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.Specifications" To="NimblePros.SampleToDo.Core.Interfaces.*" />
+
+    <!--
+      Contributor is upstream of Project: a ToDoItem references a Contributor by its ContributorId,
+      never the other way around. Only ContributorAggregate.Handlers (which reacts to a contributor
+      being deleted by updating projects) may reach into the Project aggregate.
+    -->
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate" To="NimblePros.SampleToDo.Core.ProjectAggregate.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate.Events" To="NimblePros.SampleToDo.Core.ProjectAggregate.*" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ContributorAggregate.Specifications" To="NimblePros.SampleToDo.Core.ProjectAggregate.*" />
+
+    <!-- The Project aggregate may use ContributorId, but not Contributor's events, handlers, or specifications. -->
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.*" To="NimblePros.SampleToDo.Core.ContributorAggregate.Events" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.*" To="NimblePros.SampleToDo.Core.ContributorAggregate.Handlers" />
+    <Disallowed From="NimblePros.SampleToDo.Core.ProjectAggregate.*" To="NimblePros.SampleToDo.Core.ContributorAggregate.Specifications" />
+
+    <AnalyzerConfig>
+        <IssueKind Name="IllegalDependency" Severity="Error" />
+    </AnalyzerConfig>
+</NsDepCopConfig>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NsDepCop enforces namespace dependency rules at compile time (https://github.com/realvizu/NsDepCop).
+  Project references already keep UseCases free of Infrastructure/Web; these rules keep the
+  feature folders inside UseCases independent of one another. Share behavior through Core instead.
+  "Ns.*" matches Ns and all of its child namespaces. Disallowed rules always win over Allowed rules.
+-->
+<NsDepCopConfig>
+    <Allowed From="*" To="*" />
+
+    <Disallowed From="NimblePros.SampleToDo.UseCases.Contributors.*" To="NimblePros.SampleToDo.UseCases.Projects.*" />
+    <Disallowed From="NimblePros.SampleToDo.UseCases.Projects.*" To="NimblePros.SampleToDo.UseCases.Contributors.*" />
+
+    <AnalyzerConfig>
+        <IssueKind Name="IllegalDependency" Severity="Error" />
+    </AnalyzerConfig>
+</NsDepCopConfig>

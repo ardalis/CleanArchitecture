@@ -1,5 +1,4 @@
-﻿using NimblePros.SampleToDo.Core.ContributorAggregate.Events;
-using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
+﻿using NimblePros.SampleToDo.Core.ProjectAggregate.Events;
 
 namespace NimblePros.SampleToDo.Core.ProjectAggregate;
 

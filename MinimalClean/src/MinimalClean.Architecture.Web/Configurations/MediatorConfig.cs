@@ -21,7 +21,7 @@ public static class MediatorConfig
       // Register AOT pipeline behaviors here (order matters)
       options.PipelineBehaviors =
       [
-        typeof(Nimble.Modulith.Web.LoggingBehavior<,>)
+        typeof(LoggingBehavior<,>)
       ];
 
       // If you have stream behaviors:

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Nimble.Modulith.Web;
+namespace MinimalClean.Architecture.Web.Configurations;
 
 public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull, IMessage

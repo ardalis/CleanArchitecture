@@ -1,18 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NsDepCop enforces namespace dependency rules at compile time (https://github.com/realvizu/NsDepCop).
+  MinimalClean is a single project, so these rules stand in for the project references that keep
+  layers apart in the multi-project template. "Ns.*" matches Ns and all of its child namespaces.
+  Disallowed rules always win over Allowed rules.
+-->
 <NsDepCopConfig>
     <Allowed From="*" To="*" />
 
+    <!-- Domain is the innermost layer: it must not depend on infrastructure, features, or app wiring. -->
     <Disallowed From="MinimalClean.Architecture.Web.Domain.*"
-				To="MinimalClean.Architecture.Web.Infrastructure.*" />
-    
+                To="MinimalClean.Architecture.Web.Infrastructure.*" />
+
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.*"
+                To="MinimalClean.Architecture.Web.CartFeatures.*" />
+
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.*"
+                To="MinimalClean.Architecture.Web.ProductFeatures.*" />
+
+    <Disallowed From="MinimalClean.Architecture.Web.Domain.*"
+                To="MinimalClean.Architecture.Web.Configurations.*" />
+
+    <!-- Feature slices depend on Domain abstractions, not Infrastructure implementations. -->
     <Disallowed From="MinimalClean.Architecture.Web.CartFeatures.*"
-				To="MinimalClean.Architecture.Web.Infrastructure.*" />
-    
+                To="MinimalClean.Architecture.Web.Infrastructure.*" />
+
     <Disallowed From="MinimalClean.Architecture.Web.ProductFeatures.*"
-				To="MinimalClean.Architecture.Web.Infrastructure.*" />
-    
+                To="MinimalClean.Architecture.Web.Infrastructure.*" />
+
+    <!-- Feature slices are independent of one another; share via Domain instead. -->
+    <Disallowed From="MinimalClean.Architecture.Web.CartFeatures.*"
+                To="MinimalClean.Architecture.Web.ProductFeatures.*" />
+
+    <Disallowed From="MinimalClean.Architecture.Web.ProductFeatures.*"
+                To="MinimalClean.Architecture.Web.CartFeatures.*" />
+
+    <!-- Orders are created from carts at checkout, but the Order aggregate must not depend on Cart. -->
     <Disallowed From="MinimalClean.Architecture.Web.Domain.OrderAggregate.*"
-				To="MinimalClean.Architecture.Web.Domain.CartAggregate.*" />
+                To="MinimalClean.Architecture.Web.Domain.CartAggregate.*" />
 
     <AnalyzerConfig>
         <IssueKind Name="IllegalDependency" Severity="Error" />
