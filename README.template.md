@@ -1,4 +1,4 @@
-# ${name}
+# Clean.Architecture
 
 Welcome to your new project generated with the Clean Architecture template!
 
@@ -10,11 +10,11 @@ Welcome to your new project generated with the Clean Architecture template!
   ```
 - Run the application:
   ```sh
-  dotnet run --project src/Your.ProjectName.Web
+  dotnet run --project src/Clean.Architecture.Web
   ```
 - Update the database (if using EF Core):
   ```sh
-  dotnet ef database update -c AppDbContext -p src/Your.ProjectName.Infrastructure/Your.ProjectName.Infrastructure.csproj -s src/Your.ProjectName.Web/Your.ProjectName.Web.csproj
+  dotnet ef database update -c AppDbContext -p src/Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj -s src/Clean.Architecture.Web/Clean.Architecture.Web.csproj
   ```
 
 ## Solution Structure
@@ -24,4 +24,4 @@ Welcome to your new project generated with the Clean Architecture template!
 - **Infrastructure**: Data access, external services
 - **Web**: API endpoints (FastEndpoints)
 
-For more details, see the documentation or visit the [Clean Architecture Template repository](https://github.com/ardalis/CleanArchitecture).
+For more details, see the [Clean Architecture template documentation](https://cleanarchitecture.ardalis.com) or visit the [Clean Architecture Template repository](https://github.com/ardalis/CleanArchitecture).
