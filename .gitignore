@@ -273,3 +273,6 @@ log*.txt
 
 # Personal VS Code workspace settings (launch.json/tasks.json stay shared)
 .vscode/settings.json
+
+# Personal Claude Code settings (shared settings stay in .claude/settings.json)
+.claude/settings.local.json

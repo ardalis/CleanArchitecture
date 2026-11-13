@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>12.0.0</version>
+    <version>12.0.1</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 11.
@@ -13,6 +13,10 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
+      12.0.1
+      * Fix the generated README.md: it now starts with your solution's name instead of a literal ${name}, and its commands use your project names instead of Your.ProjectName.
+
+      12.0.0
       * Upgrade to .NET 11 and the latest stable NuGet packages, including FastEndpoints 9 and xUnit v3.
       * Rename the Contributor Get use case to GetById (GetContributorByIdQuery/Handler) to match the GetById endpoint.
       * Fix ContributorId validation rejecting EF Core temporary keys on insert.
