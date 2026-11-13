@@ -1,6 +1,6 @@
 ---
 title: "Enforcing Dependency Rules"
-weight: 35
+weight: 52
 ---
 
 # Enforcing Dependency Rules with NsDepCop

@@ -1,9 +1,58 @@
+# Hugo configuration for the Ardalis Clean Architecture documentation site.
+# Production URL: https://cleanarchitecture.ardalis.com (Cloudflare Pages).
+# See docs/README.md for local development and deployment details.
+
 baseURL = 'https://cleanarchitecture.ardalis.com/'
-locale = 'en-us'
+locale = 'en-US'
 title = 'Ardalis Clean Architecture'
-theme = 'hugo-book' # A popular, clean, and minimal docs theme
+theme = 'hugo-book'
+
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
+
+[markup]
+  [markup.goldmark.renderer]
+    # Allows the small amount of raw HTML used on the landing page.
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+  [markup.highlight]
+    style = 'github-dark'
 
 [params]
-  BookRepo = 'https://github.com/ardalis/CleanArchitecture'
-  BookEditPath = 'edit/main/docs'
+  # Follow the visitor's OS/browser light or dark preference.
+  BookTheme = 'auto'
+  BookToC = true
+  BookLogo = 'logo.png'
+  BookFavicon = 'favicon.png'
+  # Render every top-level section in the left-hand menu.
   BookSection = '*'
+  BookRepo = 'https://github.com/ardalis/CleanArchitecture'
+  BookEditLink = '{{ .Site.Params.BookRepo }}/edit/main/docs/{{ replace .Path "\\" "/" }}'
+  BookSearch = true
+  BookComments = false
+  # Lets pages link to each other with plain relative Markdown links
+  # (e.g. [Getting Started](getting-started.md)), which also work when browsing
+  # the docs on GitHub. A link to a page that doesn't exist fails the build.
+  BookPortableLinks = 'error'
+
+[[menu.after]]
+  name = 'GitHub Repository'
+  url = 'https://github.com/ardalis/CleanArchitecture'
+  weight = 10
+
+[[menu.after]]
+  name = 'NuGet: Clean Architecture'
+  url = 'https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template'
+  weight = 20
+
+[[menu.after]]
+  name = 'NuGet: Minimal Clean'
+  url = 'https://www.nuget.org/packages/Ardalis.MinimalClean.Template'
+  weight = 30
+
+[[menu.after]]
+  name = 'Clean Architecture Course'
+  url = 'https://academy.nimblepros.com/p/learn-clean-architecture'
+  weight = 40

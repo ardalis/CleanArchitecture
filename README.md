@@ -3,7 +3,7 @@
 [![Build & Test (Clean Architecture)](https://github.com/ardalis/CleanArchitecture/actions/workflows/cross-platform-build-test.yml/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions/workflows/cross-platform-build-test.yml)
 [![Build & Test (MinimalClean)](https://github.com/ardalis/CleanArchitecture/actions/workflows/cross-platform-build-test-minimal.yml/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions/workflows/cross-platform-build-test-minimal.yml)
 [![CodeQL](https://github.com/ardalis/CleanArchitecture/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ardalis/CleanArchitecture/actions/workflows/codeql-analysis.yml)
-[![Docs](https://github.com/ardalis/CleanArchitecture/actions/workflows/hugo-docs.yml/badge.svg)](https://cleanarchitecture.ardalis.com/)
+[![Docs](https://github.com/ardalis/CleanArchitecture/actions/workflows/docs-build.yml/badge.svg)](https://cleanarchitecture.ardalis.com/)
 
 [![Ardalis.CleanArchitecture.Template on NuGet](https://img.shields.io/nuget/v/Ardalis.CleanArchitecture.Template?label=Ardalis.CleanArchitecture.Template)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
 [![Ardalis.CleanArchitecture.Template downloads](https://img.shields.io/nuget/dt/Ardalis.CleanArchitecture.Template?label=downloads)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)
@@ -16,7 +16,7 @@
 [![Follow @ardalis](https://img.shields.io/twitter/follow/ardalis?label=Follow%20%40ardalis)](https://twitter.com/intent/follow?screen_name=ardalis)
 [![Follow @nimblepros](https://img.shields.io/twitter/follow/nimblepros?label=Follow%20%40nimblepros)](https://twitter.com/intent/follow?screen_name=nimblepros)
 
-`dotnet new` templates for building ASP.NET Core applications with [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html), also known as hexagonal, ports-and-adapters, or onion architecture. The domain model sits at the center, and dependencies point inward toward it.
+`dotnet new` templates for building ASP.NET Core applications with [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), also known as hexagonal, ports-and-adapters, or onion architecture. The domain model sits at the center, and dependencies point inward toward it.
 
 There are two templates:
 
