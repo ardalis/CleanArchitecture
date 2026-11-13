@@ -1,0 +1,55 @@
+name: Docs
+
+# Builds and validates the documentation site (docs/). The site itself is deployed to
+# https://cleanarchitecture.ardalis.com by Cloudflare Pages' Git integration, which runs
+# the same docs/build.sh script. This workflow also covers pull requests from forks,
+# which don't get Cloudflare preview deployments. See docs/README.md.
+#
+# (hugo-docs.yml is a separate workflow: it publishes the redirect stub that forwards the
+# old ardalis.github.io/CleanArchitecture site to the new domain.)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs-build.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build docs
+    runs-on: ubuntu-latest
+
+    env:
+      # Keep in sync with the HUGO_VERSION environment variable in the Cloudflare Pages project.
+      HUGO_VERSION: 0.169.0
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+
+      # Downloads the pinned theme, then builds with --minify. Fails on Hugo errors
+      # and on links to pages that don't exist (BookPortableLinks = 'error').
+      - name: Build
+        run: bash docs/build.sh
+
+      - name: Upload site
+        uses: actions/upload-artifact@v5
+        with:
+          name: docs-site
+          path: docs/public
+          retention-days: 7

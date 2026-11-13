@@ -1,5 +1,16 @@
-# Cloudflare Pages response headers (copied to the site root by Hugo)
+# Cloudflare Pages response headers.
+# Hugo copies this file to the site root (public/_headers) at build time.
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Keep *.pages.dev copies (previews and the default project URL) out of search
+# results; cleanarchitecture.ardalis.com is the canonical site.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

@@ -1,3 +1,10 @@
+---
+title: "About ADRs"
+weight: 1
+aliases:
+  - /architecture-decisions/readme/
+---
+
 # Architecture Decision Records (ADR)
 
 ## What is an Architecture Decision Record (ADR)?
@@ -11,9 +18,7 @@ An Architecture Decision Record (ADR) documents significant architecture decisio
 ## Best Practices for Writing ADRs
 1. **Be Specific**: Each ADR should address a single architectural decision. Avoid conflating multiple decisions into one record.
 2. **Document Context**: Clearly explain the project’s context and relevant considerations that influenced the decision. Include team dynamics and priorities.
-3. **Rationale and Consequences**: Describe the reasons for the decision, including pros and cons, and outline the implications of the decision for the project and 
-
-future architecture.
+3. **Rationale and Consequences**: Describe the reasons for the decision, including pros and cons, and outline the implications of the decision for the project and future architecture.
 4. **Immutable Records**: Once an ADR is created, avoid altering it. Instead, create a new ADR to reflect any changes or updates.
 5. **Timestamp Entries**: Include timestamps to track when each decision was made, especially for aspects that may evolve over time (e.g., costs, schedules).
 6. **Use Templates**: Utilize established templates for consistency and completeness in documenting ADRs.
@@ -36,7 +41,7 @@ future architecture.
 ## Templates
 Refer to the following templates for structuring your ADRs:
 - [Decision record template by Michael Nygard](https://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
-- [Decision record template by Jeff Tyree and Art Akerman](https://github.com/adr/adr)
+- [Decision record template by Jeff Tyree and Art Akerman](https://github.com/joelparkerhenderson/architecture-decision-record)
 - [MADR project templates](https://adr.github.io/madr/)
 
 ## Teamwork Advice for ADRs
@@ -47,6 +52,7 @@ Refer to the following templates for structuring your ADRs:
 ## For More Information
 - [Architectural Decision Wikipedia](https://en.wikipedia.org/wiki/Architectural_decision)
 - [Markdown Architectural Decision Records](https://adr.github.io/)
-- [Tools for working with ADRs](https://github.com/adr/adr)
+- [Tools for working with ADRs](https://github.com/npryce/adr-tools)
+- [Documenting Decisions: A Practical Guide to Architecture Decision Records](https://academy.nimblepros.com/p/documenting-decisions-a-practical-guide-to-architecture-decision-records) (NimblePros Academy course)
 
 By following these guidelines, your team can effectively leverage ADRs to enhance architectural decision-making and project transparency while keeping a clear version history of all architectural decisions.

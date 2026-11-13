@@ -5,214 +5,152 @@ weight: 10
 
 # Getting Started
 
-To use this template, there are **two template options**:
+This page takes you from nothing to a running API. The recommended way to use either template is the `dotnet new` CLI.
 
-1. **Full Clean Architecture** (`clean-arch`) - Complete multi-project solution with Core, UseCases, Infrastructure, and Web
-2. **Minimal Clean Architecture** (`min-clean`) - Simplified single-project vertical slice architecture
+## Prerequisites
 
-Choose based on your project's complexity and team preferences. See [Template Comparison](#template-comparison) below.
+- **.NET SDK** matching the template version. Template v12.x targets **.NET 11** (`global.json` pins SDK `11.0.100` and rolls forward to newer SDKs). Older template versions target older SDKs; see [Versions](versions.md).
+- **Docker** (or another container runtime supported by .NET Aspire) to run through the Aspire host. The full template's functional tests also use it to test against SQL Server, and fall back to SQLite without it. You can build, run the Web project directly, and run all the tests without Docker.
+- An editor: Visual Studio, JetBrains Rider, or VS Code with the C# Dev Kit.
 
-## Template Installation
+## 1. Install the templates
 
-Install the templates from NuGet:
+Install one or both templates from NuGet:
 
-```powershell
-# Full Clean Architecture template
+```bash
+# Full Clean Architecture template (short name: clean-arch)
 dotnet new install Ardalis.CleanArchitecture.Template
 
-# Minimal Clean Architecture template  
+# Minimal Clean Architecture template (short name: min-clean)
 dotnet new install Ardalis.MinimalClean.Template
 ```
 
-## Using the dotnet CLI template
+Confirm they're installed:
 
-### Full Clean Architecture (`clean-arch`)
-
-First, install the template from [NuGet (https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/)](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/):
-
-```powershell
-dotnet new install Ardalis.CleanArchitecture.Template
+```bash
+dotnet new list clean
 ```
 
-You can see available options by running the command with the `-?` option:
+You should see **ASP.NET Clean Architecture Solution** (`clean-arch`) and **ASP.NET Minimal Clean Architecture Solution** (`min-clean`).
 
-```powershell
-dotnet new clean-arch -?
+Not sure which one you want? See [Choosing a Template](templates/_index.md).
+
+### Install a specific version
+
+Append `::<version>` to the package ID:
+
+```bash
+dotnet new install Ardalis.CleanArchitecture.Template::11.1.1
+```
+
+Template package versions don't match .NET versions. Check [Versions](versions.md) to pick the one that targets the .NET release you want.
+
+### Update or uninstall
+
+```bash
+# Check for and apply updates to all installed template packages
+dotnet new update --check-only
+dotnet new update
+
+# List installed template packages (and their versions), or remove one
+dotnet new uninstall
+dotnet new uninstall Ardalis.CleanArchitecture.Template
+```
+
+## 2. Create a solution
+
+Navigate to the parent folder where you want the solution folder created, then run:
+
+```bash
+dotnet new clean-arch -o Your.ProjectName
+```
+
+or, for the minimal template:
+
+```bash
+dotnet new min-clean -o Your.ProjectName
+```
+
+This creates a `Your.ProjectName` folder containing `Your.ProjectName.slnx` and all projects, properly namespaced and ready to build and test.
+
+Neither template has template-specific options. `dotnet new clean-arch -?` shows only the standard `dotnet new` options:
+
+```text
 ASP.NET Clean Architecture Solution (C#)
-Author: Steve Smith @ardalis, Erik Dahl
+Author: ardalis (Steve Smith)
 
 Usage:
   dotnet new clean-arch [options] [template options]
 
 Options:
-  -n, --name <name>       The name for the output being created. If no name is specified, the name of the output
-                          directory is used.
+  -n, --name <name>       The name for the output being created. If no name is specified, the name of the output directory is used.
   -o, --output <output>   Location to place the generated output.
-  --dry-run               Displays a summary of what would happen if the given command line were run if it would result
-                          in a template creation.
-  --force                 Forces content to be generated even if it would change existing files.
-  --no-update-check       Disables checking for the template package updates when instantiating a template.
+  --dry-run               Displays a summary of what would happen if the given command line were run if it would result in a template creation. [default: False]
+  --force                 Forces content to be generated even if it would change existing files. [default: False]
+  --no-update-check       Disables checking for the template package updates when instantiating a template. [default: False]
   --project <project>     The project that should be used for context evaluation.
   -lang, --language <C#>  Specifies the template language to instantiate.
   --type <project>        Specifies the template type to instantiate.
 
 Template options:
-  -as, --aspire  Include .NET Aspire.
-                 Type: bool
-                 Default: false
+   (No options)
 ```
 
-You should see the template in the list of templates from `dotnet new list` after this installs successfully. Look for "ASP.NET Clean Architecture Solution" with Short Name of "clean-arch".
+The .NET Aspire host projects are always included. You can delete them if you don't want them; see [Customizing](customizing.md#removing-net-aspire).
 
-Navigate to the parent directory in which you'd like the solution's folder to be created.
+### Naming your solution
 
-Run this command to create the solution structure in a subfolder name `Your.ProjectName`:
+- Dotted names such as `Acme.Ordering` work well and become your root namespace and project prefixes (`Acme.Ordering.Core`, `Acme.Ordering.Web`, ...).
+- Characters that aren't valid in a C# namespace are replaced. For example, `My-App` produces the namespace `My_App` and projects such as `My_App.Core`.
+- **Don't use `Ardalis` as your root namespace.** It conflicts with the `Ardalis.*` NuGet packages the template depends on.
 
-```powershell
-dotnet new clean-arch -o Your.ProjectName
+### From Visual Studio or Rider
+
+After the templates are installed with `dotnet new install`, Visual Studio and JetBrains Rider list them in their **New Project** dialogs. Search for "Clean Architecture".
+
+## 3. Build and run
+
+```bash
+cd Your.ProjectName
+dotnet build
 ```
 
-The `Your.ProjectName` directory and solution file will be created, and inside that will be all of your new solution contents, properly namespaced and ready to run/test!
+The quickest way to see everything working is to run the .NET Aspire host (both templates include one), which starts SQL Server and a test email server in containers. Docker must be running:
 
-Thanks [@dahlsailrunner](https://github.com/dahlsailrunner) for your help getting this working!
-
-**Known Issues**:
-
-- Don't include hyphens in the name. See [#201](https://github.com/ardalis/CleanArchitecture/issues/201).
-- Don't use 'Ardalis' as your namespace (conflicts with dependencies).
-
-### Minimal Clean Architecture (`min-clean`)
-
-For a simpler, single-project vertical slice architecture, use the Minimal Clean Architecture template:
-
-```powershell
-dotnet new install Ardalis.MinimalClean.Template
-dotnet new min-clean -o Your.ProjectName
+```bash
+dotnet run --project src/Your.ProjectName.AspireHost
 ```
 
-This template provides:
+Open the Aspire dashboard URL printed in the console, then open the **web** resource. API documentation is served at `/scalar` (and `/swagger`) in Development.
 
-- **Single Web project** with all code organized by vertical slices (features)
-- **Simplified architecture** - no separate Core, UseCases, or Infrastructure projects
-- **Domain-Driven Design patterns** - entities, aggregates, but pragmatic
-- **FastEndpoints** for clean API endpoints
-- **Entity Framework Core** with migrations
-- **Aspire** support for cloud-ready development (optional)
+You can also run the Web project by itself, without Aspire or Docker:
 
-Perfect for MVPs, smaller applications, or teams that want architectural guidance without multi-project complexity.
-
-## Template Comparison
-
-| Feature | Full Clean Architecture | Minimal Clean Architecture |
-|---------|------------------------|----------------------------|
-| **Command** | `clean-arch` | `min-clean` |
-| **Projects** | 4+ (Core, UseCases, Infrastructure, Web) | 1 (Web only) |
-| **Organization** | By layer (horizontal) | By feature (vertical slices) |
-| **DDD Patterns** | Extensive (Aggregates, Value Objects, Domain Events, Specifications) | Pragmatic (simplified domain model) |
-| **Repository Pattern** | Yes, with Specifications | Optional (direct DbContext or simple repos) |
-| **Mediator/CQRS** | Yes (separate UseCases project) | Optional (can be in endpoints) |
-| **Layer Enforcement** | Project references | Namespace rules via [NsDepCop](../dependency-rules/) |
-| **Complexity** | Higher - more abstractions | Lower - simpler structure |
-| **Best For** | Large enterprise apps, long-term maintenance | MVPs, smaller apps, rapid iteration |
-| **Team Size** | Multiple teams, strict boundaries | Small teams, collaborative |
-| **Learning Curve** | Steeper - more patterns to learn | Gentler - focused essentials |
-| **Migration Path** | Can simplify to minimal | Can grow into full template |
-
-### Which Template Should I Use?
-
-**Choose Full Clean Architecture if:**
-
-- Building large, complex enterprise applications
-- Multiple teams working on different layers
-- Long-term maintenance and evolution expected
-- Need strict separation of concerns and testability
-- Domain complexity requires extensive DDD patterns
-
-**Choose Minimal Clean Architecture if:**
-
-- Building MVPs or smaller applications
-- Want architectural guidance without project overhead
-- Prefer vertical slice architecture
-- Team values simplicity and fast iteration
-- May grow into full Clean Architecture later
-
-**Not sure?** Start with Minimal Clean and migrate to Full Clean Architecture if your application grows in complexity.
-
-## What about Controllers and Razor Pages?
-
-As of version 9, this solution template only includes support for API Endpoints using the FastEndpoints library. If you want to use my ApiEndpoints library, Razor Pages, and/or Controllers you can use the last template that included them, [version 7.1](https://www.nuget.org/packages/Ardalis.CleanArchitecture.Template/7.1.0). Alternately, they're easily added to this template after installation.
-
-### Add Ardalis.ApiEndpoints
-
-To use [Ardalis.ApiEndpoints](https://www.nuget.org/packages/Ardalis.ApiEndpoints) instead of (or in addition to) [FastEndpoints](https://fast-endpoints.com/), just add the reference and use the base classes from the documentation.
-
-```powershell
-dotnet add package Ardalis.ApiEndpoints
+```bash
+dotnet run --project src/Your.ProjectName.Web
 ```
 
-### Add Controllers
+The full template then uses SQL Server LocalDB on Windows or SQLite elsewhere. The minimal template needs a SQL Server instance. [Running the Application](running.md) covers all of this in detail, including URLs, ports, and the HTTPS development certificate.
 
-You'll need to add support for controllers to the Program.cs file. You need:
+Run the tests (full template):
 
-```csharp
-builder.Services.AddControllers(); // ControllersWithView if you need Views
-
-// and
-
-app.MapControllers();
+```bash
+dotnet test
 ```
 
-Once these are in place, you should be able to create a Controllers folder and (optionally) a Views folder and everything should work as expected. Personally I find Razor Pages to be much better than Controllers and Views so if you haven't fully investigated Razor Pages you might want to do so right about now before you choose Views.
+See [Building & Testing](testing.md) for what each test project covers.
 
-### Add Razor Pages
+## 4. Make it yours
 
-You'll need to add support for Razor Pages to the Program.cs file. You need:
+The template isn't a sample application. It contains just enough real code (a `Contributor` aggregate in the full template; carts, orders, and products in the minimal one) to show where things go. Once you understand why each piece is where it is, **delete the example code and add your own**. [Customizing](customizing.md) has a checklist.
 
-```csharp
-builder.Services.AddRazorPages();
+That includes the [seed data](data-and-migrations.md#seed-data) that's inserted at startup. It's for local development and demos only, so replace it with your own or remove it before you point the app at a real database.
 
-// and
+Looking for a larger, more complete example? The repository's [`sample`](https://github.com/ardalis/CleanArchitecture/tree/main/sample) folder contains **NimblePros.SampleToDo**, a fuller application built with the same architecture. It isn't part of either template.
 
-app.MapRazorPages();
-```
+## Alternative: start from the GitHub repository
 
-Then you just add a Pages folder in the root of the project and go from there.
+If you'd rather not use `dotnet new`, you can get a copy of the repository and start from it directly. You have three options: download, fork, or clone. Most of the time, you probably just want to download.
 
-## Using the GitHub Repository
-
-To get started based on this repository, you need to get a copy locally. You have three options: fork, clone, or download. Most of the time, you probably just want to download.
-
-You should **download the repository**, unblock the zip file, and extract it to a new folder if you just want to play with the project or you wish to use it as the starting point for an application.
-
-You should **fork this repository** only if you plan on submitting a pull request. Or if you'd like to keep a copy of a snapshot of the repository in your own GitHub account.
-
-You should **clone this repository** if you're one of the contributors and you have commit access to it. Otherwise you probably want one of the other options.
-
-## Seed Data
-
-Both the template and the sample seed the database at startup (`SeedData.InitializeAsync`, called from `MiddlewareConfig`) so you have data to work with right away. This seeding is meant for local development and demos only:
-
-- The **template** (`clean-arch`) seeds only in the Development environment or when `Database:ApplyMigrationsOnStartup` is `true`, and it only inserts sample contributors when the `Contributors` table is empty.
-- The **sample** (`NimblePros.SampleToDo`) seeds in every environment, after `EnsureCreated`. If the `ToDoItems` table is empty, `PopulateTestDataAsync` **deletes all Projects, ToDoItems and Contributors** before inserting sample data. If you point a development build at a shared or production database, or someone empties that table, you can lose real data.
-
-Before using either solution as the basis for a real application, replace the sample seeding with seeding based on your own data, or remove it. If you build on the sample, at minimum restrict seeding to the Development environment (for example, wrap the call in `if (app.Environment.IsDevelopment())`). See [#953](https://github.com/ardalis/CleanArchitecture/issues/953).
-
-## Running Migrations
-
-You shouldn't need to do this to use this template, but if you want migrations set up properly in the Infrastructure project, you need to specify that project name when you run the migrations command.
-
-In Visual Studio, open the Package Manager Console, and run `Add-Migration InitialMigrationName -StartupProject Your.ProjectName.Web -Context AppDbContext -Project Your.ProjectName.Infrastructure`.
-
-In a terminal with the CLI, the command is similar. Run this from the Web project directory:
-
-```powershell
-dotnet ef migrations add MIGRATIONNAME -c AppDbContext -p ../Your.ProjectName.Infrastructure/Your.ProjectName.Infrastructure.csproj -s Your.ProjectName.Web.csproj -o Data/Migrations
-```
-
-To use SqlServer, change `options.UseSqlite(connectionString));` to `options.UseSqlServer(connectionString));` in the `Your.ProjectName.Infrastructure.StartupSetup` file. Also remember to replace the `SqliteConnection` with `DefaultConnection` in the `Your.ProjectName.Web.Program` file, which points to your Database Server.
-
-To update the database use this command from the Web project folder (replace `Clean.Architecture` with your project's name):
-
-```powershell
-dotnet ef database update -c AppDbContext -p ../Clean.Architecture.Infrastructure/Clean.Architecture.Infrastructure.csproj -s Clean.Architecture.Web.csproj
-```
+- **Download** the repository (unblock the zip file on Windows) and extract it to a new folder if you just want to play with the project or use it as the starting point for an application. You'll need to rename the `Clean.Architecture.*` projects and namespaces yourself, which `dotnet new` does for you.
+- **Fork** the repository only if you plan to submit a pull request, or if you'd like to keep a snapshot of it in your own GitHub account.
+- **Clone** the repository if you're a contributor. See [Contributing](contributing.md).

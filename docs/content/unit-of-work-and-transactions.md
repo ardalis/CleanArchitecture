@@ -1,6 +1,6 @@
 ---
 title: "Unit of Work & Transactions"
-weight: 25
+weight: 55
 ---
 
 # Unit of Work & Transactions
@@ -193,4 +193,4 @@ A few things to keep in mind:
 - To make several changes atomic, stop saving inside the repository, add a small `IUnitOfWork` abstraction, and call `SaveChangesAsync` once at the end of the use case (or in a pipeline behavior).
 - Use explicit transactions only when one `SaveChangesAsync` can't cover the work.
 
-The same approach works for the [Minimal Clean Architecture](../minimal-clean-architecture/) template, which uses the same `RepositoryBase<T>`-based repository.
+The same approach works for the [Minimal Clean Architecture](templates/minimal-clean.md) template, which uses the same `RepositoryBase<T>`-based repository.
