@@ -48,7 +48,7 @@
     <PackageVersion Include="SQLite" Version="3.54.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="11.0.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="11.0.0" />
-    <PackageVersion Include="Testcontainers" Version="4.16.0" />
+    <PackageVersion Include="Testcontainers" Version="4.17.0" />
     <PackageVersion Include="Vogen" Version="8.0.7" />
     <PackageVersion Include="xunit.v3.mtp-off" Version="4.0.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
