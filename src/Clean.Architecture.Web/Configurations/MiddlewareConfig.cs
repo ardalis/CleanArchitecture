@@ -15,7 +15,8 @@ public static class MiddlewareConfig
     }
     else
     {   
-      app.UseDefaultExceptionHandler(); // from FastEndpoints
+      // from FastEndpoints; useGenericReason keeps exception messages (SQL, EF, internal state) out of responses
+      app.UseDefaultExceptionHandler(useGenericReason: true);
       app.UseHsts();
     }
 

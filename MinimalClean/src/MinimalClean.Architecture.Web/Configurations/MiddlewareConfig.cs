@@ -19,7 +19,8 @@ public static class MiddlewareConfig
     }
     else
     {   
-      app.UseDefaultExceptionHandler(); // from FastEndpoints
+      // from FastEndpoints; useGenericReason keeps exception messages (SQL, EF, internal state) out of responses
+      app.UseDefaultExceptionHandler(useGenericReason: true);
       app.UseHsts();
     }
 
@@ -36,7 +37,14 @@ public static class MiddlewareConfig
 
     app.UseHttpsRedirection(); // Note this will drop Authorization headers
 
-    await SeedDatabase(app);
+    // Run migrations and seed in Development or when explicitly requested via configuration
+    var dbOptions = app.Services.GetService<IOptions<DatabaseOptions>>()?.Value;
+    var shouldMigrate = app.Environment.IsDevelopment() || dbOptions?.ApplyMigrationsOnStartup == true;
+
+    if (shouldMigrate)
+    {
+      await SeedDatabase(app);
+    }
 
     return app;
   }
@@ -64,13 +72,22 @@ public static class MiddlewareConfig
       logger.LogInformation("Applying database migrations...");
       await context.Database.MigrateAsync();
       logger.LogInformation("Database migrations applied successfully.");
+    }
+    catch (Exception ex)
+    {
+      logger.LogError(ex, "An error occurred migrating the DB. {exceptionMessage}", ex.Message);
+      throw; // Re-throw to make startup fail if migrations fail
+    }
 
-      // Seed data
+    try
+    {
+      var context = services.GetRequiredService<AppDbContext>();
       await SeedData.InitializeAsync(context, logger);
     }
     catch (Exception ex)
     {
       logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+      // Don't re-throw for seeding errors - it's not critical
     }
   }
 }

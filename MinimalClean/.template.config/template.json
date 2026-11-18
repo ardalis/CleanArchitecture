@@ -17,6 +17,9 @@
   "sourceName": "MinimalClean.Architecture",
   "templateFileExtensions": [ ".cs", ".csproj", ".slnx" ],
   "preferNameDirectory": true,
+  "guids": [
+    "47f99468-f41d-48b8-ae3f-69682954d973"
+  ],
   "symbols": {
     "safeSourceName": {
       "type": "derived",

@@ -16,6 +16,9 @@
   "sourceName": "Clean.Architecture",
   "templateFileExtensions": [ ".cs", ".csproj", ".slnx" ],
   "preferNameDirectory": true,
+  "guids": [
+    "c540eeb6-e06b-4456-a539-be58dd8b88c7"
+  ],
   "symbols": {
     "safeSourceName": {
       "type": "derived",

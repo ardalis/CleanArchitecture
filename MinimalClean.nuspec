@@ -20,6 +20,10 @@
       * The app host no longer uses the obsolete Aspire.AppHost.Sdk. It references Aspire.Hosting.Dotnet and starts the Web project with AddDotnetProject instead of the obsolete AddProject&lt;TProject&gt;.
       * Update Scalar.AspNetCore to 3.0.2 and Serilog.AspNetCore to 11.0.0.
       * Remove a machine-specific local package source from nuget.config.
+      * Security: migrations and seed data now run on startup only in Development, or when DatabaseOptions:ApplyMigrationsOnStartup is true, and a failed migration stops the app from starting instead of being logged and ignored.
+      * Security: outside Development, unhandled exception messages are no longer returned to clients.
+      * Security: the email sender requires STARTTLS by default and can authenticate with Mailserver:Username and Mailserver:Password. Development uses plain SMTP for the local Papercut server. The Mailserver:Server setting was ignored; it is now Mailserver:Hostname.
+      * Security: each new solution gets its own UserSecretsId instead of sharing the template's.
       * See the v12.0 to v12.1 migration guide: https://cleanarchitecture.ardalis.com/migration-guides/v12-0-to-v12-1/
 
       12.0.1
