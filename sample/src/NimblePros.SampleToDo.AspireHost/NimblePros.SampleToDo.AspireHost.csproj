@@ -1,28 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Sdk Name="Aspire.AppHost.Sdk" Version="13.6.5" />
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <IsAspireHost>true</IsAspireHost>
     <UserSecretsId>c540eeb6-e06b-4456-a539-be58dd8b88c7</UserSecretsId>
-    <!-- ASPIRE010: we intentionally use the DCP/Dashboard NuGet packages (AspireUseCliBundle=false) so F5 and dotnet run work without the Aspire CLI -->
-    <NoWarn>$(NoWarn);ASPIRE010</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.Dotnet" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NimblePros.SampleToDo.Web\NimblePros.SampleToDo.Web.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
-        reference as a standard project reference and not attempt to generate
-        a metadata file -->
-    <ProjectReference Include="..\NimblePros.SampleToDo.ServiceDefaults\NimblePros.SampleToDo.ServiceDefaults.csproj"
-                      IsAspireProjectResource="false" />
+    <ProjectReference Include="..\NimblePros.SampleToDo.ServiceDefaults\NimblePros.SampleToDo.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

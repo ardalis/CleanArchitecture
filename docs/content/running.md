@@ -13,7 +13,7 @@ Both templates can run two ways: through the **.NET Aspire host** (recommended, 
 dotnet run --project src/Your.ProjectName.AspireHost
 ```
 
-Or set the `AspireHost` project as the startup project in Visual Studio or Rider and press F5. If you have the [Aspire CLI](https://learn.microsoft.com/dotnet/aspire/cli/overview) installed, `aspire run` from the solution folder works too (in the full template, `aspire.config.json` points it at the app host).
+Or set the `AspireHost` project as the startup project in Visual Studio or Rider and press F5. `aspire run` from the solution folder works too (in the full template, `aspire.config.json` points it at the app host).
 
 The Aspire host starts:
 
@@ -27,7 +27,7 @@ The Aspire host starts:
 The console prints the Aspire dashboard URL, including a login token. The dashboard shows each resource's logs, traces, and metrics (the Web project exports telemetry through the ServiceDefaults project).
 
 > [!NOTE]
-> The app host projects suppress the `ASPIRE010` warning on purpose. They use the Aspire DCP and dashboard NuGet packages rather than the Aspire CLI bundle, so F5 and `dotnet run` work without installing the Aspire CLI.
+> Running the app host requires the [Aspire CLI](https://learn.microsoft.com/dotnet/aspire/cli/overview), even for F5 and `dotnet run`. Since Aspire 17, app hosts are plain `Microsoft.NET.Sdk` projects that get the orchestrator and dashboard from the Aspire CLI bundle instead of from NuGet packages.
 
 To reset the database, stop the app, delete the `sqlserver` container (from the dashboard or with `docker rm`), and start again.
 

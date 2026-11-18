@@ -11,6 +11,7 @@ This page takes you from nothing to a running API. The recommended way to use ei
 
 - **.NET SDK** matching the template version. Template v12.x targets **.NET 11** (`global.json` pins SDK `11.0.100` and rolls forward to newer SDKs). Older template versions target older SDKs; see [Versions](versions.md).
 - **Docker** (or another container runtime supported by .NET Aspire) to run through the Aspire host. The full template's functional tests also use it to test against SQL Server, and fall back to SQLite without it. You can build, run the Web project directly, and run all the tests without Docker.
+- The **[Aspire CLI](https://learn.microsoft.com/dotnet/aspire/cli/overview)** to run through the Aspire host. You don't need it to build, run the Web project directly, or run the tests.
 - An editor: Visual Studio, JetBrains Rider, or VS Code with the C# Dev Kit.
 
 ## 1. Install the templates
