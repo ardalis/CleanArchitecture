@@ -11,6 +11,7 @@ bookCollapseSection: false
 
 | Guide | From | To |
 |---|---|---|
+| [v12.0 to v12.1](v12-0-to-v12-1.md) | Template 12.0.x on .NET 11 | Template 12.1 on .NET 11 (Aspire 17) |
 | [v11 to v12](v11-to-v12.md) | Template 11.x on .NET 10 | Template 12.x on .NET 11 |
 | [v10 to v11](v10-to-v11.md) | Template 10.x on .NET 9 | Template 11.x on .NET 10 |
 
