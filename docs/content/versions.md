@@ -12,7 +12,7 @@ weight: 70
 
 | Template version | Targets | First released | Notes |
 |---|---|---|---|
-| **12.x** | **.NET 11** | November 2026 | Both templates now share one version number. See the [v11 to v12 migration guide](migration-guides/v11-to-v12.md). |
+| **12.x** | **.NET 11** | November 2026 | Both templates now share one version number. See the [v11 to v12 migration guide](migration-guides/v11-to-v12.md). 12.1 moves to Aspire 17, which requires the Aspire CLI to run the app host; see the [v12.0 to v12.1 guide](migration-guides/v12-0-to-v12-1.md). |
 | **11.x** | **.NET 10** | November 2025 | Mediator source generator replaces MediatR; Aspire 13. See the [v10 to v11 migration guide](migration-guides/v10-to-v11.md). Latest: 11.1.1. |
 | 10.x | .NET 9 | November 2024 | Latest: 10.1.1 |
 | 9.x | .NET 8 | November 2023 | |

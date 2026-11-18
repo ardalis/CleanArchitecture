@@ -3,7 +3,7 @@
   <metadata>
     <id>Ardalis.CleanArchitecture.Template</id>
     <title>ASP.NET Core Clean Architecture Solution</title>
-    <version>12.0.1</version>
+    <version>12.1.0</version>
     <authors>Steve Smith</authors>
     <description>
       The Clean Architecture Solution Template popularized by Steve @ardalis Smith. Provides a great starting point for modern and/or DDD solutions built with .NET 11.
@@ -13,6 +13,16 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ardalis/CleanArchitecture</projectUrl>
     <releaseNotes>
+      12.1.0
+      * Upgrade to Aspire 17. Running the Aspire app host (F5, dotnet run, or aspire run) now requires the Aspire CLI, which provides the orchestrator and dashboard. Building, running the Web project directly, and running the tests don't need it.
+      * The app host is now a Microsoft.NET.Sdk project that references Aspire.Hosting.AppHost and Aspire.Hosting.Dotnet, and starts the Web project with AddDotnetProject instead of the obsolete AddProject&lt;TProject&gt;.
+      * Update Scalar.AspNetCore to 3.0.2, Serilog.AspNetCore to 11.0.0, Testcontainers to 4.17.0, and coverlet.collector to 10.1.1.
+      * Remove a machine-specific local package source from nuget.config.
+      * Security: outside Development, unhandled exception messages are no longer returned to clients.
+      * Security: the email sender requires STARTTLS by default and can authenticate with Mailserver:Username and Mailserver:Password. Development and Testing use plain SMTP for the local Papercut server. The Mailserver:Server setting was ignored; it is now Mailserver:Hostname.
+      * Security: each new solution gets its own UserSecretsId instead of sharing the template's.
+      * See the v12.0 to v12.1 migration guide: https://cleanarchitecture.ardalis.com/migration-guides/v12-0-to-v12-1/
+
       12.0.1
       * Fix the generated README.md: it now starts with your solution's name instead of a literal ${name}, and its commands use your project names instead of Your.ProjectName.
 

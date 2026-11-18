@@ -13,8 +13,12 @@ public class MimeKitEmailSender(ILogger<MimeKitEmailSender> logger,
     _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
 
     using var client = new MailKit.Net.Smtp.SmtpClient(); 
-    await client.ConnectAsync(_mailserverConfiguration.Hostname, 
-      _mailserverConfiguration.Port, false);
+    await client.ConnectAsync(_mailserverConfiguration.Hostname,
+      _mailserverConfiguration.Port, _mailserverConfiguration.SecureSocketOptions);
+    if (!string.IsNullOrEmpty(_mailserverConfiguration.Username))
+    {
+      await client.AuthenticateAsync(_mailserverConfiguration.Username, _mailserverConfiguration.Password ?? string.Empty);
+    }
     var message = new MimeMessage();
     message.From.Add(new MailboxAddress(from, from));
     message.To.Add(new MailboxAddress(to, to));

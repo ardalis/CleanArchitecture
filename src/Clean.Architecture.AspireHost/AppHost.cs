@@ -26,7 +26,8 @@ var papercut = builder.AddContainer("papercut", "jijiechen/papercut", "latest")
   });
 
 // Add the web project with the database connection
-builder.AddProject<Projects.Clean_Architecture_Web>("web")
+// Path is resolved relative to the AppHost directory
+builder.AddDotnetProject("web", "../Clean.Architecture.Web/Clean.Architecture.Web.csproj")
   .WithReference(cleanArchDb)
   .WithEnvironment("ASPNETCORE_ENVIRONMENT", builder.Environment.EnvironmentName)
   .WithEnvironment("Papercut__Smtp__Url", papercut.GetEndpoint("smtp"))
