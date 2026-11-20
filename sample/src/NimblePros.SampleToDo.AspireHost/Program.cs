@@ -19,7 +19,7 @@ var papercut = builder.AddContainer("papercut", "jijiechen/papercut", "latest")
   });
 
 // Your web project
-var web = builder.AddProject<Projects.NimblePros_SampleToDo_Web>("web")
+var web = builder.AddDotnetProject("web", "../NimblePros.SampleToDo.Web/NimblePros.SampleToDo.Web.csproj")
     .WithHttpHealthCheck("/health")
     // Pass the endpoints to the app via env vars (EndpointReference resolves to a URL at run time)
     .WithEnvironment("Papercut__Smtp__Url", papercut.GetEndpoint("smtp"))

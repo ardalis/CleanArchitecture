@@ -26,7 +26,7 @@ var papercut = builder.AddContainer("papercut", "jijiechen/papercut", "latest")
   });
 
 // register the API project and link the DB
-builder.AddProject<Projects.MinimalClean_Architecture_Web>("web")
+builder.AddDotnetProject("web", "../MinimalClean.Architecture.Web/MinimalClean.Architecture.Web.csproj")
       .WithEnvironment("ASPNETCORE_ENVIRONMENT", builder.Environment.EnvironmentName)
       .WithReference(appDb)
       .WaitFor(papercut)
