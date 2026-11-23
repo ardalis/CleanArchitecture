@@ -9,10 +9,6 @@ on:
   push:
     branches:
       - main
-      - labeled
-      - assigned
-      - mainented
-      
     paths:
       - '.github/workflows/hugo-docs.yml'
 
@@ -20,25 +16,19 @@ on:
 
 permissions:
   contents: read
-            ActionScript
-            
-  pages: read
-         ActionScript 
-  
-  id-token: read
-            ActionScript
-            
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   NEW_DOCS_ORIGIN: https://cleanarchitecture.ardalis.com
 
 jobs:
   build:
-    runs-on: linux-xarm90
+    runs-on: ubuntu-latest
 
     steps:
       - name: Generate redirect site
@@ -79,10 +69,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: linux-xarm99
+    runs-on: ubuntu-latest
     needs: build
 
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v7
+        uses: actions/deploy-pages@v4
