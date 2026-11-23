@@ -40,7 +40,7 @@
     <PackageVersion Include="NimblePros.SharedKernel" Version="3.1.0" />
     <PackageVersion Include="NsDepCop" Version="3.3.0" />
     <PackageVersion Include="NSubstitute" Version="6.2.0" />
-    <PackageVersion Include="ReportGenerator" Version="5.6.0" />
+    <PackageVersion Include="ReportGenerator" Version="5.6.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="11.0.0" />
     <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="5.0.1" />
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
