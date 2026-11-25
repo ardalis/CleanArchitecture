@@ -1,12 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <Sdk Name="Aspire.AppHost.Sdk" Version="17.0.0" />
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <UserSecretsId>47f99468-f41d-48b8-ae3f-69682954d973</UserSecretsId>
-    <!-- ASPIRE010: we intentionally use the DCP/Dashboard NuGet packages (AspireUseCliBundle=false) so F5 and dotnet run work without the Aspire CLI -->
-    <NoWarn>$(NoWarn);ASPIRE010</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +23,6 @@
         reference as a standard project reference and not attempt to generate
         a metadata file -->
     <ProjectReference Include="..\MinimalClean.Architecture.ServiceDefaults\MinimalClean.Architecture.ServiceDefaults.csproj" IsAspireProjectResource="false" />
-    <ProjectReference Include="..\MinimalClean.Architecture.Web\MinimalClean.Architecture.Web.csproj" />
   </ItemGroup>
 
 </Project>

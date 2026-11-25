@@ -13,7 +13,7 @@ Both templates can run two ways: through the **.NET Aspire host** (recommended, 
 dotnet run --project src/Your.ProjectName.AspireHost
 ```
 
-Or set the `AspireHost` project as the startup project in Visual Studio or Rider and press F5. If you have the [Aspire CLI](https://learn.microsoft.com/dotnet/aspire/cli/overview) installed, `aspire run` from the solution folder works too (in the full template, `aspire.config.json` points it at the app host).
+Or set the `AspireHost` project as the startup project in Visual Studio or Rider and press F5. `aspire run` from the solution folder works too (in the full template, `aspire.config.json` points it at the app host).
 
 The Aspire host starts:
 
@@ -27,7 +27,9 @@ The Aspire host starts:
 The console prints the Aspire dashboard URL, including a login token. The dashboard shows each resource's logs, traces, and metrics (the Web project exports telemetry through the ServiceDefaults project).
 
 > [!NOTE]
-> The app host projects suppress the `ASPIRE010` warning on purpose. They use the Aspire DCP and dashboard NuGet packages rather than the Aspire CLI bundle, so F5 and `dotnet run` work without installing the Aspire CLI.
+> Starting with Aspire 17, a C# app host gets the orchestrator (DCP) and the dashboard from the [Aspire CLI](https://get.aspire.dev) bundle, and `dotnet run` and F5 hand off to the CLI. Install the Aspire CLI at the same version as the app host's `Aspire.Hosting.AppHost` package (17.0.0), or run `aspire update --self` to update an older one. An older CLI fails with "The --apphost option specified a project that does not exist."
+>
+> If you don't want a global CLI, set `<AspireCliInvocationMode>DnxPinned</AspireCliInvocationMode>` in the app host's `.csproj` (or pass `-p:AspireCliInvocationMode=DnxPinned` to `dotnet run`). The app host then runs the matching `Aspire.Cli` package through `dnx`, which ships with the .NET 10 SDK and later.
 
 To reset the database, stop the app, delete the `sqlserver` container (from the dashboard or with `docker rm`), and start again.
 
