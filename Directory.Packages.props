@@ -44,6 +44,7 @@
     <PackageVersion Include="Testcontainers.MsSql" Version="4.17.0" />
     <PackageVersion Include="xunit.v3.mtp-off" Version="4.0.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="17.0.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="17.0.0" />
     <PackageVersion Include="Aspire.Hosting.Dotnet" Version="17.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="11.0.0" />

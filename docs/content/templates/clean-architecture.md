@@ -140,7 +140,7 @@ All test projects use xUnit v3 and [Shouldly](https://docs.shouldly.org/). See [
 | Data | Microsoft.EntityFrameworkCore.SqlServer / .Sqlite, Ardalis.Specification.EntityFrameworkCore |
 | Email | MailKit |
 | Observability | Serilog.AspNetCore, OpenTelemetry.* (ServiceDefaults) |
-| Hosting | Aspire.AppHost.Sdk, Aspire.Hosting.SqlServer |
+| Hosting | Aspire.Hosting.AppHost, Aspire.Hosting.Dotnet, Aspire.Hosting.SqlServer |
 | Testing | xunit.v3, Shouldly, NSubstitute, Testcontainers.MsSql, Microsoft.AspNetCore.Mvc.Testing, Ardalis.HttpClientTestExtensions, coverlet.collector |
 
 Exact versions are in `Directory.Packages.props`. For why each one was chosen, see [Goals & Design Decisions](../design-decisions.md).
