@@ -43,7 +43,7 @@
     <PackageVersion Include="ReportGenerator" Version="5.6.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="11.0.0" />
     <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="5.0.1" />
-    <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+    <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.3.0" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="SQLite" Version="3.54.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="11.0.0" />
